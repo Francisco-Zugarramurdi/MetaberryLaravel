@@ -19,9 +19,9 @@ class CreateAdTagsTable extends Migration
             $table->string('tag');
 
             $table->unsignedBigInteger('ad_id');
-            $table->foreign('ad_id')
-                ->references('id')
-                ->on('ads')
+            $table->foreignId('ad_id')
+                ->nullable()
+                ->constarined('ads')
                 ->onDelete('cascade');
         });
     }

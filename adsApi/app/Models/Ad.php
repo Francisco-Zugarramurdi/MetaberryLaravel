@@ -11,7 +11,7 @@ class Ad extends Model
     protected $table = "ads";
 
     public function adTag()
-    {
-        return $this->hasMany(AdTags::class, 'ad_id', 'id');
-    }
+{
+    return $this->hasMany(AdTag::class, 'ad_id', 'id');
+}
 }

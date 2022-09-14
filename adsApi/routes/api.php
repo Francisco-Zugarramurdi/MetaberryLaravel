@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post("/getAd", [AdController::class, 'GetAd']);
-Route::post("/test", [AdController::class, 'test']);
+Route::post("/testAdTag", [AdController::class, 'test']);
+Route::post("/testAd", [AdController::class, 'testAd']);

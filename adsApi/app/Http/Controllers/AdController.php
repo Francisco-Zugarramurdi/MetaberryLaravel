@@ -25,8 +25,11 @@ class AdController extends Controller
        
     }
 
-    public function test(){
-        return $ad = Ad::all()->where('url', 'test.com')->where('size', 'large');
+    public function testAdTag(){
+        return $ad = Ad::all()->adTag;
+    }
+    public function testAd(){
+        return $ad = Ad::all();
     }
 
     private function validateCreationRequest(Request $request){
