@@ -15,7 +15,8 @@ class AdController extends Controller
             return $validation;
         
         try{
-            $ad = this->findAd($request);
+            $possibleAds = this->findAds($request);
+            $ad = this->selectAd($possibleAds);
             return $ad->url;
 
         }catch(QueryException $error){
@@ -40,7 +41,12 @@ class AdController extends Controller
         
     }
 
-    private function findAd(Request $request){
+    private function findAds(Request $request){
         return $ads = Ad::all()->where('size', $request->size)->adTag->where('tag', $request->tag);
     }
-}
+
+    private function selectAd(array $ads){
+        
+    }
+}   
+
