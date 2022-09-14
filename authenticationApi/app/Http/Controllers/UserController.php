@@ -46,9 +46,9 @@ class UserController extends Controller
 
     private function createUser($request){
         $user = users_data::create([
-            'username' => $request -> post("name"),
+            'name' => $request -> post("name"),
             'points' => 0,
-            'type_of_user' => "normal",
+            'type_of_user' => "free",
             'total_points' => 0
         ]);
         
