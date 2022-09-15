@@ -15,21 +15,21 @@ class UserController extends Controller
 
     public function create(Request $request){
 
-        $validationRequest = $this->validateRequest($request);
+        $validation = $this->validateRequest($request);
 
-        if($validationRequest !== "ok")
-            return $validationRequest;
-
-        $validationRegexRequest = $this->validateRegexRequest($request);
-
-        if($validationRegexRequest !== "ok")
-            return $validationRegexRequest;
-
+        if($validation !== "ok"){
+            return $validation;
+        }
         try {
             return $this->createUser($request);
         }
         catch (QueryException $e){
-            return $this->handleCreationErrors($e,$request->post("email"));
+
+            return [
+                "error" => 'Cannot create user',
+                "trace" => $e -> getMessage()
+            ];
+
         }
         
     }
@@ -38,9 +38,12 @@ class UserController extends Controller
 
         $user = User::where('email', $email)->first();
 
-        if ($user) 
-            return $user;
-        return 'error: User ' . $email . ' does not exist';
+        if (! $user) 
+            return [
+                "error" => 'User' . $email . "already exists",
+                "trace" => $e -> getMessage()
+            ];
+        return $user;
 
     }
 
@@ -50,21 +53,64 @@ class UserController extends Controller
 
     }
 
-    public function edit($id){
+    public function update(Request $request, $id){
 
-        $users = User::all();
-        
-        $user = User::findOrFail($id);
+        $validation = $this->validateRegexRequest($request);
+
+        if($validation !== "ok")
+            return $validation;
+
+        try{
+
+            $this->updateUserData($request, $id);
+            $this->updateUserCredentials($request, $id);
+
+            return "ok";
+            
+        }
+        catch (QueryException $e){
+
+            return [
+                "error" => 'Cannot update user',
+                "trace" => $e -> getMessage()
+            ];
+            
+        }
 
     }
 
-    public function update($request, $id){
-
-        $user = User::findOrFail($id);
+    public function delete(){
 
     }
 
-    private function validateRegexRequest($request){
+    private function updateUserData(Request $request,$id){
+
+        $user= users_data::findOrFail($id);
+
+        $user -> name = $request -> name;
+        $user -> credit_card = $request-> credit_card;
+        $user -> photo = $request -> photo;
+        $user -> points = $request -> points;
+        $user -> type_of_user = $request -> type_of_user;
+        $user -> total_points = $request -> total_points;
+
+        $user-> save();
+
+    }
+
+    private function updateUserCredentials(Request $request, $id){
+
+        $user = User::findOrFail($id);
+
+        $user -> name = $request -> name;
+        $user -> email = $request -> email;
+        $user -> password = $request -> password;
+
+        $user-> save();
+
+    }
+
+    private function validateRegexRequest(Request $request){
 
         $validator = Validator::make($request->all(),
         
@@ -83,7 +129,7 @@ class UserController extends Controller
 
     }
 
-    private function validateRequest($request){
+    private function validateCreationRequest(Request $request){
 
         $validator = Validator::make($request->all(),[
 
@@ -99,32 +145,30 @@ class UserController extends Controller
 
         if($validator->fails())
             return $validator->errors()->toJson();
+
+        if(User::where('email', $request -> post("email")) -> exists())
+            return 'User already exists';
+
         return 'ok';
 
     }
 
-    // private function validateCreationRequest($request){
+    private function validateRequest(Request $request){
 
-        // $validator = Validator::make($request->all(),[
+        $validationRequest = $this->validateCreationRequest($request);
 
-        //     'name' => 'required',
-        //     'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-        //     'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
-        //     'credit_card' => '',
-        //     'photo' => 'required',
-        //     'points' => 'required',
-        //     'type_of_user' => 'required',
-        //     'total_points' => 'required'
+        if($validationRequest !== "ok")
+            return $validationRequest;
 
-        // ]);
+        $validationRegexRequest = $this->validateRegexRequest($request);
 
-    //     if($validator->fails())
-    //         return $validator->errors()->toJson();
-    //     return 'ok';
+        if($validationRegexRequest !== "ok")
+            return $validationRegexRequest;
+        return "ok";
 
-    // }
+    }
 
-    private function createUser($request){
+    private function createUser(Request $request){
 
         $user = users_data::create([
 
@@ -145,13 +189,6 @@ class UserController extends Controller
             'password' => Hash::make($request -> post("password"))
 
         ]);
-    }
-
-    private function handleCreationErrors($e,$email){
-        return [
-            "error" => 'User ' . $email . ' already exists',
-            "trace" => $e -> getMessage()
-        ];
     }
 
     
