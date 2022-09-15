@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 class AdController extends Controller
 {
     public function GetAd(Request $request){
-        
+        $this -> checkAds();
+
         $validation = $this->validateCreationRequest($request);
         if ($validation !== "ok")
             return $validation;
@@ -19,8 +20,11 @@ class AdController extends Controller
         try{
             $AdListWithTags = $this->joinAdsWithTags($request);
             $possibleAds = $this->findAds($request, $AdListWithTags);
-            $ad = $this->selectAd($possibleAds);
-            $ad;
+            if(count($possibleAds)<=0){
+                return 'error, no ads available';
+            }
+            return $ad = $this->selectAd($possibleAds);
+
         }catch(QueryException $error){
             return $error;
         }
@@ -32,13 +36,15 @@ class AdController extends Controller
             $adsToDelete = DB::table('ads')
             ->whereColumn('view_counter', ">=",'views_hired')
             ->get();
-            if ($count($adsToDelte) >= 0){
+            if (count($adsToDelete) >= 0){
                 foreach($adsToDelete as $ad){
                     $adToDelete = Ad::find($ad->id);
-                    $adToDelete->delete();
-
+                    if($adToDelete != null)
+                        $adToDelete->delete();
+                    
                     $adTagToDelete = AdTag::find($ad->id);
-                    $adTagToDelete->delete();
+                    if($adTagToDelete != null)
+                        $adTagToDelete->delete();
                 }
             }
             
@@ -73,24 +79,21 @@ class AdController extends Controller
     }
 
     private function selectAd($ads){
-
         $adsViewCounter = array();
         foreach($ads as $ad){
-            $adsViewCounter[] = $ad->view_counter;
+            array_push($adsViewCounter, $ad->view_counter);
         }
-
-        $adArray = (array) $ads;
         $AdSelected = $ads->where('view_counter' , min($adsViewCounter))->first();
         
         $this->addView($AdSelected->id);
 
-        return $AdsSelected;
+        return $AdSelected;
 
     }
 
-
     private function addView($id){
         $ad = Ad::find($id);
+        $ad-> view_counter += 1;
         $ad->save();
     }
 
