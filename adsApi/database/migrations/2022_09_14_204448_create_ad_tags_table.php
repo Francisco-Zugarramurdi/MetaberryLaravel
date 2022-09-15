@@ -18,7 +18,6 @@ class CreateAdTagsTable extends Migration
             $table->timestamps();
             $table->string('tag');
 
-            $table->unsignedBigInteger('ad_id');
             $table->foreignId('ad_id')
                 ->nullable()
                 ->constarined('ads')

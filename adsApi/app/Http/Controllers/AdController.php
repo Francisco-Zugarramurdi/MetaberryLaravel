@@ -15,26 +15,30 @@ class AdController extends Controller
             return $validation;
         
         try{
-            $possibleAds = this->findAds($request);
-            $ad = this->selectAd($possibleAds);
-            return $ad->url;
-
+            $AdListWithTags = $this->JoinAdsWithTags($request);
+            $possibleAds = $this->findAds($request, $AdListWithTags);
+            $ad = $this->selectAd($possibleAds);
+            $ad;
         }catch(QueryException $error){
             return $error;
         }
        
     }
 
-    public function testAdTag(){
-        return $ad = Ad::all()->adTag;
+    public function testAdTag(Request $request){
+        $AdListWithTags = $this->JoinAdsWithTags($request);
+        $possibleAds = $this->findAds($request, $AdListWithTags);
+        $ad = $this->selectAd($possibleAds);
+        $ad;
     }
+    
     public function testAd(){
         return $ad = Ad::all();
     }
 
     private function validateCreationRequest(Request $request){
-        $validator = Validation::make($request->all(),[
-            'size' => 'requierd',
+        $validator = Validator::make($request->all(),[
+            'size' => 'required',
             'tag' => 'required'
         ]);
         if ($validator->fails())
@@ -44,12 +48,29 @@ class AdController extends Controller
         
     }
 
-    private function findAds(Request $request){
-        return $ads = Ad::all()->where('size', $request->size)->adTag->where('tag', $request->tag);
+    private function JoinAdsWithTags(Request $request){
+        return $AdWithTags = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
+            ->select("*")
+            ->where('size', $request->size)
+            ->where('tag', $request->tag)
+            ->get();
     }
 
-    private function selectAd(array $ads){
-        
+    private function findAds(Request $request, $adList){
+        return $ads = $adList
+            ->where('size', $request->size)
+            ->where('tag', $request->tag);
     }
+
+    private function selectAd($ads){
+        return "hola";
+        foreach ($ads as $ad){
+            $adsViewCounter[] = $ad->view_counter;
+        }
+        return $adsViewCounter;
+        return $AdSelected = $ads[array_search(min($adsViewCounter), $adsViewCounter)];
+
+    }
+
 }   
 

@@ -18,10 +18,10 @@ class CreateAdsTable extends Migration
             $table->timestamps();
 
             $table->unsignedInteger('view_counter');
-            $table->unsignedInteger('view_hierd');
+            $table->unsignedInteger('views_hired');
             $table->string('url');
             $table->string('image');
-            $table->string('viewcounter');
+            $table->string('size');
         });
     }
 
