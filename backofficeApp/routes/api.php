@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("/user/create",[UserController::class,'Create']);
-Route::get("/user/{email}",[UserController::class,'FindByEmail']);
-Route::get("/user",[UserController::class,'Index']);
+Route::post("/user/create",[UserController::class,'create']);
+Route::get("/user/{email}",[UserController::class,'indexByEmail']);
+Route::get("/user",[UserController::class,'index']);

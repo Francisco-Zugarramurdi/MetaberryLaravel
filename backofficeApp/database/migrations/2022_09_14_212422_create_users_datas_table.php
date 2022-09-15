@@ -15,6 +15,12 @@ class CreateUsersDatasTable extends Migration
     {
         Schema::create('users_data', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('credit_card');
+            $table->string('photo');
+            $table->bigInteger('points')->unsigned();
+            $table->string('type_of_user');
+            $table->bigInteger('total_points')->unsigned();
             $table->timestamps();
         });
     }

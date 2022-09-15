@@ -12,21 +12,29 @@ use \Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
-    public function Create(Request $request){
 
-        $validation = $this->validateCreationRequest($request);
+    public function create(Request $request){
 
-        if($validation !== "ok")
-            return $validation;
+        $validationRequest = $this->validateRequest($request);
+
+        if($validationRequest !== "ok")
+            return $validationRequest;
+
+        $validationRegexRequest = $this->validateRegexRequest($request);
+
+        if($validationRegexRequest !== "ok")
+            return $validationRegexRequest;
+
         try {
             return $this->createUser($request);
         }
         catch (QueryException $e){
             return $this->handleCreationErrors($e,$request->post("email"));
         }
+        
     }
 
-    public function FindByEmail($email){
+    public function indexByEmail($email){
 
         $user = User::where('email', $email)->first();
 
@@ -36,20 +44,52 @@ class UserController extends Controller
 
     }
 
-    public function Index(){
+    public function index(){
 
         return User::all();
 
     }
 
-    private function validateCreationRequest($request){
+    public function edit($id){
+
+        $users = User::all();
+        
+        $user = User::findOrFail($id);
+
+    }
+
+    public function update($request, $id){
+
+        $user = User::findOrFail($id);
+
+    }
+
+    private function validateRegexRequest($request){
+
+        $validator = Validator::make($request->all(),
+        
+        [
+
+            'email' => 'regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
+            'password' => 'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
+            'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/',
+            'photo' => 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+            
+        ]);
+
+        if($validator->fails())
+            return $validator->errors()->toJson();
+        return 'ok';
+
+    }
+
+    private function validateRequest($request){
 
         $validator = Validator::make($request->all(),[
 
             'name' => 'required',
-            'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-            'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
-            'credit_card' => 'required',
+            'email' => 'required',
+            'password' => 'required',
             'photo' => 'required',
             'points' => 'required',
             'type_of_user' => 'required',
@@ -62,6 +102,27 @@ class UserController extends Controller
         return 'ok';
 
     }
+
+    // private function validateCreationRequest($request){
+
+        // $validator = Validator::make($request->all(),[
+
+        //     'name' => 'required',
+        //     'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
+        //     'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
+        //     'credit_card' => '',
+        //     'photo' => 'required',
+        //     'points' => 'required',
+        //     'type_of_user' => 'required',
+        //     'total_points' => 'required'
+
+        // ]);
+
+    //     if($validator->fails())
+    //         return $validator->errors()->toJson();
+    //     return 'ok';
+
+    // }
 
     private function createUser($request){
 
