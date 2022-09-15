@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\users_data;
 use \Illuminate\Database\QueryException;
-
+use resources\views\users;
 class UserController extends Controller
 {
 
@@ -39,17 +39,15 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 
         if (! $user) 
-            return [
-                "error" => 'User' . $email . "already exists",
-                "trace" => $e -> getMessage()
-            ];
+            return "error User" . $email . "already exists";
+            
         return $user;
 
     }
 
     public function index(){
-
-        return User::all();
+        $users = users_data::join('users','users.id','=','users_data.id')->get();
+        return view('users')->with('users', compact(users));
 
     }
 
@@ -79,8 +77,20 @@ class UserController extends Controller
 
     }
 
-    public function delete(){
-
+    public function destroy($id){
+        try{
+            $user = User::findOrFail($id);
+            $userData = users_data::findOrFail($id);
+            $user->delete();
+            $userData->delete();
+            return "User destroyed";
+        }
+        catch(QueryException $e){
+            return [
+                "error" => 'Cannot delete user',
+                "trace" => $e -> getMessage()
+            ];
+        }
     }
 
     private function updateUserData(Request $request,$id){
@@ -146,7 +156,7 @@ class UserController extends Controller
         if($validator->fails())
             return $validator->errors()->toJson();
 
-        if(User::where('email', $request -> post("email")) -> exists())
+        if(User::withTrashed()->where('email', $request -> post("email")) -> exists())
             return 'User already exists';
 
         return 'ok';

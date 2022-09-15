@@ -23,3 +23,5 @@ Route::post("/user/create",[UserController::class,'create']);
 Route::get("/user/{email}",[UserController::class,'indexByEmail']);
 Route::get("/user",[UserController::class,'index']);
 Route::put("/user/{id}",[UserController::class,'update']);
+Route::delete("/user/{id}",[UserController::class,'destroy']);
+

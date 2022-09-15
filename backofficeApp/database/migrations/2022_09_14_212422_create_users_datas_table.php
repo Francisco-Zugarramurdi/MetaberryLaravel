@@ -14,6 +14,7 @@ class CreateUsersDatasTable extends Migration
     public function up()
     {
         Schema::create('users_data', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('name');
             $table->string('credit_card');
