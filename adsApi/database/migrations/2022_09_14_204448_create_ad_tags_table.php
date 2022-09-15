@@ -17,7 +17,7 @@ class CreateAdTagsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('tag');
-
+            $table->softDeletes();
             $table->foreignId('ad_id')
                 ->nullable()
                 ->constarined('ads')
