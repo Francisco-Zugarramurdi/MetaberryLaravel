@@ -22,8 +22,24 @@ class UserController extends Controller
             return $this->createUser($request);
         }
         catch (QueryException $e){
-            return $this->handleCreationErrors($e,$request->post("name"));
+            return $this->handleCreationErrors($e,$request->post("email"));
         }
+    }
+
+    public function FindByEmail($email){
+
+        $user = User::where('email', $email)->first();
+
+        if ($user) 
+            return $user;
+        return 'error: User ' . $email . ' does not exist';
+
+    }
+
+    public function Index(){
+
+        return User::all();
+
     }
 
     private function validateCreationRequest($request){
@@ -70,27 +86,11 @@ class UserController extends Controller
         ]);
     }
 
-    private function handleCreationErrors($e,$name){
+    private function handleCreationErrors($e,$email){
         return [
-            "error" => 'User ' . $name . ' exists',
+            "error" => 'User ' . $email . ' already exists',
             "trace" => $e -> getMessage()
         ];
-    }
-
-    public function FindUserByEmail($email){
-
-        $user = User::where('email', $email)->first();
-
-        if ($user) 
-            return $user;
-        return 'error: User ' . $email . ' does not exist';
-
-    }
-
-    public function IndexUsers(){
-
-        return User::all();
-
     }
 
     
