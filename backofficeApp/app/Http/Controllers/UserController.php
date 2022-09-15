@@ -77,10 +77,13 @@ class UserController extends Controller
         ];
     }
 
-    public function FindUserByEmail($request){
+    public function FindUserByEmail($email){
 
-        
-
+        $user = User::where('email', $email)->first();
+        if ($user) 
+            return $user;
+        return 'error: User ' . $email . ' does not exist';
 
     }
+
 }

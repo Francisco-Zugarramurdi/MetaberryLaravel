@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("/createUser",[UserController::class,'Create']);
+Route::post("/user/create",[UserController::class,'Create']);
+Route::get("/user/{email}",[UserController::class,'FindUserByEmail']);
