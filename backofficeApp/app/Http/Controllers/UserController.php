@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\users_data;
+use \Illuminate\Database\QueryException;
+
 class UserController extends Controller
 {
     public function Create(Request $request){
@@ -28,11 +30,11 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(),[
 
-            'nickname' => 'required',
+            'name' => 'required',
             'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-            'password' => 'required|regex:/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^/',
-            'credit_card' => 'required|regex: /^(4[0-9]{12}(?:[0-9]{3})?)|((?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}))|((5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12})))$/',
-            'photo' => 'required|regex:/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig',
+            'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
+            'credit_card' => 'required',
+            'photo' => 'required',
             'points' => 'required',
             'type_of_user' => 'required',
             'total_points' => 'required'
@@ -49,7 +51,7 @@ class UserController extends Controller
 
         $user = users_data::create([
 
-            'name' => $request -> post("nickname"),
+            'name' => $request -> post("name"),
             'credit_card' => $request -> post("credit_card"),
             'photo' => $request -> post("photo"),
             'points' => $request -> post("points"),
@@ -59,10 +61,12 @@ class UserController extends Controller
         ]);
         
         return User::create([
+
             'id' => $user ->id,
-            'name' => $request -> post("nickname"),
+            'name' => $request -> post("name"),
             'email' => $request -> post("email"),
             'password' => Hash::make($request -> post("password"))
+
         ]);
     }
 
@@ -73,4 +77,10 @@ class UserController extends Controller
         ];
     }
 
+    public function FindUserByEmail($request){
+
+        
+
+
+    }
 }
