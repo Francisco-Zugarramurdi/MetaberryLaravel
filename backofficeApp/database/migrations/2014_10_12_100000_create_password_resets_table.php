@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersDatasTable extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateUsersDatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_data', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -26,6 +27,6 @@ class CreateUsersDatasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_data');
+        Schema::dropIfExists('password_resets');
     }
 }
