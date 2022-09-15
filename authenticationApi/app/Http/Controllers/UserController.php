@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\users_data;
+use \Illuminate\Database\QueryException;
+
+
 class UserController extends Controller
 {
     public function Create(Request $request){
@@ -51,9 +54,8 @@ class UserController extends Controller
             'type_of_user' => "free",
             'total_points' => 0
         ]);
-        
         return User::create([
-            'id' => $user ->id,
+            'id' => $user -> id,
             'name' => $request -> post("name"),
             'email' => $request -> post("email"),
             'password' => Hash::make($request -> post("password"))
@@ -69,7 +71,7 @@ class UserController extends Controller
     private function validateAuthenticationRequest($request){
         $validator = Validator::make($request->all(),[
             'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-            'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
+            'password' => 'required',
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();         

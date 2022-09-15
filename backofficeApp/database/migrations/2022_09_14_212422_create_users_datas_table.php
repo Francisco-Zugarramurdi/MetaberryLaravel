@@ -13,7 +13,7 @@ class CreateUsersDatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_datas', function (Blueprint $table) {
+        Schema::create('users_data', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateUsersDatasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_datas');
+        Schema::dropIfExists('users_data');
     }
 }
