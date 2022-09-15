@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class AdController extends Controller
 {
     public function GetAd(Request $request){
-        $this->checkAds();
         
         $validation = $this->validateCreationRequest($request);
         if ($validation !== "ok")
@@ -33,14 +32,16 @@ class AdController extends Controller
             $adsToDelete = DB::table('ads')
             ->whereColumn('view_counter', ">=",'views_hired')
             ->get();
-            if ($adsToDelte)
-            foreach($adsToDelete as $ad){
-                $adToDelete = Ad::find($ad->id);
-                $adToDelete->delete();
+            if ($count($adsToDelte) >= 0){
+                foreach($adsToDelete as $ad){
+                    $adToDelete = Ad::find($ad->id);
+                    $adToDelete->delete();
 
-                $adTagToDelete = AdTag::find($ad->id);
-                $adTagToDelete->delete();
+                    $adTagToDelete = AdTag::find($ad->id);
+                    $adTagToDelete->delete();
+                }
             }
+            
             
         }catch(QueryException $error){
             return $error;
@@ -81,7 +82,7 @@ class AdController extends Controller
         $adArray = (array) $ads;
         $AdSelected = $ads->where('view_counter' , min($adsViewCounter))->first();
         
-        addView($AdSelected->id);
+        $this->addView($AdSelected->id);
 
         return $AdsSelected;
 
