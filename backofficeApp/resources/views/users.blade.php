@@ -85,7 +85,7 @@
                     Credit Card:
                     <input type="number"name="credit_card" value="">
                 </label>
-            <input type="submit">
+            <input type="submit" value="Submit User">
         </form>
         <h2 style="color:red;font-size:2em;">User's List</h2>
         @foreach($users as $user)
@@ -127,14 +127,14 @@
                         <input type="number"name="credit_card" value="{{$user->credit_card}}">
                     </label>
                 </div>
-                <input type="submit">
+                <input type="submit" value="Update User">
                 </form>
                 <form action="/api/user/{{$user->id}}"method="POST" class="delete">
                     @method('DELETE')
                     @csrf
                     {{method_field('DELETE')}}
                     <input name="_method" type="hidden" value="DELETE">
-                    <input type="submit" value="DELETE">
+                    <input type="submit" value="Delete User">
                 </form>
                 @endforeach
             </body>

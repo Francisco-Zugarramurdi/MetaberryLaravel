@@ -13,76 +13,102 @@ use \Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
-    public function Create(Request $request){
+    public function create(Request $request){
+        
         $validation = $this->validateCreationRequest($request);
+
         if($validation !== "ok")
             return $validation;
         try {
             return $this->createUser($request);
         }
         catch (QueryException $e){
-            return $this->handleCreationErrors($e,$request->post("name"));
+
+            return [
+                "error" => 'Cannot create user',
+                "trace" => $e -> getMessage()
+            ];
+
         }
     }
 
-    public function Authenticate(Request $request){
+    public function authenticate(Request $request){
+
         $validation =  $this->validateAuthenticationRequest($request);
+
         if($validation !== "ok")
             return $validation;
-        return $this->AuthenticateUser($request->only('email', 'password'));
+        return $this->authenticateUser($request->only('email', 'password'));
         
     }
 
     private function validateCreationRequest($request){
+
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-            'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
-            'password_confirmation' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^'
+            'password' => 'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
+            'password_confirmation' => 'required'
         ]);
+        
         if($validator->fails())
             return $validator->errors()->toJson();
+
+        if(User::where('email', $request -> post("email")) -> exists())
+
+            return 'User already exists';
+
         if($request->post("password") !== $request->post("password_confirmation"))
-            return [ "password" => "Passwords are different, they must be the same"]; 
+
+            return 'error: Passwords do not match'; 
+
         return 'ok';
     }
 
     private function createUser($request){
+
         $user = users_data::create([
+
             'name' => $request -> post("name"),
+            'credit_card' => '',
+            'photo' => '',
             'points' => 0,
             'type_of_user' => "free",
             'total_points' => 0
+
         ]);
         return User::create([
+
             'id' => $user -> id,
             'name' => $request -> post("name"),
             'email' => $request -> post("email"),
             'password' => Hash::make($request -> post("password"))
+
         ]);
     }
 
-    private function handleCreationErrors($e,$name){
-        return [
-            "error" => 'User ' . $name . ' exists',
-            "trace" => $e -> getMessage()
-        ];
-    }
     private function validateAuthenticationRequest($request){
+
         $validator = Validator::make($request->all(),[
+
             'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-            'password' => 'required',
+            'password' => 'required'
+
         ]);
+
         if ($validator->fails())
             return $validator->errors()->toJson();         
         $target = User::where('email',$request->post("email"))->first();
+
         if(!$target)
-            return [ "email" => "User does not exist"]; 
+            return 'error: Authentication failure, invalid email'; 
         return "ok";
     }
-    private function AuthenticateUser($credentials){
+
+    private function authenticateUser($credentials){
+
         if(!Auth::attempt($credentials))
-            return ['status' => false];
-        return ['status' => true];
+            return 'error: Authentication failure, invalid password or email';
+        return 'Success';
     }
 }
