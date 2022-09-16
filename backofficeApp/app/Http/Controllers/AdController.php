@@ -34,11 +34,7 @@ class AdController extends Controller
     }
 
     public function update(Request $request, $id){
-        $validation = $this->validateRequestUpdate($request);
 
-        if($validation !== "ok"){
-            return $validation;
-        }
         try{
             $this->updateAd($request, $id);
             return "data updated";
@@ -79,20 +75,6 @@ class AdController extends Controller
 
         if(ad::withTrashed()->where('image', $request -> post("image")) -> exists())
             return 'image already exists';
-        
-        return 'ok';
-    }
-
-    private function validateRequestUpdate(Request $request){
-        $validator = Validator::make($request->all(),[
-            'size' => 'required',
-            'tag' => 'required',
-            'url' => 'required',
-            'image' => 'required',
-            'views_hired' => 'required'
-        ]);
-        if ($validator->fails())
-            return $validator->errors()->toJson();
         
         return 'ok';
     }
