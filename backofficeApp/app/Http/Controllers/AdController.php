@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ad;
 use App\Models\ad_tag;
+use Illuminate\Support\Facades\DB;
+use \Illuminate\Database\QueryException;
 
 
 
 class AdController extends Controller
 {
     public function create(Request $request){
-        $this->validate($request);
+        $validation = $this->validateRequestCreate($request);
 
         if($validation !== "ok"){
             return $validation;
@@ -23,75 +25,98 @@ class AdController extends Controller
 
         }
     }
+
     public function index(){
-        return $AdWithTags = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
+        return $AdWithTags = ad::rightJoin("ad_tags","ad_tags.ad_id", "=", "ads.id")
         ->select("*")
         ->get();
     }
-    public function update(Request $request){
-        $this->validate($request);
+
+    public function update(Request $request, $id){
+        $validation = $this->validateRequestUpdate($request);
 
         if($validation !== "ok"){
             return $validation;
         }
+        try{
+            $this->updateAd($request, $id);
+            return "data updated";
+        }catch(QueryException $e){
 
-        $this->updateAd($request, $id);
-        return "data updated";
+            return [
+                "error" => 'Cannot update ad',
+                "trace" => $e -> getMessage()
+            ];
+            
+        }
+        
     }
-    public function destroy(Request $request){
+
+    public function destroy($id){
         try{
             $ad = ad::findOrFail($id);
             $ad -> delete();
-            return "User destroyed";
+            return "Ad destroyed";
         }catch(QueryException $e){
             return [
-                "error" => 'Cannot delete user',
+                "error" => 'Cannot delete ad',
                 "trace" => $e -> getMessage()
             ];
         }
     }
     
-    private function validate(Request $request){
-        $validator = Validator::make($request,
-        [
-            'url' => 'required|regex:/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)',
-            'image' => 'required',
-            'views_hired' => 'required',
+    private function validateRequestCreate(Request $request){
+        $validator = Validator::make($request->all(),[
             'size' => 'required',
-            'tag' => 'required'  
+            'tag' => 'required',
+            'url' => 'required',
+            'image' => 'required',
+            'views_hired' => 'required'
         ]);
-        if($validator->fails())
+        if ($validator->fails())
             return $validator->errors()->toJson();
-        return 'ok';
 
-        if(User::withTrashed()->where('tag', $request -> post("tag")) -> exists())
-            return 'Tag already exists';
-
-        if(User::withTrashed()->where('image', $request -> post("image")) -> exists())
+        if(ad::withTrashed()->where('image', $request -> post("image")) -> exists())
             return 'image already exists';
         
         return 'ok';
     }
 
+    private function validateRequestUpdate(Request $request){
+        $validator = Validator::make($request->all(),[
+            'size' => 'required',
+            'tag' => 'required',
+            'url' => 'required',
+            'image' => 'required',
+            'views_hired' => 'required'
+        ]);
+        if ($validator->fails())
+            return $validator->errors()->toJson();
+        
+        return 'ok';
+    }
+
     private function createAd(Request $request){
-        $ad = Ad::create([
+        $ad = ad::create([
             'image' => $request -> post("image"),
             'url' => $request -> post("url"),
             'views_hired' => $request -> post("views_hired"),
             'size' => $request -> post("size"),
             'view_counter' => 0
         ]);
-        User::create([
+        ad_tag::create([
             'id_ad' => $ad ->id,
             'tag' => $request -> post("tag"),
         ]);
         return "Ad created";
     }
-    private function updateAd(Request $request){
+
+    private function updateAd(Request $request, $id){
         $ad = ad::findOrFail($id);
-        'image' -> $request -> post("image");
-        'url' -> $request -> post("url");
-        'views_hired' -> $request -> post("views_hired");
-        'size' -> $request -> post("size");
+        $ad ->image = $request -> image;
+        $ad ->url = $request -> url;
+        $ad ->views_hired = $request -> views_hired;
+        $ad ->size = $request -> size;
+        $ad->save();
     }
 }
