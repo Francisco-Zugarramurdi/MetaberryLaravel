@@ -59,6 +59,10 @@ class AdTagController extends Controller
         }
     }
 
+    public function index(){
+        return ad_tag::all();
+    }
+
     private function updateAdTag($request, $id){
         $tag = ad_tag::findOrFail($id);
 

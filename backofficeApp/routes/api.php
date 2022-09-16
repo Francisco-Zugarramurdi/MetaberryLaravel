@@ -28,14 +28,14 @@ Route::get("/user",[UserController::class,'index']);
 Route::put("/user/{id}",[UserController::class,'update']);
 
 
-Route::post("/ads/create",[ad::class,'create']);
-Route::get("/ads",[ad::class,'index']);
-Route::put("/ads/{id}",[ad::class,'update']);
-Route::delete("/ads/{id}",[ad::class,'destroy']);
+Route::post("/ads/create",[AdController::class,'create']);
+Route::get("/ads",[AdController::class,'index']);
+Route::put("/ads/{id}",[AdController::class,'update']);
+Route::delete("/ads/{id}",[AdController::class,'destroy']);
 
 
-Route::delete("/user/{id}",[UserController::class,'destroy']);
 Route::post("/adTag/create",[AdTagController::class,'create']);
 Route::put("/adTag/{id}",[AdTagController::class,'update']);
 Route::delete("/adTag/{id}",[AdTagController::class,'destroy']);
+Route::get("/adTag",[AdTagController::class,'index']);
 
