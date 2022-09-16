@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ad extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+    protected $table = "ads";
 }

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,9 @@ Route::post("/user/create",[UserController::class,'create']);
 Route::get("/user/{email}",[UserController::class,'indexByEmail']);
 Route::get("/user",[UserController::class,'index']);
 Route::put("/user/{id}",[UserController::class,'update']);
+
+Route::post("/ads/create",[ad::class,'create']);
+Route::get("/ads",[ad::class,'index']);
+Route::put("/ads/{id}",[ad::class,'update']);
+Route::delete("/ads/{id}",[ad::class,'destroy']);
 
