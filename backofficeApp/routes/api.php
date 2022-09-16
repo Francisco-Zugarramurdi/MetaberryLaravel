@@ -34,8 +34,8 @@ Route::put("/ads/{id}",[ad::class,'update']);
 Route::delete("/ads/{id}",[ad::class,'destroy']);
 
 
-Route::delete("/user/{id}",[UserController::class,'destroy']);
 Route::post("/adTag/create",[AdTagController::class,'create']);
 Route::put("/adTag/{id}",[AdTagController::class,'update']);
 Route::delete("/adTag/{id}",[AdTagController::class,'destroy']);
+Route::get("/adTag",[AdTagController::class,'index']);
 
