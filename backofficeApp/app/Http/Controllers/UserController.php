@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\users_data;
 use \Illuminate\Database\QueryException;
-use resources\views\users;
 class UserController extends Controller
 {
 
     public function create(Request $request){
-
         $validation = $this->validateRequest($request);
 
         if($validation !== "ok"){
@@ -47,19 +45,18 @@ class UserController extends Controller
 
     public function index(){
         $users = users_data::join('users','users.id','=','users_data.id')->get();
-        return view('users')->with('users', compact(users));
+        return view('users')->with('users',$users);
 
     }
 
     public function update(Request $request, $id){
 
         $validation = $this->validateRegexRequest($request);
-
         if($validation !== "ok")
             return $validation;
-
+        
         try{
-
+                
             $this->updateUserData($request, $id);
             $this->updateUserCredentials($request, $id);
 
@@ -94,28 +91,21 @@ class UserController extends Controller
     }
 
     private function updateUserData(Request $request,$id){
-
         $user= users_data::findOrFail($id);
-
         $user -> name = $request -> name;
         $user -> credit_card = $request-> credit_card;
         $user -> photo = $request -> photo;
         $user -> points = $request -> points;
         $user -> type_of_user = $request -> type_of_user;
         $user -> total_points = $request -> total_points;
-
         $user-> save();
 
     }
 
     private function updateUserCredentials(Request $request, $id){
-
         $user = User::findOrFail($id);
-
         $user -> name = $request -> name;
         $user -> email = $request -> email;
-        $user -> password = $request -> password;
-
         $user-> save();
 
     }
