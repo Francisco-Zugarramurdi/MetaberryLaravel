@@ -49,16 +49,9 @@ class AdController extends Controller
     }
 
     private function selectAd($ads){
-        $adsViewCounter = array();
-        foreach($ads as $ad){
-            array_push($adsViewCounter, $ad->view_counter);
-        }
-        $AdSelected = $ads->where('view_counter' , min($adsViewCounter))->first();
-        
+        $AdSelected = $ads->sortBy('view_counter')->first();
         $this->addView($AdSelected->ad_id);
-
         return $AdSelected;
-
     }
 
     private function addView($id){
@@ -66,7 +59,6 @@ class AdController extends Controller
         $ad-> view_counter ++;
         $ad->save();
         if($ad->view_counter == $ad->views_hired){
-            AdTag::find($ad->ad_id)->delete();
             $ad->delete();
         }
     }
