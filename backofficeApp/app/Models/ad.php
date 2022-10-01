@@ -12,4 +12,6 @@ class Ad extends Model
     use SoftDeletes;
     protected $table = "ads";
     protected $fillable = [ 'image','size', 'url', 'views_hired', 'view_counter'];
+
+    
 }
