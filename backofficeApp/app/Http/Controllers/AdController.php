@@ -26,42 +26,6 @@ class AdController extends Controller
         }
     }
 
-    public function index(){
-        $ads = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
-        ->select("*")
-        ->get();
-        return view('ads')->with('ads',$ads);
-    }
-
-    public function update(Request $request, $id){
-
-        try{
-            $this->updateAd($request, $id);
-            return "data updated";
-        }catch(QueryException $e){
-
-            return [
-                "error" => 'Cannot update ad',
-                "trace" => $e -> getMessage()
-            ];
-            
-        }
-        
-    }
-
-    public function destroy($id){
-        try{
-            $ad = Ad::findOrFail($id);
-            $ad -> delete();
-            return "Ad destroyed";
-        }catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete ad',
-                "trace" => $e -> getMessage()
-            ];
-        }
-    }
-    
     private function validateRequestCreate(Request $request){
         $validator = Validator::make($request->all(),[
             'size' => 'required',
@@ -94,6 +58,29 @@ class AdController extends Controller
         return "Ad created ID: $ad->id";
     }
 
+    public function index(){
+        $ads = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
+        ->select("*")
+        ->get();
+        return view('ads')->with('ads',$ads);
+    }
+
+    public function update(Request $request, $id){
+
+        try{
+            $this->updateAd($request, $id);
+            return "data updated";
+        }catch(QueryException $e){
+
+            return [
+                "error" => 'Cannot update ad',
+                "trace" => $e -> getMessage()
+            ];
+            
+        }
+        
+    }
+
     private function updateAd(Request $request, $id){
         $ad = Ad::findOrFail($id);
         $ad ->image = $request -> image;
@@ -101,5 +88,18 @@ class AdController extends Controller
         $ad ->views_hired = $request -> views_hired;
         $ad ->size = $request -> size;
         $ad->save();
+    }
+
+    public function destroy($id){
+        try{
+            $ad = Ad::findOrFail($id);
+            $ad -> delete();
+            return "Ad destroyed";
+        }catch(QueryException $e){
+            return [
+                "error" => 'Cannot delete ad',
+                "trace" => $e -> getMessage()
+            ];
+        }
     }
 }

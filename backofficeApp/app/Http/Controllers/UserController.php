@@ -13,6 +13,7 @@ class UserController extends Controller
 {
 
     public function create(Request $request){
+
         $validation = $this->validateRequest($request);
 
         if($validation !== "ok"){
@@ -32,81 +33,18 @@ class UserController extends Controller
         
     }
 
-    public function indexByEmail($email){
+    private function validateRequest(Request $request){
 
-        $user = User::where('email', $email)->first();
+        $validationRequest = $this->validateCreationRequest($request);
 
-        if (! $user) 
-            return "error User" . $email . "already exists";
-            
-        return $user;
+        if($validationRequest !== "ok")
+            return $validationRequest;
 
-    }
+        $validationRegexRequest = $this->validateRegexRequest($request);
 
-    public function index(){
-        $users = UserData::join('users','users.id','=','users_data.id')->get();
-        return view('users')->with('users',$users);
-
-    }
-
-    public function update(Request $request, $id){
-
-        $validation = $this->validateRegexRequest($request);
-        if($validation !== "ok")
-            return $validation;
-        
-        try{
-                
-            $this->updateUserData($request, $id);
-            $this->updateUserCredentials($request, $id);
-
-            return "ok";
-            
-        }
-        catch (QueryException $e){
-
-            return [
-                "error" => 'Cannot update user',
-                "trace" => $e -> getMessage()
-            ];
-            
-        }
-
-    }
-
-    public function destroy($id){
-        try{
-            $user = User::findOrFail($id);
-            $userData = UserData::findOrFail($id);
-            $user->delete();
-            $userData->delete();
-            return "User destroyed";
-        }
-        catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete user',
-                "trace" => $e -> getMessage()
-            ];
-        }
-    }
-
-    private function updateUserData(Request $request,$id){
-        $user= UserData::findOrFail($id);
-        $user -> name = $request -> name;
-        $user -> credit_card = $request-> credit_card;
-        $user -> photo = $request -> photo;
-        $user -> points = $request -> points;
-        $user -> type_of_user = $request -> type_of_user;
-        $user -> total_points = $request -> total_points;
-        $user-> save();
-
-    }
-
-    private function updateUserCredentials(Request $request, $id){
-        $user = User::findOrFail($id);
-        $user -> name = $request -> name;
-        $user -> email = $request -> email;
-        $user-> save();
+        if($validationRegexRequest !== "ok")
+            return $validationRegexRequest;
+        return "ok";
 
     }
 
@@ -153,21 +91,6 @@ class UserController extends Controller
 
     }
 
-    private function validateRequest(Request $request){
-
-        $validationRequest = $this->validateCreationRequest($request);
-
-        if($validationRequest !== "ok")
-            return $validationRequest;
-
-        $validationRegexRequest = $this->validateRegexRequest($request);
-
-        if($validationRegexRequest !== "ok")
-            return $validationRegexRequest;
-        return "ok";
-
-    }
-
     private function createUser(Request $request){
 
         $user = UserData::create([
@@ -191,6 +114,83 @@ class UserController extends Controller
         ]);
     }
 
-    
+    public function indexByEmail($email){
+
+        $user = User::where('email', $email)->first();
+
+        if (! $user) 
+            return "error User" . $email . "already exists";
+            
+        return $user;
+
+    }
+
+    public function index(){
+        $users = UserData::join('users','users.id','=','users_data.id')->get();
+        return view('users')->with('users',$users);
+
+    }
+
+    public function update(Request $request, $id){
+
+        $validation = $this->validateRegexRequest($request);
+        if($validation !== "ok")
+            return $validation;
+        
+        try{
+                
+            $this->updateUserData($request, $id);
+            $this->updateUserCredentials($request, $id);
+
+            return "ok";
+            
+        }
+        catch (QueryException $e){
+
+            return [
+                "error" => 'Cannot update user',
+                "trace" => $e -> getMessage()
+            ];
+            
+        }
+
+    }
+
+    private function updateUserData(Request $request,$id){
+        $user= UserData::findOrFail($id);
+        $user -> name = $request -> name;
+        $user -> credit_card = $request-> credit_card;
+        $user -> photo = $request -> photo;
+        $user -> points = $request -> points;
+        $user -> type_of_user = $request -> type_of_user;
+        $user -> total_points = $request -> total_points;
+        $user-> save();
+
+    }
+
+    private function updateUserCredentials(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user -> name = $request -> name;
+        $user -> email = $request -> email;
+        $user-> save();
+
+    }
+
+    public function destroy($id){
+        try{
+            $user = User::findOrFail($id);
+            $userData = UserData::findOrFail($id);
+            $user->delete();
+            $userData->delete();
+            return "User destroyed";
+        }
+        catch(QueryException $e){
+            return [
+                "error" => 'Cannot delete user',
+                "trace" => $e -> getMessage()
+            ];
+        }
+    }
+
 
 }

@@ -32,16 +32,6 @@ class UserController extends Controller
         }
     }
 
-    public function authenticate(Request $request){
-
-        $validation =  $this->validateAuthenticationRequest($request);
-
-        if($validation !== "ok")
-            return $validation;
-        return $this->authenticateUser($request->only('email', 'password'));
-        
-    }
-
     private function validateCreationRequest($request){
 
         $validator = Validator::make($request->all(),[
@@ -85,6 +75,16 @@ class UserController extends Controller
             'password' => Hash::make($request -> post("password"))
 
         ]);
+    }
+
+    public function authenticate(Request $request){
+
+        $validation =  $this->validateAuthenticationRequest($request);
+
+        if($validation !== "ok")
+            return $validation;
+        return $this->authenticateUser($request->only('email', 'password'));
+        
     }
 
     private function validateAuthenticationRequest($request){
