@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\users_data;
+use App\Models\UserData;
 use \Illuminate\Database\QueryException;
 
 
@@ -67,7 +67,7 @@ class UserController extends Controller
 
     private function createUser($request){
 
-        $user = users_data::create([
+        $user = UserData::create([
 
             'name' => $request -> post("name"),
             'credit_card' => '',
