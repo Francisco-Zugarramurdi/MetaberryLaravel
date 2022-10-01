@@ -18,5 +18,5 @@ use App\Http\Controllers\AdController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post("/getAd", [AdController::class, 'GetAd']);
-Route::post("/testAd", [AdController::class, 'testAd']);
+Route::post("/ad", [AdController::class, 'getAd']);
+
