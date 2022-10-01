@@ -11,16 +11,14 @@ use Illuminate\Support\Facades\DB;
 class AdController extends Controller
 {
     public function GetAd(Request $request){
-        $this -> checkAds();
 
         $validation = $this->validateCreationRequest($request);
         if ($validation !== "ok")
             return $validation;
         
         try{
-            $AdListWithTags = $this->joinAdsWithTags($request);
-            $possibleAds = $this->findAds($request, $AdListWithTags);
-            if(count($possibleAds)<=0){
+            $possibleAds = $this->findAds($request);
+            if(count($possibleAds)==0){
                 return 'error, no ads available';
             }
             return $ad = $this->selectAd($possibleAds);
@@ -29,29 +27,6 @@ class AdController extends Controller
             return $error;
         }
        
-    }
-
-    private function checkAds(){
-        try{
-            $adsToDelete = DB::table('ads')
-            ->whereColumn('view_counter', ">=",'views_hired')
-            ->get();
-            if (count($adsToDelete) >= 0){
-                foreach($adsToDelete as $ad){
-                    $adToDelete = Ad::find($ad->id);
-                    if($adToDelete != null)
-                        $adToDelete->delete();
-                    
-                    $adTagToDelete = AdTag::find($ad->id);
-                    if($adTagToDelete != null)
-                        $adTagToDelete->delete();
-                }
-            }
-            
-            
-        }catch(QueryException $error){
-            return $error;
-        }
     }
 
     private function validateCreationRequest(Request $request){
@@ -66,14 +41,9 @@ class AdController extends Controller
         
     }
 
-    private function joinAdsWithTags(Request $request){
-        return $AdWithTags = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
-            ->select("*")
-            ->get();
-    }
-
-    private function findAds(Request $request, $adList){
-        return $ads = $adList
+    private function findAds(Request $request){
+        return  $ads = $AdWithTags = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
+            ->get()
             ->where('size', $request->size)
             ->where('tag', $request->tag);
     }
@@ -85,7 +55,7 @@ class AdController extends Controller
         }
         $AdSelected = $ads->where('view_counter' , min($adsViewCounter))->first();
         
-        $this->addView($AdSelected->id);
+        $this->addView($AdSelected->ad_id);
 
         return $AdSelected;
 
@@ -95,6 +65,10 @@ class AdController extends Controller
         $ad = Ad::find($id);
         $ad-> view_counter += 1;
         $ad->save();
+        if($ad->view_couner == $ad->views_hired){
+            $ad->delete();
+            AdTag::find($ad->ad_id)->delete();
+        }
     }
 
 }   
