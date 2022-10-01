@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use \Illuminate\Database\QueryException;
-use App\Models\ad_tag;
+use App\Models\AdTag;
 class AdTagController extends Controller
 {
     //
@@ -47,7 +47,7 @@ class AdTagController extends Controller
 
     public function destroy($id){
         try{
-            $tag = ad_tag::findOrFail($id);
+            $tag = AdTag::findOrFail($id);
             $tag->delete();
             return "Tag destroyed";
         }
@@ -60,11 +60,11 @@ class AdTagController extends Controller
     }
 
     public function index(){
-        return ad_tag::all();
+        return AdTag::all();
     }
 
     private function updateAdTag($request, $id){
-        $tag = ad_tag::findOrFail($id);
+        $tag = AdTag::findOrFail($id);
 
         $tag -> id_ad = $request -> id_ad;
         $tag -> tag = $request -> tag;
@@ -84,7 +84,7 @@ class AdTagController extends Controller
         if($validator->fails())
             return $validator->errors()->toJson();
 
-        if(ad_tag::withTrashed()->where('tag', $request -> post("tag")) -> exists())
+        if(AdTag::withTrashed()->where('tag', $request -> post("tag")) -> exists())
             return 'Tag already exists';
 
         return 'ok';
@@ -107,7 +107,7 @@ class AdTagController extends Controller
 
     private function createAdTag(Request $request){
         
-        return ad_tag::create([
+        return AdTag::create([
 
             'ad_id' => $request -> post("ad_id"),
             'tag' => $request -> post("tag") 

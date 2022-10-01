@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\users_data;
+use App\Models\UserData;
 use \Illuminate\Database\QueryException;
 class UserController extends Controller
 {
@@ -44,7 +44,7 @@ class UserController extends Controller
     }
 
     public function index(){
-        $users = users_data::join('users','users.id','=','users_data.id')->get();
+        $users = UserData::join('users','users.id','=','users_data.id')->get();
         return view('users')->with('users',$users);
 
     }
@@ -77,7 +77,7 @@ class UserController extends Controller
     public function destroy($id){
         try{
             $user = User::findOrFail($id);
-            $userData = users_data::findOrFail($id);
+            $userData = UserData::findOrFail($id);
             $user->delete();
             $userData->delete();
             return "User destroyed";
@@ -91,7 +91,7 @@ class UserController extends Controller
     }
 
     private function updateUserData(Request $request,$id){
-        $user= users_data::findOrFail($id);
+        $user= UserData::findOrFail($id);
         $user -> name = $request -> name;
         $user -> credit_card = $request-> credit_card;
         $user -> photo = $request -> photo;
@@ -170,7 +170,7 @@ class UserController extends Controller
 
     private function createUser(Request $request){
 
-        $user = users_data::create([
+        $user = UserData::create([
 
             'name' => $request -> post("name"),
             'credit_card' => $request -> post("credit_card"),
