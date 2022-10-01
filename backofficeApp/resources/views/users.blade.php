@@ -62,7 +62,7 @@
                 </label>
                 <label>
                     Password:
-                    <input name="password" type="text" value="">
+                    <input name="password" type="password" value="">
                 </label>
                 <label>
                     Image:

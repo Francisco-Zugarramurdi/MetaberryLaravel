@@ -84,24 +84,28 @@
                 <div class="column">
                     <input name="_method" type="hidden" value="PUT">
                     <label>
-                        Image:
-                        <input name="name" type="text" value="{{$ad->image}}">
+                        image:
+                        <input type="text" name="image" value="{{$ad->image}}">
                     </label>
                     <label>
-                        Url:
-                        <input name="photo" type="text" value="{{$ad->url}}">
+                        url:
+                        <input type="text" name="url" value="{{$ad->url}}">
                     </label>
                     <label>
-                        Size:
-                        <input name="email" type="text" value="{{$ad->size}}">
+                        size:
+                        <input type="text" name="size" value="{{$ad->size}}">
                     </label>
                     <label>
-                        views_hired:
-                        <input name="type_of_ads" type="text" value="{{$ad->views_hired}}" maxlength="8">
+                        views hired:
+                        <input type="number" name="views_hired" value="{{$ad->views_hired}}">
+                    </label>
+                    <label>
+                        views counter:
+                        <input type="text" name="views_counter" value="{{$ad->view_counter}}">
                     </label>
                     <label>
                         tag:
-                        <input type="number"name="points" value="{{$ad->tag}}">
+                        <input type="text"name="tag" value="{{$ad->tag}}">
                     </label>
                 </div>
                 <input type="submit">

@@ -27,7 +27,7 @@ class AdController extends Controller
     }
 
     public function index(){
-        $ads = Ad::rightJoin("ad_tags","ad_tags.ad_id", "=", "ads.id")
+        $ads = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
         ->select("*")
         ->get();
         return view('ads')->with('ads',$ads);
@@ -88,10 +88,10 @@ class AdController extends Controller
             'view_counter' => 0
         ]);
         AdTag::create([
-            'id_ad' => $ad ->id,
+            'ad_id' => $ad ->id,
             'tag' => $request -> post("tag"),
         ]);
-        return "Ad created";
+        return "Ad created ID: $ad->id";
     }
 
     private function updateAd(Request $request, $id){
