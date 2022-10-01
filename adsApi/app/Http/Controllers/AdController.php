@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class AdController extends Controller
 {
-    public function GetAd(Request $request){
+    public function getAd(Request $request){
 
         $validation = $this->validateCreationRequest($request);
         if ($validation !== "ok")
@@ -63,11 +63,11 @@ class AdController extends Controller
 
     private function addView($id){
         $ad = Ad::find($id);
-        $ad-> view_counter += 1;
+        $ad-> view_counter ++;
         $ad->save();
-        if($ad->view_couner == $ad->views_hired){
-            $ad->delete();
+        if($ad->view_counter == $ad->views_hired){
             AdTag::find($ad->ad_id)->delete();
+            $ad->delete();
         }
     }
 
