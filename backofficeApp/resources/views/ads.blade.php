@@ -50,7 +50,9 @@
     </head>
     <body>
         <h1>Backoffice ads's Administration</h1>
-        <form method="POST" action="/api/ads/create" class="creation">
+        <form method="POST" action="/ads/create" class="creation">
+                @method('POST')
+                @csrf
                 <h2 style="color:black">Create an ads</h2>
                 <label>
                     Image:
@@ -77,7 +79,7 @@
         </form>
         <h2 style="color:red;font-size:2em;">ads's List</h2>
         @foreach($ads as $ad)
-            <form class="entry" method="POST" action="/api/ads/{{$ad->id}}">
+            <form class="entry" method="POST" action="/ads/{{$ad->id}}">
                 @method('PUT')
                 @csrf
                 {{method_field('PUT')}}
@@ -110,7 +112,7 @@
                 </div>
                 <input type="submit">
                 </form>
-                <form action="/api/ads/{{$ad->id}}"method="POST" class="delete">
+                <form action="/ads/{{$ad->id}}"method="POST" class="delete">
                     @method('DELETE')
                     @csrf
                     {{method_field('DELETE')}}

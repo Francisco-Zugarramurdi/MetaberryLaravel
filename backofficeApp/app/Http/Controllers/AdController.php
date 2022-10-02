@@ -55,7 +55,7 @@ class AdController extends Controller
             'ad_id' => $ad ->id,
             'tag' => $request -> post("tag"),
         ]);
-        return "Ad created ID: $ad->id";
+        return redirect('/ads');
     }
 
     public function index(){
@@ -69,7 +69,7 @@ class AdController extends Controller
 
         try{
             $this->updateAd($request, $id);
-            return "data updated";
+            return redirect('/ads');
         }catch(QueryException $e){
 
             return [
@@ -94,7 +94,7 @@ class AdController extends Controller
         try{
             $ad = Ad::findOrFail($id);
             $ad -> delete();
-            return "Ad destroyed";
+            return redirect('/ads');
         }catch(QueryException $e){
             return [
                 "error" => 'Cannot delete ad',

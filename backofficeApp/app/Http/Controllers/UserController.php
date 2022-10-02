@@ -104,7 +104,7 @@ class UserController extends Controller
 
         ]);
         
-        return User::create([
+        User::create([
 
             'id' => $user ->id,
             'name' => $request -> post("name"),
@@ -112,6 +112,8 @@ class UserController extends Controller
             'password' => Hash::make($request -> post("password"))
 
         ]);
+        return redirect('/user');
+
     }
 
     public function indexByEmail($email){
@@ -142,7 +144,7 @@ class UserController extends Controller
             $this->updateUserData($request, $id);
             $this->updateUserCredentials($request, $id);
 
-            return "ok";
+            return redirect('/user');
             
         }
         catch (QueryException $e){
@@ -182,7 +184,7 @@ class UserController extends Controller
             $userData = UserData::findOrFail($id);
             $user->delete();
             $userData->delete();
-            return "User destroyed";
+            return redirect('/user');
         }
         catch(QueryException $e){
             return [
@@ -190,6 +192,7 @@ class UserController extends Controller
                 "trace" => $e -> getMessage()
             ];
         }
+        
     }
 
 

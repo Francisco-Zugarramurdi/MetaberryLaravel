@@ -50,7 +50,9 @@
 </head>
 <body>
         <h1>Backoffice User's Administration</h1>
-        <form method="POST" action="/api/user/create" class="creation">
+        <form method="POST" action="/user/create" class="creation">
+            @method('POST')
+            @csrf
                 <h2 style="color:black">Create an user</h2>
                 <label>
                     Name:
@@ -89,7 +91,7 @@
         </form>
         <h2 style="color:red;font-size:2em;">User's List</h2>
         @foreach($users as $user)
-            <form class="entry" method="POST" action="/api/user/{{$user->id}}">
+            <form class="entry" method="POST" action="/user/{{$user->id}}">
                 @method('PUT')
                 @csrf
                 {{method_field('PUT')}}
@@ -129,7 +131,7 @@
                 </div>
                 <input type="submit" value="Update User">
                 </form>
-                <form action="/api/user/{{$user->id}}"method="POST" class="delete">
+                <form action="/user/{{$user->id}}"method="POST" class="delete">
                     @method('DELETE')
                     @csrf
                     {{method_field('DELETE')}}
