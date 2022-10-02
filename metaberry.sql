@@ -1,33 +1,32 @@
-drop database metaberrystudios;
 create database metaberrystudios;
 use metaberrystudios;
 create table sports(
     id serial primary key,
     name varchar(50) not null,
-    photo text
+    photo text not null
 );
  
 create table countries(
     id serial primary key,
     name varchar(50) not null,
-    photo text
+    photo text not null
 );
  
 create table players(
     id serial primary key,
     name varchar(50) not null,
     surname varchar(50) not null,
-    photo text
+    photo text not null
 );
  
 create table events(
     id serial primary key,
     name varchar(50) not null,
-    details text,
-    id_sports bigint unsigned,
-    id_countries bigint unsigned,
-    dates date,
-    relevance tinyint,
+    details text not null,
+    id_sports bigint unsigned not null,
+    id_countries bigint unsigned not null,
+    dates date not null,
+    relevance tinyint not null,
     foreign key (id_sports) references sports(id),
     foreign key (id_countries) references countries(id)
 );
@@ -35,17 +34,17 @@ create table events(
 create table teams (
     id serial primary key,
     name varchar(50) not null,
-    photo text,
+    photo text not null,
     tipo_teams varchar(10) not null,
-    id_sports bigint unsigned,
-    id_countries bigint unsigned,
+    id_sports bigint unsigned not null,
+    id_countries bigint unsigned not null,
     foreign key (id_sports) references sports(id),
     foreign key (id_countries) references countries(id)
 );
  
 create table players_teams (
-    id_players bigint unsigned,
-    id_teams bigint unsigned,
+    id_players bigint unsigned not null,
+    id_teams bigint unsigned not null,
     contract_start date not null,
     primary key (id_players,id_teams),
     foreign key (id_players) references players(id),
@@ -57,8 +56,7 @@ create table terminated_contracts(
     id_teams bigint unsigned,
     contract_end date,
     primary key (id_players,id_teams),
-    foreign key (id_players) references players_teams(id_players),
-    foreign key (id_teams) references players_teams(id_teams)
+    foreign key (id_players, id_teams) references players_teams(id_players, id_teams)
 );
  
 create table extras(
@@ -159,23 +157,18 @@ create table users_data(
     photo text,
     points bigint not null,
     type_of_user varchar(6),
-    total_points bigint unsigned,
-	created_at timestamp null default null,
-    updated_at timestamp null default null,
-    deleted_at timestamp null default null
+    total_points bigint unsigned
 );
  
 create table users(
     id bigint unsigned primary key,
     name varchar(255) not null,
-    email varchar(255) not null unique, 
+    email varchar(255) not null,
     email_verified_at timestamp null default null,
     password varchar(255) not null,
     remember_token varchar(255) default null,
     created_at timestamp null default null,
     updated_at timestamp null default null,
-	deleted_at timestamp null default null,
-
     foreign key (id) references users_data(id)
 );
  
@@ -338,18 +331,23 @@ create table ads(
     image text,
     size varchar(10),
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp null default null,
-	deleted_at timestamp null default null,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (id)
 );
-create table ad_tags(
+
+create table tags(
     id serial,
-    ad_id bigint unsigned,
-    tag varchar(50),
+    tag text,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp null default null,
-	deleted_at timestamp null default null,
-    primary key (id),
-    foreign key (ad_id) references ads(id)
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (id)
+);
+
+create table ad_tags(
+    id_tag bigint unsigned,
+    id_ad bigint unsigned,
+    primary key (id_tag, id_ad),
+    foreign key (id_ad) references ads(id),
+    foreign key (id_tag) references tags(id)
 );
 
