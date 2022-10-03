@@ -23,7 +23,7 @@
 
             <div class="routes-container">
 
-                <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
+                <a href="/" class="routes-list-element focus"><span class="material-symbols-outlined">home</span> Main</a>
                 <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
 
