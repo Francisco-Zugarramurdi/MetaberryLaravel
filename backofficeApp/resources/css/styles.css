@@ -1,0 +1,11 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+body h1 {
+  font-family: "Courier New", Courier, monospace;
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  border-radius: 20px;
+}/*# sourceMappingURL=styles.css.map */

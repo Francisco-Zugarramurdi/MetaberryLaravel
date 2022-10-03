@@ -8,6 +8,8 @@
     --lightest-gray: #9fa3a8;
     --blue: rgb(43, 107, 226);
     --dark-blue: rgb(32, 75, 183);
+    --error-red: #FF5252;
+    --error-border: #FF2C2C;
 
 }
 
@@ -334,7 +336,12 @@ main{
                 background-color: var(--dark-blue);
 
             }
-
+            .error{
+                background-color: var(--error-red);
+                border: 1px solid var(--error-border);
+                border-radius: 10px;
+            }
+            
         }
 
     }

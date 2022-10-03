@@ -83,30 +83,28 @@
 
             <div class="create-user-container">
 
-                <h2>Create User</h2>
-
-                <form action="/user/create" class="create-user-form" method="POST">
+                <form action="/user/create" class="create-user-form" method="POST" id="creationForm">
                     @method('POST')
                     @csrf
                     
                     <label>
                         <p><span>* </span>Name</p>
-                        <input type="text" name="name" placeholder="John">
+                        <input type="text" name="name" placeholder="John" id="name">
                     </label>
 
                     <label>
                         <p><span>* </span>Email</p>
-                        <input type="text" name="email" placeholder="jonhdoe@gmail.com">
+                        <input type="text" name="email" placeholder="jonhdoe@gmail.com" id="email">
                     </label>
 
                     <label>
                         <p><span>* </span>Password</p>
-                        <input type="password" name="password">
+                        <input type="password" name="password"id="password">
                     </label>
 
                     <label>
                         <p><span>* </span>Profile image</p>
-                        <input type="text" name="photo" placeholder="somelink.com">
+                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
                     </label>
 
                     <label>
@@ -119,30 +117,32 @@
 
                     <label>
                         <p><span>* </span>Points</p>
-                        <input type="number" name="points" value="" placeholder="300">
+                        <input type="number" name="points" value="" placeholder="300" id="points">
                     </label>
 
                     <label>
                         <p><span>* </span>Total points</p>
-                        <input type="number" name="total_points" value="" placeholder="300">
+                        <input type="number" name="total_points" value="" placeholder="300" id="totalPoints">
                     </label>
 
                     <label>
                         <p>Credit card</p>
-                        <input type="number" name="credit_card" value="" placeholder="4123412341234123">
+                        <input type="number" name="credit_card" value="" placeholder="4123412341234123" id="card">
                     </label>
 
-                    <input type="submit" value="Create user" class="create-btn">
+                    <input type="submit" value="Create user" class="create-btn" id="submit">
 
+                <div id="error"></div>
                 </form>
 
+                
             </div>
 
         </div>
 
     </main>
 
-        <h1>Backoffice User's Administration</h1>
+    <h1>Backoffice User's Administration</h1>
 
         <form method="POST" action="/user/create" class="creation">
             @method('POST')
@@ -233,5 +233,7 @@
                     <input type="submit" value="Delete User">
                 </form>
                 @endforeach
+
+    <script src="{{ asset('js/UserForm.js') }}"></script>
 </body>
 </html>
