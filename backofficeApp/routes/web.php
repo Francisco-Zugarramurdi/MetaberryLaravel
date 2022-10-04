@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\PlayerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,4 @@ Route::post("/ads/create",[AdController::class,'create']);
 Route::put("/ads/{id}",[AdController::class,'update']);
 Route::delete("/ads/{id}",[AdController::class,'destroy']);
 
+Route::get("/player",[PlayerController::class,'index']);
