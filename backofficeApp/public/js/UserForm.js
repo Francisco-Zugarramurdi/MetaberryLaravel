@@ -9,11 +9,12 @@ const password = document.getElementById('password')
 const error = document.getElementById('error')
 
 
-
 form.addEventListener("submit", (e) => {
   
-  console.log("apreté submit!");
+  error.innerHTML = ""
+
   let validated = validate()
+
   if(validated.length > 0){
     e.preventDefault();
     for(i=0; i<validated.length; i++){
@@ -29,23 +30,22 @@ const validate = () =>{
     const emailRegex=/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/
     const photoRegex=/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
-
     let error = []
     
     if(!cardRegex.test(card.value)){
-        error.push("Wrong Credit Card")
+        error.push("Incorrect credit card format")
     }
 
     if(!emailRegex.test(email.value)){
-        error.push("Wrong email")
+        error.push("Incorrect email format")
     }
     
     if(!photoRegex.test(photo.value)){
-        error.push("Wrong photo's url")
+        error.push("Incorrect image url format")
     }
     
     if(!passwordRegex.test(password.value)){
-      error.push("Wrong password, the password should has a capital letter, a number and a lenght higher than 8")
+      error.push("Incorrect password, the password should have a capital letter a number and must be at least 8 characters long")
     }
 
     if(totalPoints<points){

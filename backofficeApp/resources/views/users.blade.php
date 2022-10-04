@@ -83,157 +83,192 @@
 
             <div class="create-user-container">
 
-                <form action="/user/create" class="create-user-form" method="POST" id="creationForm">
-                    @method('POST')
-                    @csrf
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create user 
+                    <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
+                    <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
+                </button>
+
+                <div class="unhide-container hide" id="create_user_container">
+
+                        <h2>Create user</h2>
+    
+                        <form action="/user/create" class="create-user-form" method="POST" id="creationForm">
+                            @method('POST')
+                            @csrf
+                            
+                            <div class="form-up-container">
+    
+                                <div class="form-inner-container">
+    
+                                    <label>
+                                        <p><span>* </span>Name</p>
+                                        <input type="text" name="name" placeholder="John" id="name">
+                                    </label>
+    
+                                    <label>
+                                        <p><span>* </span>Email</p>
+                                        <input type="text" name="email" placeholder="jonhdoe@gmail.com" id="email">
+                                    </label>
+    
+                                    <label>
+                                        <p><span>* </span>Password</p>
+                                        <input type="password" name="password"id="password">
+                                    </label>
+    
+                                    <label>
+                                        <p><span>* </span>Profile image</p>
+                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
+                                    </label>
+    
+                                </div>
+                                <div class="form-inner-container">
+    
+                                    <label>
+                                        <p><span>* </span>Type of user</p>
+                                        <select name="type_of_user" id="type_of_user">
+                                            <option value="free">Free</option>
+                                            <option value="paid">Paid</option>
+                                        </select>
+                                    </label>
+    
+                                    <label>
+                                        <p><span>* </span>Points</p>
+                                        <input type="number" name="points" value="" placeholder="300" id="points">
+                                    </label>
+    
+                                    <label>
+                                        <p><span>* </span>Total points</p>
+                                        <input type="number" name="total_points" value="" placeholder="300" id="totalPoints">
+                                    </label>
+    
+                                    <label>
+                                        <p>Credit card</p>
+                                        <input type="number" name="credit_card" value="" placeholder="4123412341234123" id="card">
+                                    </label>
+    
+                                </div>
+    
+                            </div>
+    
+                            <div class="form-down-container">
+    
+                                <input type="submit" value="Create" class="create-btn" id="submit">
+            
+                                <div id="error" class="error"></div>
+    
+                            </div>
+    
+                        </form>
                     
-                    <label>
-                        <p><span>* </span>Name</p>
-                        <input type="text" name="name" placeholder="John" id="name">
-                    </label>
+                </div>
 
-                    <label>
-                        <p><span>* </span>Email</p>
-                        <input type="text" name="email" placeholder="jonhdoe@gmail.com" id="email">
-                    </label>
+            </div>
 
-                    <label>
-                        <p><span>* </span>Password</p>
-                        <input type="password" name="password"id="password">
-                    </label>
+            <div class="user-table-container">
 
-                    <label>
-                        <p><span>* </span>Profile image</p>
-                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
-                    </label>
+                <table class="user-table">
 
-                    <label>
-                        <p><span>* </span>Type of user</p>
-                        <select name="type_of_user" id="type_of_user">
-                            <option value="free">Free</option>
-                            <option value="paid">Paid</option>
-                        </select>
-                    </label>
+                    <thead>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>Type User</th>
+                        <th>Points</th>
+                        <th>Total Points</th>
+                        <th>Credit Card</th>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <th>
+                                    <form action="entry" method="POST" action="/user/{{$user->id}}">
+                                        @method('PUT')
+                                        @csrf
+                                        {{method_field('PUT')}}
+                                        <input name="_method" type="hidden" value="PUT">
+                                        <td>
+                                            <label>
+                                                <input name="name" type="text" value="{{$user->name}}" id="name">
+                                            </label>
+                                        </td>
+    
+                                        <td>
+                                            <label>
+                                                <input name="email" type="text" value="{{$user->email}}" id="email">
+                                            </label>
+                                        </td>
+                                        
+                                        <td>
+                                            <label>
+                                                <input name="photo" type="text" value="{{$user->photo}}" id="photo">
+                                            </label>
+                                        </td>
+    
+                                        <td>
+                                            <label>
+                                                @if($user->type_of_user == 'paid')
+                                                <select name="type_of_user" id="type_of_user">
+                                                    <option value="free">Free</option>
+                                                    <option value="paid" selected>Paid</option>
+                                                </select>
+                                                @else
+                                                <select name="type_of_user" id="type_of_user">
+                                                    <option value="free" selected>Free</option>
+                                                    <option value="paid">Paid</option>
+                                                </select>
+                                                @endif
+                                            </label>
+                                        </td>
+    
+                                        <td>
+                                            <label>
+                                                <input type="number"name="points" value="{{$user->points}}" id="points">
+                                            </label>
+                                        </td>
+    
+                                        <td>
+                                            <label>
+                                                <input type="number"name="total_points" value="{{$user->total_points}}" id="totalPoints">
+                                            </label>
+                                        </td>
+    
+                                        <td>
+                                            <label>
+                                                <input type="number"name="credit_card" value="{{$user->credit_card}}" id="card">
+                                            </label>
+                                        </td>
+    
+                                        <td>
+                                            <button type="submit">SEND</button>
+                                        </td>
+                                    </form>
 
-                    <label>
-                        <p><span>* </span>Points</p>
-                        <input type="number" name="points" value="" placeholder="300" id="points">
-                    </label>
 
-                    <label>
-                        <p><span>* </span>Total points</p>
-                        <input type="number" name="total_points" value="" placeholder="300" id="totalPoints">
-                    </label>
+                                </th>
 
-                    <label>
-                        <p>Credit card</p>
-                        <input type="number" name="credit_card" value="" placeholder="4123412341234123" id="card">
-                    </label>
+                                <th>
+                                <form action="/user/{{$user->id}}"method="POST" class="delete">
+                                    @method('DELETE')
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="submit" value="Delete User">
+                                </form>
+                                </th>
+                            </tr>
+                        @endforeach
+                    </tbody>
 
-                    <input type="submit" value="Create user" class="create-btn" id="submit">
+                </table>
 
-                <div id="error"></div>
-                </form>
-
-                
             </div>
 
         </div>
 
     </main>
 
-    <h1>Backoffice User's Administration</h1>
-
-        <form method="POST" action="/user/create" class="creation">
-            @method('POST')
-            @csrf
-                <!-- <h2 style="color:black">Create an user</h2> -->
-                <label>
-                    Name:
-                    <input name="name" type="text" value="">
-                </label>
-                <label>
-                    Email:
-                    <input name="email" type="text" value="">
-                </label>
-                <label>
-                    Password:
-                    <input name="password" type="password" value="">
-                </label>
-                <label>
-                    Image:
-                    <input name="photo" type="text" value="">
-                </label>
-                <label>
-                    Type Of User:
-                    <input name="type_of_user" type="text" value="" maxlength="8">
-                </label>
-
-                <label>
-                    Points:
-                    <input type="number"name="points" value="">
-                </label>
-                <label>
-                    Total Points:
-                    <input type="number"name="total_points" value="">
-                </label>
-                <label>
-                    Credit Card:
-                    <input type="number"name="credit_card" value="">
-                </label>
-            <input type="submit" value="Submit User">
-        </form>
-        <!-- <h2 style="color:red;font-size:2em;">User's List</h2> -->
-        @foreach($users as $user)
-            <form class="entry" method="POST" action="/user/{{$user->id}}">
-                @method('PUT')
-                @csrf
-                {{method_field('PUT')}}
-                <div class="column">
-                    <input name="_method" type="hidden" value="PUT">
-                    <label>
-                        Name:
-                        <input name="name" type="text" value="{{$user->name}}">
-                    </label>
-                    <label>
-                        Image:
-                        <input name="photo" type="text" value="{{$user->photo}}">
-                    </label>
-                    <label>
-                        Email:
-                        <input name="email" type="text" value="{{$user->email}}">
-                    </label>
-                    <label>
-                        Type Of User:
-                        <input name="type_of_user" type="text" value="{{$user->type_of_user}}" maxlength="8">
-                    </label>
-                </div>
-                <div class="column">
-
-                    <label>
-                        Points:
-                        <input type="number"name="points" value="{{$user->points}}">
-                    </label>
-                    <label>
-                        Total Points:
-                        <input type="number"name="total_points" value="{{$user->total_points}}">
-                    </label>
-                    <label>
-                        Credit Card:
-                        <input type="number"name="credit_card" value="{{$user->credit_card}}">
-                    </label>
-                </div>
-                <input type="submit" value="Update User">
-                </form>
-                <form action="/user/{{$user->id}}"method="POST" class="delete">
-                    @method('DELETE')
-                    @csrf
-                    {{method_field('DELETE')}}
-                    <input name="_method" type="hidden" value="DELETE">
-                    <input type="submit" value="Delete User">
-                </form>
-                @endforeach
-
     <script src="{{ asset('js/UserForm.js') }}"></script>
+    <script src="{{ asset('js/DropdownAnimation.js') }}"></script>
 </body>
 </html>

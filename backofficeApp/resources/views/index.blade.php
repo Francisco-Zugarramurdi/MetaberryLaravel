@@ -13,6 +13,9 @@
 </head>
 <body>
     <main>
+
+        <div class="empty"></div>
+        
         <div class="side-container">
 
             <div class="logo-container">
