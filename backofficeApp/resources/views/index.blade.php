@@ -30,6 +30,7 @@
                 <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
                 <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
+                <a href="/sports/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Sports</a>
 
             </div>
 
