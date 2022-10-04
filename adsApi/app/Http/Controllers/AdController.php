@@ -42,7 +42,7 @@ class AdController extends Controller
     }
 
     private function findAds(Request $request){
-        return  $ads = $AdWithTags = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
+        return Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
             ->get()
             ->where('size', $request->size)
             ->where('tag', $request->tag);

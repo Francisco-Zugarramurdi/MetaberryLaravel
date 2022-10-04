@@ -3,10 +3,12 @@
     --white: #FFFFFF;
     --black: #000000;
     --gray: #EFF1F4;
+    --grayish: #ced0d3;
     --dark-gray: #262D37;
     --light-gray: #4C5766;
     --lightest-gray: #9fa3a8;
     --blue: rgb(43, 107, 226);
+
     --dark-blue: rgb(32, 75, 183);
     --error-red: #FF5252;
     --error-border: #FF2C2C;
@@ -338,7 +340,7 @@ main{
             
                                 span{
             
-                                    color: red;
+                                    color: var(--error-border);
             
                                 }
             
@@ -419,7 +421,7 @@ main{
                     }
         
                     .error{
-                        color: red;
+                        color: var(--error-border);
                         font-size: .8em;
                         font-weight: 600;
                     }
@@ -434,6 +436,248 @@ main{
         .hide {
 
             display: flex;
+
+        }
+
+    }
+
+    .user-table-container{
+
+        width: 75vw;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0;
+        margin: 0 0 60px 60px;
+
+        .user-table{
+
+            width: 75vw;
+            border-collapse: collapse;
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+
+            thead tr{
+
+                background-color: var(--blue);
+                color: var(--white);
+                text-align: left;
+                font-weight: 600;
+
+            }
+
+            th{
+
+                padding: 15px 10px 15px 15px;
+
+            }
+
+            td{
+
+                text-align: left;
+                padding: 10px 10px 10px 15px;
+
+            }
+
+            tbody tr {
+
+                border-bottom: 1px solid var(--lightest-gray);
+                
+
+                .user-id{
+
+                    font-weight: 700;
+                    margin: 0;
+
+                }
+
+                .user-name{
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    input{
+
+                        width: 5vw;
+                        border: none;
+                        background-color: var(--grayish);
+                        font-weight: 500;
+                        padding: 5px 2.5px 5px 5px;
+                        border-radius: 5px;
+
+                    }
+
+                }
+
+                .user-email{
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    input{
+
+                        width: 10vw;
+                        border: none;
+                        background-color: var(--grayish);
+                        font-weight: 500;
+                        padding: 5px 2.5px 5px 5px;
+                        border-radius: 5px;
+
+                    }
+                    
+
+                }
+
+                .user-image{
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    input{
+
+                        width: 10vw;
+                        border: none;
+                        background-color: var(--grayish);
+                        font-weight: 500;
+                        padding: 5px 2.5px 5px 5px;
+                        border-radius: 5px;
+
+                    }
+
+                }
+
+                .user-type{
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    select{
+
+                        
+                        width: 5vw;
+                        border-radius: 5px;
+                        border: none;
+                        font-weight: 500;
+                        background-color: var(--grayish);
+                        padding: 5px;
+
+                    }
+
+                }
+
+                .user-points, .user-total-points{
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    input{
+
+                        width: 5vw;
+                        border: none;
+                        background-color: var(--grayish);
+                        font-weight: 500;
+                        padding: 5px 2.5px 5px 5px;
+                        border-radius: 5px;
+
+                    }
+
+                }
+
+                .user-card{
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    input{
+
+                        width: 10vw;
+                        border: none;
+                        background-color: var(--grayish);
+                        font-weight: 500;
+                        padding: 5px 2.5px 5px 5px;
+                        border-radius: 5px;
+
+                    }
+
+                }
+
+                .actions-buttons{
+
+                    display: flex;
+                    height: 5vh;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                    margin: 0;
+                    padding: 10px 0 10px 0;
+
+                    button{
+
+                        margin: 0;
+                        padding: 5px;
+                        border: none;
+                        border-radius: 5px;
+                        font-weight: 500;
+                        text-align: center;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+
+                        .material-symbols-outlined{
+
+                            font-size: 1.5em;
+                            font-weight: 600;
+
+                        }
+
+                    }
+
+                    .submit-btn{
+
+                        border: 2px solid var(--blue);
+                        color: var(--blue);
+                        transition: .2s;
+
+
+                    }
+
+                    .submit-btn:hover{
+
+                        background-color: var(--blue);
+                        color: var(--white);
+
+                    }
+
+                    .submit-btn:focus, .delete-btn:focus{
+
+                        background-color: var(--light-gray);
+                        color: var(--white);
+
+                    }
+
+                    .delete-btn{
+
+                        border: 2px solid var(--error-border);
+                        color: var(--error-border);
+                        transition: .2s;
+
+                    }
+
+                    .delete-btn:hover{
+
+                        background-color: var(--error-border);
+                        color: var(--white);
+
+                    }
+
+                    
+
+                }
+
+            }
 
         }
 

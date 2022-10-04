@@ -169,51 +169,63 @@
                 <table class="user-table">
 
                     <thead>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Image</th>
-                        <th>Type User</th>
-                        <th>Points</th>
-                        <th>Total Points</th>
-                        <th>Credit Card</th>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Image</th>
+                            <th>Type User</th>
+                            <th>Points</th>
+                            <th>Total Points</th>
+                            <th>Credit Card</th>
+                            <th>Actions</th>
+
+                        </tr>
                     </thead>
+
                     <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <th>
-                                    <form action="entry" method="POST" action="/user/{{$user->id}}">
+                                    <form class="entry" method="POST" action="/user/{{$user->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
                                         <input name="_method" type="hidden" value="PUT">
-                                        <td>
+
+                                        <td class="user-id">
+
+                                            <p>{{$user->id}}</p>
+
+                                        </td>
+
+                                        <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$user->name}}" id="name">
+                                                <input name="name" type="text" value="{{$user->name}}">
                                             </label>
                                         </td>
     
-                                        <td>
+                                        <td class="user-email">
                                             <label>
-                                                <input name="email" type="text" value="{{$user->email}}" id="email">
+                                                <input name="email" type="text" value="{{$user->email}}">
                                             </label>
                                         </td>
                                         
-                                        <td>
+                                        <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$user->photo}}" id="photo">
+                                                <input name="photo" type="text" value="{{$user->photo}}">
                                             </label>
                                         </td>
     
-                                        <td>
+                                        <td class="user-type">
                                             <label>
                                                 @if($user->type_of_user == 'paid')
-                                                <select name="type_of_user" id="type_of_user">
+                                                <select name="type_of_user">
                                                     <option value="free">Free</option>
                                                     <option value="paid" selected>Paid</option>
                                                 </select>
                                                 @else
-                                                <select name="type_of_user" id="type_of_user">
+                                                <select name="type_of_user">
                                                     <option value="free" selected>Free</option>
                                                     <option value="paid">Paid</option>
                                                 </select>
@@ -221,41 +233,41 @@
                                             </label>
                                         </td>
     
-                                        <td>
+                                        <td class="user-points">
                                             <label>
-                                                <input type="number"name="points" value="{{$user->points}}" id="points">
+                                                <input type="number"name="points" value="{{$user->points}}">
                                             </label>
                                         </td>
     
-                                        <td>
+                                        <td class="user-total-points">
                                             <label>
-                                                <input type="number"name="total_points" value="{{$user->total_points}}" id="totalPoints">
+                                                <input type="number" name="total_points" value="{{$user->total_points}}">
                                             </label>
                                         </td>
     
-                                        <td>
+                                        <td class="user-card">
                                             <label>
-                                                <input type="number"name="credit_card" value="{{$user->credit_card}}" id="card">
+                                                <input type="number"name="credit_card" value="{{$user->credit_card}}">
                                             </label>
                                         </td>
     
-                                        <td>
-                                            <button type="submit">SEND</button>
+                                        <td class="actions-buttons">
+                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
+                                            <button type="submit" class="submit-btn">
+                                                <span class="material-symbols-outlined">send</span>
+                                            </button>
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <span class="material-symbols-outlined">delete</span>
+                                            </button>
                                         </td>
                                     </form>
 
-
-                                </th>
-
-                                <th>
-                                <form action="/user/{{$user->id}}"method="POST" class="delete">
+                                <form action="/user/{{$user->id}}"method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
                                     <input name="_method" type="hidden" value="DELETE">
-                                    <input type="submit" value="Delete User">
                                 </form>
-                                </th>
                             </tr>
                         @endforeach
                     </tbody>
@@ -267,6 +279,18 @@
         </div>
 
     </main>
+
+    <script>
+
+
+        const deleteFormSubmit = () =>{
+
+            event.preventDefault();
+            document.getElementById('delete_form').submit();
+
+        }
+        
+    </script>
 
     <script src="{{ asset('js/UserForm.js') }}"></script>
     <script src="{{ asset('js/DropdownAnimation.js') }}"></script>

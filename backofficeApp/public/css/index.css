@@ -2,6 +2,7 @@
   --white: #FFFFFF;
   --black: #000000;
   --gray: #EFF1F4;
+  --grayish: #ced0d3;
   --dark-gray: #262D37;
   --light-gray: #4C5766;
   --lightest-gray: #9fa3a8;
@@ -248,7 +249,7 @@ main {
   font-weight: 600;
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label p span {
-  color: red;
+  color: var(--error-border);
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label input {
   width: 15vw;
@@ -307,10 +308,165 @@ main {
   background-color: var(--dark-blue);
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-down-container .error {
-  color: red;
+  color: var(--error-border);
   font-size: 0.8em;
   font-weight: 600;
 }
 .main-page-container .create-user-container .hide {
   display: flex;
+}
+.main-page-container .user-table-container {
+  width: 75vw;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0 0 60px 60px;
+}
+.main-page-container .user-table-container .user-table {
+  width: 75vw;
+  border-collapse: collapse;
+  border-radius: 15px 15px 0 0;
+  overflow: hidden;
+}
+.main-page-container .user-table-container .user-table thead tr {
+  background-color: var(--blue);
+  color: var(--white);
+  text-align: left;
+  font-weight: 600;
+}
+.main-page-container .user-table-container .user-table th {
+  padding: 15px 10px 15px 15px;
+}
+.main-page-container .user-table-container .user-table td {
+  text-align: left;
+  padding: 10px 10px 10px 15px;
+}
+.main-page-container .user-table-container .user-table tbody tr {
+  border-bottom: 1px solid var(--lightest-gray);
+}
+.main-page-container .user-table-container .user-table tbody tr .user-id {
+  font-weight: 700;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-name {
+  padding: 10px 0 10px 15px;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-name input {
+  width: 5vw;
+  border: none;
+  background-color: var(--grayish);
+  font-weight: 500;
+  padding: 5px 2.5px 5px 5px;
+  border-radius: 5px;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-email {
+  padding: 10px 0 10px 15px;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-email input {
+  width: 10vw;
+  border: none;
+  background-color: var(--grayish);
+  font-weight: 500;
+  padding: 5px 2.5px 5px 5px;
+  border-radius: 5px;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-image {
+  padding: 10px 0 10px 15px;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-image input {
+  width: 10vw;
+  border: none;
+  background-color: var(--grayish);
+  font-weight: 500;
+  padding: 5px 2.5px 5px 5px;
+  border-radius: 5px;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-type {
+  padding: 10px 0 10px 15px;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-type select {
+  width: 5vw;
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  background-color: var(--grayish);
+  padding: 5px;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-points, .main-page-container .user-table-container .user-table tbody tr .user-total-points {
+  padding: 10px 0 10px 15px;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-points input, .main-page-container .user-table-container .user-table tbody tr .user-total-points input {
+  width: 5vw;
+  border: none;
+  background-color: var(--grayish);
+  font-weight: 500;
+  padding: 5px 2.5px 5px 5px;
+  border-radius: 5px;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-card {
+  padding: 10px 0 10px 15px;
+  margin: 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .user-card input {
+  width: 10vw;
+  border: none;
+  background-color: var(--grayish);
+  font-weight: 500;
+  padding: 5px 2.5px 5px 5px;
+  border-radius: 5px;
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons {
+  display: flex;
+  height: 5vh;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 10px 0 10px 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons button {
+  margin: 0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons button .material-symbols-outlined {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .submit-btn {
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  transition: 0.2s;
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .submit-btn:hover {
+  background-color: var(--blue);
+  color: var(--white);
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .submit-btn:focus, .main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn:focus {
+  background-color: var(--light-gray);
+  color: var(--white);
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn {
+  border: 2px solid var(--error-border);
+  color: var(--error-border);
+  transition: 0.2s;
+}
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn:hover {
+  background-color: var(--error-border);
+  color: var(--white);
 }/*# sourceMappingURL=index.css.map */

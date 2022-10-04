@@ -121,7 +121,7 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 
         if (! $user) 
-            return "error User" . $email . "already exists";
+            return "error User" . $email . "does not exist";
             
         return $user;
 
