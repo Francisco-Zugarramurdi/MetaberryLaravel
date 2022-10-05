@@ -31,5 +31,7 @@ Route::put("/ads/{id}",[AdController::class,'update']);
 Route::delete("/ads/{id}",[AdController::class,'destroy']);
 
 Route::get("/player",[PlayerController::class,'index']);
+Route::post("/player/create",[PlayerController::class,'create']);
+Route::delete("/player/{id}",[PlayerController::class,'destroy']);
 
 Route::get("/sport",[SportController::class, 'index']);
