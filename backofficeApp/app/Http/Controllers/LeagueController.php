@@ -46,9 +46,6 @@ class LeagueController extends Controller
         if($validation->fails())
             return $validation->errors()->toJson();
 
-        if(!Country::where('name',$request->countryName)->exists())
-            return $request->countryName;
-
         return 'ok';
     }
 
@@ -78,10 +75,73 @@ class LeagueController extends Controller
 
     public function index(Request $request){
     
-        $league = League::join('leagues_countries', 'leagues_countries.id_leagues', 'leagues.id');
+        $league = League::join('leagues_countries', 'leagues_countries.id_leagues', 'leagues.id')
+        ->join('countries','countries.id','leagues_countries.id_countries')
+        ->select('leagues.id as id','leagues.name as name','leagues.details as details','leagues.photo as photo','countries.name as countryName')
+        ->get();
+
         $country = Country::all();
 
         return view('league')->with('leagues', $league)->with('countries', $country);
+    }
+
+    public function update(Request $request){
+
+        $validation = $this->validateRegexUpdate($request);
+
+        if($validation !== "ok")
+            return $validation;
+        
+        try{
+                
+            $this->updateLeagueData($request, $id);
+            $this->updateLeagueCountryData($request, $id);
+
+            return redirect('/league');
+            
+        }
+        catch (QueryException $e){
+
+            return [
+                "error" => 'Cannot update league',
+                "trace" => $e -> getMessage()
+            ];
+            
+        }
+
+    }
+
+    private function validateRegexUpdate(Request $request){
+
+        $validation = Validator::make($request->all(),[
+            'photo'=> [
+                'required',
+                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+            ]
+        ]);
+
+        if($validation->fails())
+            return $validation->errors()->toJson();
+
+        return 'ok';
+
+    }
+
+    private function updateLeagueData(Request $request, $id){
+
+        $league= League::findOrFail($id);
+        $league -> name = $request -> name;
+        $league -> details = $request-> details;
+        $league -> photo = $request -> photo;
+        $league-> save();
+
+    }
+
+    private function updateLeagueCountryData(Request $request, $id){
+
+        $country = LeagueCountry::findOrFail($id);
+        $country = LeagueCountry;
+        $country-> save();
 
     }
 }

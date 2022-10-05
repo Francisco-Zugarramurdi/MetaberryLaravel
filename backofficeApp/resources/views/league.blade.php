@@ -115,6 +115,8 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Image</th>
+                            <th>Details</th>
+                            <th>Country</th>
                             <th>Actions</th>
 
                         </tr>
@@ -140,12 +142,29 @@
                                                 <input name="name" type="text" value="{{$league->name}}">
                                             </label>
                                         </td>
+
+                                        <td class="user-image">
+                                            <label>
+                                                <input name="details" type="text" value="{{$league->photo}}">
+                                            </label>
+                                        </td>
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$league->photo}}">
+                                                <input name="photo" type="text" value="{{$league->details}}">
                                             </label>
                                         </td>
+
+                                        <td class="user-type">
+                                            <label>
+                                                <select name="countryName" id="countryName">
+                                                @foreach ($countries as $country)
+                                                <option value="{{$country->id}}" name="{{$country->name}}" @if($country->name == $league->countryName) selected @endif >{{$country->name}}</option>
+                                                @endforeach
+                                        </select>
+                                            </label>
+                                        </td>
+                                        
     
                                         <td class="actions-buttons">
                                             <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
