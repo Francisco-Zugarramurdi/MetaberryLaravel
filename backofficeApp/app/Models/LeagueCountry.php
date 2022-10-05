@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class League extends Model
+class LeagueCountry extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = "leagues";
-    protected $fillable = [ 'name','photo','details'];
+    protected $table = "leagues_countries";
+    protected $fillable = [
+        'id_countries',
+        'id_leagues'
+    ];
+
 }
