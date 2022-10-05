@@ -13,7 +13,6 @@ class PlayerController extends Controller
 {
     public function create(Request $request){
         $validation = $this->validateCreationRequest($request);
-        
         if($validation !== "ok")
             return $validation;
         try{
@@ -36,27 +35,47 @@ class PlayerController extends Controller
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
+        if(!Team::where('name','=',$request->teamName)->exists())
+            return "Error, team does not exist";
         return 'ok';
-        
+
     }
     private function createPlayer(Request $request){
-        Player::create([
+        $player = Player::create([
             'name'=> $request->name,
             'surname'=> $request->surname,
-            'photo'=> $request->name
+            'photo'=> $request->photo
         ]);
         if($request->teamName != null)
-            $this->joinTeam($request->teamName,$request->StartDate);
+            $this->joinTeam($request,$player->id);
 
         return redirect('/player');
 
     }
-    private function joinTeam($name, $date){
-        $team = Team::where('name','=',$name);
-        TeamPlayer::create();
+    private function joinTeam(Request $request,$id){
+        $team = Team::where('name',$request->teamName)->first();
+        PlayerTeam::create([
+            'id_teams' => $team->id,
+            'id_players' => $id,
+            'contract_start' => $request->contractStart
+        ]);
     }
     public function index(){
+        $players = Player::rightJoin('players_teams','players_teams.id_players','players.id');
         return view('players')->with('players',Player::all());
+        
+    }
+    public function destroy($id){
+        try{
+            Player::findOrFail($id)->delete();
+            return redirect('/player');
+        }
+        catch(QueryException $e){
+            return [
+                "error" => 'Cannot delete player',
+                "trace" => $e -> getMessage()
+            ];
+        }
         
     }
 }
