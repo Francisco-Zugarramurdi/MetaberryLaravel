@@ -132,86 +132,11 @@
 
             </div>
 
-            <div class="user-table-container">
-
-                <table class="user-table">
-
-                    <thead>
-                        <tr>
-
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Photo</th>
-                            <th>Actions</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($players as $player)
-                            <tr>
-                                    <form class="entry" method="POST" action="/player/{{$player->id}}">
-                                        @method('PUT')
-                                        @csrf
-                                        {{method_field('PUT')}}
-                                        <input name="_method" type="hidden" value="PUT">
-
-                                        <td class="user-id">
-
-                                            <p>{{$player->id}}</p>
-
-                                        </td>
-
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="name" type="text" value="{{$player->name}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="surname" type="text" value="{{$player->surname}}">
-                                            </label>
-                                        </td>
-                                        
-                                        <td class="user-image">
-                                            <label>
-                                                <input name="photo" type="text" value="{{$player->photo}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="actions-buttons">
-                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
-                                            <button type="submit" class="submit-btn">
-                                                <span class="material-symbols-outlined">send</span>
-                                            </button>
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
-                                            <span class="material-symbols-outlined">delete</span>
-                                            </button>
-                                        </td>
-                                    </form>
-
-                                <form action="/player/{{$player->id}}"method="POST" class="delete" id="delete_form">
-                                    @method('DELETE')
-                                    @csrf
-                                    {{method_field('DELETE')}}
-                                    <input name="_method" type="hidden" value="DELETE">
-                                </form>
-                            </tr>
-                        @endforeach
-                    </tbody>
-
-                </table>
-
-            </div>
-
         </div>
 
     </main>
 
     <script>
-
 
         const deleteFormSubmit = () =>{
 

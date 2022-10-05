@@ -30,7 +30,7 @@
                 <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
                 <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
-                <a href="/sports/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Sports</a>
+                <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
 
             </div>
 
@@ -57,6 +57,13 @@
 
                     <h2>Ad Management</h2>
                     <a href="/ads/">Go to Manage Ads</a>
+
+                </div>
+
+                <div class="option-card-container">
+
+                    <h2>Sport Management</h2>
+                    <a href="/sport/">Go to Manage Sports</a>
 
                 </div>
 

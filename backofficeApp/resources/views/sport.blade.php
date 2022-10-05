@@ -25,10 +25,10 @@
             <div class="routes-container">
 
                 <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
-                <a href="/user/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Users</a>
+                <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/players/" class="routes-list-element"><span class="material-symbols-outlined">direction_run</span> Players</a>
-                <a href="/sports/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Sports</a>
+                <a href="/players/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
+                <a href="/sports/" class="routes-list-element focus"><span class="material-symbols-outlined">sports</span> Sports</a>
 
             </div>
 
@@ -38,22 +38,22 @@
 
             <div class="nav-bar-container">
 
-                <h1>User Management</h1>
+                <h1>Sport Management</h1>
 
             </div>
 
             <div class="create-user-container">
 
-                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create user 
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create sport 
                     <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                     <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                 </button>
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create user</h2>
+                        <h2>Create sport</h2>
     
-                        <form action="/user/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/sport/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
                             @csrf
                             
@@ -67,44 +67,8 @@
                                     </label>
     
                                     <label>
-                                        <p><span>* </span>Email</p>
-                                        <input type="text" name="email" placeholder="jonhdoe@gmail.com" id="email">
-                                    </label>
-    
-                                    <label>
-                                        <p><span>* </span>Password</p>
-                                        <input type="password" name="password"id="password">
-                                    </label>
-    
-                                    <label>
                                         <p><span>* </span>Profile image</p>
                                         <input type="text" name="photo" placeholder="somelink.com"id="photo">
-                                    </label>
-    
-                                </div>
-                                <div class="form-inner-container">
-    
-                                    <label>
-                                        <p><span>* </span>Type of user</p>
-                                        <select name="type_of_user" id="type_of_user">
-                                            <option value="free">Free</option>
-                                            <option value="paid">Paid</option>
-                                        </select>
-                                    </label>
-    
-                                    <label>
-                                        <p><span>* </span>Points</p>
-                                        <input type="number" name="points" value="" placeholder="300" id="points">
-                                    </label>
-    
-                                    <label>
-                                        <p><span>* </span>Total points</p>
-                                        <input type="number" name="total_points" value="" placeholder="300" id="totalPoints">
-                                    </label>
-    
-                                    <label>
-                                        <p>Credit card</p>
-                                        <input type="number" name="credit_card" value="" placeholder="4123412341234123" id="card">
                                     </label>
     
                                 </div>
@@ -134,21 +98,16 @@
 
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Email</th>
                             <th>Image</th>
-                            <th>Type User</th>
-                            <th>Points</th>
-                            <th>Total Points</th>
-                            <th>Credit Card</th>
                             <th>Actions</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach($sports as $sport)
                             <tr>
-                                    <form class="entry" method="POST" action="/user/{{$user->id}}">
+                                    <form class="entry" method="POST" action="/sport/{{$sport->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -156,59 +115,19 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$user->id}}</p>
+                                            <p>{{$sport->id}}</p>
 
                                         </td>
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$user->name}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-email">
-                                            <label>
-                                                <input name="email" type="text" value="{{$user->email}}">
+                                                <input name="name" type="text" value="{{$sport->name}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$user->photo}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-type">
-                                            <label>
-                                                @if($user->type_of_user == 'paid')
-                                                <select name="type_of_user">
-                                                    <option value="free">Free</option>
-                                                    <option value="paid" selected>Paid</option>
-                                                </select>
-                                                @else
-                                                <select name="type_of_user">
-                                                    <option value="free" selected>Free</option>
-                                                    <option value="paid">Paid</option>
-                                                </select>
-                                                @endif
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-points">
-                                            <label>
-                                                <input type="number"name="points" value="{{$user->points}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-total-points">
-                                            <label>
-                                                <input type="number" name="total_points" value="{{$user->total_points}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-card">
-                                            <label>
-                                                <input type="number"name="credit_card" value="{{$user->credit_card}}">
+                                                <input name="photo" type="text" value="{{$sport->photo}}">
                                             </label>
                                         </td>
     
@@ -223,7 +142,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/user/{{$user->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/sport/{{$sport->id}}"method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
