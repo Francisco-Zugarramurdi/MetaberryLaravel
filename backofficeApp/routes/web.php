@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SportController;
+use App\Http\Controllers\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,7 @@ Route::post("/sport/create",[SportController::class, 'create']);
 Route::put("/sport/{id}",[SportController::class, 'update']);
 Route::delete("/sport/{id}",[SportController::class,'destroy']);
 
+Route::get("/country",[CountryController::class, 'index']);
+Route::post("/country/create",[CountryController::class, 'create']);
+Route::put("/country/{id}",[CountryController::class, 'update']);
+Route::delete("/country/{id}",[CountryController::class,'destroy']);

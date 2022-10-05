@@ -69,7 +69,9 @@
                 <a href="/user/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
                 <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
-
+                <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
+                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
+            
             </div>
 
         </div>

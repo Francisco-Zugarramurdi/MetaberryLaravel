@@ -31,6 +31,7 @@
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
                 <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
                 <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
+                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
 
             </div>
 
@@ -64,6 +65,13 @@
 
                     <h2>Sport Management</h2>
                     <a href="/sport/">Go to Manage Sports</a>
+
+                </div>
+
+                <div class="option-card-container">
+
+                    <h2>Country Management</h2>
+                    <a href="/country/">Go to Manage Country</a>
 
                 </div>
 

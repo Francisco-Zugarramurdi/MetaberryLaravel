@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <title>Sport</title>
+    <title>Country</title>
 </head>
 <body>
     <main>
@@ -28,8 +28,8 @@
                 <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
                 <a href="/players/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
-                <a href="/sport/" class="routes-list-element focus"><span class="material-symbols-outlined">sports</span> Sports</a>
-                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
+                <a href="/sports/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
+                <a href="/country/" class="routes-list-element focus"><span class="material-symbols-outlined">public</span> Country</a>
 
             </div>
 
@@ -39,22 +39,22 @@
 
             <div class="nav-bar-container">
 
-                <h1>Sport Management</h1>
+                <h1>Country Management</h1>
 
             </div>
 
             <div class="create-user-container">
 
-                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create sport 
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create country 
                     <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                     <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                 </button>
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create sport</h2>
+                        <h2>Create country</h2>
     
-                        <form action="/sport/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/country/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
                             @csrf
                             
@@ -106,9 +106,9 @@
                     </thead>
 
                     <tbody>
-                        @foreach($sports as $sport)
+                        @foreach($countries as $country)
                             <tr>
-                                    <form class="entry" method="POST" action="/sport/{{$sport->id}}">
+                                    <form class="entry" method="POST" action="/country/{{$country->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -116,19 +116,19 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$sport->id}}</p>
+                                            <p>{{$country->id}}</p>
 
                                         </td>
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$sport->name}}">
+                                                <input name="name" type="text" value="{{$country->name}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$sport->photo}}">
+                                                <input name="photo" type="text" value="{{$country->photo}}">
                                             </label>
                                         </td>
     
@@ -143,7 +143,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/sport/{{$sport->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/country/{{$country->id}}" method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
