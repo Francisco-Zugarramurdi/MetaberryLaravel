@@ -46,3 +46,8 @@ Route::get("/country",[CountryController::class, 'index']);
 Route::post("/country/create",[CountryController::class, 'create']);
 Route::put("/country/{id}",[CountryController::class, 'update']);
 Route::delete("/country/{id}",[CountryController::class,'destroy']);
+
+Route::get("/extra",[ExtraController::class, 'index']);
+Route::post("/extra/create",[ExtraController::class, 'create']);
+Route::put("/extra/{id}",[ExtraController::class, 'update']);
+Route::delete("/extra/{id}",[ExtraController::class,'destroy']);
