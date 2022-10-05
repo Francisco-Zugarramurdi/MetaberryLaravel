@@ -35,7 +35,7 @@ class PlayerController extends Controller
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
-        if(!Team::where('name','=',$request->teamName)->exists())
+        if(!Team::where('name','=',$request->teamName)->exists() && $request->teamName != null)
             return "Error, team does not exist";
         return 'ok';
 
@@ -61,8 +61,11 @@ class PlayerController extends Controller
         ]);
     }
     public function index(){
-        $players = Player::rightJoin('players_teams','players_teams.id_players','players.id');
-        return view('players')->with('players',Player::all());
+        $players = Player::leftJoin('players_teams','players_teams.id_players','players.id')
+        ->leftJoin('teams','players_teams.id_teams','teams.id')
+        ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart')
+        ->get();
+        return view('players')->with('players',$players);
         
     }
     public function destroy($id){
@@ -77,5 +80,43 @@ class PlayerController extends Controller
             ];
         }
         
+    }
+    public function update(Request $request, $id){
+
+        $validation = $this->validateCreationRequest($request);
+        if($validation !== "ok")
+            return $validation;
+        try{
+            $this->updatePlayer($request,$id);    
+            $this->updateTeam($request,$id);
+           
+            return redirect('/player');
+            
+        }
+        catch (QueryException $e){
+
+            return [
+                "error" => 'Cannot update player',
+                "trace" => $e -> getMessage()
+            ];
+            
+        }
+
+    }
+    private function updatePlayer($request,$id){
+        $player = Player::findOrFail($id);
+        $player->name = $request->name;
+        $player->surname = $request->surname;
+        $player->photo = $request->photo;
+        $player->save();
+    }
+    private function updateTeam($request,$id){
+        $team = Team::where('name',$request->teamName)->first();
+        $playerTeam = PlayerTeam::select('*')
+        ->where('id_teams',$team->id)
+        ->where('id_players',$id)
+        ->first();
+        $playerTeam->contract_start = $request->contractStart;
+        $playerTeam->save();
     }
 }

@@ -11,9 +11,11 @@ class PlayerTeam extends Model
     use HasFactory,SoftDeletes;
     protected $table = "players_teams";
     protected $fillable = [
+        'id',
         'id_players',
         'id_teams',
         'contract_start'
     ];
+    protected $dates = ['contract_start'];
 }
 

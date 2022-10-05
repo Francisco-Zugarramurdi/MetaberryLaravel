@@ -8,47 +8,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <title>Players</title>
-    <!-- <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-        h1{
-            color: red;
-        }
-        body{
-            display: flex;
-            flex-direction: column;
-            font-family: 'Roboto';
-            color: white;
-            background-color: lightgray;
-        }
-        form{
-            padding: 2%;
-            margin: 1%;
-            margin-bottom:0;
-            display: flex;
-            flex-direction: row;
-            width: 70%;
-            align-items:center;
-            justify-content: space-between;
-            background-color: darkgray;
-            border-radius: 0 20px 20px 0; 
-        }
-        form.creation{
-            width:40%;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 1%;
-        }
-        .column{
-            display: flex;
-            flex-direction: column;
-        }
-        .delete{
-            width:10%;
-            margin-top: 0%;
-            margin-bottom: 1%;
-            border-top-right-radius: 0;
-        }
-    </style> -->
 </head>
 <body>
     <main>
@@ -114,6 +73,14 @@
                                         <p><span>* </span>Photo</p>
                                         <input type="text" name="photo" placeholder="somelink.com"id="photo">
                                     </label>
+                                    <label>
+                                        <p>Team name</p>
+                                        <input type="text" name="teamName"id="teamName">
+                                    </label>
+                                    <label>
+                                        <p>Contract start date</p>
+                                        <input type="date" name="contractStart"id="contractStart">
+                                    </label>
     
                                 </div>
                             </div>
@@ -132,11 +99,97 @@
 
             </div>
 
+            <div class="user-table-container">
+
+                <table class="user-table">
+
+                    <thead>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Photo</th>
+                            <th>Team</th>
+                            <th>Contract Start</th>
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach($players as $player)
+                            <tr>
+                                    <form class="entry" method="POST" action="/player/{{$player->id}}">
+                                        @method('PUT')
+                                        @csrf
+                                        {{method_field('PUT')}}
+                                        <input name="_method" type="hidden" value="PUT">
+
+                                        <td class="user-id">
+
+                                            <p>{{$player->id}}</p>
+
+                                        </td>
+
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="name" type="text" value="{{$player->name}}">
+                                            </label>
+                                        </td>
+    
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="surname" type="text" value="{{$player->surname}}">
+                                            </label>
+                                        </td>
+                                        
+                                        <td class="user-image">
+                                            <label>
+                                                <input name="photo" type="text" value="{{$player->photo}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-image">
+                                            <label>
+                                                <input name="teamName" type="text" value="{{$player->teamName}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-image">
+                                            <label>
+                                                <input type="date" name="contractStart"id="contractStart" value="{{$player->contractStart}}">
+                                            </label>
+                                        </td>
+                                        <td class="actions-buttons">
+                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
+                                            <button type="submit" class="submit-btn">
+                                                <span class="material-symbols-outlined">send</span>
+                                            </button>
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </td>
+                                    </form>
+
+                                <form action="/player/{{$player->id}}"method="POST" class="delete" id="delete_form">
+                                    @method('DELETE')
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <input name="_method" type="hidden" value="DELETE">
+                                </form>
+                            </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
 
     </main>
 
     <script>
+
 
         const deleteFormSubmit = () =>{
 
