@@ -7,6 +7,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,7 @@ Route::get("/league",[LeagueController::class, 'index']);
 Route::post("/league/create",[LeagueController::class, 'create']);
 Route::put("/league/{id}",[LeagueController::class, 'update']);
 Route::delete("/league/{id}",[LeagueController::class,'destroy']);
+
+Route::get("/team",[TeamController::class,'index']);
+Route::post("/team/create",[TeamController::class,'create']);
+Route::delete("/team/{id}",[TeamController::class,'destroy']);
