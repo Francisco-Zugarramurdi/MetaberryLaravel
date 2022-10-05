@@ -7,6 +7,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::delete("/ads/{id}",[AdController::class,'destroy']);
 
 Route::get("/player",[PlayerController::class,'index']);
 Route::post("/player/create",[PlayerController::class,'create']);
+Route::put("/player/{id}",[PlayerController::class,'update']);
 Route::delete("/player/{id}",[PlayerController::class,'destroy']);
 
 Route::get("/sport",[SportController::class, 'index']);
@@ -57,3 +59,8 @@ Route::get("/league",[LeagueController::class, 'index']);
 Route::post("/league/create",[LeagueController::class, 'create']);
 Route::put("/league/{id}",[LeagueController::class, 'update']);
 Route::delete("/league/{id}",[LeagueController::class,'destroy']);
+
+Route::get("/team",[TeamController::class,'index']);
+Route::post("/team/create",[TeamController::class,'create']);
+Route::delete("/team/{id}",[TeamController::class,'destroy']);
+Route::put("/team/{id}",[TeamController::class,'update']);

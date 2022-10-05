@@ -7,7 +7,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <title>Players</title>
+    <title>Teams</title>
+    <!-- <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        h1{
+            color: red;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto';
+            color: white;
+            background-color: lightgray;
+        }
+        form{
+            padding: 2%;
+            margin: 1%;
+            margin-bottom:0;
+            display: flex;
+            flex-direction: row;
+            width: 70%;
+            align-items:center;
+            justify-content: space-between;
+            background-color: darkgray;
+            border-radius: 0 20px 20px 0; 
+        }
+        form.creation{
+            width:40%;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 1%;
+        }
+        .column{
+            display: flex;
+            flex-direction: column;
+        }
+        .delete{
+            width:10%;
+            margin-top: 0%;
+            margin-bottom: 1%;
+            border-top-right-radius: 0;
+        }
+    </style> -->
 </head>
 <body>
     <main>
@@ -25,10 +66,14 @@
             <div class="routes-container">
 
                 <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
-                <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
+                <a href="/user/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/player/" class="routes-list-element focus"><span class="material-symbols-outlined">directions_run</span>Players</a>
-
+                <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
+                <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
+                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
+                <a href="/team/" class="routes-list-element"><span class="material-symbols-outlined">shield</span></span>Teams</a>
+                
+</span>
             </div>
 
         </div>
@@ -37,22 +82,22 @@
 
             <div class="nav-bar-container">
 
-                <h1>Player Management</h1>
+                <h1>User Management</h1>
 
             </div>
 
             <div class="create-user-container">
 
-                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create player 
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create user 
                     <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                     <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                 </button>
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create Player</h2>
+                        <h2>Create user</h2>
     
-                        <form action="/player/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/team/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
                             @csrf
                             
@@ -62,27 +107,31 @@
     
                                     <label>
                                         <p><span>* </span>Name</p>
-                                        <input type="text" name="name" placeholder="John" id="name">
+                                        <input type="text" name="name" placeholder="Nacional" id="name">
                                     </label>
-                                    <label>
-                                        <p><span>* </span>Surnmae</p>
-                                        <input type="text" name="surname" placeholder="Doe" id="surname">
-                                    </label>
-                                   
+    
                                     <label>
                                         <p><span>* </span>Photo</p>
-                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
+                                        <input type="text" name="photo" placeholder="Nacional.jpg" id="photo">
                                     </label>
+    
                                     <label>
-                                        <p>Team name</p>
-                                        <input type="text" name="teamName"id="teamName">
+                                        <p><span>* </span>Type of Team</p>
+                                        <input type="text" name="typeTeam" placeholder="Group" id="typeTeam">
                                     </label>
+    
                                     <label>
-                                        <p>Contract start date</p>
-                                        <input type="date" name="contractStart"id="contractStart">
+                                        <p><span>* </span>Sport</p>
+                                        <input type="text" name="sport" placeholder="Futbol"id="sport">
+                                    </label>
+
+                                    <label>
+                                        <p><span>* </span>Country</p>
+                                        <input type="text" name="country" placeholder="Uruguay"id="country">
                                     </label>
     
                                 </div>
+    
                             </div>
     
                             <div class="form-down-container">
@@ -108,19 +157,18 @@
 
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Surname</th>
                             <th>Photo</th>
-                            <th>Team</th>
-                            <th>Contract Start</th>
-                            <th>Actions</th>
+                            <th>Type of Team</th>
+                            <th>Sport</th>
+                            <th>Country</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($players as $player)
+                        @foreach($teams as $team)
                             <tr>
-                                    <form class="entry" method="POST" action="/player/{{$player->id}}">
+                                    <form class="entry" method="POST" action="/team/{{$team->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -128,37 +176,40 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$player->id}}</p>
+                                            <p>{{$team->id}}</p>
 
                                         </td>
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$player->name}}">
+                                                <input name="name" type="text" value="{{$team->name}}">
                                             </label>
                                         </td>
     
-                                        <td class="user-name">
+                                        <td class="user-email">
                                             <label>
-                                                <input name="surname" type="text" value="{{$player->surname}}">
+                                                <input name="photo" type="text" value="{{$team->photo}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$player->photo}}">
+                                                <input name="typeTeam" type="text" value="{{$team->typeTeam}}">
                                             </label>
                                         </td>
-                                        <td class="user-image">
+    
+                                        <td class="user-points">
                                             <label>
-                                                <input name="teamName" type="text" value="{{$player->teamName}}">
+                                                <input type="text"name="sportName" value="{{$team->sportName}}">
                                             </label>
                                         </td>
-                                        <td class="user-image">
+    
+                                        <td class="user-total-points">
                                             <label>
-                                                <input type="date" name="contractStart"id="contractStart" value="{{$player->contractStart}}">
+                                                <input type="text" name="countryName" value="{{$team->countryName}}">
                                             </label>
                                         </td>
+
                                         <td class="actions-buttons">
                                             <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
                                             <button type="submit" class="submit-btn">
@@ -170,7 +221,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/player/{{$player->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/team/{{$team->id}}"method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
@@ -200,7 +251,6 @@
         
     </script>
 
-    <script src="{{ asset('js/UserForm.js') }}"></script>
     <script src="{{ asset('js/DropdownAnimation.js') }}"></script>
 </body>
 </html>

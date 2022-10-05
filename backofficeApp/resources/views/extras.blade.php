@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <title>Players</title>
+    <title>Extras</title>
 </head>
 <body>
     <main>
@@ -24,11 +24,13 @@
 
             <div class="routes-container">
 
-                <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
+            <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
                 <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/player/" class="routes-list-element focus"><span class="material-symbols-outlined">directions_run</span>Players</a>
-
+                <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
+                <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
+                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
+                <a href="/extra/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Extras</a>
             </div>
 
         </div>
@@ -37,22 +39,22 @@
 
             <div class="nav-bar-container">
 
-                <h1>Player Management</h1>
+                <h1>Extras Management</h1>
 
             </div>
 
             <div class="create-user-container">
 
-                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create player 
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create extra 
                     <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                     <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                 </button>
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create Player</h2>
+                        <h2>Create Extra</h2>
     
-                        <form action="/player/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/extra/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
                             @csrf
                             
@@ -68,18 +70,13 @@
                                         <p><span>* </span>Surnmae</p>
                                         <input type="text" name="surname" placeholder="Doe" id="surname">
                                     </label>
-                                   
                                     <label>
+                                        <p><span>* </span>Rol</p>
+                                        <input type="text" name="rol" placeholder="Dt" id="rol">
+                                    </label>
+                                   <label>
                                         <p><span>* </span>Photo</p>
                                         <input type="text" name="photo" placeholder="somelink.com"id="photo">
-                                    </label>
-                                    <label>
-                                        <p>Team name</p>
-                                        <input type="text" name="teamName"id="teamName">
-                                    </label>
-                                    <label>
-                                        <p>Contract start date</p>
-                                        <input type="date" name="contractStart"id="contractStart">
                                     </label>
     
                                 </div>
@@ -96,10 +93,7 @@
                         </form>
                     
                 </div>
-
-            </div>
-
-            <div class="user-table-container">
+                <div class="user-table-container">
 
                 <table class="user-table">
 
@@ -109,18 +103,17 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Surname</th>
+                            <th>Rol</th>
                             <th>Photo</th>
-                            <th>Team</th>
-                            <th>Contract Start</th>
                             <th>Actions</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($players as $player)
+                        @foreach($extras as $extra)
                             <tr>
-                                    <form class="entry" method="POST" action="/player/{{$player->id}}">
+                                    <form class="entry" method="POST" action="/extra/{{$extra->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -128,37 +121,32 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$player->id}}</p>
+                                            <p>{{$extra->id}}</p>
 
                                         </td>
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$player->name}}">
-                                            </label>
-                                        </td>
-    
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="surname" type="text" value="{{$player->surname}}">
+                                                <input name="name" type="text" value="{{$extra->name}}">
                                             </label>
                                         </td>
                                         
-                                        <td class="user-image">
+                                        <td class="user-name">
                                             <label>
-                                                <input name="photo" type="text" value="{{$player->photo}}">
+                                                <input name="name" type="text" value="{{$extra->surname}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="name" type="text" value="{{$extra->rol}}">
                                             </label>
                                         </td>
                                         <td class="user-image">
                                             <label>
-                                                <input name="teamName" type="text" value="{{$player->teamName}}">
+                                                <input name="photo" type="text" value="{{$extra->photo}}">
                                             </label>
                                         </td>
-                                        <td class="user-image">
-                                            <label>
-                                                <input type="date" name="contractStart"id="contractStart" value="{{$player->contractStart}}">
-                                            </label>
-                                        </td>
+    
                                         <td class="actions-buttons">
                                             <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
                                             <button type="submit" class="submit-btn">
@@ -170,7 +158,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/player/{{$player->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/extra/{{$extra->id}}"method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
@@ -184,12 +172,13 @@
 
             </div>
 
+            </div>
+
         </div>
 
     </main>
 
     <script>
-
 
         const deleteFormSubmit = () =>{
 
