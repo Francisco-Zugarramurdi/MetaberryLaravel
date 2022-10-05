@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SportController;
+use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\CountryController;
 
 /*

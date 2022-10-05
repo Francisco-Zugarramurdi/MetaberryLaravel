@@ -46,8 +46,8 @@ class LeagueController extends Controller
         if($validation->fails())
             return $validation->errors()->toJson();
 
-        if(!Country::where('name','=',$request->countryName)->exists())
-            return "Error, that country does not exist";
+        if(!Country::where('name',$request->countryName)->exists())
+            return $request->countryName;
 
         return 'ok';
     }
@@ -81,7 +81,7 @@ class LeagueController extends Controller
         $league = League::join('leagues_countries', 'leagues_countries.id_leagues', 'leagues.id');
         $country = Country::all();
 
-        return view('users')->with('leagues', $league)->with('countries', $country);
+        return view('league')->with('leagues', $league)->with('countries', $country);
 
     }
 }
