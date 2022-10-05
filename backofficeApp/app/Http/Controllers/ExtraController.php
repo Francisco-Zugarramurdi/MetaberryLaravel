@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Extras;
+use App\Models\Extra;
 use App\Models\ExtraCompose;
 use App\Models\Team;
 use \Illuminate\Database\QueryException;
@@ -56,8 +56,7 @@ class ExtraController extends Controller
         return redirect('/extra');
 
     }
-    
-    private function joinTeam(Request $request,$id){
+        private function joinTeam(Request $request,$id){
         $team = Team::where('name',$request->teamName)->first();
         ExtraCompose::create([
             'id_teams' => $team->id,
@@ -67,7 +66,7 @@ class ExtraController extends Controller
         ]);
     }
     public function index(){
-        $players = Extra::rightJoin('extra_compose','extra_compose.id_extra','extras.id');
+        $extras = Extra::rightJoin('extra_compose','extra_compose.id_extra','extras.id');
         return view('extras')->with('extras',Extra::all());
         
     }

@@ -14,7 +14,8 @@ class CreateExtraComposeTable extends Migration
     public function up()
     {
         Schema::create('extra_compose', function (Blueprint $table) {
-            $table->id();
+            $table->id_extra();
+            $table->id_teams();
             $table->timestamps();
         });
     }

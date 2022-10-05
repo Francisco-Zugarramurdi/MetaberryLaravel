@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ExtraCompose extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table = "players_teams";
+    protected $table = "extra_compose";
     protected $fillable = [
         'id_extra',
         'id_teams',

@@ -8,6 +8,7 @@ use App\Http\Controllers\SportController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\ExtraController;
 
 /*
 |--------------------------------------------------------------------------

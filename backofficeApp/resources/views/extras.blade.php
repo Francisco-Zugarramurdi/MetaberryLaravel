@@ -67,7 +67,7 @@
                                         <input type="text" name="name" placeholder="John" id="name">
                                     </label>
                                     <label>
-                                        <p><span>* </span>Surnmae</p>
+                                        <p><span>* </span>Surname</p>
                                         <input type="text" name="surname" placeholder="Doe" id="surname">
                                     </label>
                                     <label>
@@ -78,6 +78,11 @@
                                         <p><span>* </span>Photo</p>
                                         <input type="text" name="photo" placeholder="somelink.com"id="photo">
                                     </label>
+                                    <label>
+                                        <p><span>* </span>Team</p>
+                                        <input type="text" name="team" placeholder="Team" id="team">
+                                    </label>
+                                    
     
                                 </div>
                             </div>
@@ -105,6 +110,7 @@
                             <th>Surname</th>
                             <th>Rol</th>
                             <th>Photo</th>
+                            <th>Team</th>
                             <th>Actions</th>
 
                         </tr>
@@ -144,6 +150,11 @@
                                         <td class="user-image">
                                             <label>
                                                 <input name="photo" type="text" value="{{$extra->photo}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="name" type="text" value="{{$teams->name}}">
                                             </label>
                                         </td>
     
