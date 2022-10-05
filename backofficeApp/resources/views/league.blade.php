@@ -80,7 +80,7 @@
 
                                     <label>
                                         <p><span>* </span>Country</p>
-                                        <select name="countryName" id="countryName">
+                                        <select>
                                             @foreach ($countries as $country)
                                             <option value="free" name="countryName">Free</option>
                                             @endforeach
