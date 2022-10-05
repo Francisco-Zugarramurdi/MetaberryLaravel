@@ -63,3 +63,4 @@ Route::delete("/league/{id}",[LeagueController::class,'destroy']);
 Route::get("/team",[TeamController::class,'index']);
 Route::post("/team/create",[TeamController::class,'create']);
 Route::delete("/team/{id}",[TeamController::class,'destroy']);
+Route::put("/team/{id}",[TeamController::class,'update']);

@@ -107,7 +107,7 @@
     
                                     <label>
                                         <p><span>* </span>Name</p>
-                                        <input type="text" name="name" placeholder="Nacoinal" id="name">
+                                        <input type="text" name="name" placeholder="Nacional" id="name">
                                     </label>
     
                                     <label>
@@ -194,19 +194,19 @@
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$team->typeTeam}}">
+                                                <input name="typeTeam" type="text" value="{{$team->typeTeam}}">
                                             </label>
                                         </td>
     
                                         <td class="user-points">
                                             <label>
-                                                <input type="text"name="points" value="{{$team->sportName}}">
+                                                <input type="text"name="sportName" value="{{$team->sportName}}">
                                             </label>
                                         </td>
     
                                         <td class="user-total-points">
                                             <label>
-                                                <input type="text" name="total_points" value="{{$team->countryName}}">
+                                                <input type="text" name="countryName" value="{{$team->countryName}}">
                                             </label>
                                         </td>
 

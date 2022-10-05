@@ -43,13 +43,13 @@ class TeamController extends Controller
         if($validator->fails())
             return $validator->errors()->toJson();
         
-        if(Team::withTrashed()->where('name', $request -> post("name")) -> exists())
+        if(Team::where('name', $request -> post("name")) -> exists())
             return 'The team already exist';
         
-        if(!Sport::withTrashed()->where('name', $request -> post("sport")) -> exists())
+        if(!Sport::where('name', $request -> post("sport")) -> exists())
             return 'the sport do not exist';
 
-        if(!Country::withTrashed()->where('name', $request -> post("country")) -> exists())
+        if(!Country::zwhere('name', $request -> post("country")) -> exists())
             return 'the country do not exist';
         
         return 'ok';
@@ -57,13 +57,12 @@ class TeamController extends Controller
 
     private function createTeam(Request $request){
         
-        
         $user = Team::create([
             'name' => $request -> post("name"),
-            'typeTeam' => $request -> post("typeTeam"),
+            'tipo_teams' => $request -> post("typeTeam"),
             'photo' => $request -> post("photo"),
-            'id_sports' => Sport::where('name', $request -> post("sport"))->id,
-            'id_country' => Country::where('name', $request -> post("country"))->id
+            'id_sports' => Sport::where('name', $request -> post("sport"))->first()->id,
+            'id_countries' => Country::where('name', $request -> post("country"))->first()->id
         ]);
         return redirect('/team');
     }
@@ -73,17 +72,17 @@ class TeamController extends Controller
         ->join('countries', 'countries.id', 'teams.id_countries')
         ->select("teams.id as id", "teams.name as name", "teams.photo as photo","teams.tipo_teams as typeTeam", "sports.name as sportName", "countries.name as countryName")
         ->get();
-        return Sport::all();
         return view('teams')->with('teams',$teams);
     }
 
     public function update(Request $request, $id){
         $team = Team::findOrFail($id);
-        $team -> name = $request->namespace;
-        $team -> photo = $request-> credit_card;
-        $team -> typeTeam = $request -> typeTeam;
-        $team -> sport = Sport::where('name', $request -> post("sport"))->id;
-        $team -> country = Country::where('name', $request -> post("country"))->id;
+        $team -> name = $request->name;
+        $team -> photo = $request-> photo;
+        $team -> tipo_teams = $request -> typeTeam;
+        $team -> id_sports = Sport::where('name', $request->sportName)->first()->id;
+        $team -> id_countries = Country::where('name', $request -> countryName)->first()->id;
+        $team -> save();
         return redirect('/team');
     }
 
