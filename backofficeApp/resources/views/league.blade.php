@@ -53,7 +53,7 @@
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create sport</h2>
+                        <h2>Create league</h2>
     
                         <form action="/league/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
@@ -80,9 +80,9 @@
 
                                     <label>
                                         <p><span>* </span>Country</p>
-                                        <select>
+                                        <select name="countryName" id="countryName">
                                             @foreach ($countries as $country)
-                                            <option value="free" name="countryName">Free</option>
+                                            <option value="{{$country->name}}" name="{{$country->name}}">{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </label>
@@ -121,9 +121,9 @@
                     </thead>
 
                     <tbody>
-                        @foreach($sports as $sport)
+                        @foreach($leagues as $league)
                             <tr>
-                                    <form class="entry" method="POST" action="/sport/{{$sport->id}}">
+                                    <form class="entry" method="POST" action="/league/{{$league->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -131,19 +131,19 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$sport->id}}</p>
+                                            <p>{{$league->id}}</p>
 
                                         </td>
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$sport->name}}">
+                                                <input name="name" type="text" value="{{$league->name}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$sport->photo}}">
+                                                <input name="photo" type="text" value="{{$league->photo}}">
                                             </label>
                                         </td>
     
@@ -158,7 +158,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/sport/{{$sport->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/league/{{$league->id}}"method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}

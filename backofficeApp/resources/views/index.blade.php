@@ -32,6 +32,7 @@
                 <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
                 <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
                 <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
+                <a href="/league/" class="routes-list-element focus"><span class="material-symbols-outlined">shield</span> League</a>
 
             </div>
 
