@@ -43,20 +43,20 @@
 
             <div class="nav-bar-container">
 
-                <h1>User Management</h1>
+                <h1>Team Management</h1>
 
             </div>
 
             <div class="create-user-container">
 
-                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create user 
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create team 
                     <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                     <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                 </button>
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create user</h2>
+                        <h2>Create team</h2>
     
                         <form action="/team/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
@@ -83,12 +83,20 @@
     
                                     <label>
                                         <p><span>* </span>Sport</p>
-                                        <input type="text" name="sport" placeholder="Futbol"id="sport">
+                                        <select name="sportName" id="sportName">
+                                            @foreach ($sports as $sport)
+                                            <option value="{{$sport->name}}" name="{{$sport->name}}">{{$sport->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </label>
 
                                     <label>
                                         <p><span>* </span>Country</p>
-                                        <input type="text" name="country" placeholder="Uruguay"id="country">
+                                        <select name="countryName" id="countryName">
+                                            @foreach ($countries as $country)
+                                            <option value="{{$country->name}}" name="{{$country->name}}">{{$country->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </label>
     
                                 </div>
@@ -122,6 +130,7 @@
                             <th>Type of Team</th>
                             <th>Sport</th>
                             <th>Country</th>
+                            <th>Action</th>
 
                         </tr>
                     </thead>
@@ -159,16 +168,28 @@
                                             </label>
                                         </td>
     
-                                        <td class="user-points">
+                                        <td class="user-type">
+
                                             <label>
-                                                <input type="text"name="sportName" value="{{$team->sportName}}">
+                                                <select name="sportName" id="sportName">
+                                                @foreach ($sports as $sport)
+                                                <option value="{{$sport->name}}" name="{{$sport->name}}" @if($sport->name == $team->sportName) selected @endif >{{$sport->name}}</option>
+                                                @endforeach
+                                                </select>
                                             </label>
+
                                         </td>
     
-                                        <td class="user-total-points">
+                                        <td class="user-type">
+
                                             <label>
-                                                <input type="text" name="countryName" value="{{$team->countryName}}">
+                                                <select name="countryName" id="countryName">
+                                                @foreach ($countries as $country)
+                                                <option value="{{$country->name}}" name="{{$country->name}}" @if($country->name == $team->countryName) selected @endif >{{$country->name}}</option>
+                                                @endforeach
+                                                </select>
                                             </label>
+
                                         </td>
 
                                         <td class="actions-buttons">
