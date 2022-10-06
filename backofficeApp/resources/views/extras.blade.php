@@ -27,10 +27,13 @@
             <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
                 <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
                 <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
+                <a href="/team/" class="routes-list-element"><span class="material-symbols-outlined">shield</span>Teams</a>
                 <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
                 <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
                 <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
+                <a href="/league/" class="routes-list-element"><span class="material-symbols-outlined">shield</span> League</a>
                 <a href="/extra/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Extras</a>
+
             </div>
 
         </div>
@@ -80,7 +83,7 @@
                                     </label>
                                     <label>
                                         <p><span>* </span>Team</p>
-                                        <input type="text" name="team" placeholder="Team" id="team">
+                                        <input type="text" name="teamName" placeholder="Team" id="teamName">
                                     </label>
                                     
     
@@ -139,12 +142,12 @@
                                         
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$extra->surname}}">
+                                                <input name="surname" type="text" value="{{$extra->surname}}">
                                             </label>
                                         </td>
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$extra->rol}}">
+                                                <input name="rol" type="text" value="{{$extra->rol}}">
                                             </label>
                                         </td>
                                         <td class="user-image">
@@ -154,12 +157,12 @@
                                         </td>
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$teams->name}}">
+                                                <input name="teamName" type="text" value="{{$extra->teamName}}">
                                             </label>
                                         </td>
     
                                         <td class="actions-buttons">
-                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
+                                             <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> 
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>

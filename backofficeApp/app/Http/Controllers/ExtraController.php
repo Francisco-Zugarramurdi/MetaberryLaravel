@@ -8,6 +8,7 @@ use App\Models\Extra;
 use App\Models\ExtraCompose;
 use App\Models\Team;
 use \Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class ExtraController extends Controller
 {
@@ -56,7 +57,7 @@ class ExtraController extends Controller
         return redirect('/extra');
 
     }
-        private function joinTeam(Request $request,$id){
+    private function joinTeam(Request $request,$id){
         $team = Team::where('name',$request->teamName)->first();
         ExtraCompose::create([
             'id_teams' => $team->id,
@@ -66,8 +67,11 @@ class ExtraController extends Controller
         ]);
     }
     public function index(){
-        $extras = Extra::rightJoin('extra_compose','extra_compose.id_extra','extras.id');
-        return view('extras')->with('extras',Extra::all());
+        $extras = Extra::leftJoin('extra_compose','extra_compose.id_extra','extras.id')
+        ->leftJoin('teams','extra_compose.id_teams','teams.id')
+        ->select('extras.id as id','extras.name as name','extras.surname as surname','extras.photo as photo','extras.rol as rol','teams.name as teamName','extra_compose.contract_start as contractStart','extra_compose.contract_end as contractEnd')
+        ->get();
+        return view('extras')->with('extras',$extras);
         
     }
     public function destroy($id){
@@ -82,5 +86,52 @@ class ExtraController extends Controller
             ];
         }
         
+    }
+    public function update(Request $request, $id){
+        $validation = $this->validateRegexUpdate($request);
+        if($validation !== 'ok')
+        return $validation;
+        try{
+            $this->updateExtra($request,$id);
+            $this->updateTeam($request,$id);
+            return redirect('/extra');
+        }
+        catch (QueryException $e){
+
+            return[
+                "error" => 'Cannot update extra',
+                "trace" => $e -> getMessage()
+            ];
+        }
+    }
+    private function updateExtra($request,$id){
+        $extra = Extra::findOrFail($id);
+        $extra->name = $request->name;
+        $extra->surname = $request->surname;
+        $extra->photo = $request->photo;
+        $extra->rol = $request->rol;
+        $extra->save();
+    }
+    private function updateTeam($request,$id){
+        $team = Team::where('name', $request->teamName)->first()->id;
+        $teamName = DB::table('extra_compose')
+        ->where('id_extra', $id)
+        ->update(['id_teams'=> $team]);
+    }
+
+    private function validateRegexUpdate(Request $request){
+
+        $validation = Validator::make($request->all(),[
+            'photo'=> [
+                'required',
+                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+            ]
+        ]);
+
+        if($validation->fails())
+            return $validation->errors()->toJson();
+
+        return 'ok';
+
     }
 }
