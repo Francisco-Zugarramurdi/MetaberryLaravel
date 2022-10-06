@@ -41,6 +41,9 @@ class CountryController extends Controller
             ]
         ]);
 
+        if(Country::where('name', $request -> name) -> exists())
+            return 'The country already exist';
+
         if($validation->fails())
             return $validation->errors()->toJson();
         return 'ok';
