@@ -70,7 +70,7 @@
 
                                     <label>
                                         <p><span>* </span>Details</p>
-                                        <textarea name="details" id="details" cols="30" rows="10" placeholder="The Manshield Acuatic League, since 1972"></textarea>
+                                        <input name="details" id="details" placeholder="The Manshield Acuatic League, since 1972">
                                     </label>
 
                                     <label>
@@ -82,7 +82,7 @@
                                         <p><span>* </span>Country</p>
                                         <select name="countryName" id="countryName">
                                             @foreach ($countries as $country)
-                                            <option value="{{$country->name}}" name="{{$country->name}}">{{$country->name}}</option>
+                                            <option value="{{$country->id}}" name="{{$country->name}}">{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </label>
@@ -145,13 +145,13 @@
 
                                         <td class="user-image">
                                             <label>
-                                                <input name="details" type="text" value="{{$league->photo}}">
+                                                <input name="photo" type="text" value="{{$league->photo}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$league->details}}">
+                                                <input name="details" type="text" value="{{$league->details}}">
                                             </label>
                                         </td>
 
@@ -161,7 +161,7 @@
                                                 @foreach ($countries as $country)
                                                 <option value="{{$country->id}}" name="{{$country->name}}" @if($country->name == $league->countryName) selected @endif >{{$country->name}}</option>
                                                 @endforeach
-                                        </select>
+                                                </select>
                                             </label>
                                         </td>
                                         

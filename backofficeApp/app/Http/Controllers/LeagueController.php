@@ -8,6 +8,7 @@ use App\Models\League;
 use App\Models\Country;
 use App\Models\LeagueCountry;
 use \Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class LeagueController extends Controller
 {
@@ -65,7 +66,7 @@ class LeagueController extends Controller
 
     private function joinTable(Request $request, $id){
 
-        $country = Country::where('name',$request->countryName)->first();
+        $country = Country::where('id',$request->countryName)->first();
         LeagueCountry::create([
             'id_countries' => $country->id,
             'id_leagues' => $id
@@ -77,7 +78,7 @@ class LeagueController extends Controller
     
         $league = League::join('leagues_countries', 'leagues_countries.id_leagues', 'leagues.id')
         ->join('countries','countries.id','leagues_countries.id_countries')
-        ->select('leagues.id as id','leagues.name as name','leagues.details as details','leagues.photo as photo','countries.name as countryName')
+        ->select('leagues.id as id','leagues.name as name','leagues.details as details','leagues.photo as photo','countries.name as countryName', 'countries.id as countryId')
         ->get();
 
         $country = Country::all();
@@ -85,7 +86,7 @@ class LeagueController extends Controller
         return view('league')->with('leagues', $league)->with('countries', $country);
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $id){
 
         $validation = $this->validateRegexUpdate($request);
 
@@ -139,9 +140,9 @@ class LeagueController extends Controller
 
     private function updateLeagueCountryData(Request $request, $id){
 
-        $country = LeagueCountry::findOrFail($id);
-        $country = LeagueCountry;
-        $country-> save();
+        $country = DB::table('leagues_countries')
+        ->where('id_leagues', $id)
+        ->update(['id_countries' => $request->countryName]);
 
     }
 }
