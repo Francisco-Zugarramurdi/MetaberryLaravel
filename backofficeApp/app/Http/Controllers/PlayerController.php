@@ -31,8 +31,7 @@ class PlayerController extends Controller
             'surname'=> 'required',
             'photo'=> [
                 'required',
-                'regex:/(?i)^(https?://)?([\da-z.-]+).([a-z.]{2,6})([/\w .-])/?$/'
-                
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
         if($validation->fails())
