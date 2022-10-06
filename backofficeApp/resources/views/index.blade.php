@@ -80,7 +80,7 @@
                 <div class="option-card-container">
 
                     <h2>League Management</h2>
-                    <a href="/leagues/">Go to Manage League</a>
+                    <a href="/league/">Go to Manage League</a>
 
                 </div>
 
