@@ -11,7 +11,24 @@
 </head>
 <body>
     <main>
+        <div class="modalContainer" style='display:none' id="modalContainer">
+            <form id="adTeamModal" action="/player/addTeam" method="POST">
+                @csrf
 
+                <div class="xContainer">
+                    <button onClick="manageModal('hide',0)" type="button"><span class="material-symbols-outlined">cancel</span></button>
+                    <h4 id="test">Add team</h4>
+                </div>
+                <label>
+                    Team name:
+                    <input type="text" name="teamName" id="teamName">
+                    <input type="text" name="playerId" id="playerId" class="hidden">
+                    <input type="date" name="contractStart"id="contractStart">
+                </label>
+                <input type="submit" class="submit-btn">
+            </form>
+        </div>
+        
         <div class="empty"></div>
 
         <div class="side-container">
@@ -75,7 +92,7 @@
                                     </label>
                                     <label>
                                         <p>Team name</p>
-                                        <input type="text" name="teamName"id="teamName">
+                                        <input type="text" name="teamName"id="teamName" >
                                     </label>
                                     <label>
                                         <p>Contract start date</p>
@@ -151,7 +168,7 @@
                                         </td>
                                         <td class="user-image">
                                             <label>
-                                                <input name="teamName" type="text" value="{{$player->teamName}}">
+                                                <input name="teamName" type="text" value="{{$player->teamName}}" readonly>
                                             </label>
                                         </td>
                                         <td class="user-image">
@@ -164,6 +181,7 @@
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
+                                            <button type="button" class="delete-btn" onClick="manageModal('show',{{$player->id}})"><span class="material-symbols-outlined">add</span></button>
                                             <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
                                             <span class="material-symbols-outlined">delete</span>
                                             </button>
@@ -197,7 +215,19 @@
             document.getElementById('delete_form').submit();
 
         }
-        
+        const manageModal = (action, id) => {
+            const modalContainer = document.getElementById('modalContainer');
+            const playerId = document.getElementById('playerId');
+            if(action == "hide"){
+                modalContainer.style.display = "none";
+            }
+            else{
+                modalContainer.style.display = "flex";
+
+            }
+            playerId.value = id;
+        }
+
     </script>
 
     <script src="{{ asset('js/UserForm.js') }}"></script>

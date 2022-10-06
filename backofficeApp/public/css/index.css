@@ -399,11 +399,13 @@ main {
   background-color: var(--grayish);
   padding: 5px;
 }
-.main-page-container .user-table-container .user-table tbody tr .user-points, .main-page-container .user-table-container .user-table tbody tr .user-total-points {
+.main-page-container .user-table-container .user-table tbody tr .user-points,
+.main-page-container .user-table-container .user-table tbody tr .user-total-points {
   padding: 10px 0 10px 15px;
   margin: 0;
 }
-.main-page-container .user-table-container .user-table tbody tr .user-points input, .main-page-container .user-table-container .user-table tbody tr .user-total-points input {
+.main-page-container .user-table-container .user-table tbody tr .user-points input,
+.main-page-container .user-table-container .user-table tbody tr .user-total-points input {
   width: 5vw;
   border: none;
   background-color: var(--grayish);
@@ -457,7 +459,8 @@ main {
   background-color: var(--blue);
   color: var(--white);
 }
-.main-page-container .user-table-container .user-table tbody tr .actions-buttons .submit-btn:focus, .main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn:focus {
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .submit-btn:focus,
+.main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn:focus {
   background-color: var(--light-gray);
   color: var(--white);
 }
@@ -469,4 +472,65 @@ main {
 .main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn:hover {
   background-color: var(--error-border);
   color: var(--white);
+}
+
+.modalContainer {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 20;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(9px);
+          backdrop-filter: blur(9px);
+}
+.modalContainer .hidden {
+  display: none;
+}
+.modalContainer #adTeamModal {
+  width: 40%;
+  height: 20vh;
+  padding: 2%;
+  background-color: var(--gray);
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.modalContainer #adTeamModal .xContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.modalContainer #adTeamModal .xContainer h4 {
+  font-size: 1.3em;
+}
+.modalContainer #adTeamModal .xContainer button {
+  border: none;
+}
+.modalContainer #adTeamModal .xContainer button:hover {
+  transition: 0.2s;
+  transform: scale(1.2);
+}
+.modalContainer #adTeamModal input {
+  margin-top: 5%;
+}
+.modalContainer #adTeamModal .submit-btn {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue);
+}
+.modalContainer #adTeamModal .submit-btn:hover {
+  transition: 0.2s;
+  transform: scale(1.2);
 }/*# sourceMappingURL=index.css.map */
