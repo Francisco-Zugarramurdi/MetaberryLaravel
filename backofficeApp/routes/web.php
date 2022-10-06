@@ -9,6 +9,8 @@ use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ExtraController;
+use App\Http\Controllers\RefereeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +67,8 @@ Route::get("/team",[TeamController::class,'index']);
 Route::post("/team/create",[TeamController::class,'create']);
 Route::delete("/team/{id}",[TeamController::class,'destroy']);
 Route::put("/team/{id}",[TeamController::class,'update']);
+
+Route::get("/referee",[RefereeController::class,'index']);
+Route::post("/referee/create",[RefereeController::class,'create']);
+Route::delete("/referee/{id}",[RefereeController::class,'destroy']);
+Route::put("/referee/{id}",[RefereeController::class,'update']);
