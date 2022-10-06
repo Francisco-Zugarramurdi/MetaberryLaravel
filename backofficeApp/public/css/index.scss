@@ -1,4 +1,4 @@
-:root{
+:root {
 
     --white: #FFFFFF;
     --black: #000000;
@@ -15,7 +15,7 @@
 
 }
 
-*{
+* {
 
     margin: 0;
     padding: 0;
@@ -23,25 +23,25 @@
 
 }
 
-body{
+body {
 
     background-color: var(--gray);
 }
 
-a{
+a {
 
-   text-decoration: none; 
-   color: var(--black);
+    text-decoration: none;
+    color: var(--black);
 
 }
 
-li{
+li {
 
     list-style: none;
 
 }
 
-main{
+main {
 
     display: flex;
     flex-direction: row;
@@ -49,7 +49,7 @@ main{
 
 }
 
-.empty{
+.empty {
 
     width: 15vw;
     height: 100vh;
@@ -58,7 +58,7 @@ main{
 
 }
 
-.side-container{
+.side-container {
 
     width: 15vw;
     height: 100vh;
@@ -67,16 +67,16 @@ main{
     position: fixed;
     z-index: 2;
 
-    .logo-container{
-        
+    .logo-container {
+
         width: inherit;
         height: 6vh;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         background-color: var(--dark-gray);
-        
-        img{
+
+        img {
 
             width: 15%;
             padding: 0 0 0 20px;
@@ -84,8 +84,8 @@ main{
         }
 
     }
-    
-    .routes-container{
+
+    .routes-container {
 
         width: inherit;
         display: flex;
@@ -93,7 +93,7 @@ main{
         justify-content: flex-start;
         align-items: flex-start;
 
-        .routes-list-element{
+        .routes-list-element {
 
             height: 5vh;
             width: calc(15vw - 20px);
@@ -107,7 +107,7 @@ main{
             transition: .3s;
             padding: 0 0 0 20px;
 
-            .material-symbols-outlined{
+            .material-symbols-outlined {
 
                 font-weight: 500;
                 font-size: 1.2em;
@@ -118,13 +118,13 @@ main{
 
         }
 
-        .routes-list-element:hover{
+        .routes-list-element:hover {
 
             background-color: var(--dark-gray);
 
         }
 
-        .routes-list-element:focus{
+        .routes-list-element:focus {
 
             background-color: var(--dark-gray);
 
@@ -146,12 +146,12 @@ main{
 
 }
 
-.main-page-container{
+.main-page-container {
 
     width: 100%;
     background-color: var(--gray);
 
-    .nav-bar-container{
+    .nav-bar-container {
 
         width: inherit;
         height: 6vh;
@@ -163,7 +163,7 @@ main{
         position: fixed;
         z-index: 1;
 
-        h1{
+        h1 {
 
             font-size: 1.5em;
             padding: 0 0 0 30px;
@@ -173,7 +173,7 @@ main{
 
     }
 
-    .main-section{
+    .main-section {
 
         display: grid;
         grid-template-columns: auto auto auto;
@@ -183,7 +183,7 @@ main{
         padding: 30px;
         margin: 60px 0 0 0;
 
-        .option-card-container{
+        .option-card-container {
 
             width: 20vw;
             height: 10vh;
@@ -195,13 +195,13 @@ main{
             flex-direction: column;
             justify-content: space-around;
 
-            h2{
+            h2 {
 
                 font-size: 1.2em;
 
             }
 
-            a{
+            a {
 
                 width: 10vw;
                 height: 3vh;
@@ -217,7 +217,7 @@ main{
 
             }
 
-            a:hover{
+            a:hover {
 
                 background-color: var(--dark-blue);
 
@@ -227,7 +227,7 @@ main{
 
     }
 
-    .create-user-container{
+    .create-user-container {
 
         width: auto;
         height: auto;
@@ -239,7 +239,7 @@ main{
         padding: 30px;
         gap: 50px;
 
-        .dropdown-button{
+        .dropdown-button {
 
             width: 10vw;
             height: 5vh;
@@ -257,7 +257,7 @@ main{
             margin: 30px 0 0 0;
             transition: .3s;
 
-            .material-symbols-outlined{
+            .material-symbols-outlined {
 
                 font-size: 1.5em;
                 padding: 0 0 0 5px;
@@ -273,20 +273,20 @@ main{
 
         }
 
-        .dropdown-button:hover{
+        .dropdown-button:hover {
 
             background-color: var(--dark-blue);
 
         }
 
-        .dropdown-button:focus{
+        .dropdown-button:focus {
 
             background-color: var(--dark-blue);
 
         }
 
-        .unhide-container{
-    
+        .unhide-container {
+
             width: 60vw;
             height: auto;
             display: none;
@@ -297,57 +297,57 @@ main{
             background-color: var(--white);
             border-radius: 15px;
             filter: drop-shadow(-5px 5px 3px #262d3715);
-    
-            h2{
-    
+
+            h2 {
+
                 font-size: 1.8em;
                 padding: 0 0 10px 0;
                 color: var(--dark-gray);
-    
+
             }
-    
-            .create-user-form{
-    
+
+            .create-user-form {
+
                 width: inherit;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: flex-start;
-    
-                .form-up-container{
-    
+
+                .form-up-container {
+
                     width: inherit;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
-    
-                    .form-inner-container{
-    
+
+                    .form-inner-container {
+
                         width: 30vw;
-    
-                        label{
-    
+
+                        label {
+
                             display: flex;
                             flex-direction: row;
                             align-items: center;
                             justify-content: space-between;
                             padding: 1.5%;
-            
-                            p{
-            
+
+                            p {
+
                                 color: var(--dark-gray);
                                 font-weight: 600;
-            
-                                span{
-            
+
+                                span {
+
                                     color: var(--error-border);
-            
+
                                 }
-            
+
                             }
-            
-                            input{
-            
+
+                            input {
+
                                 width: 15vw;
                                 height: 5vh;
                                 border: none;
@@ -355,45 +355,45 @@ main{
                                 background-color: var(--gray);
                                 filter: drop-shadow(0 0 3px #262d3730);
                                 padding: 0px 10px;
-            
-                                input::placeholder{
-            
+
+                                input::placeholder {
+
                                     color: var(--dark-gray);
                                     font-weight: 600;
-            
+
                                 }
-            
+
                             }
-            
-                            select{
-            
+
+                            select {
+
                                 width: 10vw;
                                 height: 5vh;
                                 border-radius: 5px;
                                 border: none;
                                 background-color: var(--gray);
                                 padding: 5px;
-                                
-            
+
+
                             }
-            
+
                         }
-    
+
                     }
-    
+
                 }
-    
-                .form-down-container{
-    
+
+                .form-down-container {
+
                     width: inherit;
                     display: flex;
                     flex-direction: row-reverse;
                     justify-content: space-between;
                     align-items: center;
                     margin: 10px 0 0 0;
-    
-                    .create-btn{
-        
+
+                    .create-btn {
+
                         width: 7vw;
                         height: 5vh;
                         text-align: center;
@@ -405,32 +405,32 @@ main{
                         border: none;
                         margin: 30px 0 0 0;
                         transition: .3s;
-        
+
                     }
-        
-                    .create-btn:hover{
-        
+
+                    .create-btn:hover {
+
                         background-color: var(--dark-blue);
-        
+
                     }
-        
-                    .create-btn:focus{
-        
+
+                    .create-btn:focus {
+
                         background-color: var(--dark-blue);
-        
+
                     }
-        
-                    .error{
+
+                    .error {
                         color: var(--error-border);
                         font-size: .8em;
                         font-weight: 600;
                     }
-    
+
                 }
-    
-                
+
+
             }
-    
+
         }
 
         .hide {
@@ -441,7 +441,7 @@ main{
 
     }
 
-    .user-table-container{
+    .user-table-container {
 
         width: 75vw;
         height: auto;
@@ -452,14 +452,14 @@ main{
         padding: 0;
         margin: 0 0 60px 60px;
 
-        .user-table{
+        .user-table {
 
             width: 75vw;
             border-collapse: collapse;
             border-radius: 15px 15px 0 0;
             overflow: hidden;
 
-            thead tr{
+            thead tr {
 
                 background-color: var(--blue);
                 color: var(--white);
@@ -468,13 +468,13 @@ main{
 
             }
 
-            th{
+            th {
 
                 padding: 15px 10px 15px 15px;
 
             }
 
-            td{
+            td {
 
                 text-align: left;
                 padding: 10px 10px 10px 15px;
@@ -484,21 +484,21 @@ main{
             tbody tr {
 
                 border-bottom: 1px solid var(--lightest-gray);
-                
 
-                .user-id{
+
+                .user-id {
 
                     font-weight: 700;
                     margin: 0;
 
                 }
 
-                .user-name{
+                .user-name {
 
                     padding: 10px 0 10px 15px;
                     margin: 0;
 
-                    input{
+                    input {
 
                         width: 5vw;
                         border: none;
@@ -511,31 +511,12 @@ main{
 
                 }
 
-                .user-email{
+                .user-email {
 
                     padding: 10px 0 10px 15px;
                     margin: 0;
 
-                    input{
-
-                        width: 10vw;
-                        border: none;
-                        background-color: var(--grayish);
-                        font-weight: 500;
-                        padding: 5px 2.5px 5px 5px;
-                        border-radius: 5px;
-
-                    }
-                    
-
-                }
-
-                .user-image{
-
-                    padding: 10px 0 10px 15px;
-                    margin: 0;
-
-                    input{
+                    input {
 
                         width: 10vw;
                         border: none;
@@ -546,16 +527,35 @@ main{
 
                     }
 
+
                 }
 
-                .user-type{
+                .user-image {
 
                     padding: 10px 0 10px 15px;
                     margin: 0;
 
-                    select{
+                    input {
 
-                        
+                        width: 10vw;
+                        border: none;
+                        background-color: var(--grayish);
+                        font-weight: 500;
+                        padding: 5px 2.5px 5px 5px;
+                        border-radius: 5px;
+
+                    }
+
+                }
+
+                .user-type {
+
+                    padding: 10px 0 10px 15px;
+                    margin: 0;
+
+                    select {
+
+
                         width: 5vw;
                         border-radius: 5px;
                         border: none;
@@ -567,12 +567,13 @@ main{
 
                 }
 
-                .user-points, .user-total-points{
+                .user-points,
+                .user-total-points {
 
                     padding: 10px 0 10px 15px;
                     margin: 0;
 
-                    input{
+                    input {
 
                         width: 5vw;
                         border: none;
@@ -585,12 +586,12 @@ main{
 
                 }
 
-                .user-card{
+                .user-card {
 
                     padding: 10px 0 10px 15px;
                     margin: 0;
 
-                    input{
+                    input {
 
                         width: 10vw;
                         border: none;
@@ -603,7 +604,7 @@ main{
 
                 }
 
-                .actions-buttons{
+                .actions-buttons {
 
                     display: flex;
                     height: 5vh;
@@ -613,7 +614,7 @@ main{
                     margin: 0;
                     padding: 10px 0 10px 0;
 
-                    button{
+                    button {
 
                         margin: 0;
                         padding: 5px;
@@ -626,7 +627,7 @@ main{
                         justify-content: center;
                         align-items: center;
 
-                        .material-symbols-outlined{
+                        .material-symbols-outlined {
 
                             font-size: 1.5em;
                             font-weight: 600;
@@ -635,7 +636,7 @@ main{
 
                     }
 
-                    .submit-btn{
+                    .submit-btn {
 
                         border: 2px solid var(--blue);
                         color: var(--blue);
@@ -644,21 +645,22 @@ main{
 
                     }
 
-                    .submit-btn:hover{
+                    .submit-btn:hover {
 
                         background-color: var(--blue);
                         color: var(--white);
 
                     }
 
-                    .submit-btn:focus, .delete-btn:focus{
+                    .submit-btn:focus,
+                    .delete-btn:focus {
 
                         background-color: var(--light-gray);
                         color: var(--white);
 
                     }
 
-                    .delete-btn{
+                    .delete-btn {
 
                         border: 2px solid var(--error-border);
                         color: var(--error-border);
@@ -666,14 +668,14 @@ main{
 
                     }
 
-                    .delete-btn:hover{
+                    .delete-btn:hover {
 
                         background-color: var(--error-border);
                         color: var(--white);
 
                     }
 
-                    
+
 
                 }
 
@@ -684,4 +686,67 @@ main{
     }
 
 
+}
+
+.modalContainer {
+    .hidden {
+
+        display: none;
+
+    }
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 20;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(9px);
+    #adTeamModal {
+        width: 40%;
+        height: 20vh;
+        padding: 2%;
+        background-color: var(--gray);
+        border-radius: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .xContainer{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            h4{
+                font-size: 1.3em;
+            }
+            button{
+                border: none;
+            }
+            button:hover{
+                transition: 0.2s;
+                transform: scale(1.2);
+            }
+        }
+        input{
+            margin-top: 5%;
+        }
+        .submit-btn{
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--blue);
+        }
+        .submit-btn:hover{
+            transition: 0.2s;
+            transform: scale(1.2);
+            
+        }
+    }
 }

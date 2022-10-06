@@ -40,6 +40,7 @@ Route::get("/player",[PlayerController::class,'index']);
 Route::post("/player/create",[PlayerController::class,'create']);
 Route::put("/player/{id}",[PlayerController::class,'update']);
 Route::delete("/player/{id}",[PlayerController::class,'destroy']);
+Route::post("/player/addTeam",[PlayerController::class,'addTeam']);
 
 Route::get("/sport",[SportController::class, 'index']);
 Route::post("/sport/create",[SportController::class, 'create']);
