@@ -57,6 +57,7 @@ class TeamController extends Controller
 
     private function createTeam(Request $request){
         
+        //este metodo tiene que ser actualizado en el caso de que se cambie la bd a type_teams
         $user = Team::create([
             'name' => $request -> post("name"),
             'tipo_teams' => $request -> post("typeTeam"),

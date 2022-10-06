@@ -8,6 +8,7 @@ use App\Models\Player;
 use App\Models\PlayerTeam;
 use App\Models\Team;
 use \Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class PlayerController extends Controller
 {
@@ -30,7 +31,7 @@ class PlayerController extends Controller
             'surname'=> 'required',
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
         if($validation->fails())
@@ -112,11 +113,21 @@ class PlayerController extends Controller
     }
     private function updateTeam($request,$id){
         $team = Team::where('name',$request->teamName)->first();
-        $playerTeam = PlayerTeam::select('*')
+        $playerTeam = DB::table('players_teams')
         ->where('id_teams',$team->id)
         ->where('id_players',$id)
-        ->first();
-        $playerTeam->contract_start = $request->contractStart;
-        $playerTeam->save();
+        ->update(['contract_start' => $request->contractStart]);
+    }
+    public function addTeam(Request $request){
+        $team = Team::where('name',$request->teamName)->first();
+        if($team->exists()){
+             DB::table('players_teams')->insert([
+                'id_teams'=>$team->id,
+                'id_players'=>$request->playerId,
+                'contract_start'=>$request->contractStart
+            ]);
+        }
+        return redirect('/player');
+
     }
 }
