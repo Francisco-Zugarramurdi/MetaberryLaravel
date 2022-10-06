@@ -75,6 +75,11 @@
                                         <p><span>* </span>Surname</p>
                                         <input type="text" name="surname" placeholder="Doe" id="surname">
                                     </label>
+
+                                    <label>
+                                        <p><span>* </span>Profile image</p>
+                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
+                                    </label>
     
                                 </div>
     
@@ -104,6 +109,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Surname</th>
+                            <th>Image</th>
                             <th>Actions</th>
 
                         </tr>
@@ -130,6 +136,12 @@
                                             </label>
                                         </td>
                                         
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="surname" type="text" value="{{$referee->surname}}">
+                                            </label>
+                                        </td>
+
                                         <td class="user-image">
                                             <label>
                                                 <input name="photo" type="text" value="{{$referee->photo}}">

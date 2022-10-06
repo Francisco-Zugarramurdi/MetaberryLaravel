@@ -11,5 +11,5 @@ class Referee extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "referee";
-    protected $fillable = [ 'name','surname'];
+    protected $fillable = [ 'name','surname','photo'];
 }
