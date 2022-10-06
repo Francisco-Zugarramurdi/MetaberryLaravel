@@ -35,6 +35,7 @@
                 <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
                 <a href="/league/" class="routes-list-element"><span class="material-symbols-outlined">shield</span> League</a>
                 <a href="/extra/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Extras</a>
+                <a href="/referee/" class="routes-list-element"><span class="material-symbols-outlined">sports_score</span> Referee</a>
 
             </div>
 
@@ -89,6 +90,20 @@
 
                     <h2>League Management</h2>
                     <a href="/league/">Go to Manage League</a>
+
+                </div>
+
+                <div class="option-card-container">
+
+                    <h2>Extra Management</h2>
+                    <a href="/extra/">Go to Manage Extra</a>
+
+                </div>
+
+                <div class="option-card-container">
+
+                    <h2>Referee Management</h2>
+                    <a href="/referee/">Go to Manage Referee</a>
 
                 </div>
 

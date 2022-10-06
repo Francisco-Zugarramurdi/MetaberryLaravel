@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <title>Extras</title>
+    <title>Referee</title>
 </head>
 <body>
     <main>
@@ -18,7 +18,7 @@
 
             <div class="logo-container">
 
-                <img src="{{ asset('img/logo/livescore-logo-white.png') }}" alt="blabla">
+                <img src="{{ asset('img/logo/livescore-logo-white.png') }}">
 
             </div>
 
@@ -32,7 +32,8 @@
                 <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
                 <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
                 <a href="/league/" class="routes-list-element"><span class="material-symbols-outlined">shield</span> League</a>
-                <a href="/extra/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Extras</a>
+                <a href="/extra/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Extras</a>
+                <a href="/referee/" class="routes-list-element focus"><span class="material-symbols-outlined">sports_score</span> Referee</a>
 
             </div>
 
@@ -42,22 +43,22 @@
 
             <div class="nav-bar-container">
 
-                <h1>Extras Management</h1>
+                <h1>Referee Management</h1>
 
             </div>
 
             <div class="create-user-container">
 
-                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create extra 
+                <button type="button" class="dropdown-button" id="dropdown_button" onClick="dropdown()">Create referee 
                     <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                     <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                 </button>
 
                 <div class="unhide-container hide" id="create_user_container">
 
-                        <h2>Create Extra</h2>
+                        <h2>Create referee</h2>
     
-                        <form action="/extra/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/referee/create" class="create-user-form" method="POST" id="creationForm">
                             @method('POST')
                             @csrf
                             
@@ -69,25 +70,19 @@
                                         <p><span>* </span>Name</p>
                                         <input type="text" name="name" placeholder="John" id="name">
                                     </label>
+    
                                     <label>
                                         <p><span>* </span>Surname</p>
                                         <input type="text" name="surname" placeholder="Doe" id="surname">
                                     </label>
+
                                     <label>
-                                        <p><span>* </span>Rol</p>
-                                        <input type="text" name="rol" placeholder="Dt" id="rol">
-                                    </label>
-                                   <label>
-                                        <p><span>* </span>Photo</p>
+                                        <p><span>* </span>Profile image</p>
                                         <input type="text" name="photo" placeholder="somelink.com"id="photo">
                                     </label>
-                                    <label>
-                                        <p><span>* </span>Team</p>
-                                        <input type="text" name="teamName" placeholder="Team" id="teamName">
-                                    </label>
-                                    
     
                                 </div>
+    
                             </div>
     
                             <div class="form-down-container">
@@ -101,7 +96,10 @@
                         </form>
                     
                 </div>
-                <div class="user-table-container">
+
+            </div>
+
+            <div class="user-table-container">
 
                 <table class="user-table">
 
@@ -111,18 +109,16 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Surname</th>
-                            <th>Rol</th>
-                            <th>Photo</th>
-                            <th>Team</th>
+                            <th>Image</th>
                             <th>Actions</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($extras as $extra)
+                        @foreach($referees as $referee)
                             <tr>
-                                    <form class="entry" method="POST" action="/extra/{{$extra->id}}">
+                                    <form class="entry" method="POST" action="/referee/{{$referee->id}}">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -130,39 +126,30 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$extra->id}}</p>
+                                            <p>{{$referee->id}}</p>
 
                                         </td>
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$extra->name}}">
+                                                <input name="name" type="text" value="{{$referee->name}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-name">
                                             <label>
-                                                <input name="surname" type="text" value="{{$extra->surname}}">
+                                                <input name="surname" type="text" value="{{$referee->surname}}">
                                             </label>
                                         </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="rol" type="text" value="{{$extra->rol}}">
-                                            </label>
-                                        </td>
+
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$extra->photo}}">
-                                            </label>
-                                        </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="teamName" type="text" value="{{$extra->teamName}}">
+                                                <input name="photo" type="text" value="{{$referee->photo}}">
                                             </label>
                                         </td>
     
                                         <td class="actions-buttons">
-                                             <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> 
+                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
@@ -172,7 +159,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/extra/{{$extra->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/referee/{{$referee->id}}"method="POST" class="delete" id="delete_form">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
@@ -186,13 +173,12 @@
 
             </div>
 
-            </div>
-
         </div>
 
     </main>
 
     <script>
+
 
         const deleteFormSubmit = () =>{
 
