@@ -159,10 +159,14 @@
                                                 <input name="photo" type="text" value="{{$extra->photo}}">
                                             </label>
                                         </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="teamName" type="text" value="{{$extra->teamName}}">
-                                            </label>
+                                        <td class="user-type">
+                                            <lable>
+                                                <select name="teamName" id="teamName">
+                                                @foreach ($teams as $team)
+                                                <option value="{{$team->name}}" name="{{$team->name}}">{{$team->name}}</option>
+                                                @endforeach
+                                                </select>
+                                            </lable>
                                         </td>
     
                                         <td class="actions-buttons">
