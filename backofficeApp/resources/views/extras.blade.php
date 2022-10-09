@@ -83,7 +83,11 @@
                                     </label>
                                     <label>
                                         <p><span>* </span>Team</p>
-                                        <input type="text" name="teamName" placeholder="Team" id="teamName">
+                                        <select name="teamName" id="teamName">
+                                            @foreach ($teams as $team)
+                                            <option value="{{$team->name}}" name="{{$team->name}}">{{$team->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </label>
                                     
     

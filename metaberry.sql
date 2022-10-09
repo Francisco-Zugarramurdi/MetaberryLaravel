@@ -86,8 +86,11 @@ create table extras(
 create table extra_compose(
     id_extra bigint unsigned not null,
     id_teams bigint unsigned not null,
-    contract_start date not null,
-    contract_end date not null,
+    contract_start date,
+    contract_end date,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_extra,id_teams),
     foreign key (id_extra) references extras(id),
     foreign key (id_teams) references teams(id)
