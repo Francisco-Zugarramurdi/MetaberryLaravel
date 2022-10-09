@@ -21,9 +21,19 @@
                 </div>
                 <label>
                     Team name:
-                    <input type="text" name="teamName" id="teamName">
+                    <select name="teamName" id="teamName">
+                        @foreach($teams as $team)
+                            <option value="{{$team->name}}">{{$team->name}}</option>
+                        @endforeach
+                    </select>
                     <input type="text" name="playerId" id="playerId" class="hidden">
+                    Contract Start
                     <input type="date" name="contractStart"id="contractStart">
+                    Contract End
+                    <input type="date" name="contractEnd"id="contractEnd">
+                    Status
+                    <input type="text" name="status" id="status" maxlength="10">
+
                 </label>
                 <input type="submit" class="submit-btn">
             </form>
@@ -92,7 +102,11 @@
                                     </label>
                                     <label>
                                         <p>Team name</p>
-                                        <input type="text" name="teamName"id="teamName" >
+                                        <select name="teamName" id="teamName">
+                                            @foreach($teams as $team)
+                                            <option value="{{$team->name}}">{{$team->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </label>
                                     <label>
                                         <p>Contract start date</p>
@@ -137,6 +151,8 @@
                             <th>Photo</th>
                             <th>Team</th>
                             <th>Contract Start</th>
+                            <th>Contract End</th>
+                            <th>Status</th>
                             <th>Actions</th>
 
                         </tr>
@@ -169,12 +185,12 @@
                                             </label>
                                         </td>
                                         
-                                        <td class="user-image">
+                                        <td class="user-name">
                                             <label>
                                                 <input name="photo" type="text" value="{{$player->photo}}">
                                             </label>
                                         </td>
-                                        <td class="user-image">
+                                        <td class="user-name">
                                             <label>
                                                 <input name="teamName" type="text" value="{{$player->teamName}}" readonly>
                                             </label>
@@ -182,6 +198,16 @@
                                         <td class="user-image">
                                             <label>
                                                 <input type="date" name="contractStart"id="contractStart" value="{{$player->contractStart}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-image">
+                                            <label>
+                                                <input type="date" name="contractEnd" id="contractEnd" value="{{$player->contractEnd}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-name">
+                                            <label>
+                                                <input type="text" name="status" id="status" maxlength="10" value="{{$player->status}}">
                                             </label>
                                         </td>
                                         <td class="actions-buttons">

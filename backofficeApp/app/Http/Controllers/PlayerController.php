@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Player;
 use App\Models\PlayerTeam;
 use App\Models\Team;
+use App\Models\Country;
 use \Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
@@ -67,9 +68,9 @@ class PlayerController extends Controller
     public function index(){
         $players = Player::leftJoin('players_teams','players_teams.id_players','players.id')
         ->leftJoin('teams','players_teams.id_teams','teams.id')
-        ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart')
+        ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
         ->get();
-        return view('players')->with('players',$players);
+        return view('players')->with('players',$players)->with('teams',Team::all());
         
     }
     public function destroy($id){
@@ -119,7 +120,10 @@ class PlayerController extends Controller
         $playerTeam = DB::table('players_teams')
         ->where('id_teams',$team->id)
         ->where('id_players',$id)
-        ->update(['contract_start' => $request->contractStart]);
+        ->update([
+            'contract_start' => $request->contractStart,
+            'contract_end' => $request->contractEnd,
+            'status' => $request->status ]);
     }
     public function addTeam(Request $request){
         $team = Team::where('name',$request->teamName)->first();
@@ -127,7 +131,9 @@ class PlayerController extends Controller
              DB::table('players_teams')->insert([
                 'id_teams'=>$team->id,
                 'id_players'=>$request->playerId,
-                'contract_start'=>$request->contractStart
+                'contract_start'=>$request->contractStart,
+                'contract_end' =>$request->contractEnd,
+                'status' =>$request->status
             ]);
         }
         return redirect('/player');
