@@ -1,3 +1,4 @@
+drop database metaberrystudios;
 create database metaberrystudios;
 use metaberrystudios;
 create table sports(
@@ -67,7 +68,6 @@ create table players_teams (
     foreign key (id_players) references players(id),
     foreign key (id_teams) references teams(id)
 );
- 
  
 create table extras(
     id serial primary key,
@@ -257,9 +257,6 @@ create table reward(
     reward varchar(50) not null,
     id_users_data bigint unsigned not null,
     date_of_delivery date not null,
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
