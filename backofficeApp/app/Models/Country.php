@@ -11,5 +11,5 @@ class Country extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "countries";
-    protected $fillable = [ 'name','photo'];
+    protected $fillable = [ 'name','photo','deleted_at'];
 }

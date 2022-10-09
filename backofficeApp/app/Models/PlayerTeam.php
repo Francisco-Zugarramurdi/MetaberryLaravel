@@ -14,7 +14,10 @@ class PlayerTeam extends Model
         'id',
         'id_players',
         'id_teams',
-        'contract_start'
+        'contract_start',
+        'contract_end',
+        'updated_at',
+        'status',
     ];
     protected $dates = ['contract_start'];
 }

@@ -65,6 +65,9 @@ create table players_teams (
     contract_start date not null,
     contract_end date not null,
     status varchar(10) not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     foreign key (id_players) references players(id),
     foreign key (id_teams) references teams(id)
 );
