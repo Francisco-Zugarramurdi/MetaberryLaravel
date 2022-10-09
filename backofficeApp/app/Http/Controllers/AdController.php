@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Ad;
 use App\Models\AdTag;
+use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 use \Illuminate\Database\QueryException;
 
@@ -32,13 +33,16 @@ class AdController extends Controller
             'tag' => 'required',
             'url' => 'required',
             'image' => 'required',
-            'views_hired' => 'required'
+            'viewsHired' => 'required'
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();
 
-        if(Ad::withTrashed()->where('image', $request -> post("image")) -> exists())
-            return 'image already exists';
+        if(Ad::where('image', $request -> post("image")) -> exists())
+            return 'Image already exists';
+
+        if(!Tag::where('tag', $request -> post("tag")) -> exists())
+            return 'Tag does not  exists';
         
         return 'ok';
     }
@@ -47,21 +51,31 @@ class AdController extends Controller
         $ad = Ad::create([
             'image' => $request -> post("image"),
             'url' => $request -> post("url"),
-            'views_hired' => $request -> post("views_hired"),
+            'views_hired' => $request -> post("viewsHired"),
             'size' => $request -> post("size"),
             'view_counter' => 0
         ]);
+
         AdTag::create([
-            'ad_id' => $ad ->id,
-            'tag' => $request -> post("tag"),
+            'id_ad' => $ad ->id,
+            'id_tag' => Tag::where('tag', $request -> post("tag"))->first()->id
         ]);
         return redirect('/ads');
     }
 
     public function index(){
-        $ads = Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
-        ->select("*")
+
+        $ads = Ad::join('ad_tags', 'ad_tags.id_ad', 'ads.id')
+        ->join('tags','tags.id','ad_tags.id_tag')
+        ->select("ads.id as id",
+         "ads.image as image",
+          "ads.url as url",
+          "ads.size as size",
+          "ads.views_hired as views_hired",
+          "ads.view_counter as view_counter",
+          "tags.tag as tag")
         ->get();
+
         return view('ads')->with('ads',$ads);
     }
 

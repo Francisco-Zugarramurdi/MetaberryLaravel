@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AdTag extends Model
+class Tag extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = "ad_tags";
-    protected $fillable = ['id_tag','id_ad'];
+    protected $table = "tags";
+    protected $fillable = ['tag'];
 }
