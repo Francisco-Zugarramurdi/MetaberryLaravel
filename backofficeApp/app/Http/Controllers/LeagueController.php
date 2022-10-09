@@ -40,7 +40,7 @@ class LeagueController extends Controller
             'details'=> 'required',
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
 
@@ -117,7 +117,7 @@ class LeagueController extends Controller
         $validation = Validator::make($request->all(),[
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
 

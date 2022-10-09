@@ -48,7 +48,7 @@ create table teams (
     id serial primary key,
     name varchar(50) not null,
     photo text not null,
-    tipo_teams varchar(10) not null,
+    type_teams varchar(10) not null,
     id_sports bigint unsigned not null,
     id_countries bigint unsigned not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -118,6 +118,9 @@ create table leagues_events(
     id_events bigint unsigned not null,
     id_leagues bigint unsigned not null,
     primary key (id_events,id_leagues),
+     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     foreign key (id_events) references events(id),
     foreign key (id_leagues) references leagues(id)
 );

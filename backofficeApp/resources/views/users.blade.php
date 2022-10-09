@@ -8,73 +8,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <title>Users</title>
-    <!-- <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-        h1{
-            color: red;
-        }
-        body{
-            display: flex;
-            flex-direction: column;
-            font-family: 'Roboto';
-            color: white;
-            background-color: lightgray;
-        }
-        form{
-            padding: 2%;
-            margin: 1%;
-            margin-bottom:0;
-            display: flex;
-            flex-direction: row;
-            width: 70%;
-            align-items:center;
-            justify-content: space-between;
-            background-color: darkgray;
-            border-radius: 0 20px 20px 0; 
-        }
-        form.creation{
-            width:40%;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 1%;
-        }
-        .column{
-            display: flex;
-            flex-direction: column;
-        }
-        .delete{
-            width:10%;
-            margin-top: 0%;
-            margin-bottom: 1%;
-            border-top-right-radius: 0;
-        }
-    </style> -->
 </head>
 <body>
     <main>
 
-        <div class="empty"></div>
+        @include('navbar')
 
-        <div class="side-container">
-
-            <div class="logo-container">
-
-                <img src="{{ asset('img/logo/livescore-logo-white.png') }}" alt="blabla">
-
-            </div>
-
-            <div class="routes-container">
-
-                <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
-                <a href="/user/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Users</a>
-                <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
-                <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
-                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
-            
-            </div>
-
-        </div>
 
         <div class="main-page-container">
 
@@ -294,7 +233,9 @@
         }
         
     </script>
-
+    <script>
+        document.getElementById('user').classList.add("focus");
+    </script>
     <script src="{{ asset('js/UserForm.js') }}"></script>
     <script src="{{ asset('js/DropdownAnimation.js') }}"></script>
 </body>

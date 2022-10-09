@@ -10,5 +10,5 @@ class League extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = "leagues";
-    protected $fillable = [ 'name','photo','details'];
+    protected $fillable = [ 'name','photo','details','updated_at','created_at'];
 }

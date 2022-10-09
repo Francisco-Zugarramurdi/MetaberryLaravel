@@ -39,26 +39,7 @@
             </form>
         </div>
         
-        <div class="empty"></div>
-
-        <div class="side-container">
-
-            <div class="logo-container">
-
-                <img src="{{ asset('img/logo/livescore-logo-white.png') }}" alt="blabla">
-
-            </div>
-
-            <div class="routes-container">
-
-                <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
-                <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
-                <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/player/" class="routes-list-element focus"><span class="material-symbols-outlined">directions_run</span>Players</a>
-
-            </div>
-
-        </div>
+        @include('navbar')
 
         <div class="main-page-container">
 
@@ -263,7 +244,9 @@
         }
 
     </script>
-
+    <script>
+        document.getElementById('player').classList.add("focus");
+    </script>
     <script src="{{ asset('js/UserForm.js') }}"></script>
     <script src="{{ asset('js/DropdownAnimation.js') }}"></script>
 </body>

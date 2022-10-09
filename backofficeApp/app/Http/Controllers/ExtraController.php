@@ -34,7 +34,7 @@ class ExtraController extends Controller
             'rol'=> 'required',
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
         if($validation->fails())
@@ -126,7 +126,7 @@ class ExtraController extends Controller
         $validation = Validator::make($request->all(),[
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
 

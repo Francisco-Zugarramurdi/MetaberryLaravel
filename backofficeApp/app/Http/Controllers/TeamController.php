@@ -37,7 +37,7 @@ class TeamController extends Controller
         //este metodo tiene que ser actualizado en el caso de que se cambie la bd a type_teams
         $user = Team::create([
             'name' => $request -> post("name"),
-            'tipo_teams' => $request -> post("typeTeam"),
+            'type_teams' => $request -> post("typeTeam"),
             'photo' => $request -> post("photo"),
             'id_sports' => Sport::where('name', $request -> post("sportName"))->first()->id,
             'id_countries' => Country::where('name', $request -> post("countryName"))->first()->id
@@ -48,7 +48,7 @@ class TeamController extends Controller
     public function index(){
         $teams = Team::join('sports','sports.id','teams.id_sports')
         ->join('countries', 'countries.id', 'teams.id_countries')
-        ->select("teams.id as id", "teams.name as name", "teams.photo as photo","teams.tipo_teams as typeTeam", "sports.name as sportName", "countries.name as countryName")
+        ->select("teams.id as id", "teams.name as name", "teams.photo as photo","teams.type_teams as typeTeam", "sports.name as sportName", "countries.name as countryName")
         ->get();
 
         $country = Country::all();
@@ -99,7 +99,7 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
         $team -> name = $request->name;
         $team -> photo = $request-> photo;
-        $team -> tipo_teams = $request -> typeTeam;
+        $team -> type_teams = $request -> typeTeam;
         $team -> id_sports = Sport::where('name', $request->sportName)->first()->id;
         $team -> id_countries = Country::where('name', $request -> countryName)->first()->id;
         $team -> save();
