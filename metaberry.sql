@@ -68,13 +68,6 @@ create table players_teams (
     foreign key (id_teams) references teams(id)
 );
  
-create table terminated_contracts(
-    id_players bigint unsigned not null,
-    id_teams bigint unsigned not null,
-    contract_end date not null,
-    primary key (id_players,id_teams),
-    foreign key (id_players, id_teams) references players_teams(id_players, id_teams)
-);
  
 create table extras(
     id serial primary key,
