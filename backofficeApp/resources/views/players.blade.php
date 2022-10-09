@@ -98,6 +98,14 @@
                                         <p>Contract start date</p>
                                         <input type="date" name="contractStart"id="contractStart">
                                     </label>
+                                    <label>
+                                        <p>Contract end date</p>
+                                        <input type="date" name="contractEnd" id="contractEnd">
+                                    </label>
+                                    <label>
+                                        <p>Status</p>
+                                        <input type="text" name="status" id="status" maxlength="10">
+                                    </label>
     
                                 </div>
                             </div>

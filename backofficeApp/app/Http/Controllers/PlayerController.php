@@ -30,8 +30,8 @@ class PlayerController extends Controller
             'name'=> 'required',
             'surname'=> 'required',
             'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+                'required'
             ]
         ]);
         if($validation->fails())
@@ -58,7 +58,10 @@ class PlayerController extends Controller
         PlayerTeam::create([
             'id_teams' => $team->id,
             'id_players' => $id,
-            'contract_start' => $request->contractStart
+            'contract_end' =>$request->contractEnd,
+            'contract_start' => $request->contractStart,
+            'status' => $request->status
+
         ]);
     }
     public function index(){
