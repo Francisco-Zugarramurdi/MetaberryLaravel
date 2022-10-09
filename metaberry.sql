@@ -7,7 +7,7 @@ create table sports(
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
     photo text not null
-);
+);  
  
 create table countries(
     id serial primary key,
@@ -58,10 +58,12 @@ create table teams (
 );
  
 create table players_teams (
+    id serial primary key,
     id_players bigint unsigned not null,
     id_teams bigint unsigned not null,
     contract_start date not null,
-    primary key (id_players,id_teams),
+    contract_end date not null,
+    status varchar(10) not null,
     foreign key (id_players) references players(id),
     foreign key (id_teams) references teams(id)
 );
@@ -220,6 +222,9 @@ create table post(
     number_of_likes bigint not null,
     id_events bigint unsigned not null,
     primary key (id, id_users_data,id_events),
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     foreign key (id_users_data) references users_data(id),
     foreign key (id_events) references events(id)
 );
@@ -239,6 +244,9 @@ create table comments (
     dates date not null,
     is_child tinyint(1) not null,
     primary key (id,id_post,id_users_data),
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     foreign key (id_post) references post(id),
     foreign key (id_users_data) references users_data(id)
 );
@@ -256,6 +264,9 @@ create table reward(
     reward varchar(50) not null,
     id_users_data bigint unsigned not null,
     date_of_delivery date not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,

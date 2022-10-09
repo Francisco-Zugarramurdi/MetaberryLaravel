@@ -16,10 +16,12 @@ class AdController extends Controller
 {
     public function create(Request $request){
         $validation = $this->validateRequestCreate($request);
-
+        
         if($validation !== "ok"){
             return $validation;
         }
+        if(Ad::where('image', $request -> post("image")) -> exists())
+            return 'Image already exists';
         try{
             return $this->createAd($request);
         }catch(QueryException $e){
@@ -32,14 +34,14 @@ class AdController extends Controller
             'size' => 'required',
             'tag' => 'required',
             'url' => 'required',
-            'image' => 'required',
-            'viewsHired' => 'required'
+            'viewsHired' => 'required',
+            'image' => [
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+                'required'
+            ]
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();
-
-        if(Ad::where('image', $request -> post("image")) -> exists())
-            return 'Image already exists';
 
         if(!Tag::where('tag', $request -> post("tag")) -> exists())
             return 'Tag does not  exists';
@@ -80,9 +82,17 @@ class AdController extends Controller
     }
 
     public function update(Request $request, $id){
-
+        $validation = $this->validateRequestCreate($request);
+        
+        if($validation !== "ok"){
+            return $validation;
+        }
+        if(Ad::where('image', $request -> post("image")) -> exists() && Ad::where('image', $request -> post("image"))->first()->id != $id)
+            return 'Image already exists';
+        
         try{
             $this->updateAd($request, $id);
+            $this->updateAdTag($request,$id);
             return redirect('/ads');
         }catch(QueryException $e){
 
@@ -99,11 +109,15 @@ class AdController extends Controller
         $ad = Ad::findOrFail($id);
         $ad ->image = $request -> image;
         $ad ->url = $request -> url;
-        $ad ->views_hired = $request -> views_hired;
+        $ad ->views_hired = $request -> viewsHired;
         $ad ->size = $request -> size;
         $ad->save();
     }
-
+    private function updateAdTag(Request $request,$id){
+        $tag = Tag::where('tag',$request->tag)->get()->first()->id;
+        DB::table('ad_tags')->where('id_ad',$id)->update(['id_tag'=> $tag]);
+      
+    }
     public function destroy($id){
         try{
             $ad = Ad::findOrFail($id);
