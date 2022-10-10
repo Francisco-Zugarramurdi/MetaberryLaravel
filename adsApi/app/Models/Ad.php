@@ -12,8 +12,4 @@ class Ad extends Model
     use SoftDeletes;
     protected $table = "ads";
 
-    public function adTag()
-{
-    return $this->hasMany(AdTag::class, 'ad_id', 'id');
-}
 }

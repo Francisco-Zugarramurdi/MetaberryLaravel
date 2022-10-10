@@ -12,7 +12,4 @@ class AdTag extends Model
     use SoftDeletes;
     protected $table = "ad_tags";
 
-    public function ad() {
-        return $this->belongsTo(Ad::class, 'ad_id', 'id');
-    }
 }

@@ -42,15 +42,26 @@ class AdController extends Controller
     }
 
     private function findAds(Request $request){
-        return Ad::join("ad_tags","ad_tags.ad_id", "=", "ads.id")
+        return $ads = Ad::join('ad_tags', 'ad_tags.id_ad', 'ads.id')
+            ->join('tags','tags.id','ad_tags.id_tag')
+            ->select("ads.id as id",
+            "ads.image as image",
+            "ads.url as url",
+            "ads.size as size",
+            "ads.views_hired as views_hired",
+            "ads.view_counter as view_counter",
+            "tags.tag as tag",
+            "ad_tags.id_tag as idTag",
+            "ad_tags.id_ad as idAd")
             ->get()
             ->where('size', $request->size)
             ->where('tag', $request->tag);
     }
 
     private function selectAd($ads){
+        
         $AdSelected = $ads->sortBy('view_counter')->first();
-        $this->addView($AdSelected->ad_id);
+        $this->addView($AdSelected->id);
         return $AdSelected;
     }
 
