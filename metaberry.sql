@@ -430,3 +430,5 @@ create table ad_tags(
     foreign key (id_tag) references tags(id)
 );
 
+insert into tags (tag) values
+('Main');
