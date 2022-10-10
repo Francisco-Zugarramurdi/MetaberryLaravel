@@ -35,7 +35,7 @@ create table events(
     details text not null,
     id_sports bigint unsigned not null,
     id_countries bigint unsigned not null,
-    dates date not null,
+    date date not null,
     relevance tinyint not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
