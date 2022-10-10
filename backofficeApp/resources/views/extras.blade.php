@@ -102,6 +102,8 @@
                             <th>Rol</th>
                             <th>Photo</th>
                             <th>Team</th>
+                            <th>Contract Start</th>
+                            <th>Contract End</th>
                             <th>Actions</th>
 
                         </tr>
@@ -147,12 +149,21 @@
                                             <lable>
                                                 <select name="teamName" id="teamName">
                                                 @foreach ($teams as $team)
-                                                <option value="{{$team->name}}" name="{{$team->name}}">{{$team->name}}</option>
+                                                <option value="{{$team->name}}" name="{{$team->name}}" @if($team->name == $extra->teamName)selected @endif>{{$team->name}}</option>
                                                 @endforeach
                                                 </select>
                                             </lable>
                                         </td>
-    
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="contractStart" type="date" value="{{$extra->contractStart}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="contractEnd" type="date" value="{{$extra->contractEnd}}">
+                                            </label>
+                                        </td>
                                         <td class="actions-buttons">
                                              <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> 
                                             <button type="submit" class="submit-btn">

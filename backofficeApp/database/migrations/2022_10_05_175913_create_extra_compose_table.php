@@ -16,6 +16,9 @@ class CreateExtraComposeTable extends Migration
         Schema::create('extra_compose', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->date('contract_start');    
+            $table->date('contract_end');  
+            $table->bigInteger('id_teams')->unsigned();  
         });
     }
 
