@@ -12,32 +12,7 @@
 <body>
     <main>
 
-        <div class="empty"></div>
-
-        <div class="side-container">
-
-            <div class="logo-container">
-
-                <img src="{{ asset('img/logo/livescore-logo-white.png') }}" alt="blabla">
-
-            </div>
-
-            <div class="routes-container">
-
-            <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
-                <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
-                <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/team/" class="routes-list-element"><span class="material-symbols-outlined">shield</span>Teams</a>
-                <a href="/player/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
-                <a href="/sport/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
-                <a href="/country/" class="routes-list-element"><span class="material-symbols-outlined">public</span> Country</a>
-                <a href="/league/" class="routes-list-element"><span class="material-symbols-outlined">shield</span> League</a>
-                <a href="/extra/" class="routes-list-element focus"><span class="material-symbols-outlined">person</span> Extras</a>
-
-            </div>
-
-        </div>
-
+        @include('navbar')
         <div class="main-page-container">
 
             <div class="nav-bar-container">
@@ -89,8 +64,17 @@
                                             @endforeach
                                         </select>
                                     </label>
-                                    
-    
+                                    <label>
+                                        <p><span>*</span></p>
+                                        Contract Start
+                                        <input type="date" name="contractStart" id="contractStart">
+                                    </label>
+                                    <label>
+                                        <p><span>*</span></p>
+                                        Contract End
+                                        <input type="date" name="contractEnd" id="contractEnd">
+
+                                    </label>
                                 </div>
                             </div>
     
@@ -118,6 +102,8 @@
                             <th>Rol</th>
                             <th>Photo</th>
                             <th>Team</th>
+                            <th>Contract Start</th>
+                            <th>Contract End</th>
                             <th>Actions</th>
 
                         </tr>
@@ -163,12 +149,21 @@
                                             <lable>
                                                 <select name="teamName" id="teamName">
                                                 @foreach ($teams as $team)
-                                                <option value="{{$team->name}}" name="{{$team->name}}">{{$team->name}}</option>
+                                                <option value="{{$team->name}}" name="{{$team->name}}" @if($team->name == $extra->teamName)selected @endif>{{$team->name}}</option>
                                                 @endforeach
                                                 </select>
                                             </lable>
                                         </td>
-    
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="contractStart" type="date" value="{{$extra->contractStart}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="contractEnd" type="date" value="{{$extra->contractEnd}}">
+                                            </label>
+                                        </td>
                                         <td class="actions-buttons">
                                              <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> 
                                             <button type="submit" class="submit-btn">
@@ -210,7 +205,9 @@
         }
         
     </script>
-
+    <script>
+        document.getElementById('extra').classList.add("focus");
+    </script>
     <script src="{{ asset('js/UserForm.js') }}"></script>
     <script src="{{ asset('js/DropdownAnimation.js') }}"></script>
 </body>

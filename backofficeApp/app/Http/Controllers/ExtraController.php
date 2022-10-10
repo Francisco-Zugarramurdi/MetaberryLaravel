@@ -34,7 +34,7 @@ class ExtraController extends Controller
             'rol'=> 'required',
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
         if($validation->fails())
@@ -92,7 +92,8 @@ class ExtraController extends Controller
     public function update(Request $request, $id){
         $validation = $this->validateRegexUpdate($request);
         if($validation !== 'ok')
-        return $validation;
+            return $validation;
+        
         try{
             $this->updateExtra($request,$id);
             $this->updateTeam($request,$id);
@@ -106,7 +107,7 @@ class ExtraController extends Controller
             ];
         }
     }
-    private function updateExtra($request,$id){
+    private function updateExtra(Request $request,$id){
         $extra = Extra::findOrFail($id);
         $extra->name = $request->name;
         $extra->surname = $request->surname;
@@ -114,11 +115,15 @@ class ExtraController extends Controller
         $extra->rol = $request->rol;
         $extra->save();
     }
-    private function updateTeam($request,$id){
+    private function updateTeam(Request $request,$id){
         $team = Team::where('name', $request->teamName)->first()->id;
         $teamName = DB::table('extra_compose')
         ->where('id_extra', $id)
-        ->update(['id_teams'=> $team]);
+        ->update([
+            'contract_start'=>$request->contractStart,
+            'id_teams'=> $team,
+            'contract_end'=>$request->contractEnd
+        ]);
     }
 
     private function validateRegexUpdate(Request $request){
@@ -126,7 +131,7 @@ class ExtraController extends Controller
         $validation = Validator::make($request->all(),[
             'photo'=> [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
 

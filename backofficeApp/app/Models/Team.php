@@ -10,5 +10,5 @@ class Team extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = "teams";
-    protected $fillable = [ 'id', 'name','photo', 'tipo_teams', 'id_sports', 'id_countries'];
+    protected $fillable = [ 'id', 'name','photo', 'type_teams', 'id_sports', 'id_countries'];
 }

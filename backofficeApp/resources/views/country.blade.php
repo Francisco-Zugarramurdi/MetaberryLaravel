@@ -12,29 +12,7 @@
 <body>
     <main>
 
-        <div class="empty"></div>
-
-        <div class="side-container">
-
-            <div class="logo-container">
-
-                <img src="{{ asset('img/logo/livescore-logo-white.png') }}">
-
-            </div>
-
-            <div class="routes-container">
-
-                <a href="/" class="routes-list-element"><span class="material-symbols-outlined">home</span> Main</a>
-                <a href="/user/" class="routes-list-element"><span class="material-symbols-outlined">person</span> Users</a>
-                <a href="/ads/" class="routes-list-element"><span class="material-symbols-outlined">ads_click</span> Ads</a>
-                <a href="/players/" class="routes-list-element"><span class="material-symbols-outlined">directions_run</span>Players</a>
-                <a href="/sports/" class="routes-list-element"><span class="material-symbols-outlined">sports</span> Sports</a>
-                <a href="/country/" class="routes-list-element focus"><span class="material-symbols-outlined">public</span> Country</a>
-
-            </div>
-
-        </div>
-
+        @include('navbar')
         <div class="main-page-container">
 
             <div class="nav-bar-container">
@@ -171,8 +149,10 @@
 
         }
         
+    </script>   
+    <script>
+        document.getElementById('country').classList.add("focus");
     </script>
-
     <script src="{{ asset('js/UserForm.js') }}"></script>
     <script src="{{ asset('js/DropdownAnimation.js') }}"></script>
 </body>
