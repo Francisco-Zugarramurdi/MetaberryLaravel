@@ -117,10 +117,10 @@ create table leagues(
 create table leagues_events(
     id_events bigint unsigned not null,
     id_leagues bigint unsigned not null,
-    primary key (id_events,id_leagues),
-     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
+    primary key (id_events,id_leagues),
     foreign key (id_events) references events(id),
     foreign key (id_leagues) references leagues(id)
 );
