@@ -99,6 +99,9 @@ create table extra_compose(
 create table events_teams(
     id_teams bigint unsigned not null,
     id_events bigint unsigned not null,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_teams,id_events),
     foreign key (id_teams) references teams(id),
     foreign key (id_events) references events(id)
