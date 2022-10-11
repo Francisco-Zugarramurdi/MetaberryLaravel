@@ -106,7 +106,7 @@ class AdController extends Controller
             DB::table('ad_tags')->insert([
                 'id_ad' => $request->adId,
                 'id_tag' => $tagId
-            ])
+            ]);
 
         }
 
