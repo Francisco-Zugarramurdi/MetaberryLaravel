@@ -147,7 +147,7 @@ main {
   font-size: 1.2em;
 }
 .main-page-container .main-section .option-card-container a {
-  width: 10vw;
+  width: 13vw;
   height: 3vh;
   display: flex;
   flex-direction: row;
@@ -346,6 +346,9 @@ main {
 .main-page-container .create-user-container .hide {
   display: flex;
 }
+.main-page-container .user-table-container.enable {
+  margin: 0;
+}
 .main-page-container .user-table-container {
   width: 75vw;
   height: auto;
@@ -456,6 +459,30 @@ main {
   padding: 5px 2.5px 5px 5px;
   border-radius: 5px;
 }
+.main-page-container .user-table-container .user-table tbody tr .tag-container-show {
+  width: 25vw;
+  padding: 10px 15px;
+}
+.main-page-container .user-table-container .user-table tbody tr .tag-container-show .tag-container-table {
+  width: inherit;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  padding: 10px 0;
+}
+.main-page-container .user-table-container .user-table tbody tr .tag-container-show .tag-container-table label {
+  display: flex;
+  width: 120px;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+.main-page-container .user-table-container .user-table tbody tr .tag-container-show .tag-container-table label input {
+  width: 15px;
+  height: 15px;
+  margin: 0 15px;
+}
 .main-page-container .user-table-container .user-table tbody tr .actions-buttons {
   display: flex;
   height: 5vh;
@@ -511,6 +538,7 @@ main {
   position: fixed;
   z-index: 20;
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: rgba(255, 255, 255, 0.3);
@@ -564,4 +592,21 @@ main {
 .modalContainer #adTeamModal .submit-btn:hover {
   transition: 0.2s;
   transform: scale(1.2);
+}
+
+.create-btn {
+  width: 4vw;
+  height: 3vh;
+  text-align: center;
+  background-color: var(--blue);
+  border-radius: 10px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.8em;
+  border: none;
+  transition: 0.3s;
+}
+
+.create-btn:hover {
+  background-color: var(--dark-blue);
 }/*# sourceMappingURL=index.css.map */

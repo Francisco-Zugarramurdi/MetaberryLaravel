@@ -54,7 +54,10 @@
     
                                     <label>
                                         <p><span>* </span>Type of Team</p>
-                                        <input type="text" name="typeTeam" placeholder="Group" id="typeTeam">
+                                        <select name="typeTeam" id="typeTeam">
+                                            <option value="Group">Group</option>
+                                            <option value="Individual">Individual</option>
+                                        </select>
                                     </label>
     
                                     <label>
@@ -138,9 +141,12 @@
                                             </label>
                                         </td>
                                         
-                                        <td class="user-image">
-                                            <label>
-                                                <input name="typeTeam" type="text" value="{{$team->typeTeam}}">
+                                        <td class="user-type">
+                                        <label>
+                                                <select name="typeTeam" id="typeTeam">
+                                                    <option value="Group" @if($team->typeTeam=='Group')selected @endif>Group</option>
+                                                    <option value="Individual" @if($team->typeTeam=='Individual')selected @endif>Individual</option>
+                                                </select>
                                             </label>
                                         </td>
     

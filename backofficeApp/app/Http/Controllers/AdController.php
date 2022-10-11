@@ -96,17 +96,21 @@ class AdController extends Controller
         return view('ads')->with('ads',$indexAd)->with('tags',$tag)->with('adsModal',$ads);
     }
 
-    public function addTag(Request $request){
+    public function addTag(Request $request,$id){
 
         $tagInput = $request->input('tag');
-        
+        AdTag::where('id_ad',$id)->delete();
         foreach($tagInput as $tag){
 
             $tagId = Tag::where('tag', $tag)->first()->id;
-            DB::table('ad_tags')->insert([
-                'id_ad' => $request->adId,
-                'id_tag' => $tagId
-            ]);
+            $adTag = AdTag::where('id_ad',$id)->where('id_tag',$tagId);
+            if(!$adTag->exists()){
+                DB::table('ad_tags')->insert([
+                    'id_ad' => $id,
+                    'id_tag' => $tagId
+                ]);
+            }
+          
 
         }
 
@@ -125,7 +129,7 @@ class AdController extends Controller
         
         try{
             $this->updateAd($request, $id);
-            $this->updateAdTag($request,$id);
+            $this->addTag($request,$id);
             return redirect('/ads');
         }catch(QueryException $e){
 
@@ -163,4 +167,6 @@ class AdController extends Controller
             ];
         }
     }
+   
 }
+

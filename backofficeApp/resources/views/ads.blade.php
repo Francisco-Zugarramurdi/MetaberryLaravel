@@ -14,6 +14,7 @@
 
         @include('navbar')
 
+
         <div class="main-page-container">
 
             <div class="nav-bar-container">
@@ -51,21 +52,22 @@
                                             <p><span>* </span>Url</p>
                                             <input type="text" name="url" placeholder="Futbol.com" id="url">
                                         </label>
-        
+
                                         <label>
                                             <p><span>* </span>Size</p>
-                                            <input type="text" name="size"id="size" placeholder="Large">
+                                            <select name="size" id="size">
+                                                <option value="small">Small</option>
+                                                <option value="medium">Mid-large</option>
+                                                <option value="large">Large</option>
+                                                <option value="wide">Wide</option>
+                                                <option value="square">Square</option>
+                                            </select>
                                         </label>
         
                                         <label>
                                             <p><span>* </span>Views hired</p>
                                             <input type="text" name="viewsHired" placeholder="100" id="viewsHired">
                                         </label>
-
-                                        <!-- <label>
-                                            <p><span>* </span>Tag</p>
-                                            <input type="text" name="tag" placeholder="Futbol" id="tag">
-                                        </label> -->
 
                                     </div>
 
@@ -141,28 +143,51 @@
                                             </label>
                                         </td>
     
-                                        <td class="user-email">
+                                        <td class="user-name">
                                             <label>
                                                 <input name="url" type="text" value="{{$ad->url}}">
                                             </label>
                                         </td>
                                         
-                                        <td class="user-image">
+                                        <td class="user-type">
+                        
                                             <label>
-                                                <input name="size" type="text" value="{{$ad->size}}">
+                                                <select name="size" id="size">
+                                                <option value="small" @if($ad->size == "small") selected @endif >Small</option>
+                                                <option value="medium" @if($ad->size== "medium") selected @endif >Mid-large</option>
+                                                <option value="large" @if($ad->size == "large") selected @endif >Large</option>
+                                                <option value="wide" @if($ad->size == "wide") selected @endif >Wide</option>
+                                                <option value="square" @if($ad->size== "square") selected @endif >Square</option>
+                                                </select>
                                             </label>
                                         </td>
-    
+
                                         <td class="user-points">
                                             <label>
                                                 <input type="text"name="viewsHired" value="{{$ad->views_hired}}">
                                             </label>
                                         </td>
     
-                                        <td class="user-total-points">
-                                            <label>
-                                                <input type="text" name="tag" value="{{$ad->tag}}">
-                                            </label>
+                                        <td class="tag-container-show">
+
+                                            <div class="tag-container-table">
+
+                                                @foreach($tags as $tag)
+                                                <label>
+                                                    <p>{{$tag->tag}}</p>
+                                                    <input type="checkbox" name="tag[]" id="tag" value="{{$tag->tag}}"
+                                                    @foreach($adsModal as $modal)
+                                                    @if($tag->tag == $modal->tag)
+                                                        @if($modal->id == $ad->id)
+                                                        checked
+                                                        @endif
+                                                    @endif
+                                                    @endforeach>
+                                                </label>
+                                                @endforeach
+
+                                            </div>
+
                                         </td>
     
                                         <td class="actions-buttons">

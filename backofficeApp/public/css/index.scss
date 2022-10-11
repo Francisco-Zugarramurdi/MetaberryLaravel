@@ -203,7 +203,7 @@ main {
 
             a {
 
-                width: 10vw;
+                width: 13vw;
                 height: 3vh;
                 display: flex;
                 flex-direction: row;
@@ -477,6 +477,12 @@ main {
 
     }
 
+    .user-table-container.enable{
+
+        margin: 0;
+
+    }
+
     .user-table-container {
 
         width: 75vw;
@@ -640,6 +646,43 @@ main {
 
                 }
 
+                .tag-container-show{
+
+                    width: 25vw;
+                    padding: 10px 15px;
+
+                    .tag-container-table{
+
+                        width: inherit;
+                        display: flex;
+                        flex-direction: row;
+                        overflow-x: scroll;
+                        padding: 10px 0;
+                    
+                        label{
+                    
+                            display: flex;
+                            width: 120px;
+                            flex-direction: row-reverse;
+                            align-items: center;
+                            font-size: 0.8em;
+                            font-weight: 600;
+                    
+                            input{
+                    
+                                width: 15px;
+                                height: 15px;
+                                margin: 0 15px;
+                    
+                            }
+                    
+                        }
+                        
+                    }                
+    
+
+                }
+                
                 .actions-buttons {
 
                     display: flex;
@@ -725,6 +768,7 @@ main {
 }
 
 .modalContainer {
+
     .hidden {
 
         display: none;
@@ -735,6 +779,7 @@ main {
     position: fixed;
     z-index: 20;
     display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: rgba(255, 255, 255, 0.3);
@@ -787,3 +832,26 @@ main {
         }
     }
 }
+
+.create-btn {
+
+    width: 4vw;
+    height: 3vh;
+    text-align: center;
+    background-color: var(--blue);
+    border-radius: 10px;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.8em;
+    border: none;
+    transition: .3s;
+
+}
+.create-btn:hover {
+
+    background-color: var(--dark-blue);
+
+}
+
+
+
