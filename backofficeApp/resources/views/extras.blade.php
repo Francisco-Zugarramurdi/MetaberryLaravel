@@ -13,6 +13,7 @@
     <main>
 
         @include('navbar')
+
         <div class="main-page-container">
 
             <div class="nav-bar-container">
@@ -89,109 +90,108 @@
                         </form>
                     
                 </div>
-                <div class="user-table-container">
+                
+                <div class="user-table-container enable">
 
-                <table class="user-table">
+                    <table class="user-table">
 
-                    <thead>
-                        <tr>
-
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Rol</th>
-                            <th>Photo</th>
-                            <th>Team</th>
-                            <th>Contract Start</th>
-                            <th>Contract End</th>
-                            <th>Actions</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($extras as $extra)
+                        <thead>
                             <tr>
-                                    <form class="entry" method="POST" action="/extra/{{$extra->id}}">
-                                        @method('PUT')
-                                        @csrf
-                                        {{method_field('PUT')}}
-                                        <input name="_method" type="hidden" value="PUT">
 
-                                        <td class="user-id">
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Rol</th>
+                                <th>Photo</th>
+                                <th>Team</th>
+                                <th>Contract Start</th>
+                                <th>Contract End</th>
+                                <th>Actions</th>
 
-                                            <p>{{$extra->id}}</p>
-
-                                        </td>
-
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="name" type="text" value="{{$extra->name}}">
-                                            </label>
-                                        </td>
-                                        
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="surname" type="text" value="{{$extra->surname}}">
-                                            </label>
-                                        </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="rol" type="text" value="{{$extra->rol}}">
-                                            </label>
-                                        </td>
-                                        <td class="user-image">
-                                            <label>
-                                                <input name="photo" type="text" value="{{$extra->photo}}">
-                                            </label>
-                                        </td>
-                                        <td class="user-type">
-                                            <lable>
-                                                <select name="teamName" id="teamName">
-                                                @foreach ($teams as $team)
-                                                <option value="{{$team->name}}" name="{{$team->name}}" @if($team->name == $extra->teamName)selected @endif>{{$team->name}}</option>
-                                                @endforeach
-                                                </select>
-                                            </lable>
-                                        </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="contractStart" type="date" value="{{$extra->contractStart}}">
-                                            </label>
-                                        </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="contractEnd" type="date" value="{{$extra->contractEnd}}">
-                                            </label>
-                                        </td>
-                                        <td class="actions-buttons">
-                                             <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> 
-                                            <button type="submit" class="submit-btn">
-                                                <span class="material-symbols-outlined">send</span>
-                                            </button>
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
-                                            <span class="material-symbols-outlined">delete</span>
-                                            </button>
-                                        </td>
-                                    </form>
-
-                                <form action="/extra/{{$extra->id}}"method="POST" class="delete" id="delete_form">
-                                    @method('DELETE')
-                                    @csrf
-                                    {{method_field('DELETE')}}
-                                    <input name="_method" type="hidden" value="DELETE">
-                                </form>
                             </tr>
-                        @endforeach
-                    </tbody>
+                        </thead>
 
-                </table>
+                        <tbody>
+                            @foreach($extras as $extra)
+                                <tr>
+                                        <form class="entry" method="POST" action="/extra/{{$extra->id}}">
+                                            @method('PUT')
+                                            @csrf
+                                            {{method_field('PUT')}}
+                                            <input name="_method" type="hidden" value="PUT">
+
+                                            <td class="user-id">
+
+                                                <p>{{$extra->id}}</p>
+
+                                            </td>
+
+                                            <td class="user-name">
+                                                <label>
+                                                    <input name="name" type="text" value="{{$extra->name}}">
+                                                </label>
+                                            </td>
+                                            
+                                            <td class="user-name">
+                                                <label>
+                                                    <input name="surname" type="text" value="{{$extra->surname}}">
+                                                </label>
+                                            </td>
+                                            <td class="user-name">
+                                                <label>
+                                                    <input name="rol" type="text" value="{{$extra->rol}}">
+                                                </label>
+                                            </td>
+                                            <td class="user-name">
+                                                <label>
+                                                    <input name="photo" type="text" value="{{$extra->photo}}">
+                                                </label>
+                                            </td>
+                                            <td class="user-type">
+                                                <lable>
+                                                    <select name="teamName" id="teamName">
+                                                    @foreach ($teams as $team)
+                                                    <option value="{{$team->name}}" name="{{$team->name}}" @if($team->name == $extra->teamName)selected @endif>{{$team->name}}</option>
+                                                    @endforeach
+                                                    </select>
+                                                </lable>
+                                            </td>
+                                            <td class="user-name">
+                                                <label>
+                                                    <input name="contractStart" type="date" value="{{$extra->contractStart}}">
+                                                </label>
+                                            </td>
+                                            <td class="user-name">
+                                                <label>
+                                                    <input name="contractEnd" type="date" value="{{$extra->contractEnd}}">
+                                                </label>
+                                            </td>
+                                            <td class="actions-buttons">
+                                                <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> 
+                                                <button type="submit" class="submit-btn">
+                                                    <span class="material-symbols-outlined">send</span>
+                                                </button>
+                                                <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                                <span class="material-symbols-outlined">delete</span>
+                                                </button>
+                                            </td>
+                                        </form>
+
+                                    <form action="/extra/{{$extra->id}}"method="POST" class="delete" id="delete_form">
+                                        @method('DELETE')
+                                        @csrf
+                                        {{method_field('DELETE')}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                    </form>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
-
-            </div>
-
-        </div>
 
     </main>
 

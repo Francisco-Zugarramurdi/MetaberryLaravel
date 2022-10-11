@@ -477,6 +477,12 @@ main {
 
     }
 
+    .user-table-container.enable{
+
+        margin: 0;
+
+    }
+
     .user-table-container {
 
         width: 75vw;
@@ -640,6 +646,43 @@ main {
 
                 }
 
+                .tag-container-show{
+
+                    width: 25vw;
+                    padding: 10px 15px;
+
+                    .tag-container-table{
+
+                        width: inherit;
+                        display: flex;
+                        flex-direction: row;
+                        overflow-x: scroll;
+                        padding: 10px 0;
+                    
+                        label{
+                    
+                            display: flex;
+                            width: 120px;
+                            flex-direction: row-reverse;
+                            align-items: center;
+                            font-size: 0.8em;
+                            font-weight: 600;
+                    
+                            input{
+                    
+                                width: 15px;
+                                height: 15px;
+                                margin: 0 15px;
+                    
+                            }
+                    
+                        }
+                        
+                    }                
+    
+
+                }
+                
                 .actions-buttons {
 
                     display: flex;
@@ -725,6 +768,7 @@ main {
 }
 
 .modalContainer {
+
     .hidden {
 
         display: none;
@@ -735,6 +779,7 @@ main {
     position: fixed;
     z-index: 20;
     display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: rgba(255, 255, 255, 0.3);
@@ -807,40 +852,6 @@ main {
     background-color: var(--dark-blue);
 
 }
-.tag-container-show{
-    display: flex;
-    flex-direction: row;
-    width: 10vw;
-    padding: 0 30px 0 30px;
-    overflow-x: scroll;
 
-
-    label{
-
-        width: auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 0 0 0;
-
-        input{
-
-            width: 30px;
-            height: 30px;
-            padding: 0;
-
-            input::placeholder {
-
-                color: var(--dark-gray);
-                font-weight: 600;
-
-            }
-
-        }
-
-    }
-    
-}
 
 
