@@ -237,6 +237,37 @@ main {
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container {
   width: 30vw;
 }
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container {
+  width: 25vw;
+  height: 20vh;
+  padding: 0 30px 0 30px;
+  overflow-y: scroll;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container label {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0 0;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container label input {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container label input input::-moz-placeholder {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container label input input:-ms-input-placeholder {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container label input input::placeholder {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label {
   display: flex;
   flex-direction: row;

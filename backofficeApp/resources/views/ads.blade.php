@@ -39,34 +39,52 @@
                             
                             <div class="form-up-container">
     
-                                <div class="form-inner-container">
-    
-                                    <label>
-                                        <p><span>* </span>Image</p>
-                                        <input type="text" name="image" placeholder="FutbolAd.com" id="image">
-                                    </label>
-    
-                                    <label>
-                                        <p><span>* </span>Url</p>
-                                        <input type="text" name="url" placeholder="Futbol.com" id="url">
-                                    </label>
-    
-                                    <label>
-                                        <p><span>* </span>Size</p>
-                                        <input type="text" name="size"id="size" placeholder="Large">
-                                    </label>
-    
-                                    <label>
-                                        <p><span>* </span>Views hired</p>
-                                        <input type="text" name="viewsHired" placeholder="100" id="viewsHired">
-                                    </label>
 
-                                    <label>
-                                        <p><span>* </span>Tag</p>
-                                        <input type="text" name="tag" placeholder="Futbol" id="tag">
-                                    </label>
-    
-                                </div>
+                                    <div class="form-inner-container">
+
+                                        <label>
+                                            <p><span>* </span>Image</p>
+                                            <input type="text" name="image" placeholder="FutbolAd.com" id="image">
+                                        </label>
+        
+                                        <label>
+                                            <p><span>* </span>Url</p>
+                                            <input type="text" name="url" placeholder="Futbol.com" id="url">
+                                        </label>
+        
+                                        <label>
+                                            <p><span>* </span>Size</p>
+                                            <input type="text" name="size"id="size" placeholder="Large">
+                                        </label>
+        
+                                        <label>
+                                            <p><span>* </span>Views hired</p>
+                                            <input type="text" name="viewsHired" placeholder="100" id="viewsHired">
+                                        </label>
+
+                                        <!-- <label>
+                                            <p><span>* </span>Tag</p>
+                                            <input type="text" name="tag" placeholder="Futbol" id="tag">
+                                        </label> -->
+
+                                    </div>
+
+                                    <div class="form-inner-container">
+
+                                        <div class="tag-container">
+
+                                            <p><span>*</span> Tag</p>
+
+                                            @foreach($tags as $tag)
+                                            <label>
+                                                <p>{{$tag->tag}}</p>
+                                                <input type="checkbox" name="tag[]" id="tag" value="{{$tag->tag}}">
+                                            </label>
+                                            @endforeach
+
+                                        </div>
+
+                                    </div>
     
                             </div>
     

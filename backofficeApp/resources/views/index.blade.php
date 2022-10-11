@@ -43,7 +43,14 @@
                 <div class="option-card-container">
 
                     <h2>Team Management</h2>
-                    <a href="/team/">Go to Manage Team</a>
+                    <a href="/team/">Go to Manage Teams</a>
+
+                </div>
+
+                <div class="option-card-container">
+
+                    <h2>Player Management</h2>
+                    <a href="/player/">Go to Manage Players</a>
 
                 </div>
 
@@ -57,7 +64,7 @@
                 <div class="option-card-container">
 
                     <h2>Country Management</h2>
-                    <a href="/country/">Go to Manage Country</a>
+                    <a href="/country/">Go to Manage Countries</a>
 
                 </div>
 
@@ -71,14 +78,14 @@
                 <div class="option-card-container">
 
                     <h2>Extra Management</h2>
-                    <a href="/extra/">Go to Manage Extra</a>
+                    <a href="/extra/">Go to Manage Extras</a>
 
                 </div>
 
                 <div class="option-card-container">
 
                     <h2>Referee Management</h2>
-                    <a href="/referee/">Go to Manage Referee</a>
+                    <a href="/referee/">Go to Manage Referees</a>
 
                 </div>
 

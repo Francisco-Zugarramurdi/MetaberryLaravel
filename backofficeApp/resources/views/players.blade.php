@@ -32,7 +32,11 @@
                     Contract End
                     <input type="date" name="contractEnd"id="contractEnd">
                     Status
-                    <input type="text" name="status" id="status" maxlength="10">
+                    <select name="status" id="status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    
 
                 </label>
                 <input type="submit" class="submit-btn">
@@ -99,7 +103,10 @@
                                     </label>
                                     <label>
                                         <p>Status</p>
-                                        <input type="text" name="status" id="status" maxlength="10">
+                                        <select name="status" id="status">
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
                                     </label>
     
                                 </div>
@@ -186,9 +193,12 @@
                                                 <input type="date" name="contractEnd" id="contractEnd" value="{{$player->contractEnd}}">
                                             </label>
                                         </td>
-                                        <td class="user-name">
+                                        <td class="user-type">
                                             <label>
-                                                <input type="text" name="status" id="status" maxlength="10" value="{{$player->status}}">
+                                                <select name="status" id="status">
+                                                    <option value="active" @if($player->status=='active')selected @endif>Active</option>
+                                                    <option value="inactive" @if($player->status=='inactive')selected @endif>Inactive</option>
+                                                </select>
                                             </label>
                                         </td>
                                         <td class="actions-buttons">

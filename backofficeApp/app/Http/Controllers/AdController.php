@@ -21,7 +21,7 @@ class AdController extends Controller
             return $validation;
         }
         if(Ad::where('image', $request -> post("image")) -> exists())
-            return 'Image already exists';
+            return 'Ad already exists';
         try{
             return $this->createAd($request);
         }catch(QueryException $e){
@@ -42,9 +42,6 @@ class AdController extends Controller
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();
-
-        if(!Tag::where('tag', $request -> post("tag")) -> exists())
-            return 'Tag does not  exists';
         
         return 'ok';
     }
@@ -58,11 +55,26 @@ class AdController extends Controller
             'view_counter' => 0
         ]);
 
-        AdTag::create([
-            'id_ad' => $ad ->id,
-            'id_tag' => Tag::where('tag', $request -> post("tag"))->first()->id
-        ]);
+        $this->saveTag($request, $ad);
+
         return redirect('/ads');
+    }
+
+    private function saveTag(Request $request, $ad){
+
+        $tagInput = $request->input('tag');
+        
+        foreach($tagInput as $tag){
+
+            $tagId = Tag::where('tag', $tag)->first()->id;
+
+            AdTag::create([
+                'id_ad' => $ad ->id,
+                'id_tag' => $tagId
+            ]);
+
+        }
+
     }
 
     public function index(){
@@ -78,7 +90,28 @@ class AdController extends Controller
           "tags.tag as tag")
         ->get();
 
-        return view('ads')->with('ads',$ads);
+        $indexAd = Ad::all();
+        $tag = Tag::all();
+
+        return view('ads')->with('ads',$indexAd)->with('tags',$tag)->with('adsModal',$ads);
+    }
+
+    public function addTag(Request $request){
+
+        $tagInput = $request->input('tag');
+        
+        foreach($tagInput as $tag){
+
+            $tagId = Tag::where('tag', $tag)->first()->id;
+            DB::table('ad_tags')->insert([
+                'id_ad' => $request->adId,
+                'id_tag' => $tagId
+            ]);
+
+        }
+
+        return redirect('/player');
+
     }
 
     public function update(Request $request, $id){
