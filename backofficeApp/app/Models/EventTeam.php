@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class LeagueEvent extends Model
+class EventTeam extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = "leagues_events";
+    protected $table = "events_teams";
     protected $fillable = [
         'id_events',
-        'id_leagues'
+        'id_teams'
     ];
-
+    
 }

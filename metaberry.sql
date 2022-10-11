@@ -35,7 +35,7 @@ create table events(
     details text not null,
     id_sports bigint unsigned not null,
     id_countries bigint unsigned not null,
-    dates date not null,
+    date date not null,
     relevance tinyint not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -99,6 +99,9 @@ create table extra_compose(
 create table events_teams(
     id_teams bigint unsigned not null,
     id_events bigint unsigned not null,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_teams,id_events),
     foreign key (id_teams) references teams(id),
     foreign key (id_events) references events(id)
@@ -117,10 +120,10 @@ create table leagues(
 create table leagues_events(
     id_events bigint unsigned not null,
     id_leagues bigint unsigned not null,
-    primary key (id_events,id_leagues),
-     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
+    primary key (id_events,id_leagues),
     foreign key (id_events) references events(id),
     foreign key (id_leagues) references leagues(id)
 );
