@@ -14,6 +14,7 @@
 
         @include('navbar')
 
+
         <div class="main-page-container">
 
             <div class="nav-bar-container">
@@ -61,11 +62,6 @@
                                             <p><span>* </span>Views hired</p>
                                             <input type="text" name="viewsHired" placeholder="100" id="viewsHired">
                                         </label>
-
-                                        <!-- <label>
-                                            <p><span>* </span>Tag</p>
-                                            <input type="text" name="tag" placeholder="Futbol" id="tag">
-                                        </label> -->
 
                                     </div>
 
@@ -161,7 +157,22 @@
     
                                         <td class="user-total-points">
                                             <label>
-                                                <input type="text" name="tag" value="{{$ad->tag}}">
+                                                <div class="tag-container-show">
+                                                    @foreach($tags as $tag)
+                                                    <label>
+                                                        <p>{{$tag->tag}}</p>
+                                                        <input type="checkbox" name="tag[]" id="tag" value="{{$tag->tag}}"
+                                                        @foreach($adsModal as $modal)
+                                                        @if($tag->tag == $modal->tag)
+                                                            @if($modal->id == $ad->id)
+                                                            checked
+                                                            @endif
+                                                        @endif
+                                                        @endforeach
+                                                        >
+                                                    </label>
+                                                    @endforeach
+                                                </div>
                                             </label>
                                         </td>
     

@@ -564,4 +564,54 @@ main {
 .modalContainer #adTeamModal .submit-btn:hover {
   transition: 0.2s;
   transform: scale(1.2);
+}
+
+.create-btn {
+  width: 4vw;
+  height: 3vh;
+  text-align: center;
+  background-color: var(--blue);
+  border-radius: 10px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.8em;
+  border: none;
+  transition: 0.3s;
+}
+
+.create-btn:hover {
+  background-color: var(--dark-blue);
+}
+
+.tag-container-show {
+  display: flex;
+  flex-direction: row;
+  width: 10vw;
+  padding: 0 30px 0 30px;
+  overflow-x: scroll;
+}
+.tag-container-show label {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0 0;
+}
+.tag-container-show label input {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.tag-container-show label input input::-moz-placeholder {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+.tag-container-show label input input:-ms-input-placeholder {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+.tag-container-show label input input::placeholder {
+  color: var(--dark-gray);
+  font-weight: 600;
 }/*# sourceMappingURL=index.css.map */

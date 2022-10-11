@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AdTag extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     protected $table = "ad_tags";
     protected $fillable = ['id_tag','id_ad'];
 }
