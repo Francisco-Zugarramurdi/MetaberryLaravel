@@ -65,13 +65,13 @@
                                         </select>
                                     </label>
                                     <label>
-                                        <p><span>*</span></p>
-                                        Contract Start
+                                        <p><span>* </span>Contract Start</p>
+                                        
                                         <input type="date" name="contractStart" id="contractStart">
                                     </label>
                                     <label>
-                                        <p><span>*</span></p>
-                                        Contract End
+                                        <p><span>* </span>Contract End</p>
+                                       
                                         <input type="date" name="contractEnd" id="contractEnd">
 
                                     </label>
