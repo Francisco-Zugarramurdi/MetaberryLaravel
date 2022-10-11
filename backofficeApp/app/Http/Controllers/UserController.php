@@ -17,18 +17,14 @@ class UserController extends Controller
         $validation = $this->validateRequest($request);
 
         if($validation !== "ok"){
-            return $validation;
+            return view('error')->with('errors', $validation); 
         }
         try {
             return $this->createUser($request);
         }
         catch (QueryException $e){
-
-            return [
-                "error" => 'Cannot create user',
-                "trace" => $e -> getMessage()
-            ];
-
+            $errors = 'Cannot create user';
+            return view('error')->with('errorData',$e)->with('errors', $errors);
         }
         
     }
@@ -82,10 +78,11 @@ class UserController extends Controller
         ]);
 
         if($validator->fails())
-            return $validator->errors()->toJson();
+            return $validator->errors();
 
         if(User::withTrashed()->where('email', $request -> post("email")) -> exists())
             return 'User already exists';
+            
 
         return 'ok';
 
@@ -137,7 +134,7 @@ class UserController extends Controller
 
         $validation = $this->validateRegexRequest($request);
         if($validation !== "ok")
-            return $validation;
+            return view('error')->with('errors', $validation); 
         
         try{
                 
@@ -149,10 +146,8 @@ class UserController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot update user',
-                "trace" => $e -> getMessage()
-            ];
+            $errors = 'Cannot update user';
+            return view('error')->with('errorData',$e)->with('errors', $errors);
             
         }
 
@@ -187,10 +182,8 @@ class UserController extends Controller
             return redirect('/user');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete user',
-                "trace" => $e -> getMessage()
-            ];
+            $errors = 'Cannot delte user';
+            return view('error')->with('errorData',$e)->with('errors', $errors);
         }
         
     }
