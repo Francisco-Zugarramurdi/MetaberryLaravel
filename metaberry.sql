@@ -131,6 +131,9 @@ create table leagues_events(
 create table leagues_countries(
     id_countries bigint unsigned not null,
     id_leagues bigint unsigned not null,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_countries,id_leagues),
     foreign key (id_countries) references countries(id),
     foreign key (id_leagues) references leagues(id)
@@ -433,5 +436,3 @@ create table ad_tags(
     foreign key (id_tag) references tags(id)
 );
 
-insert into tags (tag) values
-('Main');
