@@ -237,6 +237,70 @@ main {
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container {
   width: 30vw;
 }
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 0 0 10px;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container {
+  width: inherit;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #9fa3a8;
+  margin: 10px 0;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn {
+  width: 4vw;
+  height: 6vw;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: var(--blue);
+  border-radius: 10px;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn button span {
+  color: var(--white);
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container label {
+  width: 7vw;
+  height: 6vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--light-gray);
+  margin: 0;
+  padding: 0;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container label select {
+  width: 6vw;
+  height: 3vh;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container label input {
+  width: 4vw;
+  height: 3vh;
+}
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .tag-container {
   width: 25vw;
   height: 20vh;

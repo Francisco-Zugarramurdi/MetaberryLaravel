@@ -84,6 +84,7 @@
                                         </label>
                                     </div>
                                     <div class="form-inner-container">
+
                                         <label>
                                             Local Team
                                             <select name="localTeam" id="localTeam">
@@ -92,6 +93,7 @@
                                                 @endforeach
                                             </select>
                                         </label>
+
                                         <label>
                                             Vistant Team
                                             <select name="visitantTeam" id="visitantTeam">
@@ -162,10 +164,12 @@
                                            <p><span>* </span>Date</p>           
                                            <input type="date" name="date" id="date">
                                         </label>
+
                                         <label>
                                             <p><span>* </span>Relevance</p>
                                             <input type="number" name="relevance" id="relevance" min="1" max="5">
                                         </label>
+
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
                                                 @foreach ($countries as $country)
@@ -173,6 +177,7 @@
                                                 @endforeach
                                             </select>
                                         </label>
+
                                         <label><p><span>* </span>Sport</p>
                                             <select name="sport" id="sport">
                                                 @foreach ($sports as $sport)
@@ -180,6 +185,7 @@
                                                 @endforeach
                                             </select>
                                         </label>
+
                                         <label><p>League</p>
                                             <select name="league" id="league">
                                                 @foreach ($leagues as $league)
@@ -187,7 +193,91 @@
                                                 @endforeach
                                             </select>
                                         </label>
+
                                     </div>
+
+                                    <div class="form-inner-container">
+                                        
+                                        <div class="form-team-container">
+                                            
+                                            <label>
+                                                <p><span>* </span>Teams</p>
+                                            </label>
+
+                                            <label class="add-btn">
+                                                <button type="button" id="add_team_button"><span class="material-symbols-outlined">add</span></button>
+                                            </label>
+                                            
+                                            <div class="team-card-container" id="team_card_container">
+                                                
+                                                <div class="team-container">
+
+                                                    <label>
+                                                        Local Team
+                                                        <select name="localTeam" id="localTeam">
+                                                            @foreach($teams as $team)
+                                                            <option value="{{$team->id}}">{{$team->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+
+                                                    <label>
+                                                        Player
+                                                        <select name="player" id="player">
+                                                            @foreach($players as $player)
+                                                            <option value="{{$player->id}}">{{$player->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+
+                                                    <label>
+                                                        Point
+                                                        <input type="number" name="point" id="point">
+                                                    </label>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!-- <label class="add-btn">
+                                                <button type="button" id="add_team_button"><span class="material-symbols-outlined">add</span></button>
+                                            </label>
+
+                                            <div class="team-card-container" id="team_card_container">
+                                                
+                                                <div class="team-container">
+
+
+                                                    <label>
+                                                        Visitor Team
+                                                        <select name="visitorTeam" id="visitorTeam">
+                                                            @foreach($teams as $team)
+                                                            <option value="{{$team->id}}">{{$team->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+
+                                                    <label>
+                                                        Player
+                                                        <select name="player" id="player">
+                                                            @foreach($players as $player)
+                                                            <option value="{{$player->id}}">{{$player->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+
+                                                    <label>
+                                                        Point
+                                                        <input type="number" name="point" id="point">
+                                                    </label>
+
+                                                </div>
+
+                                            </div> -->
+                                        </div>
+
+                                    </div>
+
                                 </div>
         
                                 <div class="form-down-container">
@@ -343,13 +433,9 @@
                             </form>
                         
                     </div>            
-
-
             </div>
 
         </div>
-        
-           
 
     </main>
 
@@ -358,5 +444,6 @@
         document.getElementById('event').classList.add("focus");
     </script>
     <script src="{{ asset('js/Event.js') }}"></script>
+    <script src="{{ asset('js/AddTeamEvent.js') }}"></script>
 </body>
 </html>

@@ -13,21 +13,27 @@ use App\Models\Sport;
 use App\Models\League;
 use App\Models\Extra;
 use App\Models\Team;
+use App\Models\Player;
+use App\Models\Result;
+use App\Models\ResultPoint;
+
 use \Illuminate\Database\QueryException;
 
 class EventController extends Controller
 {  
+
     public function index(){
         
         return view('events')
         ->with('countries',Country::all())
         ->with('sports',Sport::all())
         ->with('leagues',League::all())
+        ->with('players',Player::all())
         ->with('teams',Team::all());
     }
 
     public function createSet(Request $request){
-        
+
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok"){
             return $validation;
@@ -35,11 +41,9 @@ class EventController extends Controller
 
         try{
             $this->createEventSet($request);
-            return redirect('/event');
         }
-
-        catch(error $e){
-            return $e;
+        catch(QueryException $e){
+            return 'Cannot create event';
         }
            
     }
@@ -65,6 +69,8 @@ class EventController extends Controller
             $this->addLeague($request,$event->id);
         if($request->resultReady !=null)
             $this->addSet($request,$event->id);
+
+        return redirect('/event');
     }
 
     private function createEvent(Request $request){
@@ -80,14 +86,14 @@ class EventController extends Controller
 
     }
 
-    private function addLeague(Request $request,$eventID){
+    private function addLeague(Request $request, $eventID){
         DB::table('leagues_events')->insert([
             'id_events'=>$eventID,
             'id_leagues'=>$request->league,
         ]);
     }
 
-    private function addSet(Request $request,$eventID){
+    private function addSet(Request $request, $eventID){
         $result = DB::table('results')->insertGetId([
             'tipo_results'=>"set",
             'results'=>" ",
@@ -118,4 +124,27 @@ class EventController extends Controller
         }
 
     }
+
+    public function createPoint(Request $request){
+
+        $validation = $this->validateCreationRequest($request);
+        if($validation !== "ok"){
+            return $validation;
+        }
+
+        try{
+            $this->createEventPoint($request);
+        }
+        catch(QueryException $e){
+            return 'Cannot create event';
+        }
+
+    }
+
+    private function createEventPoint(Request $request){
+
+        
+
+    }
+
 }
