@@ -9,6 +9,7 @@ document.getElementById("button-set").addEventListener('click',()=>{
         form.classList.add("hide");
     }
 });
+
 document.getElementById("add-set-local").addEventListener('click',()=>{
     setNumber++;
     document.getElementById("setContainerLocal").innerHTML += `Set(${setNumber})<input type='number' name='setsLocal[]'>`;
