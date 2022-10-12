@@ -25,7 +25,9 @@ class EventController extends Controller
         ->with('leagues',League::all())
         ->with('teams',Team::all());
     }
+
     public function createSet(Request $request){
+        
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok"){
             return $validation;
@@ -35,12 +37,13 @@ class EventController extends Controller
             $this->createEventSet($request);
             return redirect('/event');
         }
+
         catch(error $e){
             return $e;
         }
            
-       
     }
+
     private function validateCreationRequest(Request $request){
         $validator = Validator::make($request->all(),[
             'name' => 'required',
@@ -55,29 +58,35 @@ class EventController extends Controller
     
         return 'ok';
     }
+
     private function createEventSet(Request $request){
         $event = $this->createEvent($request);
         if($request->league != null)
             $this->addLeague($request,$event->id);
         if($request->resultReady !=null)
-        $this->addSet($request,$event->id);
+            $this->addSet($request,$event->id);
     }
+
     private function createEvent(Request $request){
+
         return Event::create([
-            'name'=>$request->name,
-            'details'=>$request->details,
-            'id_sports'=>$request->sport,
-            'id_countries'=>$request->country,
-            'dates'=>$request->date,
-            'relevance'=>$request->relevance
+            'name' => $request->name,
+            'details' => $request->details,
+            'id_sports' => $request->sport,
+            'id_countries' => $request->country,
+            'date' => $request->date,
+            'relevance' => $request->relevance
         ]);
+
     }
+
     private function addLeague(Request $request,$eventID){
         DB::table('leagues_events')->insert([
             'id_events'=>$eventID,
             'id_leagues'=>$request->league,
         ]);
     }
+
     private function addSet(Request $request,$eventID){
         $result = DB::table('results')->insertGetId([
             'tipo_results'=>"set",
