@@ -10,6 +10,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\RefereeController;
+use App\Http\Controllers\EventController;
 
 
 /*
@@ -74,3 +75,11 @@ Route::get("/referee",[RefereeController::class,'index']);
 Route::post("/referee/create",[RefereeController::class,'create']);
 Route::delete("/referee/{id}",[RefereeController::class,'destroy']);
 Route::put("/referee/{id}",[RefereeController::class,'update']);
+
+
+Route::get("/event",[EventController::class,'index']);
+
+Route::get("/event/create/set",[EventController::class,'createSet']);
+
+Route::delete("/revent{id}",[EventController::class,'destroy']);
+Route::put("/event/{id}",[EventController::class,'update']);

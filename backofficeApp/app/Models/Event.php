@@ -15,7 +15,7 @@ class Event extends Model
         'details',
         'id_sports',
         'id_countries',
-        'date',
+        'dates',
         'relevance'
     ];
 }

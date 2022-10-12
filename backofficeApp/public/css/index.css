@@ -609,4 +609,12 @@ main {
 
 .create-btn:hover {
   background-color: var(--dark-blue);
+}
+
+#setContainerLocal, #setContainerVisitant {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 20vh;
 }/*# sourceMappingURL=index.css.map */

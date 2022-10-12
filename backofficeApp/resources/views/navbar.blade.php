@@ -20,6 +20,7 @@
                 <a href="/league/" class="routes-list-element"id="league"><span class="material-symbols-outlined">shield</span> League</a>
                 <a href="/extra/" class="routes-list-element"id="extra"><span class="material-symbols-outlined">person</span> Extras</a>
                 <a href="/referee/" class="routes-list-element"id="referee"><span class="material-symbols-outlined">sports_score</span> Referee</a>
+                <a href="/event/" class="routes-list-element"id="event"><span class="material-symbols-outlined">event</span>Event</a>
 
             </div>
 
