@@ -95,7 +95,7 @@ class EventController extends Controller
 
     private function addSet(Request $request, $eventID){
         $result = DB::table('results')->insertGetId([
-            'tipo_results'=>"set",
+            'type_results'=>"set",
             'results'=>" ",
             'id_events'=>$eventID
         ]);
