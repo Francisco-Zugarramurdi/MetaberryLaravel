@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="_token" content="{{csrf_token()}}" />
     <title>Event</title>
 </head>
 <body>
@@ -443,6 +445,26 @@
 
     <script>
         document.getElementById('event').classList.add("focus");
+    </script>
+    <script>
+        jQuery(document).ready(function(){
+        jQuery('#add-set-local').click(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        jQuery.ajax({
+            url: "{{ url('/player/indexByTeam') }}",
+            method: 'POST',
+            data: {
+                teamName:jQuery('#name').val()
+            },
+            success: function(result){
+                console.log(result);
+            }});
+        });
+    });
     </script>
     <script src="{{ asset('js/Event.js') }}"></script>
     <script src="{{ asset('js/AddTeamEvent.js') }}"></script>
