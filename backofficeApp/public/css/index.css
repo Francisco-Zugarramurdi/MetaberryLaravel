@@ -247,20 +247,20 @@ main {
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container {
   width: inherit;
+  height: 15vh;
   display: flex;
+  overflow-x: hidden;
+  overflow-y: scroll;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container {
   width: inherit;
-  overflow-x: hidden;
-  overflow-y: scroll;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  background-color: #9fa3a8;
   margin: 10px 0;
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn {

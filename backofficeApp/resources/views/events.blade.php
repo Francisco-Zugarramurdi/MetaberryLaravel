@@ -205,16 +205,17 @@
                                             </label>
 
                                             <label class="add-btn">
-                                                <button type="button" id="add_team_button"><span class="material-symbols-outlined">add</span></button>
+                                                Add a local team
+                                                <button type="button" id="add_team_local_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
                                             
-                                            <div class="team-card-container" id="team_card_container">
+                                            <div class="team-card-container" id="team_card_local_container">
                                                 
                                                 <div class="team-container">
 
                                                     <label>
                                                         Local Team
-                                                        <select name="localTeam" id="localTeam">
+                                                        <select name="team" id="team">
                                                             @foreach($teams as $team)
                                                             <option value="{{$team->id}}">{{$team->name}}</option>
                                                             @endforeach
@@ -223,34 +224,34 @@
 
                                                     <label>
                                                         Player
-                                                        <select name="player" id="player">
+                                                        <select name="localPlayer[]" id="localPlayer">
                                                             @foreach($players as $player)
-                                                            <option value="{{$player->id}}">{{$player->name}}</option>
+                                                            <option value="localPlayer" name="localPlayer[]">{{$player->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </label>
 
                                                     <label>
                                                         Point
-                                                        <input type="number" name="point" id="point">
+                                                        <input type="number" name="localPoint[]" id="localPoint">
                                                     </label>
 
                                                 </div>
 
                                             </div>
 
-                                            <!-- <label class="add-btn">
-                                                <button type="button" id="add_team_button"><span class="material-symbols-outlined">add</span></button>
+                                            <label class="add-btn">
+                                                Add a visitor team
+                                                <button type="button" id="add_team_visitor_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
 
-                                            <div class="team-card-container" id="team_card_container">
+                                            <div class="team-card-container" id="team_card_visitor_container">
                                                 
                                                 <div class="team-container">
 
-
                                                     <label>
                                                         Visitor Team
-                                                        <select name="visitorTeam" id="visitorTeam">
+                                                        <select name="team" id="team">
                                                             @foreach($teams as $team)
                                                             <option value="{{$team->id}}">{{$team->name}}</option>
                                                             @endforeach
@@ -259,21 +260,21 @@
 
                                                     <label>
                                                         Player
-                                                        <select name="player" id="player">
+                                                        <select name="visitorPlayer[]" id="visitorPlayer">
                                                             @foreach($players as $player)
-                                                            <option value="{{$player->id}}">{{$player->name}}</option>
+                                                            <option value="{{$player->id}}" name="visitorPlayer[]">{{$player->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </label>
 
                                                     <label>
                                                         Point
-                                                        <input type="number" name="point" id="point">
+                                                        <input type="number" name="visitorPoint[]" id="visitorPoint">
                                                     </label>
 
                                                 </div>
 
-                                            </div> -->
+                                            </div>
                                         </div>
 
                                     </div>
