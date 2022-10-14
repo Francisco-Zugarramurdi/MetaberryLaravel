@@ -12,6 +12,8 @@ jQuery(document).ready(function(){
             teamName:jQuery('#name').val()
         },
         success: function(result){
+            setNumber++;
+            document.getElementById("setContainerLocal").innerHTML += `Set(${setNumber})<input type='number' name='setsLocal[]'>`;
             console.log(result);
         }});
     });

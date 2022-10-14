@@ -1,11 +1,4 @@
 var setNumber = 0;
-
-
-
-
-
-
-
 document.getElementById("button-set").addEventListener('click',()=>{
     const form = document.getElementById("sets");
     if(form.classList.contains("hide")){

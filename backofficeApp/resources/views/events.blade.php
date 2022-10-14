@@ -144,8 +144,8 @@
     
                             <h2>Create Event by Points</h2>
         
-                            <form action="/event/create" class="create-user-form" method="POST" id="creationForm">
-                                @method('POST')
+                            <form action="/event/create/point" class="create-user-form" method="GET" id="creationForm">
+                                @method('GET')
                                 @csrf
                                 
                                 <div class="form-up-container">
@@ -175,7 +175,7 @@
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country->name}}">{{$country->name}}</option>
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
@@ -183,7 +183,7 @@
                                         <label><p><span>* </span>Sport</p>
                                             <select name="sport" id="sport">
                                                 @foreach ($sports as $sport)
-                                                    <option value="{{$sport->name}}">{{$sport->name}}</option>
+                                                    <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
@@ -191,9 +191,13 @@
                                         <label><p>League</p>
                                             <select name="league" id="league">
                                                 @foreach ($leagues as $league)
-                                                    <option value="{{$league->name}}">{{$league->name}}</option>
+                                                    <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
                                             </select>
+                                        </label>
+                                        <label>
+                                            <p>Result is ready</p>
+                                            <input type="checkbox" name="resultReady">
                                         </label>
 
                                     </div>
@@ -211,31 +215,17 @@
                                                 <button type="button" id="add_team_local_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
                                             
-                                            <div class="team-card-container" id="team_card_local_container">
+                                            <div class="team-card-container" id="team_card_Local_container">
                                                 
                                                 <div class="team-container">
 
                                                     <label>
                                                         Local Team
-                                                        <select name="team" id="team">
+                                                        <select name="localTeam" id="localTeam">
                                                             @foreach($teams as $team)
                                                             <option value="{{$team->id}}">{{$team->name}}</option>
                                                             @endforeach
                                                         </select>
-                                                    </label>
-
-                                                    <label>
-                                                        Player
-                                                        <select name="localPlayer[]" id="localPlayer">
-                                                            @foreach($players as $player)
-                                                            <option value="localPlayer" name="localPlayer[]">{{$player->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </label>
-
-                                                    <label>
-                                                        Point
-                                                        <input type="number" name="localPoint[]" id="localPoint">
                                                     </label>
 
                                                 </div>
@@ -247,31 +237,17 @@
                                                 <button type="button" id="add_team_visitor_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
 
-                                            <div class="team-card-container" id="team_card_visitor_container">
+                                            <div class="team-card-container" id="team_card_Visitor_container">
                                                 
                                                 <div class="team-container">
 
                                                     <label>
                                                         Visitor Team
-                                                        <select name="team" id="team">
+                                                        <select name="visitorTeam" id="visitorTeam">
                                                             @foreach($teams as $team)
                                                             <option value="{{$team->id}}">{{$team->name}}</option>
                                                             @endforeach
                                                         </select>
-                                                    </label>
-
-                                                    <label>
-                                                        Player
-                                                        <select name="visitorPlayer[]" id="visitorPlayer">
-                                                            @foreach($players as $player)
-                                                            <option value="{{$player->id}}" name="visitorPlayer[]">{{$player->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </label>
-
-                                                    <label>
-                                                        Point
-                                                        <input type="number" name="visitorPoint[]" id="visitorPoint">
                                                     </label>
 
                                                 </div>
@@ -446,27 +422,77 @@
     <script>
         document.getElementById('event').classList.add("focus");
     </script>
+    <script src="{{ asset('js/Event.js') }}"></script>
+
     <script>
+        var count = 0;
+
         jQuery(document).ready(function(){
-        jQuery('#add-set-local').click(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-        jQuery.ajax({
-            url: "{{ url('/player/indexByTeam') }}",
-            method: 'POST',
-            data: {
-                teamName:jQuery('#name').val()
-            },
-            success: function(result){
-                console.log(result);
-            }});
-        });
+            jQuery('#add_team_local_button').click(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            jQuery.ajax({
+                url: "{{ url('/player/indexById') }}",
+                method: 'POST',
+                data: {
+                    teamId:jQuery('#localTeam').val()
+                },
+                success: function(players){
+                    addPointToATeam(players, 'Local')
+                }});
+            });
+            
+
+            jQuery('#add_team_visitor_button').click(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            jQuery.ajax({
+                url: "{{ url('/player/indexById') }}",
+                method: 'POST',
+                data: {
+                    teamId:jQuery('#visitorTeam').val()
+                },
+                success: function(players){
+                    addPointToATeam(players, 'Visitor')
+                }});
+            });
+
+        let addPointToATeam = (players, team) =>{
+            let options = ''
+            count += 1;
+
+            Object.keys(players).forEach(player => {
+                
+                options += `<option value="${players[player].id}">${players[player].name}</option>`
+            }); 
+
+            document.getElementById(`team_card_${team}_container`).innerHTML += 
+            `<div class="team-container">
+            
+                <label>
+                    Player
+                    <select name="points${team}[${count}][player]" id="player">
+                        ${options}
+                    </select>
+                </label>
+        
+                <label>
+                    Points
+                    <input type="point" name="points${team}[${count}][points]" id="points">
+                </label>
+        
+            </div>`;
+        }
+
+        
     });
     </script>
-    <script src="{{ asset('js/Event.js') }}"></script>
-    <script src="{{ asset('js/AddTeamEvent.js') }}"></script>
+
 </body>
 </html>

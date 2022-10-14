@@ -139,11 +139,11 @@ class PlayerController extends Controller
         return redirect('/player');
     }
 
-    public function indexPlayersByTeam(Request $request){
+    public function indexPlayersById(Request $request){
         return Player::leftJoin('players_teams','players_teams.id_players','players.id')
         ->leftJoin('teams','players_teams.id_teams','teams.id')
-        ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
+        ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','teams.id as teamId','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
         ->get()
-        ->where('teamName', $request->teamName);
+        ->where('teamId', $request->teamId);
     }
 }

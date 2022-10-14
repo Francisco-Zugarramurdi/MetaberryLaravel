@@ -32,7 +32,7 @@ class EventController extends Controller
         ->with('teams',Team::all());
     }
 
-    public function createSet(Request $request){
+    public function createEventSet(Request $request){
 
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok"){
@@ -40,59 +40,19 @@ class EventController extends Controller
         }
 
         try{
-            $this->createEventSet($request);
+            $event = $this->createEvent($request);
+            if($request->league != null)
+                $this->addLeague($request,$event->id);
+            if($request->resultReady !=null)
+                $this->addSet($request,$event->id);
+
+            return redirect('/event');
         }
         catch(QueryException $e){
             return 'Cannot create event';
         }
            
     }
-
-    private function validateCreationRequest(Request $request){
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'details' => 'required',
-            'date' => 'required',
-            'relevance' => 'required',
-            'country' => 'required',
-            'sport' => 'required'
-        ]);
-        if ($validator->fails())
-            return $validator->errors()->toJson();
-    
-        return 'ok';
-    }
-
-    private function createEventSet(Request $request){
-        $event = $this->createEvent($request);
-        if($request->league != null)
-            $this->addLeague($request,$event->id);
-        if($request->resultReady !=null)
-            $this->addSet($request,$event->id);
-
-        return redirect('/event');
-    }
-
-    private function createEvent(Request $request){
-
-        return Event::create([
-            'name' => $request->name,
-            'details' => $request->details,
-            'id_sports' => $request->sport,
-            'id_countries' => $request->country,
-            'date' => $request->date,
-            'relevance' => $request->relevance
-        ]);
-
-    }
-
-    private function addLeague(Request $request, $eventID){
-        DB::table('leagues_events')->insert([
-            'id_events'=>$eventID,
-            'id_leagues'=>$request->league,
-        ]);
-    }
-
     private function addSet(Request $request, $eventID){
         $result = DB::table('results')->insertGetId([
             'type_results'=>"set",
@@ -125,26 +85,86 @@ class EventController extends Controller
 
     }
 
-    public function createPoint(Request $request){
-
+    public function createEventPoint(Request $request){
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok"){
             return $validation;
         }
 
         try{
-            $this->createEventPoint($request);
+            $event = $this->createEvent($request);
+            if($request->league != null)
+                $this->addLeague($request,$event->id);
+            if($request->resultReady !=null)
+               return $this->addPoint($request,$event->id);
+            return redirect('/event');
         }
         catch(QueryException $e){
-            return 'Cannot create event';
+            return $e;
         }
 
     }
+    private function addPoint(Request $request, $eventID){
+        $result = DB::table('results')->insertGetId([
+            'type_results'=>"score",
+            'results'=>" ",
+            'id_events'=>$eventID
+        ]);
+        foreach($request-> pointsLocal as $point){
+            DB::table('results_points')->insert([
+                'id_players' => $point['player'],
+                'point' => $point['points'],
+                'id_teams' => $request->localTeam,
+                'id_results'=>$result,
+            ]);
 
-    private function createEventPoint(Request $request){
+        }
+        foreach($request->pointsVisitor as $point){
+            DB::table('results_points')->insert([
+                'id_players' => $point['player'],
+                'point' => $point['points'],
+                'id_teams' => $request->visitorTeam,
+                'id_results'=>$result,
+            ]);
+        }
+    }
 
-        
-
+    private function validateCreationRequest(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'details' => 'required',
+            'date' => 'required',
+            'relevance' => 'required',
+            'country' => 'required',
+            'sport' => 'required'
+        ]);
+        if ($validator->fails())
+            return $validator->errors()->toJson();
+    
+        return 'ok';
+    }
+    
+    private function createEvent(Request $request){
+    
+        return Event::create([
+            'name' => $request->name,
+            'details' => $request->details,
+            'id_sports' => $request->sport,
+            'id_countries' => $request->country,
+            'date' => $request->date,
+            'relevance' => $request->relevance
+        ]);
+    
+    }
+    
+    private function addLeague(Request $request, $eventID){
+        DB::table('leagues_events')->insert([
+            'id_events'=>$eventID,
+            'id_leagues'=>$request->league,
+        ]);
     }
 
 }
+
+
+
