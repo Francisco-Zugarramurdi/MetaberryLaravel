@@ -145,4 +145,19 @@ class LeagueController extends Controller
         ->update(['id_countries' => $request->countryName]);
 
     }
+
+    public function destroy($id){
+
+        try{
+            League::findOrFail($id)->delete();
+            return redirect('/league');
+        }
+        catch(QueryException $e){
+            return [
+                "error" => 'Cannot delete league',
+                "trace" => $e -> getMessage()
+            ];
+        }
+
+    }
 }
