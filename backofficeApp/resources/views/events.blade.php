@@ -214,19 +214,19 @@
                                                 Add a local team
                                                 <button type="button" id="add_team_local_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
+                                            <label>
+                                                Local Team
+                                                <select name="localTeam" id="localTeamScore">
+                                                    @foreach($teams as $team)
+                                                    <option value="{{$team->id}}">{{$team->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </label>
                                             
                                             <div class="team-card-container" id="team_card_Local_container">
                                                 
                                                 <div class="team-container">
 
-                                                    <label>
-                                                        Local Team
-                                                        <select name="localTeam" id="localTeam">
-                                                            @foreach($teams as $team)
-                                                            <option value="{{$team->id}}">{{$team->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </label>
 
                                                 </div>
 
@@ -237,19 +237,19 @@
                                                 <button type="button" id="add_team_visitor_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
 
+                                            <label>
+                                                Visitor Team
+                                                <select name="visitorTeam" id="visitorTeamScore">
+                                                    @foreach($teams as $team)
+                                                    <option value="{{$team->id}}">{{$team->name}}</option>
+                                                    @endforeach
+                                                </select>
+
+                                            </label>
                                             <div class="team-card-container" id="team_card_Visitor_container">
                                                 
                                                 <div class="team-container">
-
-                                                    <label>
-                                                        Visitor Team
-                                                        <select name="visitorTeam" id="visitorTeam">
-                                                            @foreach($teams as $team)
-                                                            <option value="{{$team->id}}">{{$team->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </label>
-
+                                                    
                                                 </div>
 
                                             </div>
@@ -429,40 +429,40 @@
 
         jQuery(document).ready(function(){
             jQuery('#add_team_local_button').click(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            });
-            jQuery.ajax({
-                url: "{{ url('/player/indexById') }}",
-                method: 'POST',
-                data: {
-                    teamId:jQuery('#localTeam').val()
-                },
-                success: function(players){
-                    addPointToATeam(players, 'Local')
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/player/indexById') }}",
+                    method: 'POST',
+                    data: {
+                        teamId:jQuery('#localTeamScore').val()
+                    },
+                    success: function(players){
+                        addPointToATeam(players, 'Local')
                 }});
             });
             
 
             jQuery('#add_team_visitor_button').click(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/player/indexById') }}",
+                    method: 'POST',
+                    data: {
+                        teamId:jQuery('#visitorTeamScore').val()
+                    },
+                    success: function(players){
+                        addPointToATeam(players, 'Visitor')
+                    }});
             });
-            jQuery.ajax({
-                url: "{{ url('/player/indexById') }}",
-                method: 'POST',
-                data: {
-                    teamId:jQuery('#visitorTeam').val()
-                },
-                success: function(players){
-                    addPointToATeam(players, 'Visitor')
-                }});
-            });
-
+        
         let addPointToATeam = (players, team) =>{
             let options = ''
             count += 1;
@@ -490,7 +490,64 @@
             </div>`;
         }
 
-        
+        jQuery('#localTeamScore').change(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/player/indexById') }}",
+                    method: 'POST',
+                    data: {
+                        teamId:jQuery('#localTeamScore').val()
+                    },
+                    success: function(players){
+                       changeSelect(players,'Local');
+                }});
+        });
+        jQuery('#visitorTeamScore').change(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/player/indexById') }}",
+                    method: 'POST',
+                    data: {
+                        teamId:jQuery('#visitorTeamScore').val()
+                    },
+                    success: function(players){
+                       changeSelect(players,'Visitor');
+                }});
+        });
+        let changeSelect = (players, team) =>{
+            let options = ''
+            count += 1;
+
+            Object.keys(players).forEach(player => {
+                    
+                options += `<option value="${players[player].id}">${players[player].name}</option>`
+            }); 
+
+            document.getElementById(`team_card_${team}_container`).innerHTML = 
+            `<div class="team-container">
+                
+                <label>
+                    Player
+                    <select name="points${team}[${count}][player]" id="player">
+                        ${options}
+                    </select>
+                </label>
+            
+                <label>
+                    Points
+                    <input type="point" name="points${team}[${count}][points]" id="points">
+                </label>
+            
+            </div>`;
+        }
     });
     </script>
 
