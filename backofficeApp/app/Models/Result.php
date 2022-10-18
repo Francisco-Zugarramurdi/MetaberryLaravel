@@ -11,7 +11,7 @@ class Result extends Model
     use HasFactory, SoftDeletes;
     protected $table = "results";
     protected $fillable = [
-        'tipo_results',
+        'type_results',
         'results',
         'id_events'
     ];
