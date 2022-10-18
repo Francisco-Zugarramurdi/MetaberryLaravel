@@ -15,7 +15,6 @@ use App\Models\Extra;
 use App\Models\Team;
 use App\Models\Player;
 use App\Models\Result;
-use App\Models\ResultPoint;
 
 use \Illuminate\Database\QueryException;
 
@@ -65,8 +64,8 @@ class EventController extends Controller
     private function addEventTeam($eventID, $teamID){
 
         EventTeam::create([
-            'id_events' => $eventID,
-            'id_teams' => $teamID
+            'id_teams' => $teamID,
+            'id_events' => $eventID
         ]);
 
     }
@@ -96,7 +95,7 @@ class EventController extends Controller
             $event = $this->createEvent($request);
 
             $this->addEventTeam($event->id, $request->localTeam);
-            $this->addEventTeam($event->id, $request->visitantTeam);
+            $this->addEventTeam($event->id, $request->visitorTeam);
             
             if($request->league != null)
                 $this->addLeague($request, $event->id);
@@ -106,10 +105,9 @@ class EventController extends Controller
 
             return redirect('/event');
         }
-
         catch(QueryException $e){
 
-            return 'Cannot create event';
+            return $e;
 
         }
            
@@ -118,13 +116,13 @@ class EventController extends Controller
     private function addSet(Request $request, $eventID){
 
         $result = DB::table('results')->insertGetId([
-            'type_results'=>"set",
+            'tipo_results'=>"set",
             'results'=>" ",
             'id_events'=>$eventID
         ]);
         
         $this->addSetTeam($result, $request->input('setsLocal'), $request->localTeam);
-        $this->addSetTeam($result, $request->input('setsVisitant'), $request->visitantTeam);
+        $this->addSetTeam($result, $request->input('setsVisitor'), $request->visitorTeam);
 
     }
 
@@ -140,7 +138,7 @@ class EventController extends Controller
               'number_set' => $setNumber,
               'points_set' => $set,
               'id_teams' => $teamID,
-              'id_results'=> $result,
+              'id_results'=> $result
             ]);
   
         }
@@ -150,20 +148,29 @@ class EventController extends Controller
     public function createEventPoint(Request $request){
 
         $validation = $this->validateCreationRequest($request);
+
         if($validation !== "ok"){
             return $validation;
         }
-
         try{
+
             $event = $this->createEvent($request);
+
+            $this->addEventTeam($event->id, $request->localTeam);
+            $this->addEventTeam($event->id, $request->visitorTeam);
+
             if($request->league != null)
-                $this->addLeague($request,$event->id);
+                $this->addLeague($request, $event->id);
+
             if($request->resultReady !=null)
-               return $this->addPoint($request,$event->id);
+               return $this->addPoint($request, $event->id);
+
             return redirect('/event');
         }
         catch(QueryException $e){
+
             return $e;
+
         }
 
     }
@@ -171,29 +178,31 @@ class EventController extends Controller
     private function addPoint(Request $request, $eventID){
 
         $result = DB::table('results')->insertGetId([
-            'type_results'=>"score",
+            'tipo_results'=>"score",
             'results'=>" ",
-            'id_events'=>$eventID
+            'id_events'=> $eventID
         ]);
 
-        foreach($request-> pointsLocal as $point){
+        $this->addPointTeam($result, $request->pointsLocal, $request->localTeam, $request->player);
+        $this->addPointTeam($result, $request->pointsVisitor, $request->visitorTeam, $request->player);
+    }
+
+    private function addPointTeam($result, $points, $team, $player){
+
+        foreach($points as $point){
+
             DB::table('results_points')->insert([
-                'id_players' => $point['player'],
+                'id_players' => 'a',
                 'point' => $point['points'],
-                'id_teams' => $request->localTeam,
-                'id_results'=>$result,
+                'id_teams' => $team,
+                'id_results'=> $result
             ]);
 
         }
-        foreach($request->pointsVisitor as $point){
-            DB::table('results_points')->insert([
-                'id_players' => $point['player'],
-                'point' => $point['points'],
-                'id_teams' => $request->visitorTeam,
-                'id_results'=>$result,
-            ]);
-        }
+
     }
+
+
 
 }
 

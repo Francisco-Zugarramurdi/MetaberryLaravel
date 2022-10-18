@@ -98,7 +98,7 @@
 
                                         <label>
                                             Vistant Team
-                                            <select name="visitantTeam" id="visitantTeam">
+                                            <select name="visitorTeam" id="visitorTeam">
                                                 @foreach($teams as $team)
                                                     <option value="{{$team->id}}">{{$team->name}}</option>
                                                 @endforeach
@@ -110,15 +110,15 @@
                                             
                                         </label>
                                         <label>
-                                            <button type="button" id="add-set-visitant">Add Set for Visitant Team</button>
-                                            <div id="setContainerVisitant"></div>
+                                            <button type="button" id="add-set-visitor">Add Set for Visitor Team</button>
+                                            <div id="setContainerVisitor"></div>
                                             
                                         </label>
                                         <label>
                                             Winner
                                             <select name="winner" id="winner">
                                                 <option value="local">Local</option>
-                                                <option value="visitant">Visitant</option>
+                                                <option value="visitor">Visitor</option>
                                             </select>
                                         </label>
                                     </div>
@@ -477,14 +477,14 @@
             
                 <label>
                     Player
-                    <select name="points${team}[${count}][player]" id="player">
+                    <select name="${players[player]}">
                         ${options}
                     </select>
                 </label>
         
                 <label>
                     Points
-                    <input type="point" name="points${team}[${count}][points]" id="points">
+                    <input type="number" name="pointsLocal[${count}]">
                 </label>
         
             </div>`;
@@ -536,14 +536,14 @@
                 
                 <label>
                     Player
-                    <select name="points${team}[${count}][player]" id="player">
+                    <select name="${players[player]}" >
                         ${options}
                     </select>
                 </label>
             
                 <label>
                     Points
-                    <input type="point" name="points${team}[${count}][points]" id="points">
+                    <input type="number" name="pointsLocal[${count}]">
                 </label>
             
             </div>`;
