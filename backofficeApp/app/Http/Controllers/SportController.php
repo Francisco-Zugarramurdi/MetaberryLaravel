@@ -33,6 +33,7 @@ class SportController extends Controller
 
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
+            'icon'=> 'required',
             'photo'=> [
                 'required',
                 'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
@@ -49,7 +50,8 @@ class SportController extends Controller
 
         Sport::create([
             'name'=> $request->name,
-            'photo'=> $request->photo
+            'photo'=> $request->photo,
+            'icon'=> $request->icon
         ]);
         
         Tag::create([
@@ -91,9 +93,10 @@ class SportController extends Controller
 
     private function updateSportData(Request $request, $id){
 
-        $sport= Sport::findOrFail($id);
+        $sport = Sport::findOrFail($id);
         $sport -> name = $request -> name;
         $sport -> photo = $request -> photo;
+        $sport -> icon = $request -> icon;
         $sport-> save();
 
     }
