@@ -18,6 +18,8 @@ class CreateSportsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('photo');
+            $table->string('icon');
+
         });
     }
 
