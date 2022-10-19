@@ -11,6 +11,8 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\RefereeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\SanctionController;
+
 
 
 /*
@@ -46,6 +48,8 @@ Route::put("/player/{id}",[PlayerController::class,'update']);
 Route::delete("/player/{id}",[PlayerController::class,'destroy']);
 Route::post("/player/addTeam",[PlayerController::class,'addTeam']);
 Route::post("/player/indexById",[PlayerController::class,'indexPlayersById']);
+Route::post("/player/indexByEvent",[PlayerController::class,'indexPlayersByEvent']);
+
 
 Route::get("/sport",[SportController::class, 'index']);
 Route::post("/sport/create",[SportController::class, 'create']);
@@ -81,6 +85,7 @@ Route::put("/referee/{id}",[RefereeController::class,'update']);
 Route::get("/event",[EventController::class,'index']);
 Route::delete("/event/{id}",[EventController::class,'destroy']);
 Route::put("/event/{id}",[EventController::class,'update']);
-
 Route::get("/event/create/set",[EventController::class,'createEventSet']);
 Route::get("/event/create/point",[EventController::class,'createEventPoint']);
+
+Route::get("/sanction",[SanctionController::class,'index']);
