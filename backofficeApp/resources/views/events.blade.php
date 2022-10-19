@@ -249,7 +249,7 @@
                                             <div class="team-card-container" id="team_card_Visitor_container">
                                                 
                                                 <div class="team-container">
-                                                    
+                
                                                 </div>
 
                                             </div>
@@ -327,6 +327,30 @@
                                                 @endforeach
                                             </select>
                                         </label>
+                                    </div>
+                                    <div class="form-inner-container">
+                                        
+                                        <div class="form-team-container">
+                                            
+                                            <label>
+                                                <p><span>* </span>Teams</p>
+                                            </label>
+
+                                            <label class="add-btn">
+                                                Add a team
+                                                <button type="button" id="addTeamMarkUp"><span class="material-symbols-outlined">add</span></button>
+                                            </label>
+                                            
+                                            <div class="team-card-container" id="team_card_container_for_mark">
+                                                
+                                                <div class="team-container">
+                                                    
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
         
@@ -474,19 +498,19 @@
 
             document.getElementById(`team_card_${team}_container`).innerHTML += 
             `<div class="team-container">
-            
+                
                 <label>
                     Player
                     <select name="points${team}[${count}][player]" id="player">
                         ${options}
                     </select>
                 </label>
-        
+            
                 <label>
                     Points
-                    <input type="point" name="points${team}[${count}][points]>
+                    <input type="number" name="points${team}[${count}][points]">
                 </label>
-        
+            
             </div>`;
         }
 
@@ -522,6 +546,7 @@
                        changeSelect(players,'Visitor');
                 }});
         });
+
         let changeSelect = (players, team) =>{
             let options = ''
             count += 1;
@@ -543,9 +568,57 @@
             
                 <label>
                     Points
-                    <input type="point" name="points${team}[${count}][points]">
+                    <input type="number" name="points${team}[${count}][points]">
                 </label>
             
+            </div>`;
+        }
+    });
+    </script>
+
+    <script>
+        var count = 0;
+        
+        jQuery(document).ready(function(){
+            jQuery('#addTeamMarkUp').click(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/getTeams') }}",
+                    method: 'GET',
+                    success: function(teams){
+                        CreateATeam(teams)
+                }});
+            });
+            
+        
+        let CreateATeam = (teams) =>{
+            let options = ''
+            count += 1;
+
+            Object.keys(teams).forEach(team => {
+                
+                options += `<option value="${teams[team].id}">${teams[team].name}</option>`
+            }); 
+
+            document.getElementById(`team_card_container_for_mark`).innerHTML += 
+            `<div class="team-container">
+            
+                <label>
+                    Team
+                    <select name="mark[${count}][player]" id="player">
+                        ${options}
+                    </select>
+                </label>
+
+                <label>
+                    marks
+                    <input type="number" name="marks[${count}][mark]">
+                </label>
+        
             </div>`;
         }
     });
