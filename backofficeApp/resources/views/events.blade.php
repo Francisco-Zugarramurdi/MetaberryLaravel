@@ -477,14 +477,14 @@
             
                 <label>
                     Player
-                    <select name="${players[player]}">
+                    <select name="points${team}[${count}][player]" id="player">
                         ${options}
                     </select>
                 </label>
         
                 <label>
                     Points
-                    <input type="number" name="pointsLocal[${count}]">
+                    <input type="point" name="points${team}[${count}][points]" id="points">
                 </label>
         
             </div>`;
@@ -536,14 +536,14 @@
                 
                 <label>
                     Player
-                    <select name="${players[player]}" >
+                    <select name="points${team}[${count}][player]" id="player">
                         ${options}
                     </select>
                 </label>
             
                 <label>
                     Points
-                    <input type="number" name="pointsLocal[${count}]">
+                    <input type="point" name="points${team}[${count}][points]" id="points">
                 </label>
             
             </div>`;

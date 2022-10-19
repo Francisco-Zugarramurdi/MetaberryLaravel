@@ -163,7 +163,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady !=null)
-               return $this->addPoint($request, $event->id);
+                $this->addPoint($request, $event->id);
 
             return redirect('/event');
         }
@@ -183,22 +183,23 @@ class EventController extends Controller
             'id_events'=> $eventID
         ]);
 
-        $this->addPointTeam($result, $request->pointsLocal, $request->localTeam, $request->player);
-        $this->addPointTeam($result, $request->pointsVisitor, $request->visitorTeam, $request->player);
+        $this->addPointTeam($result, $request->pointsLocal, $request->localTeam);
+        $this->addPointTeam($result, $request->pointsVisitor, $request->visitorTeam);
     }
 
-    private function addPointTeam($result, $points, $team, $player){
+    private function addPointTeam($result, $points, $team){
 
         foreach($points as $point){
-
+    
             DB::table('results_points')->insert([
-                'id_players' => 'a',
+                'id_players' => $point['player'],
                 'point' => $point['points'],
                 'id_teams' => $team,
                 'id_results'=> $result
             ]);
-
+    
         }
+
 
     }
 
