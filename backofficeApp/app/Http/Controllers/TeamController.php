@@ -58,13 +58,12 @@ class TeamController extends Controller
     public function update(Request $request, $id){
 
         $validation = $this->validateRequest($request);
-        $teamValidation = $this->validateTeamRequest($request);
+
+        if(Team::where('name', $request -> post("name"))->exists())
+            return view('error')->with('errors', 'Team already exists');
 
         if($validation !== "ok")
             return $validation;
-
-        if($teamValidation !== "ok")
-            return $teamValidation;
         try {
             $this->updateTeam($request, $id);
             return redirect('/team');
@@ -73,16 +72,6 @@ class TeamController extends Controller
             return view('error')->with('errorData',$e)->with('errors', 'Cannot update team');
         }
         
-    }
-
-    private function validateTeamRequest($request){
-
-        $countryID = Country::where('name', $request -> post("countryName"))->first()->id;
-
-        if(Team::where('name', $request -> post("name"))->where('id_countries', $countryID)->exists())
-            return view('error')->with('errors', 'Team already exists');
-        return 'ok';
-
     }
 
     private function validateRequest($request){
