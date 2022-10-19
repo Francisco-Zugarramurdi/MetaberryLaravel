@@ -75,6 +75,7 @@ Route::get("/team",[TeamController::class,'index']);
 Route::post("/team/create",[TeamController::class,'create']);
 Route::delete("/team/{id}",[TeamController::class,'destroy']);
 Route::put("/team/{id}",[TeamController::class,'update']);
+Route::get("/getTeams",[TeamController::class,'getTeams']);
 
 Route::get("/referee",[RefereeController::class,'index']);
 Route::post("/referee/create",[RefereeController::class,'create']);

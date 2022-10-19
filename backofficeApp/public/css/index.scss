@@ -417,6 +417,15 @@ main {
 
                         }
 
+                        .icon-container{
+
+                            width: 25vw;
+                            height: 20vh;
+                            padding: 0 30px 0 30px;
+                            overflow-y: scroll;
+
+                        }
+
                         .tag-container{
 
                             width: 25vw;
@@ -433,11 +442,12 @@ main {
                                 align-items: center;
                                 justify-content: space-between;
                                 padding: 10px 0 0 0;
+                                margin: 10px 0;
 
                                 input{
 
-                                    width: 30px;
-                                    height: 30px;
+                                    width: 20px;
+                                    height: 20px;
                                     padding: 0;
     
                                     input::placeholder {

@@ -53,6 +53,131 @@
                                     </label>
     
                                 </div>
+
+                                <div class="form-inner-container">
+
+                                    <label>
+                                        <p><span>* </span>Icon</p>
+                                    </label>
+
+                                    <div class="tag-container">
+
+                                        <label>
+                                            <p>Football</p>
+                                            <input type="radio" name="icon"value="sports_soccer">
+                                        </label>
+                                        <label>
+                                            <p>Hiking</p>
+                                            <input type="radio" name="icon" value="hiking">
+                                        </label>
+                                        <label>
+                                            <p>Pool Sport</p>
+                                            <input type="radio" name="icon" value="pool">
+                                        </label>
+                                        <label>
+                                            <p>Racing Sport</p>
+                                            <input type="radio" name="icon" value="sports_score">
+                                        </label>
+                                        <label>
+                                            <p>Basketball</p>
+                                            <input type="radio" name="icon" value="sports_basketball">
+                                        </label>
+                                        <label>
+                                            <p>Sailing</p>
+                                            <input type="radio" name="icon" value="sailing">
+                                        </label>
+                                        <label>
+                                            <p>Tennis</p>
+                                            <input type="radio" name="icon" value="sports_tennis">
+                                        </label>
+                                        <label>
+                                            <p>Gymnastics</p>
+                                            <input type="radio" name="icon" value="sports_gymnastics">
+                                        </label>
+                                        <label>
+                                            <p>Motorsports</p>
+                                            <input type="radio" name="icon" value="sports_motorsports">
+                                        </label>
+                                        <label>
+                                            <p>Surfing</p>
+                                            <input type="radio" name="icon" value="surfing">
+                                        </label>
+                                        <label>
+                                            <p>Golf</p>
+                                            <input type="radio" name="icon" value="golf_course">
+                                        </label>
+                                        <label>
+                                            <p>Volleyball</p>
+                                            <input type="radio" name="icon" value="sports_volleyball">
+                                        </label>
+                                        <label>
+                                            <p>Martial Arts</p>
+                                            <input type="radio" name="icon" value="sports_martial_arts">
+                                        </label>
+                                        <label>
+                                            <p>Baseball</p>
+                                            <input type="radio" name="icon" value="sports_baseball">
+                                        </label>
+                                        <label>
+                                            <p>Downhill Skiing</p>
+                                            <input type="radio" name="icon" value="downhill_skiing">
+                                        </label>
+                                        <label>
+                                            <p>Kayaking</p>
+                                            <input type="radio" name="icon" value="kayaking">
+                                        </label>
+                                        <label>
+                                            <p>Handball</p>
+                                            <input type="radio" name="icon" value="sports_handball">
+                                        </label>
+                                        <label>
+                                            <p>American Football</p>
+                                            <input type="radio" name="icon" value="sports_football">
+                                        </label>
+                                        <label>
+                                            <p>Skateboarding</p>
+                                            <input type="radio" name="icon" value="skateboarding">
+                                        </label>
+                                        <label>
+                                            <p>Cricket</p>
+                                            <input type="radio" name="icon" value="sports_criket">
+                                        </label>
+                                        <label>
+                                            <p>Roller Skating</p>
+                                            <input type="radio" name="icon" value="roller_skating">
+                                        </label>
+                                        <label>
+                                            <p>MMA Sports</p>
+                                            <input type="radio" name="icon" value="sports_mma">
+                                        </label>
+                                        <label>
+                                            <p>Rugby</p>
+                                            <input type="radio" name="icon" value="sports_rugby">
+                                        </label>
+                                        <label>
+                                            <p>Paragliding</p>
+                                            <input type="radio" name="icon" value="paragliding">
+                                        </label>
+                                        <label>
+                                            <p>Hockey</p>
+                                            <input type="radio" name="icon" value="sports_hockey">
+                                        </label>
+                                        <label>
+                                            <p>Sledding</p>
+                                            <input type="radio" name="icon" value="sledding">
+                                        </label>
+                                        <label>
+                                            <p>Snowmobile</p>
+                                            <input type="radio" name="icon" value="snowmobile">
+                                        </label>
+                                        <label>
+                                            <p>Other</p>
+                                            <input type="radio" name="icon" value="sports_score">
+                                        </label>
+
+                                        </div>
+
+                                    </div>
     
                             </div>
     
@@ -80,6 +205,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Image</th>
+                            <th>Icon</th>
                             <th>Actions</th>
 
                         </tr>
@@ -109,6 +235,12 @@
                                         <td class="user-image">
                                             <label>
                                                 <input name="photo" type="text" value="{{$sport->photo}}">
+                                            </label>
+                                        </td>
+
+                                        <td class="user-image">
+                                            <label>
+                                            <span class="material-symbols-outlined">{{$sport->icon}}</span>
                                             </label>
                                         </td>
     

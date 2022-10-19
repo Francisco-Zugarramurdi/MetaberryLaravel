@@ -55,6 +55,11 @@ class TeamController extends Controller
         return view('teams')->with('teams',$teams)->with('countries', $country)->with('sports', $sport);
     }
 
+    public function getTeams(){
+        
+        return Team::all();
+    }
+
     public function update(Request $request, $id){
 
         $validation = $this->validateRequest($request);

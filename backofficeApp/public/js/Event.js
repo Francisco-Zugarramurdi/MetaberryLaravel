@@ -3,11 +3,11 @@ var setNumber = 0;
 document.getElementById("add-set-local").addEventListener('click',()=>{
     setNumber++;
     document.getElementById("setContainerLocal").innerHTML += `Set(${setNumber})<input type='number' name='setsLocal[]'>`;
-})
-document.getElementById("add-set-visitant").addEventListener('click',()=>{
+});
+document.getElementById("add-set-visitor").addEventListener('click',()=>{
     setNumber++;
-    document.getElementById("setContainerVisitant").innerHTML += `Set(${setNumber})<input type='number' name='setsVisitant[]'>`;
-})
+    document.getElementById("setContainerVisitor").innerHTML += `Set(${setNumber})<input type='number' name='setsVisitant[]'>`;
+});
 
 function dropdown (container){
 
