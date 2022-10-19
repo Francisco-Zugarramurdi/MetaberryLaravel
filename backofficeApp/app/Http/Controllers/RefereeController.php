@@ -21,10 +21,7 @@ class RefereeController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot create referee',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
 
         }
 
@@ -83,10 +80,7 @@ class RefereeController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot update referee',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
             
         }
     }
@@ -108,10 +102,7 @@ class RefereeController extends Controller
             return redirect('/referee');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete referee',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
         }
 
     }

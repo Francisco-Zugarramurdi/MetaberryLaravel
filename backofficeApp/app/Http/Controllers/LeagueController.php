@@ -88,7 +88,7 @@ class LeagueController extends Controller
 
     public function update(Request $request, $id){
 
-        $validation = $this->validateRegexUpdate($request);
+        $validation = $this->validateCreationRequest($request);
 
         if($validation !== "ok")
             return $validation;
@@ -109,22 +109,6 @@ class LeagueController extends Controller
             ];
             
         }
-
-    }
-
-    private function validateRegexUpdate(Request $request){
-
-        $validation = Validator::make($request->all(),[
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ]
-        ]);
-
-        if($validation->fails())
-            return $validation->errors()->toJson();
-
-        return 'ok';
 
     }
 

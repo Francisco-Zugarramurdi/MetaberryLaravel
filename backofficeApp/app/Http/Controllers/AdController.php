@@ -20,11 +20,16 @@ class AdController extends Controller
         if($validation !== "ok"){
             return $validation;
         }
-        if(Ad::where('image', $request -> post("image")) -> exists())
-            return 'Ad already exists';
         try{
-            return $this->createAd($request);
+
+            if(Ad::where('image', $request -> post("image")) -> exists())
+                return 'Ad already exists';
+
+            $this->createAd($request);
+
         }catch(QueryException $e){
+
+            return $e;
 
         }
     }
@@ -33,7 +38,10 @@ class AdController extends Controller
         $validator = Validator::make($request->all(),[
             'size' => 'required',
             'tag' => 'required',
-            'url' => 'required',
+            'url' => [
+                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+                'required'
+            ],
             'viewsHired' => 'required',
             'image' => [
                 'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
@@ -47,6 +55,7 @@ class AdController extends Controller
     }
 
     private function createAd(Request $request){
+
         $ad = Ad::create([
             'image' => $request -> post("image"),
             'url' => $request -> post("url"),
@@ -99,7 +108,7 @@ class AdController extends Controller
     public function addTag(Request $request,$id){
 
         $tagInput = $request->input('tag');
-        AdTag::where('id_ad',$id)->delete();
+        
         foreach($tagInput as $tag){
 
             $tagId = Tag::where('tag', $tag)->first()->id;
@@ -131,12 +140,10 @@ class AdController extends Controller
             $this->updateAd($request, $id);
             $this->addTag($request,$id);
             return redirect('/ads');
+
         }catch(QueryException $e){
 
-            return [
-                "error" => 'Cannot update ad',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
             
         }
         
@@ -150,21 +157,23 @@ class AdController extends Controller
         $ad ->size = $request -> size;
         $ad->save();
     }
+
     private function updateAdTag(Request $request,$id){
+
         $tag = Tag::where('tag',$request->tag)->get()->first()->id;
         DB::table('ad_tags')->where('id_ad',$id)->update(['id_tag'=> $tag]);
       
     }
+    
     public function destroy($id){
         try{
             $ad = Ad::findOrFail($id);
             $ad -> delete();
             return redirect('/ads');
         }catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete ad',
-                "trace" => $e -> getMessage()
-            ];
+
+            return $e;
+
         }
     }
    

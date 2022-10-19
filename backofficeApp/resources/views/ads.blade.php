@@ -73,9 +73,11 @@
 
                                     <div class="form-inner-container">
 
-                                        <div class="tag-container">
+                                        <label>
+                                            <p><span>* </span>Tag</p>
+                                        </label>
 
-                                            <p><span>*</span> Tag</p>
+                                        <div class="tag-container">
 
                                             @foreach($tags as $tag)
                                             <label>
@@ -195,13 +197,13 @@
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$ad->id}})">
                                             <span class="material-symbols-outlined">delete</span>
                                             </button>
                                         </td>
                                     </form>
 
-                                <form action="/ads/{{$ad->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/ads/{{$ad->id}}"method="POST" class="delete" id="delete_form_{{$ad->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
@@ -222,10 +224,10 @@
     <script>
 
 
-        const deleteFormSubmit = () =>{
+        const deleteFormSubmit = (id) =>{
 
             event.preventDefault();
-            document.getElementById('delete_form').submit();
+            document.getElementById('delete_form_'+id).submit();
 
         }
         

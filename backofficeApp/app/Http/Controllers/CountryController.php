@@ -18,14 +18,15 @@ class CountryController extends Controller
             return $validation;
         }
         try {
+
+            if(Country::where('name', $request -> name) -> exists())
+                return 'The country already exist';
+
             return $this->createCountry($request);
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot create country',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
 
         }
 
@@ -40,9 +41,6 @@ class CountryController extends Controller
                 'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
             ]
         ]);
-
-        if(Country::where('name', $request -> name) -> exists())
-            return 'The country already exist';
 
         if($validation->fails())
             return $validation->errors()->toJson();
@@ -109,10 +107,9 @@ class CountryController extends Controller
             return redirect('/country');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete country',
-                "trace" => $e -> getMessage()
-            ];
+
+            return $e;
+
         }
 
     }

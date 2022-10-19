@@ -13,18 +13,17 @@ use Illuminate\Support\Facades\DB;
 class ExtraController extends Controller
 {
     public function create(Request $request){
+
         $validation = $this->validateCreationRequest($request);
+
         if($validation !== "ok")
-        return $validation;
+            return $validation;
         try{
             return $this->createExtra($request);
         
         }
         catch(QueryException $e){
-            return [ 
-                "error" => 'Can not create Extra',
-                "trace" => $e -> getMessage()
-            ];
+            $e;
         }
     }
     private function validateCreationRequest(Request $request){
@@ -39,8 +38,6 @@ class ExtraController extends Controller
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
-        if(!Team::where('name','=',$request->teamName)->exists())
-            return "Error, team does not exist";
         return 'ok';
 
     }
@@ -82,15 +79,13 @@ class ExtraController extends Controller
             return redirect('/extra');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Can not delete Extra',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
         }
         
     }
     public function update(Request $request, $id){
-        $validation = $this->validateRegexUpdate($request);
+        $validation = $this->validateCreationRequest($request);
+
         if($validation !== 'ok')
             return $validation;
         
@@ -101,12 +96,10 @@ class ExtraController extends Controller
         }
         catch (QueryException $e){
 
-            return[
-                "error" => 'Cannot update extra',
-                "trace" => $e -> getMessage()
-            ];
+            return $e;
         }
     }
+
     private function updateExtra(Request $request,$id){
         $extra = Extra::findOrFail($id);
         $extra->name = $request->name;
@@ -115,6 +108,7 @@ class ExtraController extends Controller
         $extra->rol = $request->rol;
         $extra->save();
     }
+
     private function updateTeam(Request $request,$id){
         $team = Team::where('name', $request->teamName)->first()->id;
         $teamName = DB::table('extra_compose')
@@ -124,21 +118,5 @@ class ExtraController extends Controller
             'id_teams'=> $team,
             'contract_end'=>$request->contractEnd
         ]);
-    }
-
-    private function validateRegexUpdate(Request $request){
-
-        $validation = Validator::make($request->all(),[
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ]
-        ]);
-
-        if($validation->fails())
-            return $validation->errors()->toJson();
-
-        return 'ok';
-
     }
 }

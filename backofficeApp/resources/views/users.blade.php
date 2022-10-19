@@ -198,13 +198,13 @@
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$user->id}})">
                                             <span class="material-symbols-outlined">delete</span>
                                             </button>
                                         </td>
                                     </form>
 
-                                <form action="/user/{{$user->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/user/{{$user->id}}"method="POST" class="delete" id="delete_form_{{$user->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
@@ -225,10 +225,10 @@
     <script>
 
 
-        const deleteFormSubmit = () =>{
+        const deleteFormSubmit = (id) =>{
 
             event.preventDefault();
-            document.getElementById('delete_form').submit();
+            document.getElementById('delete_form_'+id).submit();
 
         }
         
