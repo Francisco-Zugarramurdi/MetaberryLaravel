@@ -1,14 +1,4 @@
 var setNumber = 0;
-document.getElementById("button-set").addEventListener('click',()=>{
-    const form = document.getElementById("sets");
-    if(form.classList.contains("hide")){
-        form.classList.remove("hide");
-        
-    }
-    else{
-        form.classList.add("hide");
-    }
-});
 
 document.getElementById("add-set-local").addEventListener('click',()=>{
     setNumber++;
@@ -19,20 +9,10 @@ document.getElementById("add-set-visitant").addEventListener('click',()=>{
     document.getElementById("setContainerVisitant").innerHTML += `Set(${setNumber})<input type='number' name='setsVisitant[]'>`;
 })
 
+function dropdown (container){
 
-document.getElementById("button-points").addEventListener('click',()=>{
-    const form = document.getElementById("points");
-    if(form.classList.contains("hide")){
-        form.classList.remove("hide");
-        
-    }
-    else{
-        form.classList.add("hide");
-    }
-});
+    const form = document.getElementById(container);
 
-document.getElementById("button-markUp").addEventListener('click',()=>{
-    const form = document.getElementById("markUp");
     if(form.classList.contains("hide")){
         form.classList.remove("hide");
         
@@ -40,14 +20,5 @@ document.getElementById("button-markUp").addEventListener('click',()=>{
     else{
         form.classList.add("hide");
     }
-});
-document.getElementById("button-markDown").addEventListener('click',()=>{
-    const form = document.getElementById("markDown");
-    if(form.classList.contains("hide")){
-        form.classList.remove("hide");
-        
-    }
-    else{
-        form.classList.add("hide");
-    }
-});
+
+}

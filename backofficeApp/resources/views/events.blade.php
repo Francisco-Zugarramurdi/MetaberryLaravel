@@ -24,7 +24,7 @@
 
             <div class="create-user-container">
     
-                    <button type="button" class="dropdown-button" id="button-set" onClick="dropdown()">Create event by Sets
+                    <button type="button" class="dropdown-button" id="button-set" onClick="dropdown('sets')">Create event by Sets
                         <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                         <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                     </button>
@@ -135,7 +135,7 @@
                         
                     </div>            
     
-                    <button type="button" class="dropdown-button" id="button-points" onClick="dropdown()">Create event by Points
+                    <button type="button" class="dropdown-button" id="button-points" onClick="dropdown('points')">Create event by Points
                         <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                         <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                     </button>
@@ -271,7 +271,7 @@
                         
                     </div>            
                     
-                    <button type="button" class="dropdown-button" id="button-markUp" onClick="dropdown()">Create event by Mark Up
+                    <button type="button" class="dropdown-button" id="button-markup" onClick="dropdown('markUp')">Create event by MarkUp
                         <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                         <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                     </button>
@@ -342,7 +342,7 @@
                         
                     </div>            
     
-                    <button type="button" class="dropdown-button" id="button-markDown" onClick="dropdown()">Create event by Mark Down
+                    <button type="button" class="dropdown-button" id="button-markdown" onClick="dropdown('markDown')">Create event by MarkDown
                         <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                         <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
                     </button>
@@ -484,7 +484,7 @@
         
                 <label>
                     Points
-                    <input type="point" name="points${team}[${count}][points]" id="points">
+                    <input type="point" name="points${team}[${count}][points]>
                 </label>
         
             </div>`;
@@ -543,7 +543,7 @@
             
                 <label>
                     Points
-                    <input type="point" name="points${team}[${count}][points]" id="points">
+                    <input type="point" name="points${team}[${count}][points]">
                 </label>
             
             </div>`;

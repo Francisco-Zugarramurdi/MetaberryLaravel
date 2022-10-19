@@ -116,7 +116,7 @@ class EventController extends Controller
     private function addSet(Request $request, $eventID){
 
         $result = DB::table('results')->insertGetId([
-            'tipo_results'=>"set",
+            'type_results'=>"set",
             'results'=>" ",
             'id_events'=>$eventID
         ]);
@@ -178,7 +178,7 @@ class EventController extends Controller
     private function addPoint(Request $request, $eventID){
 
         $result = DB::table('results')->insertGetId([
-            'tipo_results'=>"score",
+            'type_results'=>"score",
             'results'=>" ",
             'id_events'=> $eventID
         ]);
