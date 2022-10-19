@@ -13,35 +13,33 @@ class TeamController extends Controller
     public function create(Request $request){
 
         $validation = $this->validateRequest($request);
+
         if($validation !== "ok"){
             return $validation;
         }
         if(Team::where('name', $request -> post("name")) -> exists())
-            return 'The team already exist';
+            return view('error')->with('errors', 'Team already exists');
+
         try {
             return $this->createTeam($request);
-            return redirect('/team');
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot create Team',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create team');
 
         }
     }
 
     private function createTeam(Request $request){
 
-        //este metodo tiene que ser actualizado en el caso de que se cambie la bd a type_teams
-        $user = Team::create([
+        Team::create([
             'name' => $request -> post("name"),
             'type_teams' => $request -> post("typeTeam"),
             'photo' => $request -> post("photo"),
             'id_sports' => Sport::where('name', $request -> post("sportName"))->first()->id,
             'id_countries' => Country::where('name', $request -> post("countryName"))->first()->id
         ]);
+
         return redirect('/team');
     }
 
@@ -58,21 +56,33 @@ class TeamController extends Controller
     }
 
     public function update(Request $request, $id){
+
         $validation = $this->validateRequest($request);
-        if($validation !== "ok"){
+        $teamValidation = $this->validateTeamRequest($request);
+
+        if($validation !== "ok")
             return $validation;
-        }
+
+        if($teamValidation !== "ok")
+            return $teamValidation;
         try {
             $this->updateTeam($request, $id);
             return redirect('/team');
         }
         catch (QueryException $e){
-            return [
-                "error" => 'Cannot update Team',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update team');
         }
         
+    }
+
+    private function validateTeamRequest($request){
+
+        $countryID = Country::where('name', $request -> post("countryName"))->first()->id;
+
+        if(Team::where('name', $request -> post("name"))->where('id_countries', $countryID)->exists())
+            return view('error')->with('errors', 'Team already exists');
+        return 'ok';
+
     }
 
     private function validateRequest($request){
@@ -113,10 +123,7 @@ class TeamController extends Controller
             return redirect('/team');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete team',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot delete team');
         }
     }
 

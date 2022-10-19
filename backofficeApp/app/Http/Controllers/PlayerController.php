@@ -20,10 +20,8 @@ class PlayerController extends Controller
         try{
             return $this->createPlayer($request);
         }catch(QueryException $e){
-            return [
-                "error" => 'Cannot create player',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create player');
+
         }
     }
     private function validateCreationRequest(Request $request){
@@ -38,7 +36,7 @@ class PlayerController extends Controller
         if($validation->fails())
             return $validation->errors()->toJson();
         if(!Team::where('name','=',$request->teamName)->exists() && $request->teamName != null)
-            return "Error, team does not exist";
+            return view('error')->with('errorData',$e)->with('errors', 'Team does not exist');
         return 'ok';
 
     }
@@ -79,10 +77,7 @@ class PlayerController extends Controller
             return redirect('/player');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete player',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy player');
         }
         
     }
@@ -99,12 +94,7 @@ class PlayerController extends Controller
             
         }
         catch (QueryException $e){
-
-            return [
-                "error" => 'Cannot update player',
-                "trace" => $e -> getMessage()
-            ];
-            
+            return view('error')->with('errorData',$e)->with('errors','Cannot update player');
         }
 
     }

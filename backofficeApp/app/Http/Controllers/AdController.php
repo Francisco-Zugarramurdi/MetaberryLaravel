@@ -23,13 +23,13 @@ class AdController extends Controller
         try{
 
             if(Ad::where('image', $request -> post("image")) -> exists())
-                return 'Ad already exists';
+                return view('error')->with('errors', 'Ad already exists');
 
             $this->createAd($request);
 
         }catch(QueryException $e){
 
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create ad');
 
         }
     }
@@ -134,7 +134,7 @@ class AdController extends Controller
             return $validation;
         }
         if(Ad::where('image', $request -> post("image")) -> exists() && Ad::where('image', $request -> post("image"))->first()->id != $id)
-            return 'Image already exists';
+            return view('error')->with('errors', 'Image already exists');
         
         try{
             $this->updateAd($request, $id);
@@ -142,8 +142,8 @@ class AdController extends Controller
             return redirect('/ads');
 
         }catch(QueryException $e){
-
-            return $e;
+            
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update ad');
             
         }
         
@@ -172,7 +172,7 @@ class AdController extends Controller
             return redirect('/ads');
         }catch(QueryException $e){
 
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy ad');
 
         }
     }

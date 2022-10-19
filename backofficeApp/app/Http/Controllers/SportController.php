@@ -23,10 +23,7 @@ class SportController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot create sport',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create sport');
 
         }
 
@@ -87,10 +84,7 @@ class SportController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot update sport',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update sport');
             
         }
     }
@@ -111,10 +105,7 @@ class SportController extends Controller
             return redirect('/sport');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete sport',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy sport');
         }
 
     }

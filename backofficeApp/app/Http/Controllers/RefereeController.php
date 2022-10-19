@@ -21,7 +21,7 @@ class RefereeController extends Controller
         }
         catch (QueryException $e){
 
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create referee');
 
         }
 
@@ -80,7 +80,7 @@ class RefereeController extends Controller
         }
         catch (QueryException $e){
 
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update referee');
             
         }
     }
@@ -102,7 +102,7 @@ class RefereeController extends Controller
             return redirect('/referee');
         }
         catch(QueryException $e){
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy referee');
         }
 
     }

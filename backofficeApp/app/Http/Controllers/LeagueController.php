@@ -25,10 +25,7 @@ class LeagueController extends Controller
 
         }catch(QueryException $e){
 
-            return [
-                "error" => 'Cannot create league',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create league');
 
         }
     }
@@ -103,10 +100,7 @@ class LeagueController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot update league',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update league');
             
         }
 
@@ -137,10 +131,7 @@ class LeagueController extends Controller
             return redirect('/league');
         }
         catch(QueryException $e){
-            return [
-                "error" => 'Cannot delete league',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy league');
         }
 
     }

@@ -23,7 +23,7 @@ class ExtraController extends Controller
         
         }
         catch(QueryException $e){
-            $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create extra');
         }
     }
     private function validateCreationRequest(Request $request){
@@ -79,7 +79,7 @@ class ExtraController extends Controller
             return redirect('/extra');
         }
         catch(QueryException $e){
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy extra');
         }
         
     }
@@ -95,8 +95,7 @@ class ExtraController extends Controller
             return redirect('/extra');
         }
         catch (QueryException $e){
-
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update extra');
         }
     }
 

@@ -23,8 +23,7 @@ class UserController extends Controller
             return $this->createUser($request);
         }
         catch (QueryException $e){
-            $errors = 'Cannot create user';
-            return view('error')->with('errorData',$e)->with('errors', $errors);
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create user');
         }
         
     }
@@ -81,9 +80,8 @@ class UserController extends Controller
             return $validator->errors();
 
         if(User::withTrashed()->where('email', $request -> post("email")) -> exists())
-            return 'User already exists';
+            return view('error')->with('errors', 'User already exists');
             
-
         return 'ok';
 
     }
@@ -118,7 +116,7 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 
         if (! $user) 
-            return "error User" . $email . "does not exist";
+            return view('error')->with('errors', "error User" . $email . "does not exist");
             
         return $user;
 
@@ -145,9 +143,7 @@ class UserController extends Controller
             
         }
         catch (QueryException $e){
-
-            $errors = 'Cannot update user';
-            return view('error')->with('errorData',$e)->with('errors', $errors);
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update user');
             
         }
 
@@ -182,8 +178,7 @@ class UserController extends Controller
             return redirect('/user');
         }
         catch(QueryException $e){
-            $errors = 'Cannot delte user';
-            return view('error')->with('errorData',$e)->with('errors', $errors);
+            return view('error')->with('errorData',$e)->with('errors','Cannot delete user');
         }
         
     }

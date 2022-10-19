@@ -20,7 +20,7 @@ class CountryController extends Controller
         try {
 
             if(Country::where('name', $request -> name) -> exists())
-                return 'The country already exist';
+                return view('error')->with('errorData',$e)->with('errors', 'Country already exists');
 
             return $this->createCountry($request);
         }
@@ -83,10 +83,7 @@ class CountryController extends Controller
         }
         catch (QueryException $e){
 
-            return [
-                "error" => 'Cannot update country',
-                "trace" => $e -> getMessage()
-            ];
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot update country');
             
         }
     }
@@ -108,7 +105,7 @@ class CountryController extends Controller
         }
         catch(QueryException $e){
 
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy country');
 
         }
 
