@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="_token" content="{{csrf_token()}}" />
     <title>Sanctions</title>
 </head>
 <body>
@@ -44,7 +46,7 @@
     
                                     <label>
                                         Event:
-                                       <select name="event" id="event">
+                                       <select name="event" id="eventSelect" class="event">
                                         @foreach($events as $event)
                                             <option value="{{$event->id}}">{{$event->name}}</option>
                                         @endforeach
@@ -52,9 +54,13 @@
                                     </label>
                                     <label>
                                         Player:
-                                       <select name="player" id="player">
+                                       <select name="player" id="playerSelect">
                                         <option>Select an event</option>
                                        </select>
+                                    </label>
+                                    <label>
+                                        Sanction:
+                                        <input type="text" name="sanction" id="sanction">
                                     </label>
                                   
     
@@ -189,8 +195,7 @@
     <script>
 
             jQuery(document).ready(function(){
-                jQuery('#event').change(function(){
-                    $('#event').style.color = "red";
+                jQuery('#eventSelect').change(function(){
                     $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -200,17 +205,17 @@
                     url: "{{ url('/player/indexByEvent') }}",
                     method: 'POST',
                     data: {
-                        id:jQuery('#event').val()
+                        id:jQuery('#eventSelect').val()
                     },
                     success: function(players){
-                        
                         let options = '';
+                        console.log(players);
                         Object.keys(players).forEach(player => {
                     
                         options += `<option value="${players[player].id}">${players[player].name}</option>`
                         }); 
     
-                        document.getElementById('event').innerHTML = `${options}`;
+                        document.getElementById('playerSelect').innerHTML = `${options}`;
 
                     }});
                 })

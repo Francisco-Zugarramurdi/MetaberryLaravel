@@ -89,3 +89,5 @@ Route::get("/event/create/set",[EventController::class,'createEventSet']);
 Route::get("/event/create/point",[EventController::class,'createEventPoint']);
 
 Route::get("/sanction",[SanctionController::class,'index']);
+Route::get("/sanction/create",[SanctionController::class,'create']);
+

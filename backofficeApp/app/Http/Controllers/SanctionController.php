@@ -8,8 +8,7 @@ use App\Models\Player;
 use App\Models\Event;
 class SanctionController extends Controller
 {
-    public function index(){
-        
+    public function index(){  
         return view('sanctions')->with('sanctions',Sanction::all())->with('events',Event::all());
     }
 
