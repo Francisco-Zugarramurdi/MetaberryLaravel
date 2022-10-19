@@ -49,7 +49,7 @@ insert into players(name, surname, photo) values ('Luis','Suarez','photo.com'),
 insert into events(name, details, id_sports, id_countries, date,  relevance) values 
 ('Gran parque central, team1 vs team2','Se juega en el parque  central',1,1,"2022-01-01",5), 
 ('Campeon del siglo, team2 vs team2','Se juega en la  bombonera',1,2,"2022-02-01",4), 
-('Mesa 3, player1 vs player2','Partidazo bien picante',3,3,"2022-03- 01",2); 
+('Mesa 3, player1 vs player2','Partidazo bien picante',3,3,"2022-03-01",2); 
 insert into teams(name, type_teams, id_sports, id_countries, photo) values ('Nacional', 'grupal',1,1,'photo.com'), 
 ('Boca', 'grupal',1,2,'photo.com'), 
 ('Peñarol', 'grupal',1,1,'photo.com'), 
