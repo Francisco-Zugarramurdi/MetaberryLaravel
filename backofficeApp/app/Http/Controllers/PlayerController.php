@@ -136,4 +136,8 @@ class PlayerController extends Controller
         ->get()
         ->where('teamId', $request->teamId);
     }
+    public function indexPlayersByEvent(Request $request){
+        $players = DB::table('sanctions_players')->where('id_sancion',$request->id)->join('players','players.id','sanction_players.id_players');
+        return $players;
+    }
 }
