@@ -4,6 +4,7 @@ use metaberrystudios;
 create table sports(
     id serial primary key,
     name varchar(50) not null,
+    icon varchar(50 not null),
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
