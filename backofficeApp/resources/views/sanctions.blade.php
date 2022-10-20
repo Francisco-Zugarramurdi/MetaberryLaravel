@@ -89,12 +89,9 @@
                         <tr>
 
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Photo</th>
-                            <th>Team</th>
-                            <th>Contract Start</th>
-                            <th>Contract End</th>
+                            <th>Player</th>
+                            <th>Sanction</th>
+                            <th>Event</th>
                             <th>Actions</th>
 
                         </tr>
@@ -117,36 +114,22 @@
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$sanction->name}}">
+                                                <input name="name" type="text" value="{{$sanction->namePlayer}}">
                                             </label>
                                         </td>
     
                                         <td class="user-name">
                                             <label>
-                                                <input name="surname" type="text" value="{{$sanction->surname}}">
+                                                <input name="surname" type="text" value="{{$sanction->sancion}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-name">
                                             <label>
-                                                <input name="photo" type="text" value="{{$sanction->photo}}">
+                                                <input name="photo" type="text" value="{{$sanction->nameEvent}}">
                                             </label>
                                         </td>
-                                        <td class="user-name">
-                                            <label>
-                                                <input name="teamName" type="text" value="{{$sanction->teamName}}" readonly>
-                                            </label>
-                                        </td>
-                                        <td class="user-image">
-                                            <label>
-                                                <input type="date" name="contractStart"id="contractStart" value="{{$sanction->contractStart}}">
-                                            </label>
-                                        </td>
-                                        <td class="user-image">
-                                            <label>
-                                                <input type="date" name="contractEnd" id="contractEnd" value="{{$sanction->contractEnd}}">
-                                            </label>
-                                        </td>
+                                    
 
                                         <td class="actions-buttons">
                                             <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->

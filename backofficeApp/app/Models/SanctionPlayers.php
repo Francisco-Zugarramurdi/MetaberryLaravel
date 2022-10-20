@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sanction extends Model
+class SanctionPlayers extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
+    protected $table = "sanction_players";
+
     protected $fillable = [
-        'id_events',
-        'sancion'
+        'id_sancion',
+        'id_players'
     ];
 }
