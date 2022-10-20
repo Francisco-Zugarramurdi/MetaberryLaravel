@@ -31,6 +31,21 @@ class EventController extends Controller
         ->with('teams',Team::all());
     }
 
+    public function indexList(){
+        $leagues = League::join('leagues_events', 'leagues_events.id_leagues', 'leagues.id')
+        ->join('events','events.id','leagues_events.id_events')
+        ->select("events.id as event_id", "leagues_events.id_events as event_id_lg", "leagues.id as league_id", "leagues_events.id_leagues as league_id_lg")
+        ->get();
+
+        return view('eventlist')
+        ->with('events',Event::all())
+        ->with('countries',Country::all())
+        ->with('sports',Sport::all())
+        ->with('leagues',League::all())
+        ->with('players',Player::all())
+        ->with('teams',Team::all());
+    }
+
     private function createEvent(Request $request){
     
         return Event::create([

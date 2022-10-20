@@ -420,6 +420,9 @@ main {
 .main-page-container .user-table-container.enable {
   margin: 0;
 }
+.main-page-container .user-table-container.event {
+  margin: 100px 0 0 30px;
+}
 .main-page-container .user-table-container {
   width: 75vw;
   height: auto;

@@ -84,6 +84,7 @@ Route::put("/referee/{id}",[RefereeController::class,'update']);
 
 
 Route::get("/event",[EventController::class,'index']);
+Route::get("/eventlist",[EventController::class,'indexList']);
 Route::delete("/event/{id}",[EventController::class,'destroy']);
 Route::put("/event/{id}",[EventController::class,'update']);
 Route::get("/event/create/set",[EventController::class,'createEventSet']);
