@@ -125,7 +125,8 @@ class LeagueController extends Controller
     }
 
     public function destroy($id){
-
+        if(DB::table('leagues_events')->where('id_leagues',$id)->exists())
+            return 'Cannot destroy league because there is related to an event';
         try{
             League::findOrFail($id)->delete();
             return redirect('/league');

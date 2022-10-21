@@ -8,8 +8,10 @@ use App\Models\Player;
 use App\Models\PlayerTeam;
 use App\Models\Team;
 use App\Models\Country;
+use App\Models\Sanction;
 use \Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PlayerController extends Controller
 {
@@ -72,15 +74,68 @@ class PlayerController extends Controller
         
     }
     public function destroy($id){
+
+        $validation = $this->validateDestroy($id);
+
+        if($validation !== "ok"){
+            return view('error')->with('errors', $validation);
+        }
         try{
-            Player::findOrFail($id)->delete();
-            return redirect('/player');
+            return $this->delete($id);
         }
         catch(QueryException $e){
-            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy player');
+            return $e;
+            return view('error')->with('errorData', $e)->with('errors', 'Cannot destroy player');
         }
         
     }
+
+    private function delete($id){
+
+        $this->deleteFromTeam($id);
+        $this->deleteSanction($id);
+
+        Player::findOrFail($id)->delete();
+
+        return redirect('/player');
+
+    }
+
+
+    private function deleteFromTeam($id){
+    
+        $team = DB::table('players_teams')
+        ->join('teams','teams.id','players_teams.id_teams')
+        ->where('players_teams.id_players',$id)
+        ->where('teams.type_teams','Individual')
+        ->update(['teams.deleted_at'=>Carbon::now()]);
+
+    }
+
+    private function deleteSanction($id){
+
+        $sanctions = DB::table('sanctions_players')->where('id_players',$id)->get();
+
+        foreach($sanctions as $sanction){
+            
+            $target = Sanction::find($sanction->id_sancion);
+            if($target) $target->delete();
+
+        } 
+
+        DB::table('sanctions_players')->where('id_players',$id)->update(['deleted_at'=>Carbon::now()]);
+
+    }
+
+    private function validateDestroy($id){
+
+        if(DB::table('results_points')->where('id_players',$id)->exists()){
+            return 'Cannot destroy player because it is related to a result';
+        }
+        return 'ok';
+
+    }
+
     public function update(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
