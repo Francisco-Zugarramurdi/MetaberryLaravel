@@ -32,12 +32,8 @@ class EventController extends Controller
     }
 
     public function indexList(){
-        $leagues = League::join('leagues_events', 'leagues_events.id_leagues', 'leagues.id')
-        ->join('events','events.id','leagues_events.id_events')
-        ->select("events.id as event_id", "leagues_events.id_events as event_id_lg", "leagues.id as league_id", "leagues_events.id_leagues as league_id_lg",)
-        ->get();
-        $event = DB::table('events')
-        ->join('leagues_events','leagues_events.id_events','events.id')
+
+        $event = Event::join('leagues_events','leagues_events.id_events','events.id')
         ->join('leagues','leagues.id','leagues_events.id_leagues')
         ->join('sports','events.id_sports','sports.id')
         ->join('countries','countries.id','events.id_countries')
@@ -238,14 +234,15 @@ class EventController extends Controller
 
     }
 
-    public function delete($id){
+    private function delete($id){
 
         $this->deleteTeam($id);
         $this->deleteLeague($id);
-
+        $this->deleteResult($id);
+        
         Event::findOrFail($id)->delete();
-
         return redirect('/event/list');
+
 
     }
 
@@ -255,7 +252,7 @@ class EventController extends Controller
         ->join('teams','teams.id','events_teams.id_teams')
         ->where('events_teams.id_events',$id)
         ->update(['events_teams.deleted_at'=>Carbon::now()]);
-
+        
     }
 
     private function deleteLeague($id){
@@ -264,28 +261,27 @@ class EventController extends Controller
         ->join('leagues','leagues.id','leagues_events.id_leagues')
         ->where('leagues_events.id_events',$id)
         ->update(['leagues_events.deleted_at'=>Carbon::now()]);
-
-    }
-
-    private function deleteReferee($id){
-
-        //
-
-    }
-
-    private function deleteResult($id){
         
+    }
+    
+    // private function deleteReferee($id){
+        
+        //     //
+        
+        // }
+        
+    private function deleteResult($id){
+            
         DB::table('results')
         ->where('id_events',$id)
         ->update(['results.deleted_at'=>Carbon::now()]);
-
     }
 
-    private function deleteTypeResult($id){
+    // private function deleteTypeResult($id){
 
         
 
-    }
+    // }
 
 
 }
