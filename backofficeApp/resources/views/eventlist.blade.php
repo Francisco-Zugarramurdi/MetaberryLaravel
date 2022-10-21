@@ -46,7 +46,7 @@
                 <tbody>
                     @foreach($events as $event)
                         <tr>
-                                <form class="entry" method="POST" action="/event/{{$event->id}}">
+                                <form class="entry" method="POST" action="/event/list">
                                     @method('PUT')
                                     @csrf
                                     {{method_field('PUT')}}
@@ -104,7 +104,7 @@
                                             </button>
                                         </td>
                                 </form>
-                                <form action="/eventlist/{{$event->id}}"method="POST" class="delete" id="delete_form_{{$event->id}}">
+                                <form action="/event/list/{{$event->id}}"method="POST" class="delete" id="delete_form_{{$event->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}

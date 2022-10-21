@@ -84,11 +84,11 @@ Route::put("/referee/{id}",[RefereeController::class,'update']);
 
 
 Route::get("/event",[EventController::class,'index']);
-Route::get("/eventlist",[EventController::class,'indexList']);
+Route::get("/event/list",[EventController::class,'indexList']);
 Route::put("/event/{id}",[EventController::class,'update']);
 Route::get("/event/create/set",[EventController::class,'createEventSet']);
 Route::get("/event/create/point",[EventController::class,'createEventPoint']);
-Route::delete("eventlist/{id}",[EventController::class,'destroy']);
+Route::delete("/event/list/{id}",[EventController::class,'destroy']);
 
 Route::get("/sanction",[SanctionController::class,'index']);
 Route::post("/sanction/create",[SanctionController::class,'create']);
