@@ -38,6 +38,7 @@
                             <th>Country</th>
                             <th>Sport</th>
                             <th>League</th>
+                            <th>Actions</th>
 
                         </tr>
                     </thead>
@@ -103,14 +104,37 @@
                                         </select>
                                         </label>
                                     </td>
-                                    
+
+                                    <td class="actions-buttons">
+                                            <button type="submit" class="submit-btn">
+                                                <span class="material-symbols-outlined">send</span>
+                                            </button>
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$event->id}})">
+                                            <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </td>
+                                </form>
+                                <form action="/eventlist/{{$event->id}}"method="POST" class="delete" id="delete_form_{{$event->id}}">
+                                    @method('DELETE')
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <input name="_method" type="hidden" value="DELETE">
                                 </form>
                         </tr>
                     @endforeach
                 </tbody>
-
-</table>
+            </table>
 
     </main>
+
+    <script>
+        const deleteFormSubmit = (id) =>{
+
+            event.preventDefault();
+            document.getElementById('delete_form_'+id).submit();
+
+        }
+    </script>
+
 </body>
 </html>

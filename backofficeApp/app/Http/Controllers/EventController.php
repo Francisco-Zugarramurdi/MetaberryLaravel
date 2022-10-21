@@ -15,12 +15,12 @@ use App\Models\Extra;
 use App\Models\Team;
 use App\Models\Player;
 use App\Models\Result;
-
 use \Illuminate\Database\QueryException;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {  
-
+    
     public function index(){
         
         return view('events')
@@ -218,9 +218,72 @@ class EventController extends Controller
 
     }
 
+    public function destroy($id){
+
+        try{
+
+            return $this->delete($id);
+
+        }
+        catch(QueryExepction $e){
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy event');
+        };
+
+    }
+
+    public function delete($id){
+
+        $this->deleteTeam($id);
+        $this->deleteLeague($id);
+
+        Event::findOrFail($id)->delete();
+
+        return redirect('/eventlist');
+
+    }
+
+    private function deleteTeam($id){
+
+        DB::table('events_teams')
+        ->join('teams','teams.id','events_teams.id_teams')
+        ->where('events_teams.id_events',$id)
+        ->update(['events_teams.deleted_at'=>Carbon::now()]);
+
+    }
+
+    private function deleteLeague($id){
+
+        DB::table('leagues_events')
+        ->join('leagues','leagues.id','leagues_events.id_leagues')
+        ->where('leagues_events.id_events',$id)
+        ->update(['leagues_events.deleted_at'=>Carbon::now()]);
+
+    }
+
+    private function deleteReferee($id){
+
+        //
+
+    }
+
+    private function deleteResult($id){
+
+        
+        DB::table('leagues_events')
+        ->join('leagues','leagues.id','leagues_events.id_leagues')
+        ->where('leagues_events.id_events',$id)
+        ->update(['leagues_events.deleted_at'=>Carbon::now()]);
+
+    }
 
 
 }
 
+// use App\Models\Event;
+// use App\Models\EventTeam;
+// use App\Models\LeagueEvent;
 
+// use App\Models\RefereeEvent;
+// use App\Models\Result;
+// use App\Models\Depende del tipo de resultado;
 

@@ -84,7 +84,6 @@ class PlayerController extends Controller
             return $this->delete($id);
         }
         catch(QueryException $e){
-            return $e;
             return view('error')->with('errorData', $e)->with('errors', 'Cannot destroy player');
         }
         
@@ -104,7 +103,7 @@ class PlayerController extends Controller
 
     private function deleteFromTeam($id){
     
-        $team = DB::table('players_teams')
+        DB::table('players_teams')
         ->join('teams','teams.id','players_teams.id_teams')
         ->where('players_teams.id_players',$id)
         ->where('teams.type_teams','Individual')
