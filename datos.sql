@@ -1,6 +1,6 @@
-insert into sports(name, photo) values ('Futbol','photo.com'), 
-('Tenis','photo.com'), 
-('Ping Pong','photo.com'); 
+insert into sports(name, photo, icon) values ('Futbol','photo.com','icon'), 
+('Tenis','photo.com','icon'), 
+('Ping Pong','photo.com','icon'); 
 insert into countries(name, photo) values ('Uruguay','photo.com'), 
 ('Argentina','photo.com'), 
 ('Brasil','photo.com'); 
