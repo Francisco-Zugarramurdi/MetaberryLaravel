@@ -455,6 +455,10 @@ main {
 .main-page-container .user-table-container .user-table tbody tr {
   border-bottom: 1px solid var(--lightest-gray);
 }
+.main-page-container .user-table-container .user-table tbody tr .table-content {
+  color: #4C5766;
+  font-weight: 700;
+}
 .main-page-container .user-table-container .user-table tbody tr .user-id {
   font-weight: 700;
   margin: 0;

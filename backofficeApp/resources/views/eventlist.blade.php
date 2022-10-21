@@ -58,50 +58,40 @@
 
                                     </td>
 
-                                    <td class="user-name">
+                                    <td class="table-content">
                                         <label>
-                                            <input name="name" type="text" value="{{$event->name}}">
+                                            <p>{{$event->name}}</p>
                                         </label>
                                     </td>
                                     
-                                    <td class="user-name">
+                                    <td class="table-content">
                                         <label>
-                                            <input name="surname" type="text" value="{{$event->details}}">
+                                            <p>{{$event->details}}</p>
                                         </label>
                                     </td>
-                                    <td class="user-name">
+                                    <td class="table-content">
                                         <label>
-                                            <input name="rol" type="text" value="{{$event->relevance}}">
+                                            <p>{{$event->relevance}}</p>
                                         </label>
                                     </td>
-                                    <!-- TO DO -->
-                                    <td class="user-type">
+                                    
+                                    <td class="table-content">
+    
+                                        <label> 
+                                            <p>{{$event->countryName}}</p>
+                                        </label>
+
+                                    </td>
+
+                                    <td class="table-content">
                                         <label>
-                                        <select name="country" id="country">
-                                                    @foreach ($countries as $country)
-                                                    <option value="{{$country->name}}" name="{{$country->country}}">{{$country->name}}</option>
-                                                    @endforeach
-                                        </select>
+                                               <p>{{$event->sportName}}</p>
                                         </label>
                                     </td>
-                                    <!-- TO DO -->
-                                    <td class="user-type">
+
+                                    <td class="table-content">
                                         <label>
-                                        <select name="sport" id="sport">
-                                                    @foreach ($sports as $sport)
-                                                    <option value="{{$sport->name}}" name="{{$sport->sport}}">{{$sport->name}}</option>
-                                                    @endforeach
-                                        </select>
-                                        </label>
-                                    </td>
-                                    <!-- TO DO -->
-                                    <td class="user-type">
-                                        <label>
-                                        <select name="league" id="league">
-                                                    @foreach ($leagues as $league)
-                                                    <option value="{{$league->name}}" name="{{$league->league}}" @if($league->name == $league->name)selected @endif>{{$league->name}}</option>
-                                                    @endforeach
-                                        </select>
+                                                <p>{{$event->leagueName}}</p>
                                         </label>
                                     </td>
 

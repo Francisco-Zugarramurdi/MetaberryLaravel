@@ -34,11 +34,17 @@ class EventController extends Controller
     public function indexList(){
         $leagues = League::join('leagues_events', 'leagues_events.id_leagues', 'leagues.id')
         ->join('events','events.id','leagues_events.id_events')
-        ->select("events.id as event_id", "leagues_events.id_events as event_id_lg", "leagues.id as league_id", "leagues_events.id_leagues as league_id_lg")
+        ->select("events.id as event_id", "leagues_events.id_events as event_id_lg", "leagues.id as league_id", "leagues_events.id_leagues as league_id_lg",)
         ->get();
-
+        $event = DB::table('events')
+        ->join('leagues_events','leagues_events.id_events','events.id')
+        ->join('leagues','leagues.id','leagues_events.id_leagues')
+        ->join('sports','events.id_sports','sports.id')
+        ->join('countries','countries.id','events.id_countries')
+        ->select('countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
+        ->get();
         return view('eventlist')
-        ->with('events',Event::all())
+        ->with('events',$event)
         ->with('countries',Country::all())
         ->with('sports',Sport::all())
         ->with('leagues',League::all())
