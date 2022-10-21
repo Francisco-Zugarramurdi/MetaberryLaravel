@@ -277,11 +277,11 @@ class EventController extends Controller
         ->update(['results.deleted_at'=>Carbon::now()]);
     }
 
-    // private function deleteTypeResult($id){
+    // // private function deleteTypeResult($id){
 
         
 
-    // }
+    // // }
 
 
 }

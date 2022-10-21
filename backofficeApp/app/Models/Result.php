@@ -13,6 +13,7 @@ class Result extends Model
     protected $fillable = [
         'type_results',
         'results',
-        'id_events'
+        'id_events',
+        'deleted_at'
     ];
 }
