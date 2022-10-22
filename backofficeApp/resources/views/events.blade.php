@@ -538,7 +538,7 @@
             
                 <label>
                     Points
-                    <input type="number" name="points${team}[${count}][points]">
+                    <input type="number" name="points${team}[${count}][points]" min="1">
                 </label>
             
             </div>`;
@@ -598,7 +598,7 @@
             
                 <label>
                     Points
-                    <input type="number" name="points${team}[${count}][points]">
+                    <input type="number" name="points${team}[${count}][points]" min="1">
                 </label>
             
             </div>`;
@@ -660,7 +660,7 @@
 
                 <label>
                     marks
-                    <input type="number" name="marks[${count}][mark]">
+                    <input type="number" name="marks[${count}][mark]" min="1">
                 </label>
         
             </div>`;
