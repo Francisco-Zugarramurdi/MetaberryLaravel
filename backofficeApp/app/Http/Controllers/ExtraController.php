@@ -73,6 +73,7 @@ class ExtraController extends Controller
         return view('extras')->with('extras',$extras)->with('teams', $team);
         
     }
+    
     public function destroy($id){
         try{
             Extra::findOrFail($id)->delete();
@@ -83,6 +84,7 @@ class ExtraController extends Controller
         }
         
     }
+
     public function update(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
 

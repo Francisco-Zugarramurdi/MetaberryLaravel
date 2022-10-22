@@ -81,6 +81,14 @@
                                             </select>
                                         </label>
                                         <label>
+                                            <p>Referee</p>
+                                            <select name="referee" id="referee">
+                                                @foreach ($referees as $referee)
+                                                    <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                        <label>
                                             <p>Result is ready</p>
                                             <input type="checkbox" name="resultReady">
                                         </label>
@@ -195,6 +203,16 @@
                                                 @endforeach
                                             </select>
                                         </label>
+
+                                        <label>
+                                            <p>Referee</p>
+                                            <select name="referee" id="referee">
+                                                @foreach ($referees as $referee)
+                                                    <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+
                                         <label>
                                             <p>Result is ready</p>
                                             <input type="checkbox" name="resultReady">
@@ -328,6 +346,14 @@
                                             </select>
                                         </label>
                                         <label>
+                                            <p>Referee</p>
+                                            <select name="referee" id="referee">
+                                                @foreach ($referees as $referee)
+                                                    <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                        <label>
                                             <p>Result is ready</p>
                                             <input type="checkbox" name="resultReady">
                                         </label>
@@ -423,6 +449,14 @@
                                             <select name="league" id="league">
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                        <label>
+                                            <p>Referee</p>
+                                            <select name="referee" id="referee">
+                                                @foreach ($referees as $referee)
+                                                    <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
@@ -523,7 +557,7 @@
 
             Object.keys(players).forEach(player => {
                 
-                options += `<option value="${players[player].id}">${players[player].name}</option>`
+                options += `<option value="${players[player].id}">${players[player].name}  ${players[player].surname}</option>`
             }); 
 
             document.getElementById(`team_card_${team}_container`).innerHTML += 
@@ -583,7 +617,7 @@
 
             Object.keys(players).forEach(player => {
                     
-                options += `<option value="${players[player].id}">${players[player].name}</option>`
+                options += `<option value="${players[player].id}">${players[player].name}  ${players[player].name}</option>`
             }); 
 
             document.getElementById(`team_card_${team}_container`).innerHTML = 

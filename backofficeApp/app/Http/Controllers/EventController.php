@@ -15,6 +15,8 @@ use App\Models\Extra;
 use App\Models\Team;
 use App\Models\Player;
 use App\Models\Result;
+use App\Models\Referee;
+use App\Models\RefereeEvent;
 use \Illuminate\Database\QueryException;
 use Carbon\Carbon;
 
@@ -28,6 +30,7 @@ class EventController extends Controller
         ->with('sports',Sport::all())
         ->with('leagues',League::all())
         ->with('players',Player::all())
+        ->with('referees', Referee::all())
         ->with('teams',Team::all());
     }
 
@@ -58,7 +61,6 @@ class EventController extends Controller
             'id_countries' => $request->country,
             'date' => $request->date,
             'relevance' => $request->relevance
-            // aca debe de ir tambien el árbitro(s)
         ]);
     
     }
@@ -71,7 +73,8 @@ class EventController extends Controller
             'date' => 'required',
             'relevance' => 'required',
             'country' => 'required',
-            'sport' => 'required'
+            'sport' => 'required',
+            'referee' => 'required'
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();
@@ -88,9 +91,13 @@ class EventController extends Controller
 
     }
 
-    private function addReferee(Request $request){
+    private function addReferee(Request $request, $eventID){
 
-        //
+        RefereeEvent::create([
+            'id_referee' => $request->referee,
+            'id_events' => $eventID,
+            'dates' => $request-> date
+        ]);
 
     }
     
@@ -115,6 +122,9 @@ class EventController extends Controller
             $this->addEventTeam($event->id, $request->localTeam);
             $this->addEventTeam($event->id, $request->visitorTeam);
             
+            if($request->referee != null)
+                $this->addReferee($request, $event->id);
+
             if($request->league != null)
                 $this->addLeague($request, $event->id);
 
@@ -176,6 +186,9 @@ class EventController extends Controller
             $this->addEventTeam($event->id, $request->localTeam);
             $this->addEventTeam($event->id, $request->visitorTeam);
 
+            if($request->referee != null)
+                $this->addReferee($request, $event->id);
+
             if($request->league != null)
                 $this->addLeague($request, $event->id);
 
@@ -233,6 +246,9 @@ class EventController extends Controller
             foreach($request->marks as $mark){
                 $this->addEventTeam($event->id, $mark["team"]);
             }
+
+            if($request->referee != null)
+                $this->addReferee($request, $event->id);
 
             if($request->league != null)
                 $this->addLeague($request, $event->id);
@@ -292,6 +308,9 @@ class EventController extends Controller
                 $this->addEventTeam($event->id, $mark["team"]);
             }
 
+            if($request->referee != null)
+                $this->addReferee($request, $event->id);
+
             if($request->league != null)
                 $this->addLeague($request, $event->id);
 
@@ -306,6 +325,7 @@ class EventController extends Controller
 
         }
     }
+
     private function addMarkDown($marks, $eventID){
         usort($marks, function($a, $b){
             if ($a["mark"] == $b["mark"]) {
@@ -353,6 +373,7 @@ class EventController extends Controller
         $this->deleteLeague($id);
         $this->deleteTypeResult($id);
         $this->deleteResult($id);
+        $this->deleteReferee($id);
 
         Event::findOrFail($id)->delete();
         return redirect('/event/list');
@@ -378,11 +399,14 @@ class EventController extends Controller
         
     }
     
-    // private function deleteReferee($id){
+    private function deleteReferee($id){
         
-        //     //
+        DB::table('referee_events')
+        ->join('referee','referee.id','referee_events.id_referee')
+        ->where('referee_events.id_events',$id)
+        ->update(['referee_events.deleted_at'=>Carbon::now()]);
         
-    // }
+    }
         
     private function deleteResult($id){
             
@@ -399,12 +423,4 @@ class EventController extends Controller
     }
 
 }
-
-// use App\Models\Event;
-// use App\Models\EventTeam;
-// use App\Models\LeagueEvent;
-
-// use App\Models\RefereeEvent;
-// use App\Models\Result;
-// use App\Models\Depende del tipo de resultado;
 

@@ -103,6 +103,11 @@ class SportController extends Controller
 
     public function destroy($id){
 
+        $validation = $this->validateDestroy($id);
+
+        if($validation !== "ok"){
+            return view('error')->with('errors', $validation);
+        }
         try{
             Sport::findOrFail($id)->delete();
             return redirect('/sport');
@@ -111,6 +116,17 @@ class SportController extends Controller
             return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy sport');
         }
 
+    }
+
+    private function validateDestroy($id){
+
+        $events = Event::where('id_sports',$id)->exists();
+        $teams = Team::where('id_sports',$id)->exists();
+
+        if($events || $teams)
+            return 'Cannot destroy country, because it is related to an entity';
+        return 'ok';
+        
     }
 
 }

@@ -112,6 +112,12 @@ class TeamController extends Controller
 
 
     public function destroy($id){
+
+        $validation = $this->validateDestroy($id);
+
+        if($validation !== "ok"){
+            return view('error')->with('errors', $validation);
+        }
         try{
             Team::findOrFail($id)->delete();
             return redirect('/team');
@@ -121,4 +127,18 @@ class TeamController extends Controller
         }
     }
 
+    private function validateDestroy($id){
+
+        if(DB::table('events_teams')->where('id_teams',$id)->exists()){
+            return 'Cannot destroy team because it is related to an event';
+        }
+        return 'ok';
+
+    }
+
+    private function delete($id){
+
+
+
+    }
 }

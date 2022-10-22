@@ -13,7 +13,8 @@ class RefereeEvent extends Model
     protected $fillable = [
         'id_referee',
         'id_events',
-        'dates'
+        'dates',
+        'deleted_at'
     ];
     
 }

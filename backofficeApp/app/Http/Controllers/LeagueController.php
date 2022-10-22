@@ -125,15 +125,38 @@ class LeagueController extends Controller
     }
 
     public function destroy($id){
-        if(DB::table('leagues_events')->where('id_leagues',$id)->exists())
-            return 'Cannot destroy league because there is related to an event';
+
+        $validation = $this->validateDestroy($id);
+
+        if($validation !== "ok"){
+            return view('error')->with('errors', $validation);
+        }
         try{
-            League::findOrFail($id)->delete();
-            return redirect('/league');
+            return $this->delete($id);
         }
         catch(QueryException $e){
             return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy league');
         }
 
     }
+
+    private function validateDestroy($id){
+
+        if(DB::table('leagues_events')->where('id_leagues',$id)->exists())
+            return 'Cannot destroy league because there is related to an event';
+        return "ok";
+    }
+
+    private function delete($id){
+
+        DB::table('leagues_countries')
+        ->where('id_leagues', $id)
+        ->update(['teams.deleted_at'=>Carbon::now()]);
+
+        League::findOrFail($id)->delete();
+
+        return redirect('/league');
+
+    }
 }
+

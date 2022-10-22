@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Referee;
+use App\Models\RefereeEvent;
 use Illuminate\Support\Facades\Validator;
 use \Illuminate\Database\QueryException;
 
@@ -97,6 +98,11 @@ class RefereeController extends Controller
 
     public function destroy($id){
 
+        $validation = $this->validateDestroy($id);
+
+        if($validation !== "ok"){
+            return view('error')->with('errors', $validation);
+        }
         try{
             Referee::findOrFail($id)->delete();
             return redirect('/referee');
@@ -105,6 +111,13 @@ class RefereeController extends Controller
             return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy referee');
         }
 
+    }
+
+    private function validateDestroy($id){
+
+        if(RefereeEvent::where('id_referee',$id)->exists())
+            return 'Cannot destroy referee, because it is related to an entity';
+        return 'ok';
     }
 
 }
