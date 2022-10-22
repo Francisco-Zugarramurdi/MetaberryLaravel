@@ -325,7 +325,7 @@ create table favourite_user(
  
 create table results(
     id serial,
-    type_results varchar(11) not null,
+    type_results varchar(18) not null,
     results varchar(25) not null,
     id_events bigint unsigned not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
