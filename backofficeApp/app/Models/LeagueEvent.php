@@ -12,7 +12,8 @@ class LeagueEvent extends Model
     protected $table = "leagues_events";
     protected $fillable = [
         'id_events',
-        'id_leagues'
+        'id_leagues',
+        'deleted_at'
     ];
 
 }

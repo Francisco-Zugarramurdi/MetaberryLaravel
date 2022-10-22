@@ -23,7 +23,7 @@
             </div>
 
             <div class="create-user-container">
-                    <button type="button" class="dropdown-button"><a href="/event/list"> Go to Event List </a></button>
+                    <a href="/event/list" class="dropdown-button"> Go to Event List </a>
                     <button type="button" class="dropdown-button" id="button-set" onClick="dropdown('sets')">Create event by Sets
                         <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
                         <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
