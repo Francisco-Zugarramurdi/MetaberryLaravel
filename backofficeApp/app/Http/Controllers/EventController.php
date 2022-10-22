@@ -134,7 +134,7 @@ class EventController extends Controller
     private function addSet(Request $request, $eventID){
 
         $result = DB::table('results')->insertGetId([
-            'type_results'=>"set",
+            'type_results'=>"points_sets",
             'results'=>" ",
             'id_events'=>$eventID
         ]);
@@ -145,7 +145,6 @@ class EventController extends Controller
     }
 
     private function addSetTeam($result, $teamSet, $teamID){
-
         $setNumber = 0;
 
         foreach($teamSet as $set){
@@ -196,7 +195,7 @@ class EventController extends Controller
     private function addPoint(Request $request, $eventID){
 
         $result = DB::table('results')->insertGetId([
-            'type_results'=>"score",
+            'type_results'=>"results_points",
             'results'=>" ",
             'id_events'=> $eventID
         ]);
@@ -238,8 +237,9 @@ class EventController extends Controller
 
         $this->deleteTeam($id);
         $this->deleteLeague($id);
+        $this->deleteTypeResult($id);
         $this->deleteResult($id);
-        
+
         Event::findOrFail($id)->delete();
         return redirect('/event/list');
 
@@ -268,7 +268,7 @@ class EventController extends Controller
         
         //     //
         
-        // }
+    // }
         
     private function deleteResult($id){
             
@@ -277,12 +277,12 @@ class EventController extends Controller
         ->update(['results.deleted_at'=>Carbon::now()]);
     }
 
-    // // private function deleteTypeResult($id){
+    private function deleteTypeResult($id){
 
-        
-
-    // // }
-
+        $result = Result::where('id_events',$id)->first();
+        DB::table($result->type_results)->where('id_results',$result->id)->update(['deleted_at'=>Carbon::now()]);
+ 
+    }
 
 }
 

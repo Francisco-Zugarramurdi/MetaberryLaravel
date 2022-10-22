@@ -6,7 +6,7 @@ document.getElementById("add-set-local").addEventListener('click',()=>{
 });
 document.getElementById("add-set-visitor").addEventListener('click',()=>{
     setNumber++;
-    document.getElementById("setContainerVisitor").innerHTML += `Set(${setNumber})<input type='number' name='setsVisitant[]'>`;
+    document.getElementById("setContainerVisitor").innerHTML += `Set(${setNumber})<input type='number' name='setsVisitor[]'>`;
 });
 
 function dropdown (container){
