@@ -9,43 +9,39 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta name="_token" content="{{csrf_token()}}" />
-    <title>Events List</title>
+    <title>Edit Event</title>
 </head>
 <body>
     <main>
-
         @include('navbar')
-    
+        
         <div class="main-page-container">
 
             <div class="nav-bar-container">
-
-                <h1>Events List</h1>
-
+                <h1>Events Edits</h1>
             </div>
-            
-            <div class="user-table-container enable event">
-                    
+
+            <div class="user-table-container">
+
                 <table class="user-table">
 
                     <thead>
-                        <tr>
+                            <tr>
 
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Details</th>
-                            <th>Relevance</th>
-                            <th>Date</th>
-                            <th>Country</th>
-                            <th>Sport</th>
-                            <th>League</th>
-                            <th>Actions</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Details</th>
+                                <th>Relevance</th>
+                                <th>Country</th>
+                                <th>Sport</th>
+                                <th>League</th>
+                                <th>Actions</th>
 
-                        </tr>
-                    </thead>
+                            </tr>
+                        </thead>
 
-                <tbody>
-                    @foreach($events as $event)
+                        <tbody>
+                            @foreach($events as $event)
                         <tr>
                                 <form class="entry" method="POST" action="/event/list">
                                     @method('PUT')
@@ -59,26 +55,21 @@
 
                                     </td>
 
-                                    <td class="table-content">
+                                    <td class="user-name">
                                         <label>
-                                            <p>{{$event->name}}</p>
+                                            <input name="name" type="text" value="{{$event->name}}">
                                         </label>
                                     </td>
                                     
-                                    <td class="table-content">
+                                    <td class="user-name">
                                         <label>
-                                            <p>{{$event->details}}</p>
+                                            <input name="surname" type="text" value="{{$event->details}}">
                                         </label>
                                     </td>
-                                    <td class="table-content">
+
+                                    <td class="user-name">
                                         <label>
-                                            <p>{{$event->relevance}}</p>
-                                        </label>
-                                    </td>
-                                    
-                                    <td class="table-content">
-                                        <label>
-                                            <p>{{$event->date}}</p>
+                                            <input name="rol" type="text" value="{{$event->relevance}}">
                                         </label>
                                     </td>
                                     
@@ -118,20 +109,16 @@
                                     <input name="_method" type="hidden" value="DELETE">
                                 </form>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            @endforeach
+                        </tbody>
 
+                </table>        
+
+            </div>
+
+        </div>
+        
     </main>
-
-    <script>
-        const deleteFormSubmit = (id) =>{
-
-            event.preventDefault();
-            document.getElementById('delete_form_'+id).submit();
-
-        }
-    </script>
-
+    
 </body>
 </html>

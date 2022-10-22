@@ -37,7 +37,7 @@ class EventController extends Controller
         ->join('leagues','leagues.id','leagues_events.id_leagues')
         ->join('sports','events.id_sports','sports.id')
         ->join('countries','countries.id','events.id_countries')
-        ->select('countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
+        ->select('events.date as date','countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
         ->get();
         
         return view('eventlist')
@@ -47,6 +47,41 @@ class EventController extends Controller
         ->with('leagues',League::all())
         ->with('players',Player::all())
         ->with('teams',Team::all());
+    }
+
+    public function editEvent(Request $request, $id){
+        $validation = $this->validateCreationRequest($request);
+
+        if($validation !== 'ok')
+        return $validation;
+        try{
+            $this->updateEvent($request,$id);
+            $this->updateLeague($request,$id);
+            return redirect('/event/edit{id}');
+        }
+        catch (QueryException $e){
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot edit event');
+        }
+    }
+
+    private function updateEvent($request,$id){
+        $event = Event::findOrFail($id);
+        $event->name = $request->name;
+        $event->details = $request->details;
+        $event->relevance = $request->relevance;
+        $event->date = $request->date;
+        $event->id_countries = Country::where('name', $request -> countryName)->first()->id;
+        $event->id_sports = Sport::where('name', $request->sportName)->first()->id;
+        $event->save();
+    }
+
+    private function updateLeague(Request $request,$id){
+        $league = League::where('name', $request->leagueName)->first()->id;
+        $leagueName = DB::table('leagues_events')
+        ->where('id_events', $id)
+        ->update([
+            'id_leagues'=> $league
+        ]);
     }
 
     private function createEvent(Request $request){
