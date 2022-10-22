@@ -220,6 +220,120 @@ class EventController extends Controller
 
     }
 
+    public function createEventMarkUp(Request $request){
+
+        $validation = $this->validateCreationRequest($request);
+
+        if($validation !== "ok"){
+            return $validation;
+        }
+        try{
+            $event = $this->createEvent($request);
+
+            foreach($request->marks as $mark){
+                $this->addEventTeam($event->id, $mark["team"]);
+            }
+
+            if($request->league != null)
+                $this->addLeague($request, $event->id);
+
+            if($request->resultReady !=null)
+                $this->addMarkUp($request->marks, $event->id);
+
+            return redirect('/event');
+        }
+        catch(QueryException $e){
+
+            return $e;
+
+        }
+
+    }
+
+    private function addMarkUp($marks, $eventID){
+        usort($marks, function($a, $b){
+            if ($a["mark"] == $b["mark"]) {
+                return 0;
+            }
+            return ($a["mark"] < $b["mark"]) ? -1 : 1;
+        });
+
+        $result = DB::table('results')->insertGetId([
+            'type_results'=>"results_upward",
+            'results'=>Team::find(reset($marks)['team'])->name . " winer",
+            'id_events'=>$eventID
+        ]);
+
+        $position = 1;
+        foreach($marks as $mark){
+            DB::table('results_upward')->insert([
+                'id_teams' => $mark["team"],
+                'result' => $mark["mark"],
+                'position' => $position,
+                'id_results'=> $result
+            ]);
+
+            $position++;
+        }
+
+    }
+
+    public function createEventMarkDown(Request $request){
+
+        $validation = $this->validateCreationRequest($request);
+
+        if($validation !== "ok"){
+            return $validation;
+        }
+        try{
+            $event = $this->createEvent($request);
+
+            foreach($request->marks as $mark){
+                $this->addEventTeam($event->id, $mark["team"]);
+            }
+
+            if($request->league != null)
+                $this->addLeague($request, $event->id);
+
+            if($request->resultReady !=null)
+                $this->addMarkDown($request->marks, $event->id);
+
+            return redirect('/event');
+        }
+        catch(QueryException $e){
+
+            return $e;
+
+        }
+    }
+    private function addMarkDown($marks, $eventID){
+        usort($marks, function($a, $b){
+            if ($a["mark"] == $b["mark"]) {
+                return 0;
+            }
+            return ($a["mark"] > $b["mark"]) ? -1 : 1;
+        });
+
+        $result = DB::table('results')->insertGetId([
+            'type_results'=>"results_downward",
+            'results'=>Team::find(reset($marks)['team'])->name . " winer",
+            'id_events'=>$eventID
+        ]);
+
+        $position = 1;
+        foreach($marks as $mark){
+            DB::table('results_downward')->insert([
+                'id_teams' => $mark["team"],
+                'result' => $mark["mark"],
+                'position' => $position,
+                'id_results'=> $result
+            ]);
+
+            $position++;
+        }
+
+    }
+
     public function destroy($id){
 
         try{

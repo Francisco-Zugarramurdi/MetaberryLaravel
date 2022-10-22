@@ -280,8 +280,8 @@
     
                             <h2>Create Event by Mark Up</h2>
         
-                            <form action="/event/create" class="create-user-form" method="POST" id="creationForm">
-                                @method('POST')
+                            <form action="/event/create/markUp" class="create-user-form" method="POST" id="creationForm">
+                                @method('GET')
                                 @csrf
                                 
                                 <div class="form-up-container">
@@ -309,23 +309,27 @@
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country->name}}">{{$country->name}}</option>
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
                                         <label><p><span>* </span>Sport</p>
                                             <select name="sport" id="sport">
                                                 @foreach ($sports as $sport)
-                                                    <option value="{{$sport->name}}">{{$sport->name}}</option>
+                                                    <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="league">
                                                 @foreach ($leagues as $league)
-                                                    <option value="{{$league->name}}">{{$league->name}}</option>
+                                                    <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
                                             </select>
+                                        </label>
+                                        <label>
+                                            <p>Result is ready</p>
+                                            <input type="checkbox" name="resultReady">
                                         </label>
                                     </div>
                                     <div class="form-inner-container">
@@ -341,7 +345,7 @@
                                                 <button type="button" id="addTeamMarkUp"><span class="material-symbols-outlined">add</span></button>
                                             </label>
                                             
-                                            <div class="team-card-container" id="team_card_container_for_mark">
+                                            <div class="team-card-container" id="team_card_container_for_mark_up">
                                                 
                                                 <div class="team-container">
                                                     
@@ -375,8 +379,8 @@
     
                             <h2>Create Event by Mark Down</h2>
         
-                            <form action="/event/create" class="create-user-form" method="POST" id="creationForm">
-                                @method('POST')
+                            <form action="/event/create/markDown" class="create-user-form" method="POST" id="creationForm">
+                                @method('GET')
                                 @csrf
                                 
                                 <div class="form-up-container">
@@ -404,25 +408,51 @@
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country->name}}">{{$country->name}}</option>
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
                                         <label><p><span>* </span>Sport</p>
                                             <select name="sport" id="sport">
                                                 @foreach ($sports as $sport)
-                                                    <option value="{{$sport->name}}">{{$sport->name}}</option>
+                                                    <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="league">
                                                 @foreach ($leagues as $league)
-                                                    <option value="{{$league->name}}">{{$league->name}}</option>
+                                                    <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
+                                        <label>
+                                            <p>Result is ready</p>
+                                            <input type="checkbox" name="resultReady">
+                                        </label>
                                     </div>
+                                    <div class="form-inner-container">
+                                        
+                                        <div class="form-team-container">
+                                            
+                                            <label>
+                                                <p><span>* </span>Teams</p>
+                                            </label>
+
+                                            <label class="add-btn">
+                                                Add a team
+                                                <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
+                                            </label>
+                                            
+                                            <div class="team-card-container" id="team_card_container_for_mark_down">
+                                                
+                                                <div class="team-container">
+                                                    
+                                                </div>
+
+                                            </div>
+
+                                        </div>
                                 </div>
         
                                 <div class="form-down-container">
@@ -508,7 +538,7 @@
             
                 <label>
                     Points
-                    <input type="number" name="points${team}[${count}][points]">
+                    <input type="number" name="points${team}[${count}][points]" min="1">
                 </label>
             
             </div>`;
@@ -568,13 +598,14 @@
             
                 <label>
                     Points
-                    <input type="number" name="points${team}[${count}][points]">
+                    <input type="number" name="points${team}[${count}][points]" min="1">
                 </label>
             
             </div>`;
         }
     });
     </script>
+
 
     <script>
         var count = 0;
@@ -590,12 +621,25 @@
                     url: "{{ url('/getTeams') }}",
                     method: 'GET',
                     success: function(teams){
-                        CreateATeam(teams)
+                        CreateATeam(teams,'mark_up')
+                }});
+            });
+            jQuery('#addTeamMarkDown').click(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/getTeams') }}",
+                    method: 'GET',
+                    success: function(teams){
+                        CreateATeam(teams, 'mark_down')
                 }});
             });
             
         
-        let CreateATeam = (teams) =>{
+            let CreateATeam = (teams, typeOfMark) =>{
             let options = ''
             count += 1;
 
@@ -604,19 +648,19 @@
                 options += `<option value="${teams[team].id}">${teams[team].name}</option>`
             }); 
 
-            document.getElementById(`team_card_container_for_mark`).innerHTML += 
+            document.getElementById(`team_card_container_for_${typeOfMark}`).innerHTML += 
             `<div class="team-container">
             
                 <label>
                     Team
-                    <select name="mark[${count}][player]" id="player">
+                    <select name="marks[${count}][team]">
                         ${options}
                     </select>
                 </label>
 
                 <label>
                     marks
-                    <input type="number" name="marks[${count}][mark]">
+                    <input type="number" name="marks[${count}][mark]" min="1">
                 </label>
         
             </div>`;

@@ -1,6 +1,6 @@
-insert into sports(name, photo) values ('Futbol','photo.com'), 
-('Tenis','photo.com'), 
-('Ping Pong','photo.com'); 
+insert into sports(name, photo, icon) values ('Futbol','photo.com','icon'), 
+('Tenis','photo.com','icon'), 
+('Ping Pong','photo.com','icon'); 
 insert into countries(name, photo) values ('Uruguay','photo.com'), 
 ('Argentina','photo.com'), 
 ('Brasil','photo.com'); 
@@ -171,11 +171,11 @@ insert into referee(name, surname, photo) values
 insert into referee_events(id_referee, id_events, dates) values (1,1,"2022-01-01"), 
 (2,2,"2022-01-01"); 
 insert into users_data(name,points,type_of_user,total_points, photo, credit_card)  values 
-('Lukitas',10000,'pago',240000,'photo.com','credit_card'), 
-('Yves',3000,'pago',20000,'photo.com','credit_card'), 
-('Zara',9000,'pago',100000,'photo.com','credit_card'), 
-('Fede',100,'gratis',100,'photo.com','credit_card'), 
-('Nico',5000,'pago',6000,'photo.com','credit_card'); 
+('Lukitas',10000,'pago',240000,'photo.com','4321432143214321'), 
+('Yves',3000,'pago',20000,'photo.com','4321432143214321'), 
+('Zara',9000,'pago',100000,'photo.com','4321432143214321'), 
+('Fede',100,'gratis',100,'photo.com','4321432143214321'), 
+('Nico',5000,'pago',6000,'photo.com','4321432143214321');
 insert into users(id, name, email,password) values 
 (1,'Lucas Medina','lucasmedina@gmail.com','HASH01Lucas'), (2,'Yves Motta','yvesmotta1@gmail.com','HASH01Yves'), 
 (3,'Zara zugarramurdi','zarita@gmail.com','HASH01Zara'), (4,'Fede  
