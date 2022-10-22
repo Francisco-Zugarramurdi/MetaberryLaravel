@@ -18,6 +18,7 @@ class PlayerTeam extends Model
         'contract_end',
         'updated_at',
         'status',
+        'deleted_at'
     ];
     protected $dates = ['contract_start'];
 }

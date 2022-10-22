@@ -66,10 +66,12 @@ class PlayerController extends Controller
         ]);
     }
     public function index(){
-        $players = Player::leftJoin('players_teams','players_teams.id_players','players.id')
-        ->leftJoin('teams','players_teams.id_teams','teams.id')
+
+        $players = Player::join('players_teams','players_teams.id_players','players.id')
+        ->join('teams','players_teams.id_teams','teams.id')
         ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
         ->get();
+
         return view('players')->with('players',$players)->with('teams',Team::all());
         
     }
@@ -128,7 +130,7 @@ class PlayerController extends Controller
 
     private function validateDestroy($id){
 
-        if(DB::table('results_points')->where('id_players',$id)->exists()){
+        if(DB::table('results_points')->where('id_players',$id)->where('deleted_at', null)->exists()){
             return 'Cannot destroy player because it is related to a result';
         }
         return 'ok';

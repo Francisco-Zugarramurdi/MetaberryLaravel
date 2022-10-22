@@ -7,6 +7,9 @@ use App\Models\Team;
 use App\Models\Sport;
 use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class TeamController extends Controller
 {
@@ -119,8 +122,7 @@ class TeamController extends Controller
             return view('error')->with('errors', $validation);
         }
         try{
-            Team::findOrFail($id)->delete();
-            return redirect('/team');
+            return $this->delete($id);
         }
         catch(QueryException $e){
             return view('error')->with('errorData',$e)->with('errors', 'Cannot delete team');
@@ -129,7 +131,7 @@ class TeamController extends Controller
 
     private function validateDestroy($id){
 
-        if(DB::table('events_teams')->where('id_teams',$id)->exists()){
+        if(DB::table('events_teams')->where('id_teams',$id)->where('deleted_at', null)->exists()){
             return 'Cannot destroy team because it is related to an event';
         }
         return 'ok';
@@ -138,7 +140,30 @@ class TeamController extends Controller
 
     private function delete($id){
 
+        $this->deletePlayers($id);
+        $this->deleteExtra($id);
+        Team::findOrFail($id)->delete();
 
+        return redirect('/team');
 
     }
+
+    private function deletePlayers($id){
+
+        DB::table('players_teams')
+        ->join('players','players.id','players_teams.id_players')
+        ->where('players_teams.id_teams',$id)
+        ->update(['players_teams.deleted_at'=>Carbon::now()]);
+
+    }
+
+    private function deleteExtra($id){
+
+        DB::table('extra_compose')
+        ->join('extras','extras.id','extra_compose.id_extra')
+        ->where('extra_compose.id_teams',$id)
+        ->update(['extra_compose.deleted_at'=>Carbon::now()]);
+
+    }
+
 }
