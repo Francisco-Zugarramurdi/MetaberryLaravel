@@ -65,6 +65,9 @@ Route::get("/extra",[ExtraController::class, 'index']);
 Route::post("/extra/create",[ExtraController::class, 'create']);
 Route::put("/extra/{id}",[ExtraController::class, 'update']);
 Route::delete("/extra/{id}",[ExtraController::class,'destroy']);
+Route::post("/extra/indexByEvent",[ExtraController::class,'indexExtrasByEvent']);
+
+
 
 Route::get("/league",[LeagueController::class, 'index']);
 Route::post("/league/create",[LeagueController::class, 'create']);

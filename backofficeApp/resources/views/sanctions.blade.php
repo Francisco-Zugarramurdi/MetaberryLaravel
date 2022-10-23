@@ -43,7 +43,13 @@
                             <div class="form-up-container">
     
                                 <div class="form-inner-container">
-    
+                                    <label>
+                                        Type:
+                                        <select id="type" name="type">
+                                            <option value="Player" default>Player</option>
+                                            <option value="Extra">Extra</option>
+                                        </select>
+                                    </label>
                                     <label>
                                         Event:
                                        <select name="event" id="eventSelect" class="event">
@@ -53,7 +59,7 @@
                                        </select>
                                     </label>
                                     <label>
-                                        Player:
+                                        <p id="labelID">Player:</p>
                                        <select name="player" id="playerSelect">
                                         <option>Select an event</option>
                                        </select>
@@ -61,6 +67,10 @@
                                     <label>
                                         Sanction:
                                         <input type="text" name="sanction" id="sanction">
+                                    </label>
+                                    <label>
+                                        Minute:
+                                        <input type="number" name="minute" id="minute">
                                     </label>
                                   
     
@@ -92,6 +102,7 @@
                             <th>Player</th>
                             <th>Sanction</th>
                             <th>Event</th>
+                            <th>Minute</th>
                             <th>Actions</th>
 
                         </tr>
@@ -105,7 +116,7 @@
                                         @csrf
                                         {{method_field('PUT')}}
                                         <input name="_method" type="hidden" value="PUT">
-
+                                        <input type="type" type="hidden" value="Player" style="display:none">
                                         <td class="user-id">
 
                                             <p>{{$sanction->id}}</p>
@@ -126,10 +137,14 @@
                                         
                                         <td class="user-name">
                                             <label>
-                                                <input name="photo" type="text" value="{{$sanction->nameEvent}}">
+                                                <input name="event" type="text" value="{{$sanction->nameEvent}}">
                                             </label>
                                         </td>
-                                    
+                                        <td class="user-name">
+                                            <label>
+                                                <input type="number" name="minute" value="{{$sanction->minute}}">
+                                            </label>
+                                        </td>
 
                                         <td class="actions-buttons">
                                             <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
@@ -153,7 +168,84 @@
                     </tbody>
 
                 </table>
+            </div>
 
+            <div class="user-table-container">
+                <table class="user-table">
+
+                    <thead>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Extra</th>
+                            <th>Sanction</th>
+                            <th>Event</th>
+                            <th>Minute</th>
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach($sanctionsExtra as $sanction)
+                            <tr>
+                                    <form class="entry" method="POST" action="/sanction/{{$sanction->id}}">
+                                        @method('PUT')
+                                        @csrf
+                                        {{method_field('PUT')}}
+                                        <input name="_method" type="hidden" value="PUT">
+                                        <input type="type" type="hidden" value="Extra" style="display:none">
+                                        <td class="user-id">
+
+                                            <p>{{$sanction->id}}</p>
+
+                                        </td>
+
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="name" type="text" value="{{$sanction->namePlayer}}">
+                                            </label>
+                                        </td>
+    
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="surname" type="text" value="{{$sanction->sancion}}">
+                                            </label>
+                                        </td>
+                                        
+                                        <td class="user-name">
+                                            <label>
+                                                <input name="event" type="text" value="{{$sanction->nameEvent}}">
+                                            </label>
+                                        </td>
+                                        <td class="user-name">
+                                            <label>
+                                                <input type="number" name="minute" value="{{$sanction->minute}}">
+                                            </label>
+                                        </td>
+
+                                        <td class="actions-buttons">
+                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
+                                            <button type="submit" class="submit-btn">
+                                                <span class="material-symbols-outlined">send</span>
+                                            </button>
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </td>
+                                    </form>
+
+                                <form action="/sanction/{{$sanction->id}}"method="POST" class="delete" id="delete_form">
+                                    @method('DELETE')
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <input name="_method" type="hidden" value="DELETE">
+                                </form>
+                            </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
             </div>
 
         </div>
@@ -178,7 +270,17 @@
     <script>
 
             jQuery(document).ready(function(){
-                jQuery('#eventSelect').change(function(){
+
+                jQuery('#eventSelect').change(handleSelectUpdate())
+
+                function handleSelectUpdate(){
+                    if(jQuery('#type').val() == "Player")
+                    updateByPlayer();
+                    if(jQuery('#type').val() == "Extra")
+                    updateByExtra();
+
+                }
+                function updateByPlayer(){
                     $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -201,8 +303,38 @@
                         document.getElementById('playerSelect').innerHTML = `${options}`;
 
                     }});
-                })
+                }
+                function updateByExtra(){
+                    $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                    });
+                    jQuery.ajax({
+                    url: "{{ url('/extra/indexByEvent') }}",
+                    method: 'POST',
+                    data: {
+                        id:jQuery('#eventSelect').val()
+                    },
+                    success: function(extras){
+                        let options = '';
+                        console.log(extras);
+                        Object.keys(extras).forEach(extra => {
+                    
+                        options += `<option value="${extras[extra].id}">${extras[extra].name}</option>`
+                        }); 
+    
+                        document.getElementById('playerSelect').innerHTML = `${options}`;
 
+                    }});
+                }
+                jQuery('#type').change(function(){
+                    console.log("A");
+                    if(jQuery('#eventSelect').val()){
+                        handleSelectUpdate();
+                    }
+                    document.getElementById('labelID').innerHTML = `${jQuery('#type').val()}:`
+                })
             });
     </script>
     <script src="{{ asset('js/UserForm.js') }}"></script>
