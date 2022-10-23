@@ -158,4 +158,21 @@ class ExtraController extends Controller
             'contract_end'=>$request->contractEnd
         ]);
     }
+    public function indexExtrasByEvent(Request $request){
+
+        return DB::table('events')
+        ->join('events_teams','events_teams.id_events','events.id')
+        ->join('extra_compose','extra_compose.id_teams','events_teams.id_teams')
+        ->join('extras','extras.id','extra_compose.id_extra')
+        ->select('extras.id as id','extras.name as name','events_teams.id_events as eventId')
+        ->get()
+        ->where('eventId',$request->id);
+        
+     
+       
+        
+    }
+
+
+
 }
