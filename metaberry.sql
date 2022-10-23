@@ -154,7 +154,7 @@ create table sanctions(
 create table sanctions_players(
     id_sancion bigint unsigned not null,
     id_players bigint unsigned not null,
-    minute int not null,
+    dates date not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
@@ -322,10 +322,12 @@ create table favourite_user(
     foreign key (id_users_data) references users_data(id),
     foreign key (id_teams) references teams(id)
 );
- 
+
+
+
 create table results(
     id serial,
-    type_results varchar(18) not null,
+    type_results varchar(30) not null,
     results varchar(25) not null,
     id_events bigint unsigned not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
