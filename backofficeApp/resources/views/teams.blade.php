@@ -34,7 +34,7 @@
 
                         <h2>Create team</h2>
     
-                        <form action="/team/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/team/create" class="create-user-form" method="POST" id="creationForm" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             
@@ -48,8 +48,8 @@
                                     </label>
     
                                     <label>
-                                        <p><span>* </span>Photo</p>
-                                        <input type="text" name="photo" placeholder="Nacional.jpg" id="photo">
+                                        <p><span>* </span>Profile image</p>
+                                        <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
     
                                     <label>
@@ -104,6 +104,7 @@
                         <tr>
 
                             <th>ID</th>
+                            <th> </th>
                             <th>Name</th>
                             <th>Photo</th>
                             <th>Type of Team</th>
@@ -117,7 +118,7 @@
                     <tbody>
                         @foreach($teams as $team)
                             <tr>
-                                    <form class="entry" method="POST" action="/team/{{$team->id}}">
+                                    <form class="entry" method="POST" action="/team/{{$team->id}}" enctype="multipart/form-data">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -129,15 +130,24 @@
 
                                         </td>
 
+                                        
+                                        <td class="user-profile-pic">
+
+                                            <div class="image-container">
+                                                <img src="{{ asset('img/public_images').'/'.$team->photo }}" alt="">
+                                            </div>
+
+                                        </td>
+
                                         <td class="user-name">
                                             <label>
                                                 <input name="name" type="text" value="{{$team->name}}">
                                             </label>
                                         </td>
-    
-                                        <td class="user-email">
+
+                                        <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$team->photo}}">
+                                                <input type="file" name="image" accept="image/*" id="photo">
                                             </label>
                                         </td>
                                         

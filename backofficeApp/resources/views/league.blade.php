@@ -33,7 +33,7 @@
 
                         <h2>Create league</h2>
     
-                        <form action="/league/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/league/create" class="create-user-form" method="POST" id="creationForm" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             
@@ -53,7 +53,7 @@
 
                                     <label>
                                         <p><span>* </span>Profile image</p>
-                                        <input type="text" name="photo" placeholder="somelink.com" id="photo">
+                                        <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
 
                                     <label>
@@ -91,6 +91,7 @@
                         <tr>
 
                             <th>ID</th>
+                            <th> </th>
                             <th>Name</th>
                             <th>Image</th>
                             <th>Details</th>
@@ -103,7 +104,7 @@
                     <tbody>
                         @foreach($leagues as $league)
                             <tr>
-                                    <form class="entry" method="POST" action="/league/{{$league->id}}">
+                                    <form class="entry" method="POST" action="/league/{{$league->id}}" enctype="multipart/form-data">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -115,6 +116,14 @@
 
                                         </td>
 
+                                        <td class="user-profile-pic">
+
+                                            <div class="image-container">
+                                                <img src="{{ asset('img/public_images').'/'.$league->photo }}" alt="">
+                                            </div>
+
+                                        </td>
+
                                         <td class="user-name">
                                             <label>
                                                 <input name="name" type="text" value="{{$league->name}}">
@@ -123,7 +132,7 @@
 
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$league->photo}}">
+                                                <input type="file" name="image" accept="image/*" id="photo">
                                             </label>
                                         </td>
                                         

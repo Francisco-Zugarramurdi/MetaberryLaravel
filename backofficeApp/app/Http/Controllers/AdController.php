@@ -9,7 +9,9 @@ use App\Models\AdTag;
 use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 use \Illuminate\Database\QueryException;
-
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 
 class AdController extends Controller
@@ -43,10 +45,7 @@ class AdController extends Controller
                 'required'
             ],
             'viewsHired' => 'required',
-            'image' => [
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-                'required'
-            ]
+            'image' => 'required|image'
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();
@@ -56,8 +55,10 @@ class AdController extends Controller
 
     private function createAd(Request $request){
 
+        $image = $this->saveImage($request);
+
         $ad = Ad::create([
-            'image' => $request -> post("image"),
+            'image' => $image,
             'url' => $request -> post("url"),
             'views_hired' => $request -> post("viewsHired"),
             'size' => $request -> post("size"),
@@ -67,6 +68,35 @@ class AdController extends Controller
         $this->saveTag($request, $ad);
 
         return redirect('/ads');
+    }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $ad = Ad::findOrFail($id);
+        $image = $ad -> image; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
+
     }
 
     private function saveTag(Request $request, $ad){
@@ -128,6 +158,7 @@ class AdController extends Controller
     }
 
     public function update(Request $request, $id){
+        
         $validation = $this->validateRequestCreate($request);
         
         if($validation !== "ok"){
@@ -137,6 +168,7 @@ class AdController extends Controller
             return view('error')->with('errors', 'Image already exists');
         
         try{
+
             $this->updateAd($request, $id);
             $this->addTag($request,$id);
             return redirect('/ads');
@@ -150,8 +182,12 @@ class AdController extends Controller
     }
 
     private function updateAd(Request $request, $id){
+
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $ad = Ad::findOrFail($id);
-        $ad ->image = $request -> image;
+        $ad ->image = $image;
         $ad ->url = $request -> url;
         $ad ->views_hired = $request -> viewsHired;
         $ad ->size = $request -> size;
@@ -168,6 +204,7 @@ class AdController extends Controller
     public function destroy($id){
         try{
             $ad = Ad::findOrFail($id);
+            $this->deleteImage($id);
             $ad -> delete();
             return redirect('/ads');
         }catch(QueryException $e){

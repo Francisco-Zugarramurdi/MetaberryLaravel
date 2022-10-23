@@ -7,6 +7,9 @@ use App\Models\Referee;
 use App\Models\RefereeEvent;
 use Illuminate\Support\Facades\Validator;
 use \Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class RefereeController extends Controller
 {
@@ -33,10 +36,7 @@ class RefereeController extends Controller
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
             'surname'=> 'required',
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ]
+            'image' => 'required|image',
         ]);
 
         if($validation->fails())
@@ -47,13 +47,44 @@ class RefereeController extends Controller
 
     private function createReferee(Request $request){
 
+        $image = $this->saveImage($request);
+
         Referee::create([
             'name'=> $request->name,
             'surname'=> $request->surname,
-            'photo' => $request->photo
+            'photo' => $image
         ]); 
 
         return redirect('/referee');
+
+    }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $user = Referee::findOrFail($id);
+        $image = $user -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
 
     }
 
@@ -88,10 +119,13 @@ class RefereeController extends Controller
 
     private function updateRefereeData(Request $request, $id){
 
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $referee= Referee::findOrFail($id);
         $referee -> name = $request -> name;
         $referee -> surname = $request -> surname;
-        $referee -> photo = $request -> photo;
+        $referee -> photo = $image;
         $referee-> save();
 
     }
@@ -104,6 +138,7 @@ class RefereeController extends Controller
             return view('error')->with('errors', $validation);
         }
         try{
+            $this->deleteImage($id);
             Referee::findOrFail($id)->delete();
             return redirect('/referee');
         }

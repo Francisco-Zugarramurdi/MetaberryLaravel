@@ -9,6 +9,9 @@ use App\Models\ExtraCompose;
 use App\Models\Team;
 use \Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class ExtraController extends Controller
 {
@@ -31,10 +34,7 @@ class ExtraController extends Controller
             'name'=> 'required',
             'surname'=> 'required',
             'rol'=> 'required',
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ]
+            'image' => 'required|image',
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
@@ -42,11 +42,14 @@ class ExtraController extends Controller
 
     }
     private function createExtra(Request $request){
+
+        $image = $this->saveImage($request);
+
         $extra = Extra::create([
             'name'=> $request->name,
             'surname'=> $request->surname,
             'rol'=> $request->rol,
-            'photo'=> $request->photo
+            'photo'=> $image
         ]);
         if($request->teamName != null)
             $this->joinTeam($request,$extra->id);
@@ -54,6 +57,36 @@ class ExtraController extends Controller
         return redirect('/extra');
 
     }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $user = Extra::findOrFail($id);
+        $image = $user -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
+
+    }
+
     private function joinTeam(Request $request,$id){
         $team = Team::where('name',$request->teamName)->first();
         ExtraCompose::create([
@@ -76,6 +109,7 @@ class ExtraController extends Controller
     
     public function destroy($id){
         try{
+            $this->deleteImage($id);
             Extra::findOrFail($id)->delete();
             return redirect('/extra');
         }
@@ -102,10 +136,14 @@ class ExtraController extends Controller
     }
 
     private function updateExtra(Request $request,$id){
+
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $extra = Extra::findOrFail($id);
         $extra->name = $request->name;
         $extra->surname = $request->surname;
-        $extra->photo = $request->photo;
+        $extra->photo = $image;
         $extra->rol = $request->rol;
         $extra->save();
     }

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use App\Models\UserData;
 use \Illuminate\Database\QueryException;
 class UserController extends Controller
@@ -46,13 +49,11 @@ class UserController extends Controller
     private function validateRegexRequest(Request $request){
 
         $validator = Validator::make($request->all(),
-        
         [
 
             'email' => 'regex:/(?i)^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
             'password' => 'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
-            'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/',
-            'photo' => 'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+            'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/'
             
         ]);
 
@@ -69,7 +70,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'photo' => 'required',
+            'image' => 'required|image',
             'points' => 'required',
             'type_of_user' => 'required',
             'total_points' => 'required'
@@ -88,11 +89,13 @@ class UserController extends Controller
 
     private function createUser(Request $request){
 
+        $image = $this->saveImage($request);
+
         $user = UserData::create([
 
             'name' => $request -> post("name"),
             'credit_card' => $request -> post("credit_card"),
-            'photo' => $request -> post("photo"),
+            'photo' => $image,
             'points' => $request -> post("points"),
             'type_of_user' => $request -> post("type_of_user"),
             'total_points' => $request -> post("total_points")
@@ -108,6 +111,35 @@ class UserController extends Controller
 
         ]);
         return redirect('/user');
+
+    }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $user = UserData::findOrFail($id);
+        $image = $user -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
 
     }
 
@@ -131,6 +163,7 @@ class UserController extends Controller
     public function update(Request $request, $id){
 
         $validation = $this->validateRegexRequest($request);
+        
         if($validation !== "ok")
             return view('error')->with('errors', $validation); 
         
@@ -150,10 +183,14 @@ class UserController extends Controller
     }
 
     private function updateUserData(Request $request,$id){
+
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $user= UserData::findOrFail($id);
         $user -> name = $request -> name;
         $user -> credit_card = $request-> credit_card;
-        $user -> photo = $request -> photo;
+        $user -> photo = $image;
         $user -> points = $request -> points;
         $user -> type_of_user = $request -> type_of_user;
         $user -> total_points = $request -> total_points;
@@ -173,6 +210,7 @@ class UserController extends Controller
         try{
             $user = User::findOrFail($id);
             $userData = UserData::findOrFail($id);
+            $this->deleteImage($id);
             $user->delete();
             $userData->delete();
             return redirect('/user');

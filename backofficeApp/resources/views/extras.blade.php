@@ -33,7 +33,7 @@
 
                         <h2>Create Extra</h2>
     
-                        <form action="/extra/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/extra/create" class="create-user-form" method="POST" id="creationForm" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             
@@ -53,9 +53,9 @@
                                         <p><span>* </span>Rol</p>
                                         <input type="text" name="rol" placeholder="Dt" id="rol">
                                     </label>
-                                   <label>
-                                        <p><span>* </span>Photo</p>
-                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
+                                    <label>
+                                        <p><span>* </span>Profile image</p>
+                                        <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
                                     <label>
                                         <p><span>* </span>Team</p>
@@ -99,10 +99,11 @@
                             <tr>
 
                                 <th>ID</th>
+                                <th> </th>
                                 <th>Name</th>
                                 <th>Surname</th>
                                 <th>Rol</th>
-                                <th>Photo</th>
+                                <th>Image</th>
                                 <th>Team</th>
                                 <th>Contract Start</th>
                                 <th>Contract End</th>
@@ -114,7 +115,7 @@
                         <tbody>
                             @foreach($extras as $extra)
                                 <tr>
-                                        <form class="entry" method="POST" action="/extra/{{$extra->id}}">
+                                        <form class="entry" method="POST" action="/extra/{{$extra->id}}" enctype="multipart/form-data">
                                             @method('PUT')
                                             @csrf
                                             {{method_field('PUT')}}
@@ -123,6 +124,14 @@
                                             <td class="user-id">
 
                                                 <p>{{$extra->id}}</p>
+
+                                            </td>
+
+                                            <td class="user-profile-pic">
+
+                                                <div class="image-container">
+                                                    <img src="{{ asset('img/public_images').'/'.$extra->photo }}" alt="">
+                                                </div>
 
                                             </td>
 
@@ -142,9 +151,9 @@
                                                     <input name="rol" type="text" value="{{$extra->rol}}">
                                                 </label>
                                             </td>
-                                            <td class="user-name">
+                                            <td class="user-image">
                                                 <label>
-                                                    <input name="photo" type="text" value="{{$extra->photo}}">
+                                                    <input type="file" name="image" accept="image/*" id="photo">
                                                 </label>
                                             </td>
                                             <td class="user-type">

@@ -9,6 +9,9 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 
 class TeamController extends Controller
@@ -35,15 +38,46 @@ class TeamController extends Controller
 
     private function createTeam(Request $request){
 
+        $image = $this->saveImage($request);
+
         Team::create([
             'name' => $request -> post("name"),
             'type_teams' => $request -> post("typeTeam"),
-            'photo' => $request -> post("photo"),
+            'photo' => $image,
             'id_sports' => Sport::where('name', $request -> post("sportName"))->first()->id,
             'id_countries' => Country::where('name', $request -> post("countryName"))->first()->id
         ]);
 
         return redirect('/team');
+    }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $team = Team::findOrFail($id);
+        $image = $team -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
+
     }
 
     public function index(){
@@ -67,9 +101,6 @@ class TeamController extends Controller
 
         $validation = $this->validateRequest($request);
 
-        if(Team::where('name', $request -> post("name"))->exists())
-            return view('error')->with('errors', 'Team already exists');
-
         if($validation !== "ok")
             return $validation;
         try {
@@ -83,13 +114,11 @@ class TeamController extends Controller
     }
 
     private function validateRequest($request){
+
         $validator = Validator::make($request->all(),[
 
             'name' => 'required',
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ],
+            'image' => 'required',
             'typeTeam' => 'required',
             'sportName' => 'required',
             'countryName' => 'required'
@@ -103,16 +132,19 @@ class TeamController extends Controller
     }
 
     private function updateTeam(Request $request, $id){
+
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $team = Team::findOrFail($id);
         $team -> name = $request->name;
-        $team -> photo = $request-> photo;
+        $team -> photo = $image;
         $team -> type_teams = $request -> typeTeam;
         $team -> id_sports = Sport::where('name', $request->sportName)->first()->id;
         $team -> id_countries = Country::where('name', $request -> countryName)->first()->id;
         $team -> save();
         return redirect('/team');
     }
-
 
     public function destroy($id){
 
@@ -142,6 +174,7 @@ class TeamController extends Controller
 
         $this->deletePlayers($id);
         $this->deleteExtra($id);
+        $this->deleteImage($id);
         Team::findOrFail($id)->delete();
 
         return redirect('/team');

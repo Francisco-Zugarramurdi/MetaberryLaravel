@@ -64,7 +64,7 @@
 
                         <h2>Create Player</h2>
     
-                        <form action="/player/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/player/create" class="create-user-form" method="POST" id="creationForm" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             
@@ -82,9 +82,10 @@
                                     </label>
                                    
                                     <label>
-                                        <p><span>* </span>Photo</p>
-                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
+                                        <p><span>* </span>Profile image</p>
+                                        <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
+
                                     <label>
                                         <p>Team name</p>
                                         <select name="teamName" id="teamName">
@@ -134,9 +135,10 @@
                         <tr>
 
                             <th>ID</th>
+                            <th> </th>
                             <th>Name</th>
                             <th>Surname</th>
-                            <th>Photo</th>
+                            <th>Image</th>
                             <th>Team</th>
                             <th>Contract Start</th>
                             <th>Contract End</th>
@@ -149,7 +151,7 @@
                     <tbody>
                         @foreach($players as $player)
                             <tr>
-                                    <form class="entry" method="POST" action="/player/{{$player->id}}">
+                                    <form class="entry" method="POST" action="/player/{{$player->id}}" enctype="multipart/form-data">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -158,6 +160,14 @@
                                         <td class="user-id">
 
                                             <p>{{$player->id}}</p>
+
+                                        </td>
+
+                                        <td class="user-profile-pic">
+
+                                            <div class="image-container">
+                                                <img src="{{ asset('img/public_images').'/'.$player->photo }}" alt="">
+                                            </div>
 
                                         </td>
 
@@ -173,11 +183,12 @@
                                             </label>
                                         </td>
                                         
-                                        <td class="user-name">
+                                        <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$player->photo}}">
+                                                <input type="file" name="image" accept="image/*" id="photo">
                                             </label>
                                         </td>
+                                        
                                         <td class="user-name">
                                             <label>
                                                 <input name="teamName" type="text" value="{{$player->teamName}}" readonly>

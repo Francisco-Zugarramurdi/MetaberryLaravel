@@ -34,7 +34,7 @@
 
                         <h2>Create ads</h2>
     
-                        <form action="/ads/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/ads/create" class="create-user-form" method="POST" id="creationForm" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             
@@ -42,12 +42,12 @@
     
 
                                     <div class="form-inner-container">
-
+        
                                         <label>
                                             <p><span>* </span>Image</p>
-                                            <input type="text" name="image" placeholder="FutbolAd.com" id="image">
+                                            <input type="file" name="image" accept="image/*" id="photo">
                                         </label>
-        
+
                                         <label>
                                             <p><span>* </span>Url</p>
                                             <input type="text" name="url" placeholder="Futbol.com" id="url">
@@ -127,7 +127,7 @@
                     <tbody>
                         @foreach($ads as $ad)
                             <tr>
-                                    <form class="entry" method="POST" action="/ads/{{$ad->id}}">
+                                    <form class="entry" method="POST" action="/ads/{{$ad->id}}" enctype="multipart/form-data">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -139,9 +139,9 @@
 
                                         </td>
 
-                                        <td class="user-name">
+                                        <td class="user-image">
                                             <label>
-                                                <input name="image" type="text" value="{{$ad->image}}">
+                                                <input type="file" name="image" accept="image/*" id="photo">
                                             </label>
                                         </td>
     

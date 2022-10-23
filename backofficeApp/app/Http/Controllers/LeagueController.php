@@ -9,6 +9,10 @@ use App\Models\Country;
 use App\Models\LeagueCountry;
 use \Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class LeagueController extends Controller
 {
@@ -35,10 +39,7 @@ class LeagueController extends Controller
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
             'details'=> 'required',
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ]
+            'image' => 'required|image',
         ]);
 
         if($validation->fails())
@@ -48,16 +49,47 @@ class LeagueController extends Controller
     }
 
     public function createLeague(Request $request){
+        
+        $image = $this->saveImage($request);
 
         $league = League::create([
             'name'=> $request->name,
             'details'=> $request->details,
-            'photo'=> $request->photo
+            'photo'=> $image
         ]);
 
         $this->joinTable($request, $league->id);
 
         return redirect('/league');
+
+    }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $user = League::findOrFail($id);
+        $image = $user -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
 
     }
 
@@ -108,10 +140,13 @@ class LeagueController extends Controller
 
     private function updateLeagueData(Request $request, $id){
 
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $league= League::findOrFail($id);
         $league -> name = $request -> name;
         $league -> details = $request-> details;
-        $league -> photo = $request -> photo;
+        $league -> photo = $image;
         $league-> save();
 
     }
@@ -135,6 +170,7 @@ class LeagueController extends Controller
             return $this->delete($id);
         }
         catch(QueryException $e){
+            return $e;
             return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy league');
         }
 
@@ -151,8 +187,9 @@ class LeagueController extends Controller
 
         DB::table('leagues_countries')
         ->where('id_leagues', $id)
-        ->update(['teams.deleted_at'=>Carbon::now()]);
+        ->update(['leagues_countries.deleted_at'=>Carbon::now()]);
 
+        $this->deleteImage($id);
         League::findOrFail($id)->delete();
 
         return redirect('/league');

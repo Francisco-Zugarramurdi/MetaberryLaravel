@@ -12,6 +12,9 @@ use App\Models\Sanction;
 use \Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class PlayerController extends Controller
 {
@@ -26,14 +29,12 @@ class PlayerController extends Controller
 
         }
     }
+
     private function validateCreationRequest(Request $request){
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
             'surname'=> 'required',
-            'photo'=> [
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-                'required'
-            ]
+            'image' => 'required|image',
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
@@ -42,11 +43,15 @@ class PlayerController extends Controller
         return 'ok';
 
     }
+
     private function createPlayer(Request $request){
+
+        $image = $this->saveImage($request);
+
         $player = Player::create([
             'name'=> $request->name,
             'surname'=> $request->surname,
-            'photo'=> $request->photo
+            'photo'=> $image
         ]);
         if($request->teamName != null)
             $this->joinTeam($request,$player->id);
@@ -54,6 +59,36 @@ class PlayerController extends Controller
         return redirect('/player');
 
     }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $user = Player::findOrFail($id);
+        $image = $user -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
+
+    }
+
     private function joinTeam(Request $request,$id){
         $team = Team::where('name',$request->teamName)->first();
         PlayerTeam::create([
@@ -65,6 +100,7 @@ class PlayerController extends Controller
 
         ]);
     }
+
     public function index(){
 
         $players = Player::join('players_teams','players_teams.id_players','players.id')
@@ -75,6 +111,7 @@ class PlayerController extends Controller
         return view('players')->with('players',$players)->with('teams',Team::all());
         
     }
+
     public function destroy($id){
 
         $validation = $this->validateDestroy($id);
@@ -95,13 +132,13 @@ class PlayerController extends Controller
 
         $this->deleteFromTeam($id);
         $this->deleteSanction($id);
+        $this->deleteImage($id);
 
         Player::findOrFail($id)->delete();
 
         return redirect('/player');
 
     }
-
 
     private function deleteFromTeam($id){
     
@@ -155,10 +192,14 @@ class PlayerController extends Controller
 
     }
     private function updatePlayer($request,$id){
+
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $player = Player::findOrFail($id);
-        $player->name = $request->name;
-        $player->surname = $request->surname;
-        $player->photo = $request->photo;
+        $player-> name = $request->name;
+        $player-> surname = $request->surname;
+        $player-> photo = $image;
         $player->save();
     }
     private function updateTeam($request,$id){

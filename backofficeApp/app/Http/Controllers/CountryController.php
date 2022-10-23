@@ -9,6 +9,9 @@ use App\Models\Team;
 use App\Models\LeagueCountry;
 use Illuminate\Support\Facades\Validator;
 use \Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class CountryController extends Controller
 {
@@ -23,13 +26,13 @@ class CountryController extends Controller
         try {
 
             if(Country::where('name', $request -> name) -> exists())
-                return view('error')->with('errorData',$e)->with('errors', 'Country already exists');
+                return view('error')->with('errors', 'Country already exists');
 
             return $this->createCountry($request);
         }
         catch (QueryException $e){
 
-            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create country');
 
         }
 
@@ -39,10 +42,7 @@ class CountryController extends Controller
 
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
-            'photo'=> [
-                'required',
-                'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
-            ]
+            'image' => 'required|image',
         ]);
 
         if($validation->fails())
@@ -53,12 +53,43 @@ class CountryController extends Controller
 
     private function createCountry(Request $request){
 
+        $image = $this->saveImage($request);
+
         Country::create([
             'name'=> $request->name,
-            'photo'=> $request->photo
+            'photo'=> $image
         ]);
 
         return redirect('/country');
+
+    }
+
+    private function saveImage(Request $request){
+
+        if($request->hasFile('image')){
+
+            $destinationPath = public_path('/img/public_images');
+            $image = $request->file('image');
+            $name = 'profile_img' . time();
+            $imagePath = $name . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imagePath);
+
+            return $imagePath;
+
+        }
+
+    }
+
+    private function deleteImage($id){
+
+        $user = Country::findOrFail($id);
+        $image = $user -> photo; 
+
+        $destinationPath = public_path('/img/public_images');
+
+        $imagePath = $destinationPath . '/' . $image;
+
+        File::delete($imagePath);
 
     }
 
@@ -93,9 +124,12 @@ class CountryController extends Controller
 
     private function updateCountryData(Request $request, $id){
 
+        $this->deleteImage($id);
+        $image = $this->saveImage($request);
+
         $country= Country::findOrFail($id);
         $country -> name = $request -> name;
-        $country -> photo = $request -> photo;
+        $country -> photo = $image;
         $country-> save();
 
     }
@@ -108,6 +142,8 @@ class CountryController extends Controller
             return view('error')->with('errors', $validation);
         }
         try{
+
+            $this->deleteImage($id);
             Country::findOrFail($id)->delete();
             return redirect('/country');
         }

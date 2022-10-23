@@ -33,7 +33,7 @@
 
                         <h2>Create referee</h2>
     
-                        <form action="/referee/create" class="create-user-form" method="POST" id="creationForm">
+                        <form action="/referee/create" class="create-user-form" method="POST" id="creationForm" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             
@@ -53,7 +53,7 @@
 
                                     <label>
                                         <p><span>* </span>Profile image</p>
-                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
+                                        <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
     
                                 </div>
@@ -82,6 +82,7 @@
                         <tr>
 
                             <th>ID</th>
+                            <th> </th>
                             <th>Name</th>
                             <th>Surname</th>
                             <th>Image</th>
@@ -93,7 +94,7 @@
                     <tbody>
                         @foreach($referees as $referee)
                             <tr>
-                                    <form class="entry" method="POST" action="/referee/{{$referee->id}}">
+                                    <form class="entry" method="POST" action="/referee/{{$referee->id}}" enctype="multipart/form-data">
                                         @method('PUT')
                                         @csrf
                                         {{method_field('PUT')}}
@@ -102,6 +103,14 @@
                                         <td class="user-id">
 
                                             <p>{{$referee->id}}</p>
+
+                                        </td>
+
+                                        <td class="user-profile-pic">
+
+                                            <div class="image-container">
+                                                <img src="{{ asset('img/public_images').'/'.$referee->photo }}" alt="">
+                                            </div>
 
                                         </td>
 
@@ -119,7 +128,7 @@
 
                                         <td class="user-image">
                                             <label>
-                                                <input name="photo" type="text" value="{{$referee->photo}}">
+                                                <input type="file" name="image" accept="image/*" id="photo">
                                             </label>
                                         </td>
     
