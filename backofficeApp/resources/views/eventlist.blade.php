@@ -45,6 +45,7 @@
                     </thead>
 
                 <tbody>
+                    
                     @foreach($events as $event)
                         <tr>
                                 <form class="entry" method="GET" action="/event/edit/{{$event->id}}">
