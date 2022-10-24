@@ -47,10 +47,10 @@
                 <tbody>
                     @foreach($events as $event)
                         <tr>
-                                <form class="entry" method="POST" action="/event/edit/{{$event->id}}">
-                                    @method('PUT')
+                                <form class="entry" method="GET" action="/event/edit/{{$event->id}}">
+                                    @method('GET')
                                     @csrf
-                                    {{method_field('PUT')}}
+                                    {{method_field('GET')}}
                                     <input name="_method" type="hidden" value="PUT">
 
                                     <td class="user-id">
