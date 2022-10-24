@@ -94,6 +94,7 @@ Route::get("/event/create/point",[EventController::class,'createEventPoint']);
 Route::get("/event/create/markUp",[EventController::class,'createEventMarkUp']);
 Route::get("/event/create/markDown",[EventController::class,'createEventMarkDown']);
 Route::delete("/event/list/{id}",[EventController::class,'destroy']);
+Route::get("/event/edit/{id}",[EventController::class,'eventEdit']);
 Route::put("/event/edit/{id}",[EventController::class,'editEvent']);
 
 Route::get("/sanction",[SanctionController::class,'index']);

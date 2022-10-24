@@ -52,6 +52,23 @@ class EventController extends Controller
         ->with('teams',Team::all());
     }
 
+    public function eventEdit($id){
+        $event = Event::join('leagues_events','leagues_events.id_events','events.id')
+        ->join('leagues','leagues.id','leagues_events.id_leagues')
+        ->join('sports','events.id_sports','sports.id')
+        ->join('countries','countries.id','events.id_countries')
+        ->where('events.id', $id) 
+        ->select('events.date as date','countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
+        ->get();
+        return view('eventedit')
+        ->with('events',$event)
+        ->with('countries',Country::all())
+        ->with('sports',Sport::all())
+        ->with('leagues',League::all())
+        ->with('players',Player::all())
+        ->with('teams',Team::all());
+    }
+
     public function editEvent(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
 
@@ -60,7 +77,7 @@ class EventController extends Controller
         try{
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
-            return redirect('/event/edit{id}');
+            return redirect('/event/edit/{id}');
         }
         catch (QueryException $e){
             return view('error')->with('errorData',$e)->with('errors', 'Cannot edit event');

@@ -20,9 +20,7 @@
             <div class="nav-bar-container">
                 <h1>Events Edits</h1>
             </div>
-
-            <div class="user-table-container">
-
+            <div class="user-table-container enable event">
                 <table class="user-table">
 
                     <thead>
@@ -43,7 +41,7 @@
                         <tbody>
                             @foreach($events as $event)
                         <tr>
-                                <form class="entry" method="POST" action="/event/list">
+                                <form class="entry" method="POST" action="/event/edit/{{$event->id}}">
                                     @method('PUT')
                                     @csrf
                                     {{method_field('PUT')}}
@@ -63,33 +61,43 @@
                                     
                                     <td class="user-name">
                                         <label>
-                                            <input name="surname" type="text" value="{{$event->details}}">
+                                            <input name="details" type="text" value="{{$event->details}}">
                                         </label>
                                     </td>
 
                                     <td class="user-name">
                                         <label>
-                                            <input name="rol" type="text" value="{{$event->relevance}}">
+                                            <input name="relevance" type="number" value="{{$event->relevance}}" min="1" max="5">
                                         </label>
                                     </td>
                                     
-                                    <td class="table-content">
-    
-                                        <label> 
-                                            <p>{{$event->countryName}}</p>
-                                        </label>
-
-                                    </td>
-
-                                    <td class="table-content">
+                                    <td class="user-type">
                                         <label>
-                                               <p>{{$event->sportName}}</p>
+                                            <select name="country" class="country">
+                                                @foreach($countries as $country)
+                                                <option name="{{$event->countryName}}" @if($country->name == $event->countryName)selected @endif>{{$country->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </label>
                                     </td>
 
-                                    <td class="table-content">
+                                    <td class="user-type">
                                         <label>
-                                                <p>{{$event->leagueName}}</p>
+                                            <select name="sport" class="sport">
+                                                @foreach($sports as $sport)
+                                                <option name="{{$event->sportName}}" @if($sport->name == $event->sportName)selected @endif>{{$sport->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                    </td>
+
+                                    <td class="user-type">
+                                        <label>
+                                            <select name="league" class="league">
+                                                @foreach($leagues as $league)
+                                                <option value="{{$event->leagueName}}" name="{{$event->leagueName}}" @if($league->name == $event->leagueName)selected @endif>{{$league->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </label>
                                     </td>
 

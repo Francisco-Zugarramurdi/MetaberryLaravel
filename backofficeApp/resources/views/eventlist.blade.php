@@ -47,7 +47,7 @@
                 <tbody>
                     @foreach($events as $event)
                         <tr>
-                                <form class="entry" method="POST" action="/event/list">
+                                <form class="entry" method="POST" action="/event/edit/{{$event->id}}">
                                     @method('PUT')
                                     @csrf
                                     {{method_field('PUT')}}
