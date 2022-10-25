@@ -20,10 +20,10 @@
             <div class="nav-bar-container">
                 <h1>Events Edits</h1>
             </div>
-            <div class="user-table-container enable event">
-                <table class="user-table">
+            <!-- <div class="user-table-container enable event">
+                 <table class="user-table">
 
-                    <thead>
+                     <thead>
                             <tr>
 
                                 <th>ID</th>
@@ -36,11 +36,11 @@
                                 <th>Actions</th>
 
                             </tr>
-                        </thead>
+                    </thead> 
 
-                        <tbody>
+                         <tbody>
                             @foreach($events as $event)
-                        <tr>
+                            <tr>
                                 <form class="entry" method="POST" action="/event/edit/{{$event->id}}">
                                     @method('PUT')
                                     @csrf
@@ -107,14 +107,79 @@
                                             </button>
                                         </td>
                                 </form>
-                        </tr>
+                            </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> 
 
-                </table>        
+                </table>         
 
+            </div> -->
+        <div class="create-user-container">
+            <div class="unhide-container hide">
+                
+                    <h2>Edit Event</h2>
+                    
+                        @foreach($events as $event)
+
+                                <form class="create-user-form" method="POST" action="/event/edit/{{$event->id}}">
+                            @method('PUT')
+                            @csrf
+                            {{method_field('PUT')}}
+                                <div class="form-up-container">
+
+                                    <div class="form-inner-container">
+                                        <br><br>
+                                        <Label>
+                                            <p>ID Event: <span>{{$event->id}}</span></p> 
+                                        </Label>
+
+                                        <label>
+                                            <p>Name:</p>
+                                            <input type="text" name="name" id="name" value="{{$event->name}}">
+                                        </label>
+                                        <label>
+                                            <p>Details:</p>
+                                            <input type="text" name="details" id="name" value="{{$event->details}}">
+                                        </label>
+                                        <label>
+                                            <p>Date:</p>
+                                            <input type="date" name="date" id="name" value="{{$event->date}}">
+                                        </label>
+                                        <label>
+                                            <p>Relevance:</p>
+                                            <input type="number" name="relevance" id="name" value="{{$event->relevance}}">
+                                        </label>
+                                        <label>
+                                        <p>Country:</p>
+                                            <select name="country" class="country">
+                                                @foreach($countries as $country)
+                                                <option name="{{$event->countryName}}" @if($country->name == $event->countryName)selected @endif>{{$country->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                        <label>
+                                        <p>Sport:</p>
+                                            <select name="sport" class="sport">
+                                                @foreach($sports as $sport)
+                                                <option name="{{$event->sportName}}" @if($sport->name == $event->sportName)selected @endif>{{$sport->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                        <label>
+                                            <p>League:</p>
+                                            <select name="league" class="league">
+                                                @foreach($leagues as $league)
+                                                <option value="{{$event->leagueName}}" name="{{$event->leagueName}}" @if($league->name == $event->leagueName)selected @endif>{{$league->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+                                    </div>
+
+                                </div>
+                        </form>
+                        @endforeach
             </div>
-
+        </div>
         </div>
         
     </main>

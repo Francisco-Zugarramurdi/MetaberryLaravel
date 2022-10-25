@@ -57,8 +57,10 @@ class EventController extends Controller
         ->join('leagues','leagues.id','leagues_events.id_leagues')
         ->join('sports','events.id_sports','sports.id')
         ->join('countries','countries.id','events.id_countries')
+        ->join('referee_events','referee_events.id_events','events.id')
+        ->join('referee','referee.id','referee_events.id_referee')
         ->where('events.id', $id) 
-        ->select('events.date as date','countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
+        ->select('referee.id as refereeId','referee.surname as refereeSurname','referee.name as refereeName','events.date as date','countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
         ->get();
         return view('eventedit')
         ->with('events',$event)
