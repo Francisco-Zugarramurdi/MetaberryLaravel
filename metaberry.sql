@@ -1,4 +1,4 @@
-drop database metaberrystudios;
+drop database if exists metaberrystudios;
 create database metaberrystudios;
 use metaberrystudios;
 create table sports(
@@ -154,7 +154,7 @@ create table sanctions(
 create table sanctions_players(
     id_sancion bigint unsigned not null,
     id_players bigint unsigned not null,
-    dates date not null,
+    minute int not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
@@ -166,7 +166,7 @@ create table sanctions_players(
 create table sanctions_extra(
     id_sancion bigint unsigned not null,
     id_extra bigint unsigned not null,
-    dates date not null,
+    minutes int not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,

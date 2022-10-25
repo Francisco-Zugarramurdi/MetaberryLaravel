@@ -1,3 +1,4 @@
+
 insert into sports(name, photo, icon) values ('Futbol','photo.com','icon'), 
 ('Tenis','photo.com','icon'), 
 ('Ping Pong','photo.com','icon'); 
@@ -160,11 +161,11 @@ insert into sanctions(id_events, sancion) values
 (1,'Tarjeta Roja'), 
 (2,'Tarjeta Amarilla'), 
 (2,'Tarjeta Roja'); 
-insert into sanctions_players(id_sancion, id_players, dates) values (1,1,"2022-01-01"), 
-(1,11,"2022-01-01"), 
-(3,12,"2022-01-01"), 
-(4,14,"2022-01-01"), 
-(1,13,"2022-01-01"); 
+insert into sanctions_players(id_sancion, id_players, minute) values (1,1,"2022-01-01"), 
+(1,11,1), 
+(3,12,3), 
+(4,14,4), 
+(1,13,5); 
 insert into referee(name, surname, photo) values 
 ('Pedro', 'PicaPiedra','photo.com'), 
 ('Hernesto', 'Perez','photo.com'); 
