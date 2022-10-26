@@ -47,11 +47,6 @@
                                         <input type="text" name="name" placeholder="John" id="name">
                                     </label>
     
-                                    <label>
-                                        <p><span>* </span>Profile image</p>
-                                        <input type="text" name="photo" placeholder="somelink.com"id="photo">
-                                    </label>
-    
                                 </div>
 
                                 <div class="form-inner-container">
@@ -204,7 +199,6 @@
 
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Image</th>
                             <th>Icon</th>
                             <th>Actions</th>
 
@@ -229,12 +223,6 @@
                                         <td class="user-name">
                                             <label>
                                                 <input name="name" type="text" value="{{$sport->name}}">
-                                            </label>
-                                        </td>
-                                        
-                                        <td class="user-image">
-                                            <label>
-                                                <input name="photo" type="text" value="{{$sport->photo}}">
                                             </label>
                                         </td>
 

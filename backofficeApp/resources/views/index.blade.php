@@ -89,6 +89,20 @@
 
                 </div>
 
+                <div class="option-card-container">
+
+                    <h2>Event Management</h2>
+                    <a href="/event/">Go to Manage Events</a>
+
+                </div>
+
+                <div class="option-card-container">
+
+                    <h2>Sanction Management</h2>
+                    <a href="/sanction/">Go to Manage Sanctions</a>
+
+                </div>
+
             </div>
 
         </div>

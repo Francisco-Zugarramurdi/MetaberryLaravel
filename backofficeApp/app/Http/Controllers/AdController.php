@@ -45,7 +45,7 @@ class AdController extends Controller
                 'required'
             ],
             'viewsHired' => 'required',
-            'image' => 'required|image'
+            'image' => 'image'
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();

@@ -11,5 +11,5 @@ class Sport extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "sports";
-    protected $fillable = [ 'name','photo','icon'];
+    protected $fillable = [ 'name','icon'];
 }
