@@ -20,13 +20,15 @@ class SanctionController extends Controller
         ->join('sanctions_players','sanctions_players.id_sancion','sanctions.id')
         ->join('players','players.id','sanctions_players.id_players')
         ->join('events','events.id','sanctions.id_events')
+        ->where('sanctions.deleted_at',null)
         ->select('sanctions.id as id','sanctions_players.minute as minute', 'sanctions_players.id_players as idPlayer','players.name as namePlayer','sanctions.sancion as sancion', 'sanctions.id_events as idEvent','events.name as nameEvent')
         ->get();
         $sanctionExtra = DB::table('sanctions')
         ->join('sanctions_extra','sanctions_extra.id_sancion','sanctions.id')
         ->join('extras','extras.id','sanctions_extra.id_extra')
         ->join('events','events.id','sanctions.id_events')
-        ->select('sanctions.id as id','sanctions_extra.minutes as minute', 'sanctions_extra.id_extra as idPlayer','extras.name as namePlayer','sanctions.sancion as sancion', 'sanctions.id_events as idEvent','events.name as nameEvent')
+        ->where('sanctions.deleted_at',null)
+        ->select('sanctions.id as id','sanctions_extra.minute as minute', 'sanctions_extra.id_extra as idPlayer','extras.name as namePlayer','sanctions.sancion as sancion', 'sanctions.id_events as idEvent','events.name as nameEvent')
         ->get();
         return view('sanctions')->with('sanctions',$sanctions)->with('events',Event::all())->with('sanctionsExtra',$sanctionExtra);
     }
@@ -35,7 +37,8 @@ class SanctionController extends Controller
         if($validation !== "ok")
             return $validation;
         try{
-            return $this->createSanction($request);
+            $this->createSanction($request);
+            return redirect('/sanction');
         }catch(QueryException $e){
             return $e;
             return view('error')->with('errorData',$e)->with('errors', 'Cannot create sanction');
@@ -51,7 +54,7 @@ class SanctionController extends Controller
             'type'=>'required',
         ]);
         if($validation->fails())
-        return $validation->errors()->toJson();
+            return $validation->errors()->toJson();
         return 'ok';
     }
     private function createSanction(Request $request){
@@ -70,10 +73,45 @@ class SanctionController extends Controller
             SanctionExtra::create([
                 'id_sancion'=>$sanction->id,
                 'id_extra'=>$request->player,
-                'minutes'=>$request->minute
+                'minute'=>$request->minute
             ]);
         }
        
 
+    }
+    public function update(Request $request,$id){
+        $validation = $this->validateRequest($request);
+        if($validation !== "ok")
+            return $validation;
+        try{
+            $this->updateSanction($request,$id);
+            return redirect('/sanction');
+        }catch(QueryException $e){
+            return $e;
+            return view('error')->with('errorData',$e)->with('errors', 'Cannot create sanction');
+
+        }
+    }
+    private function updateSanction(Request $request,$id){
+        $sanction = Sanction::findOrFail($id);
+        $sanction->sancion = $request->sanction;
+        $sanction->save();
+        if($request->type == "Player"){
+            SanctionPlayers::where('id_players',$request->player)->update(['minute'=>$request->minute]);
+        }
+        if($request->type == "Extra"){
+           SanctionExtra::where('id_extra',$request->player)->update(['minute'=> $request->minute]);
+        }
+
+    }
+    public function destroy(Request $request,$id){
+        $sanction = Sanction::findOrfail($id)->delete();
+        if($request->type == "Player"){
+            SanctionPlayers::where('id_sancion',$id)->delete();
+        }
+        if($request->type == "Extra"){
+           SanctionExtra::where('id_sancion',$id)->delete();
+        }
+        return redirect("/sanction");
     }
 }

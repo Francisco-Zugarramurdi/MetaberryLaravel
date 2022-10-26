@@ -116,7 +116,7 @@
                                         @csrf
                                         {{method_field('PUT')}}
                                         <input name="_method" type="hidden" value="PUT">
-                                        <input type="type" type="hidden" value="Player" style="display:none">
+                                        <input name="type" type="hidden" value="Player" style="display:none">
                                         <td class="user-id">
 
                                             <p>{{$sanction->id}}</p>
@@ -125,19 +125,21 @@
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$sanction->namePlayer}}">
+                                                <select name="player" readonly>
+                                                    <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}}</option>
+                                                </select>
                                             </label>
                                         </td>
     
                                         <td class="user-name">
                                             <label>
-                                                <input name="surname" type="text" value="{{$sanction->sancion}}">
+                                                <input name="sanction" type="text" value="{{$sanction->sancion}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-name">
                                             <label>
-                                                <input name="event" type="text" value="{{$sanction->nameEvent}}">
+                                                <input name="event" type="text" value="{{$sanction->nameEvent}}" readonly>
                                             </label>
                                         </td>
                                         <td class="user-name">
@@ -151,17 +153,18 @@
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$sanction->id}})">
                                             <span class="material-symbols-outlined">delete</span>
                                             </button>
                                         </td>
                                     </form>
 
-                                <form action="/sanction/{{$sanction->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/sanction/{{$sanction->id}}"method="POST" class="delete" id="delete_form{{$sanction->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
                                     <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="type" value="Player">
                                 </form>
                             </tr>
                         @endforeach
@@ -194,7 +197,7 @@
                                         @csrf
                                         {{method_field('PUT')}}
                                         <input name="_method" type="hidden" value="PUT">
-                                        <input type="type" type="hidden" value="Extra" style="display:none">
+                                        <input name="type" type="hidden" value="Extra" style="display:none">
                                         <td class="user-id">
 
                                             <p>{{$sanction->id}}</p>
@@ -203,19 +206,21 @@
 
                                         <td class="user-name">
                                             <label>
-                                                <input name="name" type="text" value="{{$sanction->namePlayer}}">
+                                                <select name="player" readonly>
+                                                    <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}}</option>
+                                                </select>
                                             </label>
                                         </td>
     
                                         <td class="user-name">
                                             <label>
-                                                <input name="surname" type="text" value="{{$sanction->sancion}}">
+                                                <input name="sanction" type="text" value="{{$sanction->sancion}}">
                                             </label>
                                         </td>
                                         
                                         <td class="user-name">
                                             <label>
-                                                <input name="event" type="text" value="{{$sanction->nameEvent}}">
+                                                <input name="event" type="text" value="{{$sanction->nameEvent}}" readonly>
                                             </label>
                                         </td>
                                         <td class="user-name">
@@ -229,17 +234,18 @@
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit()">
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$sanction->id}})">
                                             <span class="material-symbols-outlined">delete</span>
                                             </button>
                                         </td>
                                     </form>
 
-                                <form action="/sanction/{{$sanction->id}}"method="POST" class="delete" id="delete_form">
+                                <form action="/sanction/{{$sanction->id}}"method="POST" class="delete" id="delete_form{{$sanction->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}
                                     <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="type" value="Extra"> 
                                 </form>
                             </tr>
                         @endforeach
@@ -255,10 +261,10 @@
     <script>
 
 
-        const deleteFormSubmit = () =>{
+        const deleteFormSubmit = (id) =>{
 
             event.preventDefault();
-            document.getElementById('delete_form').submit();
+            document.getElementById(`delete_form${id}`).submit();
 
         }
       

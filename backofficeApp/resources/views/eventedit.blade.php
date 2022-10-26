@@ -173,6 +173,14 @@
                                                 @endforeach
                                             </select>
                                         </label>
+                                        <label>
+                                            <p>Referee:</p>
+                                            <select name="referee" id="referee">
+                                                @foreach($referees as $referee)
+                                                <option value="{{$event->refereeId}}"@if($league->refereeName == $referee->name && $league->refereeSurame == $referee->surname)@endif>{{$referee->name}} {{$referee->surname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </label>
                                     </div>
 
                                 </div>
