@@ -70,7 +70,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'image' => 'required|image',
             'points' => 'required',
             'type_of_user' => 'required',
             'total_points' => 'required'
@@ -89,7 +88,7 @@ class UserController extends Controller
 
     private function createUser(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         $user = UserData::create([
 
@@ -114,10 +113,10 @@ class UserController extends Controller
 
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -127,20 +126,7 @@ class UserController extends Controller
             return $imagePath;
 
         }
-
-    }
-
-    private function deleteImage($id){
-
-        $user = UserData::findOrFail($id);
-        $image = $user -> photo; 
-
-        $destinationPath = public_path('/img/public_images');
-
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
-
+        return $defaultImage;
     }
 
     public function indexByEmail($email){
@@ -182,12 +168,13 @@ class UserController extends Controller
 
     }
 
-    private function updateUserData(Request $request,$id){
+    private function updateUserData(Request $request, $id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
+        $user = UserData::findOrFail($id);
+        $currentImage = $user -> photo; 
 
-        $user= UserData::findOrFail($id);
+        $image = $this->updateImage($request, $currentImage, $id);
+
         $user -> name = $request -> name;
         $user -> credit_card = $request-> credit_card;
         $user -> photo = $image;
@@ -195,6 +182,31 @@ class UserController extends Controller
         $user -> type_of_user = $request -> type_of_user;
         $user -> total_points = $request -> total_points;
         $user-> save();
+
+    }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
+    }
+    
+    private function deleteImage($id){
+
+        $user = UserData::findOrFail($id);
+        $currentImage = $user -> photo; 
+
+        if($currentImage != 'default_img_do_not_delete.jpg'){
+
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
 
     }
 

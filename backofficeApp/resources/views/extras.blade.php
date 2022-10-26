@@ -54,7 +54,7 @@
                                         <input type="text" name="rol" placeholder="Dt" id="rol">
                                     </label>
                                     <label>
-                                        <p><span>* </span>Profile image</p>
+                                        <p>Profile image</p>
                                         <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
                                     <label>

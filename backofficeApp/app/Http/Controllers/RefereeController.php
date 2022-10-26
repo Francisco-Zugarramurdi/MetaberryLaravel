@@ -35,8 +35,7 @@ class RefereeController extends Controller
 
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
-            'surname'=> 'required',
-            'image' => 'required|image',
+            'surname'=> 'required'
         ]);
 
         if($validation->fails())
@@ -47,7 +46,7 @@ class RefereeController extends Controller
 
     private function createReferee(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         Referee::create([
             'name'=> $request->name,
@@ -59,10 +58,10 @@ class RefereeController extends Controller
 
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -72,20 +71,7 @@ class RefereeController extends Controller
             return $imagePath;
 
         }
-
-    }
-
-    private function deleteImage($id){
-
-        $user = Referee::findOrFail($id);
-        $image = $user -> photo; 
-
-        $destinationPath = public_path('/img/public_images');
-
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
-
+        return $defaultImage;
     }
 
     public function index(Request $request){
@@ -119,14 +105,40 @@ class RefereeController extends Controller
 
     private function updateRefereeData(Request $request, $id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
+        $referee = Referee::findOrFail($id);
+        $currentImage = $referee -> photo; 
 
-        $referee= Referee::findOrFail($id);
+        $image = $this->updateImage($request, $currentImage, $id);
+
         $referee -> name = $request -> name;
         $referee -> surname = $request -> surname;
         $referee -> photo = $image;
         $referee-> save();
+
+    }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
+    }
+    
+    private function deleteImage($id){
+
+        $referee = Referee::findOrFail($id);
+        $currentImage = $referee -> photo; 
+
+        if($currentImage != 'default_img_do_not_delete.jpg'){
+
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
 
     }
 

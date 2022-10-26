@@ -33,8 +33,7 @@ class ExtraController extends Controller
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
             'surname'=> 'required',
-            'rol'=> 'required',
-            'image' => 'required|image',
+            'rol'=> 'required'
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
@@ -43,7 +42,7 @@ class ExtraController extends Controller
     }
     private function createExtra(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         $extra = Extra::create([
             'name'=> $request->name,
@@ -58,10 +57,10 @@ class ExtraController extends Controller
 
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -71,19 +70,7 @@ class ExtraController extends Controller
             return $imagePath;
 
         }
-
-    }
-
-    private function deleteImage($id){
-
-        $user = Extra::findOrFail($id);
-        $image = $user -> photo; 
-
-        $destinationPath = public_path('/img/public_images');
-
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
+        return $defaultImage;
 
     }
 
@@ -137,15 +124,41 @@ class ExtraController extends Controller
 
     private function updateExtra(Request $request,$id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
-
         $extra = Extra::findOrFail($id);
+        $currentImage = $extra -> photo; 
+
+        $image = $this->updateImage($request, $currentImage, $id);
+
         $extra->name = $request->name;
         $extra->surname = $request->surname;
         $extra->photo = $image;
         $extra->rol = $request->rol;
         $extra->save();
+    }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
+    }
+    
+    private function deleteImage($id){
+
+        $extra = Extra::findOrFail($id);
+        $currentImage = $extra -> photo; 
+
+        if($currentImage != 'default_img_do_not_delete.jpg'){
+
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
+
     }
 
     private function updateTeam(Request $request,$id){

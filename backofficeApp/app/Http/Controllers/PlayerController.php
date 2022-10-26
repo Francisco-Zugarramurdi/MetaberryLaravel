@@ -33,8 +33,7 @@ class PlayerController extends Controller
     private function validateCreationRequest(Request $request){
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
-            'surname'=> 'required',
-            'image' => 'required|image',
+            'surname'=> 'required'
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
@@ -46,7 +45,7 @@ class PlayerController extends Controller
 
     private function createPlayer(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         $player = Player::create([
             'name'=> $request->name,
@@ -60,10 +59,10 @@ class PlayerController extends Controller
 
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -73,19 +72,7 @@ class PlayerController extends Controller
             return $imagePath;
 
         }
-
-    }
-
-    private function deleteImage($id){
-
-        $user = Player::findOrFail($id);
-        $image = $user -> photo; 
-
-        $destinationPath = public_path('/img/public_images');
-
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
+        return $defaultImage;
 
     }
 
@@ -193,15 +180,42 @@ class PlayerController extends Controller
     }
     private function updatePlayer($request,$id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
-
         $player = Player::findOrFail($id);
+        $currentImage = $player -> photo;
+
+        $image = $this->saveImage($request, $currentImage, $id);
+
         $player-> name = $request->name;
         $player-> surname = $request->surname;
         $player-> photo = $image;
         $player->save();
     }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
+    }
+    
+    private function deleteImage($id){
+
+        $player = Player::findOrFail($id);
+        $currentImage = $player -> photo; 
+
+        if($currentImage != 'default_img_do_not_delete.jpg'){
+
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
+
+    }
+
     private function updateTeam($request,$id){
         $team = Team::where('name',$request->teamName)->first();
         $playerTeam = DB::table('players_teams')

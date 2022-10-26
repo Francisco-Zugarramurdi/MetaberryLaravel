@@ -38,7 +38,7 @@ class TeamController extends Controller
 
     private function createTeam(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         Team::create([
             'name' => $request -> post("name"),
@@ -51,10 +51,10 @@ class TeamController extends Controller
         return redirect('/team');
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -64,19 +64,7 @@ class TeamController extends Controller
             return $imagePath;
 
         }
-
-    }
-
-    private function deleteImage($id){
-
-        $team = Team::findOrFail($id);
-        $image = $team -> photo; 
-
-        $destinationPath = public_path('/img/public_images');
-
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
+        return $defaultImage;
 
     }
 
@@ -118,7 +106,6 @@ class TeamController extends Controller
         $validator = Validator::make($request->all(),[
 
             'name' => 'required',
-            'image' => 'required',
             'typeTeam' => 'required',
             'sportName' => 'required',
             'countryName' => 'required'
@@ -133,10 +120,11 @@ class TeamController extends Controller
 
     private function updateTeam(Request $request, $id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
-
         $team = Team::findOrFail($id);
+        $currentImage = $team -> photo; 
+
+        $image = $this->updateImage($request, $currentImage, $id);
+        
         $team -> name = $request->name;
         $team -> photo = $image;
         $team -> type_teams = $request -> typeTeam;
@@ -144,6 +132,31 @@ class TeamController extends Controller
         $team -> id_countries = Country::where('name', $request -> countryName)->first()->id;
         $team -> save();
         return redirect('/team');
+    }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
+    }
+    
+    private function deleteImage($id){
+
+        $team = Team::findOrFail($id);
+        $currentImage = $team -> photo; 
+
+        if($currentImage != 'default_img_do_not_delete.jpg'){
+
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
+
     }
 
     public function destroy($id){

@@ -41,8 +41,7 @@ class CountryController extends Controller
     private function validateCreationRequest(Request $request){
 
         $validation = Validator::make($request->all(),[
-            'name'=> 'required',
-            'image' => 'required|image',
+            'name'=> 'required'
         ]);
 
         if($validation->fails())
@@ -53,7 +52,7 @@ class CountryController extends Controller
 
     private function createCountry(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         Country::create([
             'name'=> $request->name,
@@ -64,10 +63,10 @@ class CountryController extends Controller
 
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -77,19 +76,7 @@ class CountryController extends Controller
             return $imagePath;
 
         }
-
-    }
-
-    private function deleteImage($id){
-
-        $user = Country::findOrFail($id);
-        $image = $user -> photo; 
-
-        $destinationPath = public_path('/img/public_images');
-
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
+        return $defaultImage;
 
     }
 
@@ -124,13 +111,39 @@ class CountryController extends Controller
 
     private function updateCountryData(Request $request, $id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
+        $country = Country::findOrFail($id);
+        $currentImage = $country -> photo; 
 
-        $country= Country::findOrFail($id);
+        $image = $this->updateImage($request, $currentImage, $id);
+
         $country -> name = $request -> name;
         $country -> photo = $image;
         $country-> save();
+
+    }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
+    }
+    
+    private function deleteImage($id){
+
+        $country = Country::findOrFail($id);
+        $currentImage = $country -> photo; 
+
+        if($currentImage != 'default_img_do_not_delete.jpg'){
+
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
 
     }
 
