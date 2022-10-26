@@ -7,7 +7,7 @@ create table sports(
     icon varchar(50) not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
+    deleted_at timestamp null default null
 );  
  
 create table countries(
