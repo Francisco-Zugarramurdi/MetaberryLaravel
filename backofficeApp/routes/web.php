@@ -99,4 +99,6 @@ Route::put("/event/edit/{id}",[EventController::class,'editEvent']);
 
 Route::get("/sanction",[SanctionController::class,'index']);
 Route::post("/sanction/create",[SanctionController::class,'create']);
+Route::put("/sanction/{id}",[SanctionController::class,'update']);
+Route::delete("/sanction/{id}",[SanctionController::class,'destroy']);
 
