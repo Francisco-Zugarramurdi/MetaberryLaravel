@@ -75,7 +75,6 @@
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="league">
-                                                <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -199,7 +198,6 @@
 
                                         <label><p>League</p>
                                             <select name="league" id="league">
-                                                <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -342,7 +340,6 @@
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="league">
-                                                <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -450,7 +447,6 @@
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="league">
-                                                <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach

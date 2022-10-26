@@ -76,8 +76,7 @@ class EventController extends Controller
         $validation = $this->validateCreationRequest($request);
 
         if($validation !== 'ok')
-            return $validation;
-        
+        return $validation;
         try{
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
@@ -426,13 +425,9 @@ class EventController extends Controller
     private function delete($id){
 
         $this->deleteTeam($id);
-        $this->deleteLeague($id); 
-        
-        if(Result::where('id_events',$id)->count() > 0){
-            $this->deleteTypeResult($id);
-            $this->deleteResult($id); 
-        }
-        
+        $this->deleteLeague($id);
+        $this->deleteTypeResult($id);
+        $this->deleteResult($id);
         $this->deleteReferee($id);
 
         Event::findOrFail($id)->delete();
@@ -452,14 +447,10 @@ class EventController extends Controller
 
     private function deleteLeague($id){
 
-        $league = DB::table('leagues_events')
+        DB::table('leagues_events')
         ->join('leagues','leagues.id','leagues_events.id_leagues')
-        ->where('leagues_events.id_events',$id);
-
-        if($league->count() > 0){
-            $league->update(['leagues_events.deleted_at'=>Carbon::now()]);
-        }
-        
+        ->where('leagues_events.id_events',$id)
+        ->update(['leagues_events.deleted_at'=>Carbon::now()]);
         
     }
     
