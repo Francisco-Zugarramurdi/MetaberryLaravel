@@ -221,6 +221,19 @@ create table users(
     deleted_at timestamp null default null,
     foreign key (id) references users_data(id)
 );
+
+create table users_subscriptions(
+    id serial,
+    id_users bigint unsigned not null,
+    start date not null,
+    end date not null,
+    type_of_subscription varchar(6) not null, 
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
+    primary key (id, id_users),
+    foreign key (id_users) references users_data(id)
+);
  
 create table post(
     id serial,
