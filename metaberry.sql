@@ -8,7 +8,6 @@ create table sports(
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
-    photo text not null
 );  
  
 create table countries(
