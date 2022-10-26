@@ -134,5 +134,9 @@
         }
     </script>
 
+    <script>
+        document.getElementById('eventlist').classList.add("focus");
+    </script>
+
 </body>
 </html>
