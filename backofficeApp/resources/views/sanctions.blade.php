@@ -123,7 +123,7 @@
 
                                         </td>
 
-                                        <td class="user-name">
+                                        <td class="user-type">
                                             <label>
                                                 <select name="player" readonly>
                                                     <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}}</option>
