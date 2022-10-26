@@ -12,6 +12,6 @@ class SanctionExtra extends Model
     protected $fillable = [
         'id_sancion',
         'id_extra',
-        'minutes'
+        'minute'
     ];
 }

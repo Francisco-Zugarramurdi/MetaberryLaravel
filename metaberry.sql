@@ -166,7 +166,7 @@ create table sanctions_players(
 create table sanctions_extra(
     id_sancion bigint unsigned not null,
     id_extra bigint unsigned not null,
-    minutes int not null,
+    minute int not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,

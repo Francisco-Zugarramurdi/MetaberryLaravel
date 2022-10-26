@@ -26,7 +26,7 @@ class SanctionController extends Controller
         ->join('sanctions_extra','sanctions_extra.id_sancion','sanctions.id')
         ->join('extras','extras.id','sanctions_extra.id_extra')
         ->join('events','events.id','sanctions.id_events')
-        ->select('sanctions.id as id','sanctions_extra.minutes as minute', 'sanctions_extra.id_extra as idPlayer','extras.name as namePlayer','sanctions.sancion as sancion', 'sanctions.id_events as idEvent','events.name as nameEvent')
+        ->select('sanctions.id as id','sanctions_extra.minute as minute', 'sanctions_extra.id_extra as idPlayer','extras.name as namePlayer','sanctions.sancion as sancion', 'sanctions.id_events as idEvent','events.name as nameEvent')
         ->get();
         return view('sanctions')->with('sanctions',$sanctions)->with('events',Event::all())->with('sanctionsExtra',$sanctionExtra);
     }
@@ -70,7 +70,7 @@ class SanctionController extends Controller
             SanctionExtra::create([
                 'id_sancion'=>$sanction->id,
                 'id_extra'=>$request->player,
-                'minutes'=>$request->minute
+                'minute'=>$request->minute
             ]);
         }
        
