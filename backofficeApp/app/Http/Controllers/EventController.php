@@ -64,6 +64,7 @@ class EventController extends Controller
         ->get();
         return view('eventedit')
         ->with('events',$event)
+        ->with('referees',Referee::all())
         ->with('countries',Country::all())
         ->with('sports',Sport::all())
         ->with('leagues',League::all())
