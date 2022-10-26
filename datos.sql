@@ -1,7 +1,6 @@
-
-insert into sports(name, photo, icon) values ('Futbol','photo.com','icon'), 
-('Tenis','photo.com','icon'), 
-('Ping Pong','photo.com','icon'); 
+insert into sports(name, icon) values ('Futbol','icon'), 
+('Tenis','icon'), 
+('Ping Pong','icon'); 
 insert into countries(name, photo) values ('Uruguay','photo.com'), 
 ('Argentina','photo.com'), 
 ('Brasil','photo.com'); 
@@ -49,8 +48,7 @@ insert into players(name, surname, photo) values ('Luis','Suarez','photo.com'),
 ('Mario','McArthur','photo.com'); 
 insert into events(name, details, id_sports, id_countries, date,  relevance) values 
 ('Gran parque central, team1 vs team2','Se juega en el parque  central',1,1,"2022-01-01",5), 
-('Campeon del siglo, team2 vs team2','Se juega en la  bombonera',1,2,"2022-02-01",4), 
-('Mesa 3, player1 vs player2','Partidazo bien picante',3,3,"2022-03-01",2); 
+('Campeon del siglo, team2 vs team2','Se juega en la  bombonera',1,2,"2022-02-01",4);
 insert into teams(name, type_teams, id_sports, id_countries, photo) values ('Nacional', 'grupal',1,1,'photo.com'), 
 ('Boca', 'grupal',1,2,'photo.com'), 
 ('Peñarol', 'grupal',1,1,'photo.com'), 
@@ -145,15 +143,12 @@ insert into events_teams(id_teams, id_events) values
 (1,1), 
 (2,1), 
 (3,2), 
-(4,2), 
-(5,3), 
-(6,3); 
+(4,2); 
 insert into leagues(name, details, photo) values 
 ('Copa Libertadores','La Copa Libertadores de América, denominada  oficialmente Copa Conmebol Libertadores, es un torneo anual  internacional oficial de fútbol organizado por la Confederación  Sudamericana de Fútbol, creado en 1960 bajo la denominación de Copa de  Campeones de América o Copa Campeones de América','photo.com'), 
 ('Liga PongPingPam', 'Se juega al ping pong re piola','photo.com'); 
 insert into leagues_events(id_events, id_leagues) values (1,1),
-(2,1), 
-(3,2); 
+(2,1); 
 insert into leagues_countries(id_leagues, id_countries) values (1,1), 
 (2,3); 
 insert into sanctions(id_events, sancion) values 
@@ -161,7 +156,7 @@ insert into sanctions(id_events, sancion) values
 (1,'Tarjeta Roja'), 
 (2,'Tarjeta Amarilla'), 
 (2,'Tarjeta Roja'); 
-insert into sanctions_players(id_sancion, id_players, minute) values (1,1,"2022-01-01"), 
+insert into sanctions_players(id_sancion, id_players, minute) values (1,1,10), 
 (1,11,1), 
 (3,12,3), 
 (4,14,4), 
@@ -184,9 +179,7 @@ Notienesurname','elfedefacha@gmail.com','Fedenotienehasheadalacontra'),
 (5,'Nicolas Mora','nico@gmail.com','HASH01Nico'); 
 insert into post(post, id_users_data,dates,id_events,number_of_likes) values ('Andrew Tate idolo por siempre',1,"2022-01-01",1,1000), 
 ('Andrew es un pelado facha',4,"2022-01-01",1,1000), 
-('Que lindos colores los de las camisetas!',2,"2022-01-01",2,1000), 
-('Primer y unico comments(CaritaFachera)',3,"2022-01-01",3,1000), 
-('Primero si, unico no jaja',5,"2022-01-01",3,1000); 
+('Que lindos colores los de las camisetas!',2,"2022-01-01",2,1000);
 insert into user_likes(id_post, id_users_data) values (1,1), 
 (1,2), 
 (1,3), 
@@ -210,12 +203,9 @@ insert into premium_sports(id_users_data, id_sports) values (1,1),
 (5,3), 
 (5,2); 
 insert into premium_events(id_users_data, id_events) values (1,1), 
-(1,3), 
 (2,2), 
-(3,3), 
 (3,2),
-(4,1), 
-(5,3), 
+(4,1),  
 (5,2); 
 insert into premium_teams(id_users_data, id_teams) values (1,1), 
 (1,2), 
@@ -233,9 +223,8 @@ insert into favourite_user(id_users_data, id_teams) values (1,1),
 (1,5), 
 (5,6); 
 insert into results(results, id_events,type_results) values 
-('Ganador Boca',1,'points'), 
-('Ganador Racing',2,'points'), 
-('Ganador Team1',3,'points'); 
+('Ganador Boca',1,'results_points'), 
+('Ganador Racing',2,'results_points');
 insert into bets(amount, id_users_data, id_events, id_teams, dates)  values 
 (240000,1,1,1,"2022-01-01"), 
 (1000,2,1,1,"2022-01-01"), 
