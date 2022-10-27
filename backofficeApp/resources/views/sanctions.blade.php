@@ -302,8 +302,7 @@
                         let options = '';
                         console.log(players);
                         Object.keys(players).forEach(player => {
-                    
-                        options += `<option value="${players[player].id}">${players[player].name}</option>`
+                        options += `<option value="${players[player].id}">${players[player].name} ${players[player].surname}</option>`
                         }); 
     
                         document.getElementById('playerSelect').innerHTML = `${options}`;
@@ -327,7 +326,7 @@
                         console.log(extras);
                         Object.keys(extras).forEach(extra => {
                     
-                        options += `<option value="${extras[extra].id}">${extras[extra].name}</option>`
+                        options += `<option value="${extras[extra].id}">${extras[extra].name} ${extras[extra].surname}</option>`
                         }); 
     
                         document.getElementById('playerSelect').innerHTML = `${options}`;

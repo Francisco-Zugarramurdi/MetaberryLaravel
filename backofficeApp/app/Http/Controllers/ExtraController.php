@@ -177,7 +177,7 @@ class ExtraController extends Controller
         ->join('events_teams','events_teams.id_events','events.id')
         ->join('extra_compose','extra_compose.id_teams','events_teams.id_teams')
         ->join('extras','extras.id','extra_compose.id_extra')
-        ->select('extras.id as id','extras.name as name','events_teams.id_events as eventId')
+        ->select('extras.id as id','extras.name as name','extras.surname as surname','events_teams.id_events as eventId')
         ->get()
         ->where('eventId',$request->id);
         
