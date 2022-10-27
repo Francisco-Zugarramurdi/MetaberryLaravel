@@ -94,26 +94,48 @@
 
                                         @endif
                                         @if($event->typeResult == "results_upward")
-                                            @foreach ($results as $result)
-                                            <div class="team-container">
-            
-                                                <label>
-                                                    Team
-                                                    <select name="marks[][team]">
-                                                        @foreach($teams as $team)
-                                                            <option value="{{$team->id}}"@if($team->id == $result->teamId)selected @endif>{{$teams->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </label>
-
-                                                <label>
-                                                    marks
-                                                    <input type="number" name="marks[][mark]" min="1">
-                                                </label>
+                                        <div class="form-inner-container">
                                         
-                                            </div>
+                                            <div class="form-team-container">
+                                                
+                                                <label>
+                                                    <p><span>* </span>Teams</p>
+                                                </label>
 
-                                            @endforeach
+                                                <label class="add-btn">
+                                                    Add a team
+                                                    <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
+                                                </label>
+                                                
+                                                <div class="team-card-container" id="team_card_container_for_mark_down">
+                                                        
+                                                
+                                                    <div class="team-container">
+                    
+                                                        <label>
+                                                            Team
+                                                            <select name="marks[][team]">
+                                                                @foreach($teams as $team)
+                                                                    <option value="{{$team->id}}"@if($team->id == $result->teamId)selected @endif>{{$team->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </label>
+
+                                                        <label>
+                                                            marks
+                                                            <input type="number" name="marks[][mark]" min="1">
+                                                        </label>
+                                                
+                                                    </div>
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>      
+                                        
+                                        
                                         @endif
                                         @if($event->typeResult == "results_downward")
                                         @foreach ($results as $result)
