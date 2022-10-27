@@ -103,6 +103,13 @@
 
                 </div>
 
+                <div class="option-card-container">
+
+                    <h2>Subscription Management</h2>
+                    <a href="/user/subscription">Go to Manage Subscription</a>
+
+                </div>
+
             </div>
 
         </div>

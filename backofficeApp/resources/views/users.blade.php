@@ -66,10 +66,11 @@
                                 <div class="form-inner-container">
     
                                     <label>
-                                        <p><span>* </span>Type of user</p>
+                                        <p><span>* </span>Subscription</p>
                                         <select name="type_of_user" id="type_of_user">
                                             <option value="free">Free</option>
-                                            <option value="paid">Paid</option>
+                                            <option value="paid_monthly">Monthly</option>
+                                            <option value="paid_yearly">Yearly</option>
                                         </select>
                                     </label>
     
@@ -171,15 +172,23 @@
     
                                         <td class="user-type">
                                             <label>
-                                                @if($user->type_of_user == 'paid')
-                                                <select name="type_of_user">
-                                                    <option value="free">Free</option>
-                                                    <option value="paid" selected>Paid</option>
-                                                </select>
-                                                @else
+                                                @if($user->type_of_user == 'free')
                                                 <select name="type_of_user">
                                                     <option value="free" selected>Free</option>
-                                                    <option value="paid">Paid</option>
+                                                    <option value="paid_monthly">Monthly</option>
+                                                    <option value="paid_yearly">Yearly</option>
+                                                </select>
+                                                @elseif($user->type_of_user == 'paid_monthly')
+                                                <select name="type_of_user">
+                                                    <option value="free">Free</option>
+                                                    <option value="paid_monthly" selected>Monthly</option>
+                                                    <option value="paid_yearly">Yearly</option>
+                                                </select>
+                                                @elseif($user->type_of_user == 'paid_yearly')
+                                                <select name="type_of_user">
+                                                    <option value="free" selected>Free</option>
+                                                    <option value="paid_monthly">Monthly</option>
+                                                    <option value="paid_yearly" selected>Yearly</option>
                                                 </select>
                                                 @endif
                                             </label>

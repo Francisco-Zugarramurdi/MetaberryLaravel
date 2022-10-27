@@ -11,6 +11,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Models\UserData;
+use App\Models\UserSubscription;
 use \Illuminate\Database\QueryException;
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
             return $this->createUser($request);
         }
         catch (QueryException $e){
-            return view('error')->with('errorData',$e)->with('errors', 'Cannot create user');
+           return $e;
         }
         
     }
@@ -53,7 +54,7 @@ class UserController extends Controller
 
             'email' => 'regex:/(?i)^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
             'password' => 'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
-            'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/'
+            'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/|nullable'
             
         ]);
 
@@ -89,28 +90,56 @@ class UserController extends Controller
     private function createUser(Request $request){
 
         $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
+        $creditCard = $this->validateCreditCard($request);
 
         $user = UserData::create([
 
-            'name' => $request -> post("name"),
-            'credit_card' => $request -> post("credit_card"),
+            'name' => $request -> name,
             'photo' => $image,
-            'points' => $request -> post("points"),
-            'type_of_user' => $request -> post("type_of_user"),
-            'total_points' => $request -> post("total_points")
+            'points' => $request -> points,
+            'type_of_user' => $request -> type_of_user,
+            'total_points' => $request -> total_points,
+            'credit_card' => $creditCard
 
         ]);
         
         User::create([
 
             'id' => $user ->id,
-            'name' => $request -> post("name"),
-            'email' => $request -> post("email"),
-            'password' => Hash::make($request -> post("password"))
+            'name' => $request -> name,
+            'email' => $request -> email,
+            'password' => Hash::make($request -> password)
 
         ]);
+
+        $this->createSubscription($request, $user -> id);
+
         return redirect('/user');
 
+    }
+
+    private function createSubscription(Request $request, $id){
+
+        if($request-> type_of_user == 'paid_monthly' || $request-> type_of_user == 'paid_yearly'){
+
+            UserSubscription::create([
+    
+                'id_users' => $id,
+                'type_of_subscription' => $request -> type_of_user
+    
+            ]);
+
+        }
+
+    }
+
+    private function validateCreditCard(Request $request){
+
+        $creditCard = $request -> credit_card;
+
+        if($creditCard !== null)
+            return $creditCard;
+        return '';
     }
 
     private function saveImage(Request $request, $defaultImage){
@@ -141,9 +170,16 @@ class UserController extends Controller
     }
 
     public function index(){
-        $users = UserData::join('users','users.id','=','users_data.id')->get();
-        return view('users')->with('users',$users);
 
+        $users = UserData::join('users','users.id','users_data.id')
+        ->leftJoin('users_subscriptions','users_subscriptions.id_users','users_data.id')
+        ->select('users_data.id as id','users_data.name as name', 'users_data.credit_card as credit_card',
+        'users_data.photo as photo', 'users_data.points as points', 'users_data.type_of_user as type_of_user',
+        'users_data.total_points as total_points', 'users.email as email',
+        'users_subscriptions.type_of_subscription as subscription', 'users_subscriptions.id as subscriptionID')
+        ->get();
+
+        return view('users')->with('users',$users);
     }
 
     public function update(Request $request, $id){
@@ -162,7 +198,7 @@ class UserController extends Controller
             
         }
         catch (QueryException $e){
-            return view('error')->with('errorData',$e)->with('errors', 'Cannot update user');
+           return $e;
             
         }
 
@@ -174,9 +210,10 @@ class UserController extends Controller
         $currentImage = $user -> photo; 
 
         $image = $this->updateImage($request, $currentImage, $id);
+        $creditCard = $this->validateCreditCard($request);
 
         $user -> name = $request -> name;
-        $user -> credit_card = $request-> credit_card;
+        $user -> credit_card = $creditCard;
         $user -> photo = $image;
         $user -> points = $request -> points;
         $user -> type_of_user = $request -> type_of_user;
@@ -232,6 +269,5 @@ class UserController extends Controller
         }
         
     }
-
 
 }
