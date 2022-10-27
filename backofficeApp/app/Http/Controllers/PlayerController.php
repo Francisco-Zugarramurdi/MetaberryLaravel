@@ -8,6 +8,7 @@ use App\Models\Player;
 use App\Models\PlayerTeam;
 use App\Models\Team;
 use App\Models\Country;
+use App\Models\Sport;
 use App\Models\Sanction;
 use \Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,9 @@ class PlayerController extends Controller
             return $validation->errors()->toJson();
         if(!Team::where('name','=',$request->teamName)->exists() && $request->teamName != null)
             return view('error')->with('errorData',$e)->with('errors', 'Team does not exist');
+        if($request->individual != null && $request->sport == null){
+            return view('error')->with('errorData',$e)->with('error','player must have an sport');
+        }
         return 'ok';
 
     }
@@ -52,9 +56,9 @@ class PlayerController extends Controller
             'surname'=> $request->surname,
             'photo'=> $image
         ]);
-        if($request->teamName != null)
-            $this->joinTeam($request,$player->id);
-
+        if($request->teamName != null || $request->individual != null)
+            $this->joinTeam($request,$player->id,$image);
+        
         return redirect('/player');
 
     }
@@ -76,16 +80,36 @@ class PlayerController extends Controller
 
     }
 
-    private function joinTeam(Request $request,$id){
-        $team = Team::where('name',$request->teamName)->first();
-        PlayerTeam::create([
-            'id_teams' => $team->id,
-            'id_players' => $id,
-            'contract_end' =>$request->contractEnd,
-            'contract_start' => $request->contractStart,
-            'status' => $request->status
+    private function joinTeam(Request $request,$id,$image){
+        if($request->teamName != null){
+            PlayerTeam::create([
+                'id_teams' => $request->team,
+                'id_players' => $id,
+                'contract_end' =>$request->contractEnd,
+                'contract_start' => $request->contractStart,
+                'status' => $request->status
+    
+            ]);
+        }
+        if($request->individual != null){
+            $team = Team::create([
+                'name' => $request->name,
+                'type_teams' => "Individual",
+                'photo' => $image,
+                'id_sports' => $request->sport,
+                'id_countries' => $request->country
+            ]);
+            PlayerTeam::create([
+                'id_teams' => $team->id,
+                'id_players' => $id,
+                'contract_end' =>$request->contractEnd,
+                'contract_start' => $request->contractStart,
+                'status' => $request->status
+    
+            ]);
 
-        ]);
+        }
+
     }
 
     public function index(){
@@ -95,7 +119,7 @@ class PlayerController extends Controller
         ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
         ->get();
 
-        return view('players')->with('players',$players)->with('teams',Team::all());
+        return view('players')->with('players',$players)->with('teams',Team::all())->with('sports',Sport::all())->with('countries',Country::all());
         
     }
 
