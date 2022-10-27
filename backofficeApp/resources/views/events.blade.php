@@ -57,7 +57,7 @@
                                         </label>
                                         <label>
                                             <p><span>* </span>Relevance</p>
-                                            <input type="number" name="relevance" id="relevance" min="1" max="5">
+                                            <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
@@ -178,7 +178,7 @@
 
                                         <label>
                                             <p><span>* </span>Relevance</p>
-                                            <input type="number" name="relevance" id="relevance" min="1" max="5">
+                                            <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
 
                                         <label><p><span>* </span>Country</p>
@@ -324,7 +324,7 @@
                                         </label>
                                         <label>
                                             <p><span>* </span>Relevance</p>
-                                            <input type="number" name="relevance" id="relevance" min="1" max="5">
+                                            <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
@@ -432,7 +432,7 @@
                                         </label>
                                         <label>
                                             <p><span>* </span>Relevance</p>
-                                            <input type="number" name="relevance" id="relevance" min="1" max="5">
+                                            <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
                                         <label><p><span>* </span>Country</p>
                                             <select name="country" id="country">
