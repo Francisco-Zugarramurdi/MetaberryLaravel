@@ -30,9 +30,9 @@
                     <thead>
                         <tr>
 
-                            <th class="">Subs. ID</th>
-                            <th class="">User ID</th>
-                            <th class="">Profile Image</th>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Profile Image</th>
                             <th>Email</th>
                             <th>Type User</th>
                             <th>Actions</th>
@@ -100,7 +100,7 @@
                                         </td>
                                     </form>
 
-                                <form action="/user/subscription/{{$subs->id}}"method="POST" class="delete" id="delete_form_{{$subs->id}}">
+                                <form action="/user/subscription/{{$subs->id}}" method="POST" class="delete" id="delete_form_{{$subs->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}

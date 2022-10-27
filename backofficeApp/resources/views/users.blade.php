@@ -172,25 +172,11 @@
     
                                         <td class="user-type">
                                             <label>
-                                                @if($user->type_of_user == 'free')
                                                 <select name="type_of_user">
-                                                    <option value="free" selected>Free</option>
-                                                    <option value="paid_monthly">Monthly</option>
-                                                    <option value="paid_yearly">Yearly</option>
+                                                    <option value="free" @if($user->type_of_user == 'free') selected @endif>Free</option>
+                                                    <option value="paid_monthly" @if($user->type_of_user == 'paid_monthly') selected @endif>Monthly</option>
+                                                    <option value="paid_yearly" @if($user->type_of_user == 'paid_yearly') selected @endif>Yearly</option>
                                                 </select>
-                                                @elseif($user->type_of_user == 'paid_monthly')
-                                                <select name="type_of_user">
-                                                    <option value="free">Free</option>
-                                                    <option value="paid_monthly" selected>Monthly</option>
-                                                    <option value="paid_yearly">Yearly</option>
-                                                </select>
-                                                @elseif($user->type_of_user == 'paid_yearly')
-                                                <select name="type_of_user">
-                                                    <option value="free" selected>Free</option>
-                                                    <option value="paid_monthly">Monthly</option>
-                                                    <option value="paid_yearly" selected>Yearly</option>
-                                                </select>
-                                                @endif
                                             </label>
                                         </td>
     

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserSubscription extends Model
 {
-    use HasFactory;
+    use HasFactory, softDeletes;
     protected $table = "users_subscriptions";
     protected $fillable = [ 'id_users', 'type_of_subscription'];
 }
