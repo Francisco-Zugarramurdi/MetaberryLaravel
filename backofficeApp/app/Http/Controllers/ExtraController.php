@@ -33,7 +33,8 @@ class ExtraController extends Controller
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
             'surname'=> 'required',
-            'rol'=> 'required'
+            'rol'=> 'required',
+            'image' => 'mimes: jpg, png, jpeg'
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
