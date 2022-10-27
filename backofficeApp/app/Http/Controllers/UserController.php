@@ -332,6 +332,7 @@ class UserController extends Controller
         }
 
     }
+    
 
     private function updateSubscriptionOnDelete($id){
 
