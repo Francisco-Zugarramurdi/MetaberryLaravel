@@ -36,6 +36,7 @@ class AdController extends Controller
         }
     }
 
+    
     private function validateRequestCreate(Request $request){
         $validator = Validator::make($request->all(),[
             'size' => 'required',
