@@ -126,7 +126,7 @@
                                         <td class="user-type">
                                             <label>
                                                 <select name="player" readonly>
-                                                    <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}}</option>
+                                                    <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}} {{$sanction->surnamePlayer}}</option>
                                                 </select>
                                             </label>
                                         </td>
@@ -204,10 +204,10 @@
 
                                         </td>
 
-                                        <td class="user-name">
+                                        <td class="user-type">
                                             <label>
                                                 <select name="player" readonly>
-                                                    <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}}</option>
+                                                    <option value="{{$sanction->idPlayer}}" selected>{{$sanction->namePlayer}} {{$sanction->surnamePlayer}}</option>
                                                 </select>
                                             </label>
                                         </td>
