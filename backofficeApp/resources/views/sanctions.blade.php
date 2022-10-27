@@ -277,7 +277,9 @@
 
             jQuery(document).ready(function(){
 
-                jQuery('#eventSelect').change(handleSelectUpdate())
+                jQuery('#eventSelect').change(()=>{
+                    handleSelectUpdate();
+                })
 
                 function handleSelectUpdate(){
                     if(jQuery('#type').val() == "Player")

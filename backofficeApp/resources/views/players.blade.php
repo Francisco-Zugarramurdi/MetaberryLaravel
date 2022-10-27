@@ -85,12 +85,31 @@
                                         <p>Profile image</p>
                                         <input type="file" name="image" accept="image/*" id="photo">
                                     </label>
-
+                                    <label>
+                                        <p>Individual Team</p>
+                                        <input type="checkbox" name="individual">
+                                    </label>
+                                    <label>
+                                        <p>Individual Team's Sport</p>
+                                        <select name="sport" id="sport">
+                                            @foreach($sports as $sport)
+                                            <option value="{{$sport->id}}">{{$sport->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                    <label>
+                                        <p>Individual Team's Country</p>
+                                        <select name="country" id="country">
+                                            @foreach($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
                                     <label>
                                         <p>Team name</p>
-                                        <select name="teamName" id="teamName">
+                                        <select name="team" id="teamName">
                                             @foreach($teams as $team)
-                                            <option value="{{$team->name}}">{{$team->name}}</option>
+                                            <option value="{{$team->id}}">{{$team->name}}</option>
                                             @endforeach
                                         </select>
                                     </label>
