@@ -157,21 +157,19 @@ insert into sanctions(id_events, sancion) values
 (2,'Tarjeta Amarilla'), 
 (2,'Tarjeta Roja'); 
 insert into sanctions_players(id_sancion, id_players, minute) values (1,1,10), 
-(1,11,1), 
 (3,12,3), 
-(4,14,4), 
-(1,13,5); 
+(4,14,4);
 insert into referee(name, surname, photo) values 
 ('Pedro', 'PicaPiedra','default_img_do_not_delete.jpg'), 
 ('Hernesto', 'Perez','default_img_do_not_delete.jpg'); 
 insert into referee_events(id_referee, id_events, dates) values (1,1,"2022-01-01"), 
 (2,2,"2022-01-01"); 
 insert into users_data(name,points,type_of_user,total_points, photo, credit_card)  values 
-('Lukitas',10000,'paid',240000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Yves',3000,'paid',20000,'default_img_do_not_delete.jpg','4321432143214321'), 
+('Lukitas',10000,'paid_yearly',240000,'default_img_do_not_delete.jpg','4321432143214321'), 
+('Yves',3000,'paid_monthly',20000,'default_img_do_not_delete.jpg','4321432143214321'), 
 ('Zara',9000,'free',100000,'default_img_do_not_delete.jpg','4321432143214321'), 
 ('Fede',100,'free',100,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Nico',5000,'paid',6000,'default_img_do_not_delete.jpg','4321432143214321');
+('Nico',5000,'paid_monthly',6000,'default_img_do_not_delete.jpg','4321432143214321');
 insert into users(id, name, email,password) values 
 (1,'Lucas Medina','lucasmedina@gmail.com','HASH01Lucas'), (2,'Yves Motta','yvesmotta1@gmail.com','HASH01Yves'), 
 (3,'Zara zugarramurdi','zarita@gmail.com','HASH01Zara'), (4,'Fede  
