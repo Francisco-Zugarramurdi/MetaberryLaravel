@@ -202,7 +202,7 @@ create table users_data(
     credit_card varchar(16) not null,
     photo text not null,
     points bigint not null,
-    type_of_user varchar(15) not null,
+    type_of_user varchar(12) not null,
     total_points bigint unsigned not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -225,7 +225,7 @@ create table users(
 create table users_subscriptions(
     id serial,
     id_users bigint unsigned not null,
-    type_of_subscription varchar(15) not null, 
+    type_of_subscription varchar(12) not null, 
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
