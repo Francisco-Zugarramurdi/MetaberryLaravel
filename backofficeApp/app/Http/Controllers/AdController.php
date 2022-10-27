@@ -27,7 +27,7 @@ class AdController extends Controller
             if(Ad::where('image', $request -> post("image")) -> exists())
                 return view('error')->with('errors', 'Ad already exists');
 
-            $this->createAd($request);
+            return $this->createAd($request);
 
         }catch(QueryException $e){
 
@@ -44,8 +44,7 @@ class AdController extends Controller
                 'regex:/(?i)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
                 'required'
             ],
-            'viewsHired' => 'required',
-            'image' => 'required|mimes: jpg, png, jpeg'
+            'viewsHired' => 'required'
         ]);
         if ($validator->fails())
             return $validator->errors()->toJson();

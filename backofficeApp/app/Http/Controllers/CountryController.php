@@ -41,8 +41,7 @@ class CountryController extends Controller
     private function validateCreationRequest(Request $request){
 
         $validation = Validator::make($request->all(),[
-            'name'=> 'required',
-            'image' => 'mimes: jpg, png, jpeg'
+            'name'=> 'required'
         ]);
 
         if($validation->fails())

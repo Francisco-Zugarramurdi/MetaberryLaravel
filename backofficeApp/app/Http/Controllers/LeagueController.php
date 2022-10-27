@@ -38,8 +38,7 @@ class LeagueController extends Controller
 
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
-            'details'=> 'required',
-            'image' => 'mimes: jpg, png, jpeg'
+            'details'=> 'required'
         ]);
 
         if($validation->fails())

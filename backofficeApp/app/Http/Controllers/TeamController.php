@@ -108,8 +108,7 @@ class TeamController extends Controller
             'name' => 'required',
             'typeTeam' => 'required',
             'sportName' => 'required',
-            'countryName' => 'required',
-            'image' => 'mimes: jpg, png, jpeg'
+            'countryName' => 'required'
 
         ]);
 

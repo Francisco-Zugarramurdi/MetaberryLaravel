@@ -35,8 +35,7 @@ class RefereeController extends Controller
 
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
-            'surname'=> 'required',
-            'image' => 'mimes: jpg, png, jpeg'
+            'surname'=> 'required'
         ]);
 
         if($validation->fails())
