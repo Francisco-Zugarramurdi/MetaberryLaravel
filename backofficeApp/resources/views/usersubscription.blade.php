@@ -74,7 +74,7 @@
     
                                         <td class="user-email">
                                             <label>
-                                                <input name="email" type="text" value="{{$subs->email}}">
+                                                <input name="email" type="text" value="{{$subs->email}}" readonly>
                                             </label>
                                         </td>
     

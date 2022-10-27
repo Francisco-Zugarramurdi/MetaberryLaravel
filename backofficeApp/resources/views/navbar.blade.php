@@ -12,7 +12,7 @@
 
                 <a href="/" class="routes-list-element"id="index"><span class="material-symbols-outlined">home</span> Main</a>
                 <a href="/user/" class="routes-list-element"id="user"><span class="material-symbols-outlined">person</span> User</a>
-                <a href="/user/subscription" class="routes-list-element"id="subscription"><span class="material-symbols-outlined">card_membership</span>Subscription</a>
+                <a href="/user/subscription" class="routes-list-element"id="usersubscription"><span class="material-symbols-outlined">card_membership</span>Subscription</a>
                 <a href="/ads/" class="routes-list-element"id="ads"><span class="material-symbols-outlined">ads_click</span> Ad</a>
                 <a href="/event/" class="routes-list-element"id="event"><span class="material-symbols-outlined">event</span>Event</a>
                 <a href="/event/list" class="routes-list-element"id="eventlist"><span class="material-symbols-outlined">edit_calendar</span>Event List</a>
