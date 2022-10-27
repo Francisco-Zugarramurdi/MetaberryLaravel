@@ -23,15 +23,16 @@
 
             </div>
 
-            <div class="user-table-container">
+            <div class="user-table-container enable event subscription">
 
                 <table class="user-table">
 
                     <thead>
                         <tr>
 
-                            <th>ID</th>
-                            <th> </th>
+                            <th class="">Subs. ID</th>
+                            <th class="">User ID</th>
+                            <th class="">Profile Image</th>
                             <th>Email</th>
                             <th>Type User</th>
                             <th>Actions</th>
@@ -40,7 +41,7 @@
                     </thead>
 
                     <tbody>
-                        @foreach($subscription as $subs)
+                        @foreach($subscriptions as $subs)
 
                             <tr>
                                     <form class="entry" method="POST" action="/user/subscription/{{$subs->id}}" enctype="multipart/form-data">
@@ -51,35 +52,39 @@
 
                                         <td class="user-id">
 
-                                            <p>{{$user->id}}</p>
+                                            <p>{{$subs->id}}</p>
 
                                         </td>
 
                                         <td class="user-id">
 
-                                            <p>{{$user->id}}</p>
+                                            <p>{{$subs->userID}}</p>
 
                                         </td>
+
+                                        
+                                        <td class="user-profile-pic">
+
+                                            <div class="image-container">
+                                                <img src="{{ asset('img/public_images').'/'.$subs->photo }}" alt="">
+                                            </div>
+
+                                        </td>
+
     
                                         <td class="user-email">
                                             <label>
-                                                <input name="email" type="text" value="{{$user->email}}">
+                                                <input name="email" type="text" value="{{$subs->email}}">
                                             </label>
                                         </td>
     
                                         <td class="user-type">
                                             <label>
-                                                @if($user->type_of_user == 'paid_monthly')
+                                                
                                                 <select name="type_of_user">
-                                                    <option value="paid_monthly">Monhtly</option>
-                                                    <option value="paid_yearly" selected>Yearly</option>
+                                                    <option value="paid_monthly" @if($subs->type_of_user == 'paid_monthly') selected @endif>Monhtly</option>
+                                                    <option value="paid_yearly" @if($subs-> type_of_user == 'paid_yearly') selected @endif>Yearly</option>
                                                 </select>
-                                                @else if ($user-> type_of_user == 'paid_yearly')
-                                                <select name="type_of_user">
-                                                    <option value="paid_yearly" selected>Yearly</option>
-                                                    <option value="paid_monthly">Monthly</option>
-                                                </select>
-                                                @endif
                                             </label>
                                         </td>
     
@@ -88,14 +93,14 @@
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
 
-                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$user->id}})">
+                                            <button type="button" class="delete-btn" onClick="deleteFormSubmit({{$subs->id}})">
                                                 <span class="material-symbols-outlined">delete</span>
                                             </button>
 
                                         </td>
                                     </form>
 
-                                <form action="/user/{{$user->id}}"method="POST" class="delete" id="delete_form_{{$user->id}}">
+                                <form action="/user/subscription/{{$subs->id}}"method="POST" class="delete" id="delete_form_{{$subs->id}}">
                                     @method('DELETE')
                                     @csrf
                                     {{method_field('DELETE')}}

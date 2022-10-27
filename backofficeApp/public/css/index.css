@@ -423,6 +423,9 @@ main {
 .main-page-container .user-table-container.event {
   margin: 100px 0 0 30px;
 }
+.main-page-container .user-table-container.subscription {
+  width: 55vw;
+}
 .main-page-container .user-table-container {
   width: 75vw;
   height: auto;
@@ -444,6 +447,12 @@ main {
   color: var(--white);
   text-align: left;
   font-weight: 600;
+}
+.main-page-container .user-table-container .user-table .subs {
+  width: 80px;
+}
+.main-page-container .user-table-container .user-table .subs-img {
+  width: 120px;
 }
 .main-page-container .user-table-container .user-table th {
   padding: 15px 10px 15px 15px;

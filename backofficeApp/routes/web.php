@@ -35,9 +35,9 @@ Route::post("/user/create",[UserController::class,'create']);
 Route::put("/user/{id}",[UserController::class,'update']);
 Route::delete("/user/{id}",[UserController::class,'destroy']);
 
-Route::get("user/subscription", [UserController::class, 'index']);
-Route::put("/user/subscription/{id}",[UserController::class,'update']);
-Route::delete("user/subscription/{id}", [UserController::class, 'destroy']);
+Route::get("user/subscription", [UserController::class, 'indexSubscription']);
+Route::put("/user/subscription/{id}",[UserController::class,'updateSubscription']);
+Route::delete("user/subscription/{id}", [UserController::class, 'destroySubscription']);
 
 
 Route::get("/ads",[AdController::class,'index']);

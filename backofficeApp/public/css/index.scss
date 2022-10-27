@@ -590,6 +590,12 @@ main {
 
     }
 
+    .user-table-container.subscription{
+
+        width: 55vw;
+
+    }
+
     .user-table-container {
 
         width: 75vw;
@@ -617,6 +623,18 @@ main {
 
             }
 
+            .subs{
+
+                width: 80px;
+
+            }
+
+            .subs-img{
+
+                width: 120px;
+
+            }
+
             th {
 
                 padding: 15px 10px 15px 15px;
@@ -638,6 +656,7 @@ main {
                     color: #4C5766;
                     font-weight: 700;
                 }
+
                 .user-id {
 
                     font-weight: 700;

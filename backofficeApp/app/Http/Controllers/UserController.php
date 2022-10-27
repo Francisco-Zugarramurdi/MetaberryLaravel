@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\UserData;
 use App\Models\UserSubscription;
 use \Illuminate\Database\QueryException;
+use Carbon\Carbon;
 class UserController extends Controller
 {
 
@@ -133,6 +134,36 @@ class UserController extends Controller
 
     }
 
+    private function updateSubscription(Request $request, $typeOfUser, $id){
+
+        if($typeOfUser == 'free'){
+
+            return $this->createSubscription($request, $id);
+
+        }
+
+        $this->validateSubscriptionUpdate($request, $id);
+
+    }
+
+    private function validateSubscriptionUpdate($request, $id){
+
+        if($request-> type_of_user == 'free'){
+
+            return UserSubscription::where('id_users', $id)
+            ->update([
+                'deleted_at' => Carbon::now()
+            ]);
+
+        }
+
+        UserSubscription::where('id_users', $id)
+        ->update([
+            'type_of_subscription' => $request -> type_of_user
+        ]);
+
+    }
+
     private function validateCreditCard(Request $request){
 
         $creditCard = $request -> credit_card;
@@ -172,14 +203,23 @@ class UserController extends Controller
     public function index(){
 
         $users = UserData::join('users','users.id','users_data.id')
-        ->leftJoin('users_subscriptions','users_subscriptions.id_users','users_data.id')
-        ->select('users_data.id as id','users_data.name as name', 'users_data.credit_card as credit_card',
-        'users_data.photo as photo', 'users_data.points as points', 'users_data.type_of_user as type_of_user',
-        'users_data.total_points as total_points', 'users.email as email',
-        'users_subscriptions.type_of_subscription as subscription', 'users_subscriptions.id as subscriptionID')
         ->get();
 
         return view('users')->with('users',$users);
+    }
+
+    public function indexSubscription(){
+
+        $subscription = UserData::join('users','users.id','users_data.id')
+        ->join('users_subscriptions','users_subscriptions.id_users','users_data.id')
+        ->where('users_subscriptions.deleted_at', null)
+        ->select('users_data.id as userID', 'users_data.photo as photo',
+        'users_data.type_of_user as type_of_user', 'users.email as email',
+        'users_subscriptions.type_of_subscription as subscription', 'users_subscriptions.id as id')
+        ->get();
+
+        return view('usersubscription')->with('subscriptions',$subscription);
+
     }
 
     public function update(Request $request, $id){
@@ -211,6 +251,7 @@ class UserController extends Controller
 
         $image = $this->updateImage($request, $currentImage, $id);
         $creditCard = $this->validateCreditCard($request);
+        $this->updateSubscription($request, $user-> type_of_user, $id);
 
         $user -> name = $request -> name;
         $user -> credit_card = $creditCard;
