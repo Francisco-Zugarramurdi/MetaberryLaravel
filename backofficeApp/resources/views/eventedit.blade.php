@@ -20,115 +20,19 @@
             <div class="nav-bar-container">
                 <h1>Events Edits</h1>
             </div>
-            <!-- <div class="user-table-container enable event">
-                 <table class="user-table">
 
-                     <thead>
-                            <tr>
-
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Details</th>
-                                <th>Relevance</th>
-                                <th>Country</th>
-                                <th>Sport</th>
-                                <th>League</th>
-                                <th>Actions</th>
-
-                            </tr>
-                    </thead> 
-
-                         <tbody>
-                            @foreach($events as $event)
-                            <tr>
-                                <form class="entry" method="POST" action="/event/edit/{{$event->id}}">
-                                    @method('PUT')
-                                    @csrf
-                                    {{method_field('PUT')}}
-                                    <input name="_method" type="hidden" value="PUT">
-
-                                    <td class="user-id">
-
-                                        <p>{{$event->id}}</p>
-
-                                    </td>
-
-                                    <td class="user-name">
-                                        <label>
-                                            <input name="name" type="text" value="{{$event->name}}">
-                                        </label>
-                                    </td>
-                                    
-                                    <td class="user-name">
-                                        <label>
-                                            <input name="details" type="text" value="{{$event->details}}">
-                                        </label>
-                                    </td>
-
-                                    <td class="user-name">
-                                        <label>
-                                            <input name="relevance" type="number" value="{{$event->relevance}}" min="1" max="5">
-                                        </label>
-                                    </td>
-                                    
-                                    <td class="user-type">
-                                        <label>
-                                            <select name="country" class="country">
-                                                @foreach($countries as $country)
-                                                <option name="{{$event->countryName}}" @if($country->name == $event->countryName)selected @endif>{{$country->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </label>
-                                    </td>
-
-                                    <td class="user-type">
-                                        <label>
-                                            <select name="sport" class="sport">
-                                                @foreach($sports as $sport)
-                                                <option name="{{$event->sportName}}" @if($sport->name == $event->sportName)selected @endif>{{$sport->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </label>
-                                    </td>
-
-                                    <td class="user-type">
-                                        <label>
-                                            <select name="league" class="league">
-                                                @foreach($leagues as $league)
-                                                <option value="{{$event->leagueName}}" name="{{$event->leagueName}}" @if($league->name == $event->leagueName)selected @endif>{{$league->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </label>
-                                    </td>
-
-                                    <td class="actions-buttons">
-                                            <button type="submit" class="submit-btn">
-                                                <span class="material-symbols-outlined">send</span>
-                                            </button>
-                                        </td>
-                                </form>
-                            </tr>
-                            @endforeach
-                        </tbody> 
-
-                </table>         
-
-            </div> -->
         <div class="create-user-container">
             <div class="unhide-container hide">
                 
                     <h2>Edit Event</h2>
                     
-                        @foreach($events as $event)
-
-                                <form class="create-user-form" method="POST" action="/event/edit/{{$event->id}}">
-                            @method('PUT')
-                            @csrf
-                            {{method_field('PUT')}}
+                            <form class="create-user-form" method="POST" action="/event/edit/{{$event->id}}">
+                                @method('PUT')
+                                @csrf
+                                {{method_field('PUT')}}
                                 <div class="form-up-container">
 
                                     <div class="form-inner-container">
-                                        <br><br>
                                         <Label>
                                             <p>ID Event: <span>{{$event->id}}</span></p> 
                                         </Label>
@@ -153,7 +57,7 @@
                                         <p>Country:</p>
                                             <select name="country" class="country">
                                                 @foreach($countries as $country)
-                                                <option name="{{$event->countryName}}" @if($country->name == $event->countryName)selected @endif>{{$country->name}}</option>
+                                                <option value="{{$country->id}}" @if($country->name == $event->countryName)selected @endif>{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
@@ -161,7 +65,7 @@
                                         <p>Sport:</p>
                                             <select name="sport" class="sport">
                                                 @foreach($sports as $sport)
-                                                <option name="{{$event->sportName}}" @if($sport->name == $event->sportName)selected @endif>{{$sport->name}}</option>
+                                                <option value="{{$sport->id}}" @if($sport->name == $event->sportName)selected @endif>{{$sport->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
@@ -169,7 +73,7 @@
                                             <p>League:</p>
                                             <select name="league" class="league">
                                                 @foreach($leagues as $league)
-                                                <option value="{{$event->leagueName}}" name="{{$event->leagueName}}" @if($league->name == $event->leagueName)selected @endif>{{$league->name}}</option>
+                                                <option value="{{$league->id}}"  @if($league->name == $event->leagueName)selected @endif>{{$league->name}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
@@ -177,15 +81,73 @@
                                             <p>Referee:</p>
                                             <select name="referee" id="referee">
                                                 @foreach($referees as $referee)
-                                                <option value="{{$event->refereeId}}"@if($league->refereeName == $referee->name && $league->refereeSurame == $referee->surname)@endif>{{$referee->name}} {{$referee->surname}}</option>
+                                                <option value="{{$referee->id}}"@if($event->refereeId == $referee->id) selected @endif>{{$referee->name}} {{$referee->surname}}</option>
                                                 @endforeach
                                             </select>
                                         </label>
                                     </div>
+                                    <div class="form-up-container">
+                                        @if($event->typeResult == "points_sets")
+
+                                        @endif
+                                        @if($event->typeResult == "results_points")
+
+                                        @endif
+                                        @if($event->typeResult == "results_upward")
+                                            @foreach ($results as $result)
+                                            <div class="team-container">
+            
+                                                <label>
+                                                    Team
+                                                    <select name="marks[][team]">
+                                                        @foreach($teams as $team)
+                                                            <option value="{{$team->id}}"@if($team->id == $result->teamId)selected @endif>{{$teams->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </label>
+
+                                                <label>
+                                                    marks
+                                                    <input type="number" name="marks[][mark]" min="1">
+                                                </label>
+                                        
+                                            </div>
+
+                                            @endforeach
+                                        @endif
+                                        @if($event->typeResult == "results_downward")
+                                        @foreach ($results as $result)
+                                            <div class="team-container">
+            
+                                                <label>
+                                                    Team
+                                                    <select name="marks[][team]">
+                                                        @foreach($teams as $team)
+                                                            <option value="{{$team->id}}"@if($team->id == $result->teamId)selected @endif>{{$teams->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </label>
+
+                                                <label>
+                                                    marks
+                                                    <input type="number" name="marks[][mark]" min="1">
+                                                </label>
+                                        
+                                            </div>
+
+                                            @endforeach
+                                        @endif
+                                    </div>
+
+                                </div>
+                                <div class="form-down-container">
+    
+                                    <input type="submit" value="Create" class="create-btn" id="submit">
+
+                                    <div id="error" class="error"></div>
 
                                 </div>
                         </form>
-                        @endforeach
             </div>
         </div>
         </div>

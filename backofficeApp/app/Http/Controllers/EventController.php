@@ -59,17 +59,61 @@ class EventController extends Controller
         ->join('countries','countries.id','events.id_countries')
         ->join('referee_events','referee_events.id_events','events.id')
         ->join('referee','referee.id','referee_events.id_referee')
+        ->join('results', 'results.id_events', 'events.id')
         ->where('events.id', $id) 
-        ->select('referee.id as refereeId','referee.surname as refereeSurname','referee.name as refereeName','events.date as date','countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
-        ->get();
+        ->select('referee.id as refereeId',
+        'events.date as date','countries.name as countryName',
+        'events.name as name','events.id as id',
+        'events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName',
+        'sports.name as sportName',
+        'results.type_results as typeResult', 'results.id as resultId')
+        ->get()
+        ->first();
+
+        $results= $this->findResult($event);
+        
         return view('eventedit')
-        ->with('events',$event)
+        ->with('event',$event)
+        ->with('results', $results)
         ->with('referees',Referee::all())
         ->with('countries',Country::all())
         ->with('sports',Sport::all())
         ->with('leagues',League::all())
         ->with('players',Player::all())
         ->with('teams',Team::all());
+    }
+
+    private function findResult($event){
+        if($event->typeResult == 'points_sets'){
+            return DB::table('points_sets')->join('teams', 'teams.id', 'points_sets.id_teams')
+            ->select('points_sets.number_set as numberSet', 'points_sets.points_set as points',
+            'teams.id as teamId', 'teams.name as teamName',
+            'points_sets.id_results as resultId')
+            ->where('resultId', $event->resultId);
+        }
+        if($event->typeResult == 'results_points'){
+            return DB::table('results_points')->join('teams', 'teams.id', 'results_points.id_teams')
+            ->select('results_points.position as position',
+            'teams.id as teamId', 'teams.name as teamName',
+            'id_results as resultId')
+            ->where('results_points.resultId', $event->resultId);
+        }
+        if($event->typeResult == 'results_upward'){
+            return DB::table('results_upward')->join('teams', 'teams.id', 'results_upward.id_teams')
+            ->select('results_upward.result as result', 'results_upward.position as position',
+            'teams.id as teamId', 'teams.name as teamName',
+            'results_upward.id_results as resultId')
+            ->where('results_upward.id_results', $event->resultId);
+        }
+        if($event->typeResult == 'results_downward'){
+            return DB::table('results_downward')->join('teams', 'teams.id', 'results_upward.id_teams')
+            ->select('results_downward.result as result', 'results_downward.position as position',
+            'teams.id as teamId', 'teams.name as teamName',
+            'results_downward.id_results as resultId')
+            ->where('resultId', $event->resultId);
+        }
+        return "";
+
     }
 
     public function editEvent(Request $request, $id){
@@ -174,10 +218,11 @@ class EventController extends Controller
         try{
 
             $event = $this->createEvent($request);
+            $result = $this->addSetResult($request, $event->id);
 
             $this->addEventTeam($event->id, $request->localTeam);
             $this->addEventTeam($event->id, $request->visitorTeam);
-            
+
             if($request->referee != null)
                 $this->addReferee($request, $event->id);
 
@@ -185,7 +230,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady != null)
-                $this->addSet($request, $event->id);
+                $this->addSet($request, $event->id, $result);
 
             return redirect('/event');
         }
@@ -197,14 +242,16 @@ class EventController extends Controller
            
     }
 
-    private function addSet(Request $request, $eventID){
-
-        $result = DB::table('results')->insertGetId([
+    private function addSetResult(Request $request, $eventID){
+        return $result = DB::table('results')->insertGetId([
             'type_results'=>"points_sets",
             'results'=>" ",
             'id_events'=>$eventID
         ]);
-        
+    }
+
+    private function addSet(Request $request, $eventID, $result){
+
         $this->addSetTeam($result, $request->input('setsLocal'), $request->localTeam);
         $this->addSetTeam($result, $request->input('setsVisitor'), $request->visitorTeam);
 
@@ -238,9 +285,11 @@ class EventController extends Controller
         try{
 
             $event = $this->createEvent($request);
+            $result = $this->addPointResult($request, $event->id);
 
             $this->addEventTeam($event->id, $request->localTeam);
             $this->addEventTeam($event->id, $request->visitorTeam);
+            
 
             if($request->referee != null)
                 $this->addReferee($request, $event->id);
@@ -249,7 +298,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady !=null)
-                $this->addPoint($request, $event->id);
+                $this->addPoint($request, $event->id, $result);
 
             return redirect('/event');
         }
@@ -260,14 +309,15 @@ class EventController extends Controller
         }
 
     }
-
-    private function addPoint(Request $request, $eventID){
-
-        $result = DB::table('results')->insertGetId([
+    private function addPointResult(Request $request, $eventID, $result){
+        return $result = DB::table('results')->insertGetId([
             'type_results'=>"results_points",
             'results'=>" ",
-            'id_events'=> $eventID
+            'id_events'=>$eventID
         ]);
+    }
+
+    private function addPoint(Request $request, $eventID){
 
         $this->addPointTeam($result, $request->pointsLocal, $request->localTeam);
         $this->addPointTeam($result, $request->pointsVisitor, $request->visitorTeam);
@@ -298,6 +348,7 @@ class EventController extends Controller
         }
         try{
             $event = $this->createEvent($request);
+            $result = $this->addMarkUpResult($request, $event->id);
 
             foreach($request->marks as $mark){
                 $this->addEventTeam($event->id, $mark["team"]);
@@ -310,7 +361,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady !=null)
-                $this->addMarkUp($request->marks, $event->id);
+                $this->addMarkUp($request->marks, $event->id, $result);
 
             return redirect('/event');
         }
@@ -322,19 +373,21 @@ class EventController extends Controller
 
     }
 
-    private function addMarkUp($marks, $eventID){
+    private function addMarkUpResult(Request $request, $eventID){
+        return $result = DB::table('results')->insertGetId([
+            'type_results'=>"results_upward",
+            'results'=>" ",
+            'id_events'=>$eventID
+        ]);
+    }
+
+    private function addMarkUp($marks, $eventID, $result){
         usort($marks, function($a, $b){
             if ($a["mark"] == $b["mark"]) {
                 return 0;
             }
             return ($a["mark"] < $b["mark"]) ? -1 : 1;
         });
-
-        $result = DB::table('results')->insertGetId([
-            'type_results'=>"results_upward",
-            'results'=>Team::find(reset($marks)['team'])->name . " winer",
-            'id_events'=>$eventID
-        ]);
 
         $position = 1;
         foreach($marks as $mark){
@@ -353,6 +406,7 @@ class EventController extends Controller
     public function createEventMarkDown(Request $request){
 
         $validation = $this->validateCreationRequest($request);
+        $result = $this->addMarkUpResult($request, $eventID);
 
         if($validation !== "ok"){
             return $validation;
@@ -371,7 +425,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady !=null)
-                $this->addMarkDown($request->marks, $event->id);
+                $this->addMarkDown($request->marks, $event->id, $result);
 
             return redirect('/event');
         }
@@ -382,6 +436,14 @@ class EventController extends Controller
         }
     }
 
+    private function addMarkDownResult(Request $request, $eventID, $result){
+        return $result = DB::table('results')->insertGetId([
+            'type_results'=>"results_downward",
+            'results'=>" ",
+            'id_events'=>$eventID
+        ]);
+    }
+
     private function addMarkDown($marks, $eventID){
         usort($marks, function($a, $b){
             if ($a["mark"] == $b["mark"]) {
@@ -390,11 +452,8 @@ class EventController extends Controller
             return ($a["mark"] > $b["mark"]) ? -1 : 1;
         });
 
-        $result = DB::table('results')->insertGetId([
-            'type_results'=>"results_downward",
-            'results'=>Team::find(reset($marks)['team'])->name . " winer",
-            'id_events'=>$eventID
-        ]);
+        $result->results = Team::find(reset($marks)['team'])->name . " winer";
+        $result->save();
 
         $position = 1;
         foreach($marks as $mark){
