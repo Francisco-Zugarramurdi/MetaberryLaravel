@@ -38,7 +38,7 @@ class PlayerController extends Controller
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();
-        if(!Team::where('name','=',$request->teamName)->exists() && $request->teamName != null)
+        if(!Team::find($request->team)->exists() && $request->team != null)
             return view('error')->with('errorData',$e)->with('errors', 'Team does not exist');
         if($request->individual != null && $request->sport == null){
             return view('error')->with('errorData',$e)->with('error','player must have an sport');
@@ -241,7 +241,7 @@ class PlayerController extends Controller
     }
 
     private function updateTeam($request,$id){
-        $team = Team::where('name',$request->teamName)->first();
+        $team = Team::where('name',$request->team)->first();
         $playerTeam = DB::table('players_teams')
         ->where('id_teams',$team->id)
         ->where('id_players',$id)
@@ -251,7 +251,7 @@ class PlayerController extends Controller
             'status' => $request->status ]);
     }
     public function addTeam(Request $request){
-        $team = Team::where('name',$request->teamName)->first();
+        $team = Team::where('name',$request->team)->first();
         if($team->exists()){
              DB::table('players_teams')->insert([
                 'id_teams'=>$team->id,
