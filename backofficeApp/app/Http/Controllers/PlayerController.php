@@ -274,7 +274,7 @@ class PlayerController extends Controller
     public function indexPlayersByEvent(Request $request){
         $players = DB::table('events')
         ->join('events_teams','events_teams.id_events','events.id')
-        ->join('players_teams','players_teams.id_players','events_teams.id_players')
+        ->join('players_teams','players_teams.id_teams','events_teams.id_teams')
         ->join('players','players.id','players_teams.id_players')
         ->select('players.id as id','players.name as name','players.surname as surname','events_teams.id_events as eventId')
         ->get()
