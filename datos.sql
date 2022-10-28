@@ -156,7 +156,8 @@ insert into sanctions(id_events, sancion) values
 (1,'Tarjeta Roja'), 
 (2,'Tarjeta Amarilla'), 
 (2,'Tarjeta Roja'); 
-insert into sanctions_players(id_sancion, id_players, minute) values (1,1,10), 
+insert into sanctions_players(id_sancion, id_players, minute) values (1,1,10),
+(2,2,10), 
 (3,12,3), 
 (4,14,4);
 insert into referee(name, surname, photo) values 

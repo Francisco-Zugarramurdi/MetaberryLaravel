@@ -61,7 +61,6 @@
                                     <label>
                                         <p id="labelID">Player:</p>
                                        <select name="player" id="playerSelect">
-                                        <option>Select an event</option>
                                        </select>
                                     </label>
                                     <label>
@@ -276,7 +275,7 @@
     <script>
 
             jQuery(document).ready(function(){
-
+                handleSelectUpdate();
                 jQuery('#eventSelect').change(()=>{
                     handleSelectUpdate();
                 })
