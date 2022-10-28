@@ -90,9 +90,11 @@
                                         @if($event->typeResult == "points_sets")
 
                                         @endif
+
                                         @if($event->typeResult == "results_points")
 
                                         @endif
+
                                         @if($event->typeResult == "results_upward")
                                         <div class="form-inner-container">
                                         
@@ -107,27 +109,27 @@
                                                     <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
                                                 </label>
                                                 
-                                                <div class="team-card-container" id="team_card_container_for_mark_down">
+                                                <div class="team-card-container" id="team_card_container_for_mark_up">
                                                         
-                                                
+                                                    @foreach($scores as $score)
                                                     <div class="team-container">
-                    
+                                                        
                                                         <label>
                                                             Team
                                                             <select name="marks[][team]">
                                                                 @foreach($teams as $team)
-                                                                    <option value="{{$team->id}}"@if($team->id == $result->teamId)selected @endif>{{$team->name}}</option>
+                                                                    <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </label>
 
                                                         <label>
                                                             marks
-                                                            <input type="number" name="marks[][mark]" min="1">
+                                                            <input type="number" name="marks[][mark]" min="1" value= {{$score->result}} >
                                                         </label>
                                                 
                                                     </div>
-
+                                                    @endforeach
 
 
                                                 </div>
@@ -137,6 +139,7 @@
                                         
                                         
                                         @endif
+
                                         @if($event->typeResult == "results_downward")
                                         @foreach ($results as $result)
                                             <div class="team-container">

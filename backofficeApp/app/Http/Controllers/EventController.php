@@ -17,6 +17,11 @@ use App\Models\Player;
 use App\Models\Result;
 use App\Models\Referee;
 use App\Models\RefereeEvent;
+use App\Models\ResultDownward;
+use App\Models\ResultUpward;
+use App\Models\ResultPoint;
+use App\Models\PointesSet;
+
 use \Illuminate\Database\QueryException;
 use Carbon\Carbon;
 
@@ -72,13 +77,12 @@ class EventController extends Controller
         ->get()
         ->first();
 
-        $result= $this->findResult($event);
-        dd($sresult);
+        $scores= $this->findScores($event);
 
 
         return view('eventedit')
         ->with('event',$event)
-        ->with('result', $result)
+        ->with('scores', $scores)
         ->with('referees',Referee::all())
         ->with('countries',Country::all())
         ->with('sports',Sport::all())
@@ -87,44 +91,38 @@ class EventController extends Controller
         ->with('teams',Team::all());
     }
 
-    private function findResult($event){
+    private function findScores($event){
         if($event->typeResult == 'points_sets'){
-            return DB::table('results')
-            ->join('points_sets', 'points_sets.id_results', 'results.id')
-            ->join('teams', 'teams.id', 'results_points.id_teams')
-            ->select('points_sets.number_set as numberSet', 'points_sets.points_set as points',
-            'teams.id as teamId', 'teams.name as teamName',
-            'points_sets.id_results as resultId')
-            ->where('resultId', $event->resultId)
-            ->first();
+            return PointsSet::
+            join('teams', 'teams.id', 'points_sets.id_teams')
+            ->select('points_sets.rnumber_set as numberSet', 'points_sets.points_set as points',
+            'teams.id as teamId', 'teams.name as teamName')
+            ->where('id_results', $event->resultId)
+            ->get();
         }
         if($event->typeResult == 'results_points'){
-            return DB::table('results_points')
-            ->join('results_points', 'results_points.id_results', 'results.id')
-            ->join('teams', 'teams.id', 'results_points.id_teams')
-            ->select('results_points.position as position',
-            'teams.id as teamId', 'teams.name as teamName',
-            'id_results as resultId')
-            ->where('results_points.resultId', $event->resultId)
-            ->first();
+            return ResultPoint::join('teams', 'teams.id', 'results_points.id_teams')
+            ->join('players', 'players.id', 'results_points.id_player')
+            ->select('results_points.point as point',
+            'players.id as playerId', 'players.name as playerName','players.surname playerSurname' ,
+            'teams.id as teamId', 'teams.name as teamName')
+            ->where('id_results', $event->resultId)
+            ->get();
         }
         if($event->typeResult == 'results_upward'){
-            return DB::table('results_upward')
-            ->join('results_upward', 'results_upward.id_results', 'results.id')
-            ->join('teams', 'teams.id', 'results_upward.id_teams')
-            ->select("*")
-            ->where('results_upward.id_results', $event->resultId)
-            ->first();
+            return ResultUpward::join('teams', 'teams.id', 'results_upward.id_teams')
+            ->select('results_upward.result as result', 'results_upward.position as position',
+            'teams.id as teamId', 'teams.name as teamName',)
+            ->where('id_results', $event->resultId)
+            ->get();
         }
         if($event->typeResult == 'results_downward'){
-            return DB::table('results_downward')
-            ->join('results_downward', 'results_downward.id_results', 'results.id')
-            ->join('teams', 'teams.id', 'results_downward.id_teams')
+
+            return ResultDownward::join('teams', 'teams.id', 'results_downward.id_teams')
             ->select('results_downward.result as result', 'results_downward.position as position',
-            'teams.id as teamId', 'teams.name as teamName',
-            'results_downward.id_results as resultId')
-            ->where('resultId', $event->resultId)
-            ->first();
+            'teams.id as teamId', 'teams.name as teamName')
+            ->where('id_results', $event->resultId)
+            ->get();
         }
         return "";
 
