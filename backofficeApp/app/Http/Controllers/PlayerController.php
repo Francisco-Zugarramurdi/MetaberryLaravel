@@ -56,7 +56,7 @@ class PlayerController extends Controller
             'surname'=> $request->surname,
             'photo'=> $image
         ]);
-        if($request->teamName != null || $request->individual != null)
+        if($request->team != null || $request->individual != null)
             $this->joinTeam($request,$player->id,$image);
         
         return redirect('/player');
@@ -81,7 +81,7 @@ class PlayerController extends Controller
     }
 
     private function joinTeam(Request $request,$id,$image){
-        if($request->teamName != null){
+        if($request->team != null){
             PlayerTeam::create([
                 'id_teams' => $request->team,
                 'id_players' => $id,
