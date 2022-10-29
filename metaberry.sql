@@ -450,15 +450,15 @@ create table ad_tags(
 );
 
 create table admins(
-    id bigint unsigned primary key,
+    id serial,
     type varchar(255) not null,
     password varchar(255) not null,
+	remember_token varchar(255) default null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null
+    deleted_at timestamp null default null,
+    primary key(id)
 );
-
-insert into admins(id, type, password) values(1, 'admin','ceibal');
 
 insert into tags (tag) values
 ('Main');
