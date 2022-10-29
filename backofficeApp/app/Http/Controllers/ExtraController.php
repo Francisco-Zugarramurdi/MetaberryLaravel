@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\File;
 
 class ExtraController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create(Request $request){
 
         $validation = $this->validateCreationRequest($request);

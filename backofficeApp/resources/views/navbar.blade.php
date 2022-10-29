@@ -6,9 +6,23 @@
 
                 <img src="{{ asset('img/logo/livescore-logo-white.png') }}" alt="livescore">
 
+                <div class="logout-container" aria-labelledby="navbarDropdown">
+                    <a class="logout-button" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                         {{ __('Logout') }}
+                    </a>
+    
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+                
             </div>
+            
 
             <div class="routes-container">
+
 
                 <a href="/" class="routes-list-element"id="index"><span class="material-symbols-outlined">home</span> Main</a>
                 <a href="/user/" class="routes-list-element"id="user"><span class="material-symbols-outlined">person</span> User</a>

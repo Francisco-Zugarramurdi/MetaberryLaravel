@@ -19,6 +19,11 @@ use Illuminate\Support\Str;
 
 class PlayerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create(Request $request){
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok")

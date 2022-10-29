@@ -28,7 +28,7 @@ use App\Http\Controllers\SanctionController;
 
 Route::get('/', function () {
     return view('index');
-});
+})->middleware('auth');
 
 Route::get("/user",[UserController::class,'index']);
 Route::post("/user/create",[UserController::class,'create']);
@@ -106,3 +106,7 @@ Route::post("/sanction/create",[SanctionController::class,'create']);
 Route::put("/sanction/{id}",[SanctionController::class,'update']);
 Route::delete("/sanction/{id}",[SanctionController::class,'destroy']);
 
+
+Auth::routes(['register' => false]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

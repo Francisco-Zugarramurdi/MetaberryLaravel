@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\File;
 
 class TeamController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create(Request $request){
 
         $validation = $this->validateRequest($request);
