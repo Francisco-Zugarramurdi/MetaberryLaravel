@@ -69,13 +69,27 @@ class EventController extends Controller
         ->join('results', 'results.id_events', 'events.id')
         ->where('events.id', $id) 
         ->select('referee.id as refereeId',
-        'events.date as date','countries.name as countryName',
-        'events.name as name','events.id as id',
-        'events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName',
+        'events.date as date', 'events.name as name','events.id as id','events.details as details','events.relevance as relevance',
+        'leagues.id as idLeague','leagues.name as leagueName',
         'sports.name as sportName',
-        'results.type_results as typeResult', 'results.id as resultId')
+        'results.type_results as typeResult', 'results.id as resultId',
+        'countries.name as countryName')
         ->get()
         ->first();
+
+        $eventTeams = DB::table('events_teams')
+        ->join('teams', 'teams.id', 'events_teams.id_teams')
+        ->where('events_teams.id_events', $event->id)
+        ->select('teams.id as teamId', 'teams.name as teamName', 
+        'events_teams.id_events as eventId')
+        ->get();
+
+        $players = Player::join('players_teams', 'players_teams.id_players', 'players.id')
+        ->join('events_teams','events_teams.id_teams','players_teams.id_teams')
+        ->where('events_teams.id_events', $event->id)
+        ->select('players.name as name', 'players.surname as surname', 'players.id as id',
+        'events_teams.id_events as eventId', 'events_teams.id_teams as teamId')
+        ->get();
 
         $scores= $this->findScores($event);
 
@@ -87,8 +101,9 @@ class EventController extends Controller
         ->with('countries',Country::all())
         ->with('sports',Sport::all())
         ->with('leagues',League::all())
-        ->with('players',Player::all())
-        ->with('teams',Team::all());
+        ->with('players',$players)
+        ->with('teams',Team::all())
+        ->with('eventTeams', $eventTeams);
     }
 
     private function findScores($event){
@@ -102,9 +117,9 @@ class EventController extends Controller
         }
         if($event->typeResult == 'results_points'){
             return ResultPoint::join('teams', 'teams.id', 'results_points.id_teams')
-            ->join('players', 'players.id', 'results_points.id_player')
+            ->join('players', 'players.id', 'results_points.id_players')
             ->select('results_points.point as point',
-            'players.id as playerId', 'players.name as playerName','players.surname playerSurname' ,
+            'players.id as playerId', 'players.name as playerName','players.surname as playerSurname' ,
             'teams.id as teamId', 'teams.name as teamName')
             ->where('id_results', $event->resultId)
             ->get();
