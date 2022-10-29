@@ -86,81 +86,177 @@
                                             </select>
                                         </label>
                                     </div>
-                                    <div class="form-up-container">
-                                        @if($event->typeResult == "points_sets")
 
+                                    <div class="form-up-container">
+                                        
+                                        @if($event->typeResult == "points_sets")
+                                        <div class="form-inner-container">
+                                            @foreach($eventTeams as $eventTeam)
+                                                <div class="team-container">
+                                                    <label>
+                                                        Team
+                                                        <select name="localTeam" id="localTeam">
+                                                            @foreach($teams as $team)
+                                                                <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+                                                    <label>
+                                                        <button type="button" id="add-set-local">Add Set</button>
+                                                        <div id="setContainer">
+                                                        
+                                                        @foreach($scores as $score)
+                                                            @if($score->teamId == $eventTeam->teamId)
+                                                                {{$score->numberSet}}   <input type='number' name='sets[{{$score->numberSet}}]' value={{$score->points}}>
+                                                            @endif
+                                                        @endforeach
+                                                        
+                                                            
+                                                        </div>
+                                                        
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
+                                        </div>
                                         @endif
 
                                         @if($event->typeResult == "results_points")
-
-                                        @endif
-
-                                        @if($event->typeResult == "results_upward")
-                                        <div class="form-inner-container">
-                                        
-                                            <div class="form-team-container">
-                                                
-                                                <label>
-                                                    <p><span>* </span>Teams</p>
-                                                </label>
-
-                                                <label class="add-btn">
-                                                    Add a team
-                                                    <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
-                                                </label>
-                                                
-                                                <div class="team-card-container" id="team_card_container_for_mark_up">
-                                                        
-                                                    @foreach($scores as $score)
-                                                    <div class="team-container">
-                                                        
+                                            <div class="form-inner-container">
+                                                <div class="form-team-container">
+                                                    @foreach($eventTeams as $eventTeam)
                                                         <label>
-                                                            Team
-                                                            <select name="marks[][team]">
+                                                            <p><span>* </span>Teams</p>
+                                                        </label>
+
+                                                        <label class="add-btn">
+                                                            Add a player
+                                                            <button type="button" id="add_team_local_button"><span class="material-symbols-outlined">add</span></button>
+                                                        </label>
+                                                        <label>
+                                                            Local Team
+                                                            <select name="localTeam" id="localTeamScore">
                                                                 @foreach($teams as $team)
-                                                                    <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
+                                                                <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </label>
+                                                        
+                                                        <div class="team-card-container" id="team_card_Local_container">
+                                                            
+                                                            @foreach ($scores as $scoreTeam)
+                                                                    @if($scoreTeam->teamId == $eventTeam->teamId)
+                                                                    <div id="team-container">
+                                                                        <label>
+                                                                            Player
+                                                                            <select name="point[{{$scoreTeam->playerId}}][player]">
+                                                                                @foreach($players as $player)
+                                                                                    @if($player->teamId == $eventTeam->teamId)
+                                                                                        <option value="{{$player->id}}" @if($player->id == $scoreTeam->playerId)selected @endif>{{$player->name}}  {{$player->surname}}</option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </label>
 
-                                                        <label>
-                                                            marks
-                                                            <input type="number" name="marks[][mark]" min="1" value= {{$score->result}} >
-                                                        </label>
-                                                
-                                                    </div>
+                                                                        <label>
+                                                                            Point
+                                                                            <input type="number" name="point[{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
+                                                                        </label> 
+                                                                    </div>
+                                                                     
+                                                                    @endif
+                                                            @endforeach
+
+
+                                                        </div>
                                                     @endforeach
+                                                    
+                                        @endif
 
+                                        @if($event->typeResult == "results_upward")
+                                            <div class="form-inner-container">
+                                            
+                                                <div class="form-team-container">
+                                                    
+                                                    <label>
+                                                        <p><span>* </span>Teams</p>
+                                                    </label>
+
+                                                    <label class="add-btn">
+                                                        Add a team
+                                                        <button type="button" id="addTeamMarkUp"><span class="material-symbols-outlined">add</span></button>
+                                                    </label>
+                                                    
+                                                    <div class="team-card-container" id="team_card_container_for_mark_up">
+                                                            
+                                                        @foreach($scores as $score)
+                                                        <div class="team-container">
+                                                            
+                                                            <label>
+                                                                Team
+                                                                <select name="marks[{{$score->teamId}}][team]">
+                                                                    @foreach($teams as $team)
+                                                                        <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </label>
+
+                                                            <label>
+                                                                marks
+                                                                <input type="text" name="marks[{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
+                                                            </label>
+                                                    
+                                                        </div>
+                                                        @endforeach
+
+
+                                                    </div>
 
                                                 </div>
-
-                                            </div>
-                                        </div>      
-                                        
-                                        
+                                            </div>      
                                         @endif
 
                                         @if($event->typeResult == "results_downward")
-                                        @foreach ($results as $result)
-                                            <div class="team-container">
-            
-                                                <label>
-                                                    Team
-                                                    <select name="marks[][team]">
-                                                        @foreach($teams as $team)
-                                                            <option value="{{$team->id}}"@if($team->id == $result->teamId)selected @endif>{{$teams->name}}</option>
+                                            <div class="form-inner-container">
+                                            
+                                            <div class="form-team-container">
+                                                    
+                                                    <label>
+                                                        <p><span>* </span>Teams</p>
+                                                    </label>
+
+                                                    <label class="add-btn">
+                                                        Add a team
+                                                        <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
+                                                    </label>
+                                                    
+                                                    <div class="team-card-container" id="team_card_container_for_mark_down">
+                                                            
+                                                        @foreach($scores as $score)
+                                                        <div class="team-container">
+                                                            
+                                                            <label>
+                                                                Team
+                                                                <select name="marks[{{$score->teamId}}][team]">
+                                                                    @foreach($teams as $team)
+                                                                        <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </label>
+
+                                                            <label>
+                                                                marks
+                                                                <input type="text" name="marks[{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
+                                                            </label>
+                                                    
+                                                        </div>
                                                         @endforeach
-                                                    </select>
-                                                </label>
 
-                                                <label>
-                                                    marks
-                                                    <input type="number" name="marks[][mark]" min="1">
-                                                </label>
-                                        
+
+                                                    </div>
+
+                                                </div>
                                             </div>
-
-                                            @endforeach
                                         @endif
                                     </div>
 
