@@ -449,5 +449,16 @@ create table ad_tags(
     foreign key (id_tag) references tags(id)
 );
 
+create table admins(
+    id bigint unsigned primary key,
+    type varchar(255) not null,
+    password varchar(255) not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null
+);
+
+insert into admins(id, type, password) values(1, 'admin','ceibal');
+
 insert into tags (tag) values
 ('Main');

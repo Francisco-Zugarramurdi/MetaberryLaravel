@@ -1,6 +1,6 @@
-insert into sports(name, icon) values ('Futbol','icon'), 
-('Tenis','icon'), 
-('Ping Pong','icon'); 
+insert into sports(name, icon) values ('Futbol','sports_soccer'), 
+('Tenis','sports_tennis'), 
+('Ping Pong','sports_handball'); 
 insert into countries(name, photo) values ('Uruguay','default_img_do_not_delete.jpg'), 
 ('Argentina','default_img_do_not_delete.jpg'), 
 ('Brasil','default_img_do_not_delete.jpg'); 
@@ -249,3 +249,8 @@ insert into ad_tags(id_tag, id_ad) values
 (1,1),
 (2,3),
 (1,2);
+
+insert into users_subscriptions(id_users, type_of_subscription) values
+(1,'paid_yearly'),
+(2,'paid_monthly'),
+(5,'paid_monthly');
