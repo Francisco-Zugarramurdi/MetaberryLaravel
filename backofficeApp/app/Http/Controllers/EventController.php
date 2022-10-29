@@ -139,16 +139,16 @@ class EventController extends Controller
 
             return ResultDownward::join('teams', 'teams.id', 'results_downward.id_teams')
             ->select('results_downward.result as result', 'results_downward.position as position',
-            'teams.id as teamId', 'teams.name as teamName')
+            'teams.id as teamId', 'teams.name as teamName',)
             ->where('id_results', $event->resultId)
             ->get();
+
         }
         return "";
 
     }
 
     public function editEvent(Request $request, $id){
-        return $request;
 
         $validation = $this->validateCreationRequest($request);
 
@@ -473,7 +473,7 @@ class EventController extends Controller
         }
         try{
             $event = $this->createEvent($request);
-            $result = $this->addMarkUpResult($request, $event->id);
+            $result = $this->addMarkDownResult($request, $event->id);
             foreach($request->marks as $mark){
                 $this->addEventTeam($event->id, $mark["team"]);
             }
@@ -496,7 +496,7 @@ class EventController extends Controller
         }
     }
 
-    private function addMarkDownResult(Request $request, $eventID, $result){
+    private function addMarkDownResult(Request $request, $eventID){
         return $result = DB::table('results')->insertGetId([
             'type_results'=>"results_downward",
             'results'=>" ",

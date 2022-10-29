@@ -107,7 +107,7 @@
                                                         
                                                         @foreach($scores as $score)
                                                             @if($score->teamId == $eventTeam->teamId)
-                                                                {{$score->numberSet}}   <input type='number' name='sets[{{$score->numberSet}}]' value={{$score->points}}>
+                                                                {{$score->numberSet}} <input type='number' name='sets{{$eventTeam->teamId}}[{{$score->numberSet}}]' value={{$score->points}}>
                                                             @endif
                                                         @endforeach
                                                         
@@ -149,7 +149,7 @@
                                                                     <div id="team-container">
                                                                         <label>
                                                                             Player
-                                                                            <select name="point[{{$scoreTeam->playerId}}][player]">
+                                                                            <select name="point{{$eventTeam->teamId}}[{{$scoreTeam->playerId}}][player]">
                                                                                 @foreach($players as $player)
                                                                                     @if($player->teamId == $eventTeam->teamId)
                                                                                         <option value="{{$player->id}}" @if($player->id == $scoreTeam->playerId)selected @endif>{{$player->name}}  {{$player->surname}}</option>
@@ -160,16 +160,16 @@
 
                                                                         <label>
                                                                             Point
-                                                                            <input type="number" name="point[{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
+                                                                            <input type="number" name="point{{$eventTeam->teamId}}[{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
                                                                         </label> 
                                                                     </div>
                                                                      
                                                                     @endif
                                                             @endforeach
 
-
-                                                        </div>
                                                     @endforeach
+                                                </div>
+                                            </div>
                                                     
                                         @endif
 
@@ -217,9 +217,9 @@
                                         @endif
 
                                         @if($event->typeResult == "results_downward")
-                                            <div class="form-inner-container">
+                                        <div class="form-inner-container">
                                             
-                                            <div class="form-team-container">
+                                                <div class="form-team-container">
                                                     
                                                     <label>
                                                         <p><span>* </span>Teams</p>
@@ -227,10 +227,10 @@
 
                                                     <label class="add-btn">
                                                         Add a team
-                                                        <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
+                                                        <button type="button" id="addTeamMarkUp"><span class="material-symbols-outlined">add</span></button>
                                                     </label>
                                                     
-                                                    <div class="team-card-container" id="team_card_container_for_mark_down">
+                                                    <div class="team-card-container" id="team_card_container_for_mark_up">
                                                             
                                                         @foreach($scores as $score)
                                                         <div class="team-container">
@@ -256,7 +256,7 @@
                                                     </div>
 
                                                 </div>
-                                            </div>
+                                            </div> 
                                         @endif
                                     </div>
 
