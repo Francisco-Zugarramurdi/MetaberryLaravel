@@ -20,7 +20,7 @@ use App\Models\RefereeEvent;
 use App\Models\ResultDownward;
 use App\Models\ResultUpward;
 use App\Models\ResultPoint;
-use App\Models\PointesSet;
+use App\Models\PointsSet;
 
 use \Illuminate\Database\QueryException;
 use Carbon\Carbon;
@@ -110,7 +110,7 @@ class EventController extends Controller
         if($event->typeResult == 'points_sets'){
             return PointsSet::
             join('teams', 'teams.id', 'points_sets.id_teams')
-            ->select('points_sets.rnumber_set as numberSet', 'points_sets.points_set as points',
+            ->select('points_sets.number_set as numberSet', 'points_sets.points_set as points',
             'teams.id as teamId', 'teams.name as teamName')
             ->where('id_results', $event->resultId)
             ->get();

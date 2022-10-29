@@ -86,9 +86,39 @@
                                             </select>
                                         </label>
                                     </div>
-                                    <div class="form-up-container">
-                                        @if($event->typeResult == "points_sets")
 
+                                    <div class="form-up-container">
+                                        
+                                        @if($event->typeResult == "points_sets")
+                                        <div class="form-inner-container">
+                                            @foreach($eventTeams as $eventTeam)
+                                                <div class="team-container">
+                                                    <label>
+                                                        Team
+                                                        <select name="localTeam" id="localTeam">
+                                                            @foreach($teams as $team)
+                                                                <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+                                                    <label>
+                                                        <button type="button" id="add-set-local">Add Set</button>
+                                                        <div id="setContainer">
+                                                        
+                                                        @foreach($scores as $score)
+                                                            @if($score->teamId == $eventTeam->teamId)
+                                                                {{$score->numberSet}}   <input type='number' name='sets[{{$score->numberSet}}]' value={{$score->points}}>
+                                                            @endif
+                                                        @endforeach
+                                                        
+                                                            
+                                                        </div>
+                                                        
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
+                                        </div>
                                         @endif
 
                                         @if($event->typeResult == "results_points")
