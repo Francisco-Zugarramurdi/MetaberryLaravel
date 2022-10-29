@@ -93,8 +93,6 @@
 
                                         @if($event->typeResult == "results_points")
                                             <div class="form-inner-container">
-
-                                                
                                                 <div class="form-team-container">
                                                     @foreach($eventTeams as $eventTeam)
                                                         <label>
@@ -121,7 +119,7 @@
                                                                     <div id="team-container">
                                                                         <label>
                                                                             Player
-                                                                            <select name="points[][player]" id="player">
+                                                                            <select name="point[{{$scoreTeam->playerId}}][player]">
                                                                                 @foreach($players as $player)
                                                                                     @if($player->teamId == $eventTeam->teamId)
                                                                                         <option value="{{$player->id}}" @if($player->id == $scoreTeam->playerId)selected @endif>{{$player->name}}  {{$player->surname}}</option>
@@ -132,7 +130,7 @@
 
                                                                         <label>
                                                                             Point
-                                                                            <input type="number" name="marks[][mark]" min="1" value= {{$scoreTeam->point}}>
+                                                                            <input type="number" name="point[{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
                                                                         </label> 
                                                                     </div>
                                                                      
@@ -166,7 +164,7 @@
                                                             
                                                             <label>
                                                                 Team
-                                                                <select name="marks[][team]">
+                                                                <select name="marks[{{$score->teamId}}][team]">
                                                                     @foreach($teams as $team)
                                                                         <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
                                                                     @endforeach
@@ -175,7 +173,7 @@
 
                                                             <label>
                                                                 marks
-                                                                <input type="text" name="marks[][mark]" min="1" value= {{$score->result}} >
+                                                                <input type="text" name="marks[{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
                                                             </label>
                                                     
                                                         </div>
@@ -209,7 +207,7 @@
                                                             
                                                             <label>
                                                                 Team
-                                                                <select name="marks[][team]">
+                                                                <select name="marks[{{$score->teamId}}][team]">
                                                                     @foreach($teams as $team)
                                                                         <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
                                                                     @endforeach
@@ -218,7 +216,7 @@
 
                                                             <label>
                                                                 marks
-                                                                <input type="text" name="marks[][mark]" min="1" value= {{$score->result}} >
+                                                                <input type="text" name="marks[{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
                                                             </label>
                                                     
                                                         </div>

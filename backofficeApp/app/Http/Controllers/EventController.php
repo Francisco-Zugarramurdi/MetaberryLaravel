@@ -144,6 +144,8 @@ class EventController extends Controller
     }
 
     public function editEvent(Request $request, $id){
+        return $request;
+
         $validation = $this->validateCreationRequest($request);
 
         if($validation !== 'ok')
