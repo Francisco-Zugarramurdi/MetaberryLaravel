@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -35,6 +37,18 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        $this->createAdmin();
         $this->middleware('guest')->except('logout');
+    }
+
+    public function createAdmin(){
+
+        if(!Admin::where('type', 'admin')->exists()){
+            Admin::create([
+                'type' => 'admin',
+                'password' => Hash::make('metaberry')
+            ]);
+        }
+
     }
 }
