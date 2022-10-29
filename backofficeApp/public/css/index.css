@@ -814,12 +814,13 @@ main {
   height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   font-size: 1em;
   font-weight: 600;
   color: var(--light-gray);
   margin: 0;
   padding: 0;
+  position: relative;
 }
 .login-container .form-login-container .form-container .form-up-container label input {
   border: none;
@@ -829,4 +830,11 @@ main {
   border-radius: 5px;
   padding: 5px 10px;
   margin: 15px 0;
+}
+.login-container .form-login-container .form-container .form-up-container label span {
+  position: absolute;
+  right: 3%;
+  bottom: 25%;
+  padding: 0;
+  color: var(--dark-blue);
 }/*# sourceMappingURL=index.css.map */

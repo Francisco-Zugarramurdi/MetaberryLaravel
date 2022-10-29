@@ -16,11 +16,13 @@
                     <label>
                         Rol
                         <input id="type" type="text" name="type" value="{{ old('type') }}" autofocus>
+                        <span class="material-symbols-outlined">person</span>
                     </label>
 
                     <label>
                         Password
                         <input id="password" type="password" name="password" required>
+                        <span class="material-symbols-outlined">lock</span>
                     </label>
 
                 </div>
