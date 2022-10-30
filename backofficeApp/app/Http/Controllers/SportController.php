@@ -64,7 +64,7 @@ class SportController extends Controller
 
     public function index(Request $request){
 
-        $sports = Sport::paginate(10);
+        $sports = Sport::orderBy('name')->paginate(10);
 
         return view('sport')->with('sports', $sports);
 

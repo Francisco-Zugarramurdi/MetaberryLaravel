@@ -100,6 +100,7 @@ class LeagueController extends Controller
         $league = League::join('leagues_countries', 'leagues_countries.id_leagues', 'leagues.id')
         ->join('countries','countries.id','leagues_countries.id_countries')
         ->select('leagues.id as id','leagues.name as name','leagues.details as details','leagues.photo as photo','countries.name as countryName', 'countries.id as countryId')
+        ->orderBy('name')
         ->paginate(10);
 
         $country = Country::all();

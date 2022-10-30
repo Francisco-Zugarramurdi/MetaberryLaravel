@@ -35,6 +35,7 @@ class UserController extends Controller
     public function index(){
 
         $users = UserData::join('users','users.id','users_data.id')
+        ->orderBy('users.name')
         ->paginate(10);
 
         return view('users')->with('users',$users);

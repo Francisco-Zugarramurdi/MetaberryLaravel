@@ -122,6 +122,7 @@ class PlayerController extends Controller
         $players = Player::join('players_teams','players_teams.id_players','players.id')
         ->join('teams','players_teams.id_teams','teams.id')
         ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
+        ->orderBy('name')
         ->paginate(10);
 
         return view('players')->with('players',$players)->with('teams',Team::all())->with('sports',Sport::all())->with('countries',Country::all());

@@ -92,6 +92,7 @@ class ExtraController extends Controller
         $extras = Extra::leftJoin('extra_compose','extra_compose.id_extra','extras.id')
         ->leftJoin('teams','extra_compose.id_teams','teams.id')
         ->select('extras.id as id','extras.name as name','extras.surname as surname','extras.photo as photo','extras.rol as rol','teams.name as teamName','extra_compose.contract_start as contractStart','extra_compose.contract_end as contractEnd')
+        ->orderBy('name')
         ->paginate(10);
 
         $team = Team::all();
