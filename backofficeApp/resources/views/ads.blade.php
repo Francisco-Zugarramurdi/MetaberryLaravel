@@ -50,8 +50,9 @@
                                             <span class="material-symbols-outlined">upload</span>
                                             <p>Upload an image...</p>
                                         </label>
-                                    </label>
+                                    </label> 
 
+                                    
                                         <label>
                                             <p><span>* </span>Url</p>
                                             <input type="text" name="url" placeholder="Futbol.com" id="url">
