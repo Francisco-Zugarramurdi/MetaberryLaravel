@@ -59,7 +59,11 @@
     
                                     <label>
                                         <p>Profile image</p>
-                                        <input type="file" name="image" accept="image/*" id="photo">
+                                        <input type="file" name="image" accept="image/*" id="imageInput" class="input-image">
+                                        <label for="imageInput" class="label-image">
+                                            <span class="material-symbols-outlined">upload</span>
+                                            <p>Upload an image...</p>
+                                        </label>
                                     </label>
     
                                 </div>
@@ -228,8 +232,6 @@
     </main>
 
     <script>
-
-
         const deleteFormSubmit = (id) =>{
 
             event.preventDefault();

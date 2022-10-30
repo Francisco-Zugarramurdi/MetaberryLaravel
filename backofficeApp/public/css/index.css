@@ -393,6 +393,43 @@ main {
   background-color: var(--gray);
   padding: 5px;
 }
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label .input-image {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label .label-image {
+  width: 10vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #6F9615;
+  filter: drop-shadow(0 0 3px rgba(38, 45, 55, 0.1882352941));
+  padding: 0px 10px;
+  color: var(--white);
+  font-size: 700;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label .label-image p {
+  font-size: 700;
+  color: var(--white);
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label .label-image:hover {
+  background-color: #5a7b0c;
+  transform: scale(0.98);
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container label #imageInput:focus ~ .label-image {
+  background-color: #5a7b0c;
+  transform: scale(0.98);
+}
 .main-page-container .create-user-container .unhide-container .create-user-form .form-down-container {
   width: inherit;
   display: flex;

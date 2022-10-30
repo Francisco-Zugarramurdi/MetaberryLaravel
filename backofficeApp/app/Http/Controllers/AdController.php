@@ -22,15 +22,13 @@ class AdController extends Controller
     }
 
     public function create(Request $request){
+
         $validation = $this->validateRequestCreate($request);
         
         if($validation !== "ok"){
             return $validation;
         }
         try{
-
-            if(Ad::where('image', $request -> post("image")) -> exists())
-                return view('error')->with('errors', 'Ad already exists');
 
             return $this->createAd($request);
 
@@ -169,9 +167,6 @@ class AdController extends Controller
         if($validation !== "ok"){
             return $validation;
         }
-        if(Ad::where('image', $request -> post("image")) -> exists() && Ad::where('image', $request -> post("image"))->first()->id != $id)
-            return view('error')->with('errors', 'Image already exists');
-        
         try{
 
             $this->updateAd($request, $id);
@@ -207,6 +202,7 @@ class AdController extends Controller
     }
     
     public function destroy($id){
+        
         try{
             $ad = Ad::findOrFail($id);
             $this->deleteImage($id);

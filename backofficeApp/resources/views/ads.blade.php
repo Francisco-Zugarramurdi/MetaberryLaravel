@@ -43,10 +43,14 @@
 
                                     <div class="form-inner-container">
         
-                                        <label>
-                                            <p><span>* </span>Image</p>
-                                            <input type="file" name="image" accept="image/*" id="photo">
+                                    <label>
+                                        <p><span>* </span>Ad image</p>
+                                        <input type="file" name="image" accept="image/*" id="imageInput" class="input-image">
+                                        <label for="imageInput" class="label-image">
+                                            <span class="material-symbols-outlined">upload</span>
+                                            <p>Upload an image...</p>
                                         </label>
+                                    </label>
 
                                         <label>
                                             <p><span>* </span>Url</p>

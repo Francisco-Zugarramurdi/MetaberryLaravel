@@ -46,6 +46,7 @@ class UserController extends Controller
         $validation = $this->validateRequest($request);
 
         if($validation !== "ok"){
+            
             return view('error')->with('errors', $validation); 
         }
         try {
@@ -171,9 +172,13 @@ class UserController extends Controller
     public function update(Request $request, $id){
 
         $validation = $this->validateRegexRequest($request);
+        $validateEmail = $this->validateEmailUpdate($request);
         
         if($validation !== "ok")
             return view('error')->with('errors', $validation); 
+
+        if($validateEmail !== "ok")
+            return view('error')->with('errors', $validateEmail); 
         
         try{
                 
@@ -206,6 +211,14 @@ class UserController extends Controller
         $user -> type_of_user = $request -> type_of_user;
         $user -> total_points = $request -> total_points;
         $user -> save();
+
+    }
+    
+    private function validateEmailUpdate(Request $request){
+
+        if(User::withTrashed()->where('email', $request -> post("email")) -> exists())
+            return 'User already exists';
+        return 'ok';
 
     }
 

@@ -77,14 +77,19 @@
                                         <input type="text" name="name" placeholder="John" id="name">
                                     </label>
                                     <label>
-                                        <p><span>* </span>Surnmae</p>
+                                        <p><span>* </span>Surname</p>
                                         <input type="text" name="surname" placeholder="Doe" id="surname">
                                     </label>
                                    
                                     <label>
-                                        <p>Profile image</p>
-                                        <input type="file" name="image" accept="image/*" id="photo">
+                                        <p><span>* </span>Player image</p>
+                                        <input type="file" name="image" accept="image/*" id="imageInput" class="input-image">
+                                        <label for="imageInput" class="label-image">
+                                            <span class="material-symbols-outlined">upload</span>
+                                            <p>Upload an image...</p>
+                                        </label>
                                     </label>
+
                                     <label>
                                         <p>Individual Team</p>
                                         <input type="checkbox" name="individual">

@@ -54,8 +54,12 @@
                                         <input type="text" name="rol" placeholder="Dt" id="rol">
                                     </label>
                                     <label>
-                                        <p>Profile image</p>
-                                        <input type="file" name="image" accept="image/*" id="photo">
+                                        <p><span>* </span>Extra image</p>
+                                        <input type="file" name="image" accept="image/*" id="imageInput" class="input-image">
+                                        <label for="imageInput" class="label-image">
+                                            <span class="material-symbols-outlined">upload</span>
+                                            <p>Upload an image...</p>
+                                        </label>
                                     </label>
                                     <label>
                                         <p><span>* </span>Team</p>
