@@ -95,15 +95,15 @@
                                                     <div class="team-container">
                                                         <label>
                                                             Team
-                                                            <select name="localTeam" id="localTeam">
+                                                            <select name="Team{{$eventTeam->teamId}}" id="localTeam">
                                                                 @foreach($teams as $team)
                                                                     <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </label>
                                                         <label>
-                                                            <button type="button" id="add-set-local">Add Set</button>
-                                                            <div id="setContainer">
+                                                            <button type="button" id="add-set" onClick="addSet({{$eventTeam->teamId}})">Add Set</button>
+                                                            <div id="setContainer{{$eventTeam->teamId}}">
                                                             
                                                             @foreach($scores as $score)
                                                                 @if($score->teamId == $eventTeam->teamId)
@@ -119,6 +119,14 @@
                                                 @endforeach
 
                                             </div>
+                                            <script>
+                                                var setNumber = 0;
+                                                let addSet = (id)=>{
+                                                    setNumber++;
+                                                    document.getElementById(`setContainer${id}`).innerHTML += `Set(${setNumber})<input type='number' name='sets${id}[]'>`;
+                                                };
+
+                                            </script>
                                             @endif
 
                                             @if($event->typeResult == "results_points")
