@@ -151,7 +151,6 @@ class EventController extends Controller
     }
 
     public function editEvent(Request $request, $id){
-        return $request;
         $validation = $this->validateCreationRequest($request);
 
         if($validation !== 'ok')
@@ -160,30 +159,30 @@ class EventController extends Controller
         try{
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
-            return redirect('/event/edit/{id}');
+            return redirect('/event/list');
         }
         catch (QueryException $e){
-            return view('error')->with('errorData',$e)->with('errors', 'Cannot edit event');
+            return $e;
         }
     }
 
     private function updateEvent($request,$id){
+
         $event = Event::findOrFail($id);
         $event->name = $request->name;
         $event->details = $request->details;
         $event->relevance = $request->relevance;
         $event->date = $request->date;
-        $event->id_countries = Country::where('name', $request -> countryName)->first()->id;
-        $event->id_sports = Sport::where('name', $request->sportName)->first()->id;
+        $event->id_countries = $request -> country;
+        $event->id_sports = $request -> sport;
         $event->save();
     }
 
     private function updateLeague(Request $request,$id){
-        $league = League::where('name', $request->leagueName)->first()->id;
         $leagueName = DB::table('leagues_events')
         ->where('id_events', $id)
         ->update([
-            'id_leagues'=> $league
+            'id_leagues'=> $request->league
         ]);
     }
 
