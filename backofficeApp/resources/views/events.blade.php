@@ -67,7 +67,7 @@
                                             </select>
                                         </label>
                                         <label><p><span>* </span>Sport</p>
-                                            <select name="sport" id="sport">
+                                            <select name="sport" id="sportSets">
                                                 @foreach ($sports as $sport)
                                                     <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
@@ -98,7 +98,7 @@
 
                                         <label>
                                             Local Team
-                                            <select name="localTeam" id="localTeam">
+                                            <select name="localTeam" id="localTeamSets">
                                                 @foreach($teams as $team)
                                                     <option value="{{$team->id}}">{{$team->name}}</option>
                                                 @endforeach
@@ -107,7 +107,7 @@
 
                                         <label>
                                             Vistant Team
-                                            <select name="visitorTeam" id="visitorTeam">
+                                            <select name="visitorTeam" id="visitorTeamSets">
                                                 @foreach($teams as $team)
                                                     <option value="{{$team->id}}">{{$team->name}}</option>
                                                 @endforeach
@@ -190,7 +190,7 @@
                                         </label>
 
                                         <label><p><span>* </span>Sport</p>
-                                            <select name="sport" id="sport">
+                                            <select name="sport" id="sportPoints">
                                                 @foreach ($sports as $sport)
                                                     <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
@@ -334,7 +334,7 @@
                                             </select>
                                         </label>
                                         <label><p><span>* </span>Sport</p>
-                                            <select name="sport" id="sport">
+                                            <select name="sport" id="sportMarkUp">
                                                 @foreach ($sports as $sport)
                                                     <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
@@ -442,7 +442,7 @@
                                             </select>
                                         </label>
                                         <label><p><span>* </span>Sport</p>
-                                            <select name="sport" id="sport">
+                                            <select name="sport" id="sportMarkDown">
                                                 @foreach ($sports as $sport)
                                                     <option value="{{$sport->id}}">{{$sport->name}}</option>
                                                 @endforeach
@@ -656,8 +656,11 @@
                     }
                 });
                 jQuery.ajax({
-                    url: "{{ url('/getTeams') }}",
-                    method: 'GET',
+                    url: "{{ url('/team/indexBySport') }}",
+                    method: 'POST',
+                    data: {
+                        id:jQuery('#sportMarkUp').val()
+                    },
                     success: function(teams){
                         CreateATeam(teams,'mark_up')
                 }});
@@ -669,10 +672,13 @@
                     }
                 });
                 jQuery.ajax({
-                    url: "{{ url('/getTeams') }}",
-                    method: 'GET',
+                    url: "{{ url('/team/indexBySport') }}",
+                    method: 'POST',
+                    data: {
+                        id:jQuery('#sportMarkDown').val()
+                    },
                     success: function(teams){
-                        CreateATeam(teams, 'mark_down')
+                        CreateATeam(teams,'mark_down')
                 }});
             });
             
@@ -704,6 +710,13 @@
             </div>`;
         }
     });
+    jQuery('#sportMarkDown').change(function(){
+        document.getElementById('team_card_container_for_mark_down').innerHTML = "";
+    });
+    jQuery('#sportMarkUp').change(function(){
+        document.getElementById('team_card_container_for_mark_up').innerHTML = "";
+    });
+    
     </script>
     <script>
         jQuery(document).ready(function(){
@@ -726,6 +739,46 @@
                 handleCountryChange('countryMarkDown','leagueMarkDown');
             });
             
+            jQuery('#sportSets').change(function(){
+                handleSportChange('sportSets','localTeamSets');
+                handleSportChange('sportSets','visitorTeamSets');
+            });
+            jQuery('#sportPoints').change(function(){
+                handleSportChange('sportPoints','localTeamScore');
+                handleSportChange('sportPoints','visitorTeamScore');
+            })
+
+            function handleSportChange(idSport,idTeams){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/team/indexBySport') }}",
+                    method: 'POST',
+                    data: {
+                        id:jQuery(`#${idSport}`).val()
+                    },
+                    success: function(teams){
+                        changeTeams(teams,idTeams);
+                }});
+            }
+            function changeTeams(teams,idTeams){
+                console.log(idTeams)
+                let options = ''
+                count += 1;
+                Object.keys(teams).forEach(team => {
+                    
+                    options += `<option value="${teams[team].id}">${teams[team].name}</option>`
+                }); 
+                document.getElementById(`${idTeams}`).innerHTML = 
+                    `
+                     ${options}                              
+                    `;
+               
+            }
+
             function handleCountryChange(idCountry,idLeagues){
                 $.ajaxSetup({
                     headers: {
@@ -743,7 +796,6 @@
                 }});
             }
             function changeLeague(leagues,id){
-                console.log(leagues)
                 let options = ''
                 count += 1;
                 Object.keys(leagues).forEach(league => {

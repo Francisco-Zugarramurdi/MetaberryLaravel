@@ -218,5 +218,8 @@ class TeamController extends Controller
         ->update(['extra_compose.deleted_at'=>Carbon::now()]);
 
     }
+    public function indexTeamBySport(Request $request){
+        return Team::where('id_sports',$request->id)->get();
 
+    }
 }
