@@ -60,7 +60,7 @@
                                             <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
                                         <label><p><span>* </span>Country</p>
-                                            <select name="country" id="country">
+                                            <select name="country" id="countrySets">
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
@@ -74,7 +74,7 @@
                                             </select>
                                         </label>
                                         <label><p>League</p>
-                                            <select name="league" id="league">
+                                            <select name="league" id="leagueSets">
                                                 <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
@@ -182,7 +182,7 @@
                                         </label>
 
                                         <label><p><span>* </span>Country</p>
-                                            <select name="country" id="country">
+                                            <select name="country" id="countryPoints">
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
@@ -198,7 +198,7 @@
                                         </label>
 
                                         <label><p>League</p>
-                                            <select name="league" id="league">
+                                            <select name="league" id="leaguePoints">
                                                 <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
@@ -327,7 +327,7 @@
                                             <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
                                         <label><p><span>* </span>Country</p>
-                                            <select name="country" id="country">
+                                            <select name="country" id="countryMarkUp">
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
@@ -341,7 +341,7 @@
                                             </select>
                                         </label>
                                         <label><p>League</p>
-                                            <select name="league" id="league">
+                                            <select name="league" id="leagueMarkUp">
                                                 <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
@@ -435,7 +435,7 @@
                                             <input type="number" name="relevance" id="relevance" placeholder="1 to 5" min="1" max="5">
                                         </label>
                                         <label><p><span>* </span>Country</p>
-                                            <select name="country" id="country">
+                                            <select name="country" id="countryMarkDown">
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
@@ -449,7 +449,7 @@
                                             </select>
                                         </label>
                                         <label><p>League</p>
-                                            <select name="league" id="league">
+                                            <select name="league" id="leagueMarkDown">
                                                 <option value="">Not has a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
@@ -705,6 +705,58 @@
         }
     });
     </script>
+    <script>
+        jQuery(document).ready(function(){
+            handleCountryChange('countrySets','leagueSets');
+            handleCountryChange('countryPoints','leaguePoints');
+            handleCountryChange('countryMarkUp','leagueMarkUp');
+            handleCountryChange('countryMarkDown','leagueMarkDown');
 
+
+            jQuery('#countrySets').change(function(){
+                handleCountryChange('countrySets','leagueSets');
+            });
+            jQuery('#countryPoints').change(function(){
+                handleCountryChange('countryPoints','leaguePoints');
+            });
+            jQuery('#countryMarkUp').change(function(){
+                handleCountryChange('countryMarkUp','leagueMarkUp');
+            });
+            jQuery('#countryMarkDown').change(function(){
+                handleCountryChange('countryMarkDown','leagueMarkDown');
+            });
+            
+            function handleCountryChange(idCountry,idLeagues){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('/league/byCountry') }}",
+                    method: 'POST',
+                    data: {
+                        id:jQuery(`#${idCountry}`).val()
+                    },
+                    success: function(leagues){
+                        changeLeague(leagues,idLeagues);
+                }});
+            }
+            function changeLeague(leagues,id){
+                console.log(leagues)
+                let options = ''
+                count += 1;
+                Object.keys(leagues).forEach(league => {
+                    
+                    options += `<option value="${leagues[league].id}">${leagues[league].name}</option>`
+                }); 
+
+                document.getElementById(`${id}`).innerHTML = 
+                `<option value="">Not has a league</option>
+                 ${options}                              
+                `;
+            }
+        });
+    </script>
 </body>
 </html>
