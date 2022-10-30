@@ -11,7 +11,6 @@
 </head>
 <body>
     <main>
-
         @include('navbar')
         <div class="main-page-container">
 
@@ -139,11 +138,9 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
-
+                {{$countries->links()}}
             </div>
-
         </div>
 
     </main>

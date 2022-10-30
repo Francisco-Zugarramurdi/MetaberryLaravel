@@ -174,7 +174,7 @@
                     </tbody>
 
                 </table>
-
+                {{$leagues->links()}}
             </div>
 
         </div>

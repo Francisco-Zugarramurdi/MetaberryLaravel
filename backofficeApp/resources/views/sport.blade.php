@@ -254,7 +254,7 @@
                     </tbody>
 
                 </table>
-
+                {{$sports->links()}}
             </div>
 
         </div>

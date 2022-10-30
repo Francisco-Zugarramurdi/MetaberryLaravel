@@ -134,7 +134,7 @@ class AdController extends Controller
           "tags.tag as tag")
         ->get();
 
-        $indexAd = Ad::all();
+        $indexAd = Ad::paginate(10);
         $tag = Tag::all();
 
         return view('ads')->with('ads',$indexAd)->with('tags',$tag)->with('adsModal',$ads);

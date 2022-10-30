@@ -50,7 +50,7 @@ class EventController extends Controller
         ->join('sports','events.id_sports','sports.id')
         ->join('countries','countries.id','events.id_countries')
         ->select('events.date as date','countries.name as countryName','events.name as name','events.id as id','events.details as details','events.relevance as relevance','leagues.id as idLeague','leagues.name as leagueName','sports.name as sportName')
-        ->get();
+        ->paginate(10);
 
         return view('eventlist')
         ->with('events',$event)

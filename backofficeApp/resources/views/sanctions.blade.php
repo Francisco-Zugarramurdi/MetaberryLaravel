@@ -170,6 +170,7 @@
                     </tbody>
 
                 </table>
+                {{$sanctions->links()}}
             </div>
 
             <div class="user-table-container">
@@ -251,6 +252,7 @@
                     </tbody>
 
                 </table>
+                {{$sanctionsExtra->links()}}
             </div>
 
         </div>

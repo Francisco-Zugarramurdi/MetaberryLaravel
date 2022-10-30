@@ -23,7 +23,7 @@
 
             </div>
 
-            <div class="user-table-container enable event subscription">
+            <div class="user-table-container subscription">
 
                 <table class="user-table">
 
@@ -111,7 +111,7 @@
                     </tbody>
 
                 </table>
-
+                {{$subscriptions->links()}}
             </div>
 
         </div>

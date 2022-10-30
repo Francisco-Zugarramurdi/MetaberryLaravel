@@ -64,7 +64,7 @@ class SportController extends Controller
 
     public function index(Request $request){
 
-        $sports = Sport::all();
+        $sports = Sport::paginate(10);
 
         return view('sport')->with('sports', $sports);
 

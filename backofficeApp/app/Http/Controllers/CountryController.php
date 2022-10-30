@@ -86,7 +86,7 @@ class CountryController extends Controller
 
     public function index(Request $request){
 
-        $countries = Country::all();
+        $countries = Country::paginate(10);
 
         return view('country')->with('countries', $countries);
 

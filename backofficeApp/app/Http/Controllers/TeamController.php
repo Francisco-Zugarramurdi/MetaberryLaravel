@@ -78,7 +78,7 @@ class TeamController extends Controller
         $teams = Team::join('sports','sports.id','teams.id_sports')
         ->join('countries', 'countries.id', 'teams.id_countries')
         ->select("teams.id as id", "teams.name as name", "teams.photo as photo","teams.type_teams as typeTeam", "sports.name as sportName", "countries.name as countryName")
-        ->get();
+        ->paginate(10);
 
         $country = Country::all();
         $sport = Sport::all();

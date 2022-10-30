@@ -197,7 +197,7 @@
                         </tbody>
 
                     </table>
-
+                    {{$extras->links()}}
                 </div>
 
             </div>

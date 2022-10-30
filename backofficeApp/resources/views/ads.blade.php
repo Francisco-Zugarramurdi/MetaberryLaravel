@@ -214,7 +214,7 @@
                     </tbody>
 
                 </table>
-
+                {{$ads->links()}}
             </div>
 
         </div>

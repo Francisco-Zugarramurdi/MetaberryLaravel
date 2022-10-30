@@ -432,18 +432,18 @@ main {
   margin: 0;
 }
 .main-page-container .user-table-container.event {
-  margin: 100px 0 0 30px;
+  margin: 100px 0 0 100px;
 }
 .main-page-container .user-table-container.subscription {
-  width: 55vw;
+  margin: 100px 0 0 30px;
 }
 .main-page-container .user-table-container {
   width: 75vw;
   height: auto;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
   padding: 0;
   margin: 0 0 60px 60px;
 }
@@ -645,6 +645,45 @@ main {
 .main-page-container .user-table-container .user-table tbody tr .actions-buttons .delete-btn:hover {
   background-color: var(--error-border);
   color: var(--white);
+}
+.main-page-container .user-table-container nav {
+  width: auto;
+  height: 30px;
+  border: 2px solid var(--blue);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 15px 0;
+}
+.main-page-container .user-table-container nav .pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+}
+.main-page-container .user-table-container nav .pagination .page-item {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.main-page-container .user-table-container nav .pagination .page-item:first-of-type .page-link, .main-page-container .user-table-container nav .pagination :last-of-type .page-link {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: var(--blue);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1.3em;
+}
+.main-page-container .user-table-container nav .pagination .active {
+  background-color: var(--grayish);
 }
 
 .modalContainer {

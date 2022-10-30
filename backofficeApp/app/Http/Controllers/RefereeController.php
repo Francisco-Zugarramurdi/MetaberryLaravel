@@ -81,7 +81,7 @@ class RefereeController extends Controller
 
     public function index(Request $request){
 
-        $referee = Referee::all();
+        $referee = Referee::paginate(10);
 
         return view('referee')->with('referees', $referee);
 

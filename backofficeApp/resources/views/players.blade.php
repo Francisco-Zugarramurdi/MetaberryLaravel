@@ -254,7 +254,7 @@
                     </tbody>
 
                 </table>
-
+                {{$players->links()}}
             </div>
 
         </div>

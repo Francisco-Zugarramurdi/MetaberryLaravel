@@ -35,7 +35,7 @@ class UserController extends Controller
     public function index(){
 
         $users = UserData::join('users','users.id','users_data.id')
-        ->get();
+        ->paginate(10);
 
         return view('users')->with('users',$users);
     }
@@ -273,7 +273,7 @@ class UserController extends Controller
         ->select('users_data.id as userID', 'users_data.photo as photo',
         'users_data.type_of_user as type_of_user', 'users.email as email',
         'users_subscriptions.type_of_subscription as subscription', 'users_subscriptions.id as id')
-        ->get();
+        ->paginate(10);
 
         return view('usersubscription')->with('subscriptions',$subscription);
 

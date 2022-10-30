@@ -122,7 +122,7 @@
                     @endforeach
                 </tbody>
             </table>
-
+            {{$events->links()}}
     </main>
 
     <script>

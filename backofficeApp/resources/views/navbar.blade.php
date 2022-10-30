@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+
 <div class="empty"></div>
         
         <div class="side-container">
