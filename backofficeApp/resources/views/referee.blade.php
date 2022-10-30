@@ -52,7 +52,7 @@
                                     </label>
 
                                     <label>
-                                        <p><span>* </span>Referee image</p>
+                                        <p>Referee image</p>
                                         <input type="file" name="image" accept="image/*" id="imageInput" class="input-image">
                                         <label for="imageInput" class="label-image">
                                             <span class="material-symbols-outlined">upload</span>

@@ -43,19 +43,19 @@
                                             </label>
                                             <label>
                                                 <p>Details:</p>
-                                                <input type="text" name="details" id="name" value="{{$event->details}}">
+                                                <input type="text" name="details" id="details" value="{{$event->details}}">
                                             </label>
                                             <label>
                                                 <p>Date:</p>
-                                                <input type="date" name="date" id="name" value="{{$event->date}}">
+                                                <input type="date" name="date" id="date" value="{{$event->date}}">
                                             </label>
                                             <label>
                                                 <p>Relevance:</p>
-                                                <input type="number" name="relevance" id="name" value="{{$event->relevance}}">
+                                                <input type="number" name="relevance" id="Relevance" value="{{$event->relevance}}">
                                             </label>
                                             <label>
                                             <p>Country:</p>
-                                                <select name="country" class="country">
+                                                <select name="country" id="Country">
                                                     @foreach($countries as $country)
                                                     <option value="{{$country->id}}" @if($country->name == $event->countryName)selected @endif>{{$country->name}}</option>
                                                     @endforeach
@@ -63,7 +63,7 @@
                                             </label>
                                             <label>
                                             <p>Sport:</p>
-                                                <select name="sport" class="sport">
+                                                <select name="sport" id="Sport">
                                                     @foreach($sports as $sport)
                                                     <option value="{{$sport->id}}" @if($sport->name == $event->sportName)selected @endif>{{$sport->name}}</option>
                                                     @endforeach
@@ -71,7 +71,7 @@
                                             </label>
                                             <label>
                                                 <p>League:</p>
-                                                <select name="league" class="league">
+                                                <select name="league" id="league">
                                                     @foreach($leagues as $league)
                                                     <option value="{{$league->id}}"  @if($league->name == $event->leagueName)selected @endif>{{$league->name}}</option>
                                                     @endforeach
@@ -305,7 +305,58 @@
                                                         </div>
 
                                                     </div>
-                                                </div>      
+                                                </div>  
+                                                
+                                                <script>                   
+                                                    jQuery(document).ready(function(){
+                                                        jQuery('#addTeamMarkUp').click(function(){
+                                                            $.ajaxSetup({
+                                                                headers: {
+                                                                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                                                                }
+                                                            });
+                                                            jQuery.ajax({
+                                                                url: "{{ url('/team/indexBySport') }}",
+                                                                method: 'POST',
+                                                                data: {
+                                                                    id:jQuery('#Sport').val()
+                                                                },
+                                                                success: function(teams){
+                                                                    CreateATeam(teams)
+                                                            }});
+                                                        });
+                                                    
+                                                        let CreateATeam = (teams, typeOfMark) =>{
+                                                        let options = ''
+
+                                                        Object.keys(teams).forEach(team => {
+                                                            
+                                                            options += `<option value="${teams[team].id}">${teams[team].name}</option>`
+                                                        }); 
+
+                                                        document.getElementById(`team_card_container_for_mark_up`).innerHTML += 
+                                                        `<div class="team-container">
+                                                        
+                                                            <label>
+                                                                Team
+                                                                <select name="marks[][team]">
+                                                                    ${options}
+                                                                </select>
+                                                            </label>
+
+                                                            <label>
+                                                                marks
+                                                                <input type="number" name="marks[][mark]" min="1">
+                                                            </label>
+                                                    
+                                                        </div>`;
+                                                    }
+                                                });
+                                                jQuery('#Sport').change(function(){
+                                                    document.getElementById('team_card_container_for_mark_up').innerHTML = "";
+                                                });
+                                                
+                                                </script>
                                             @endif
 
                                             @if($event->typeResult == "results_downward")
@@ -319,10 +370,10 @@
 
                                                         <label class="add-btn">
                                                             Add a team
-                                                            <button type="button" id="addTeamMarkUp"><span class="material-symbols-outlined">add</span></button>
+                                                            <button type="button" id="addTeamMarkDown"><span class="material-symbols-outlined">add</span></button>
                                                         </label>
                                                         
-                                                        <div class="team-card-container" id="team_card_container_for_mark_up">
+                                                        <div class="team-card-container" id="team_card_container_for_mark_down">
                                                                 
                                                             @foreach($scores as $score)
                                                             <div class="team-container">
@@ -349,7 +400,60 @@
                                                         </div>
 
                                                     </div>
-                                            </div> 
+                                            </div>
+                                            <script>
+                                                jQuery(document).ready(function(){
+                                                    jQuery('#addTeamMarkDown').click(function(){
+                                                        $.ajaxSetup({
+                                                            headers: {
+                                                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                                                            }
+                                                        });
+                                                        jQuery.ajax({
+                                                            url: "{{ url('/team/indexBySport') }}",
+                                                            method: 'POST',
+                                                            data: {
+                                                                id:jQuery('#Sport').val()
+                                                            },
+                                                            success: function(teams){
+                                                                console.log(teams)
+                                                                CreateATeam(teams)
+                                                        }});
+                                                    });
+                                                        
+                                                    let CreateATeam = (teams) =>{
+                                                    let options = ''
+    
+                                                    Object.keys(teams).forEach(team => {
+                                                        
+                                                        options += `<option value="${teams[team].id}">${teams[team].name}</option>`
+                                                    }); 
+    
+                                                    document.getElementById(`team_card_container_for_mark_down`).innerHTML += 
+                                                    `<div class="team-container">
+                                                            
+                                                        <label>
+                                                            Team
+                                                            <select name="marks[][team]">
+                                                                ${options}
+                                                            </select>
+                                                        </label>
+    
+                                                        <label>
+                                                            marks
+                                                            <input type="number" name="marks[][mark]" min="1">
+                                                        </label>
+                                                        
+                                                    </div>`;
+                                                        }
+                                                    
+                                                    jQuery('#Sport').change(function(){
+                                                        document.getElementById('team_card_container_for_mark_down').innerHTML = "";
+                                                    });
+
+                                                })
+                                                
+                                            </script>
                                             @endif
                                         </div>
 
@@ -367,8 +471,6 @@
         </div>
         
     </main>
-    <script>
-        console.log("a");
-    </script>
+    
 </body>
 </html>

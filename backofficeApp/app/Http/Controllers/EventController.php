@@ -112,6 +112,7 @@ class EventController extends Controller
     }
 
     private function findScores($event){
+        
         if($event->typeResult == 'points_sets'){
             return PointsSet::
             join('teams', 'teams.id', 'points_sets.id_teams')
