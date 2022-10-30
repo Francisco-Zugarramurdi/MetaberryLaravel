@@ -77,6 +77,7 @@ Route::get("/league",[LeagueController::class, 'index']);
 Route::post("/league/create",[LeagueController::class, 'create']);
 Route::put("/league/{id}",[LeagueController::class, 'update']);
 Route::delete("/league/{id}",[LeagueController::class,'destroy']);
+Route::post("/league/byCountry",[LeagueController::class,'indexLeagueByCountry']);
 
 Route::get("/team",[TeamController::class,'index']);
 Route::post("/team/create",[TeamController::class,'create']);

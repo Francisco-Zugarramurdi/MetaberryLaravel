@@ -214,5 +214,11 @@ class LeagueController extends Controller
         return redirect('/league');
 
     }
+    public function indexLeagueByCountry(Request $request){
+        return LeagueCountry::join('leagues','leagues.id','leagues_countries.id_leagues')
+        ->where('leagues_countries.id_countries',$request->id)
+        ->select('leagues.id as id','leagues.name as name')
+        ->get();
+    }
 }
 
