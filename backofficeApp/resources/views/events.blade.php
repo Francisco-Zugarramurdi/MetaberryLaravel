@@ -75,7 +75,7 @@
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="leagueSets">
-                                                <option value="">Not has a league</option>
+                                                <option value="">Does not have a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -199,7 +199,7 @@
 
                                         <label><p>League</p>
                                             <select name="league" id="leaguePoints">
-                                                <option value="">Not has a league</option>
+                                                <option value="">Does not have a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -342,7 +342,7 @@
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="leagueMarkUp">
-                                                <option value="">Not has a league</option>
+                                                <option value="">Does not have a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -450,7 +450,7 @@
                                         </label>
                                         <label><p>League</p>
                                             <select name="league" id="leagueMarkDown">
-                                                <option value="">Not has a league</option>
+                                                <option value="">Does not have a league</option>
                                                 @foreach ($leagues as $league)
                                                     <option value="{{$league->id}}">{{$league->name}}</option>
                                                 @endforeach
@@ -752,7 +752,7 @@
                 }); 
 
                 document.getElementById(`${id}`).innerHTML = 
-                `<option value="">Not has a league</option>
+                `<option value="">Does not have a league</option>
                  ${options}                              
                 `;
             }
