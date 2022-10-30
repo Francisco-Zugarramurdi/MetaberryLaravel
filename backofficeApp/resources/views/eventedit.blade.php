@@ -150,7 +150,7 @@
                                                                             
                                                                             <label>
                                                                                 Player
-                                                                                <select name="point{{$eventTeam->teamId}}[{{$scoreTeam->playerId}}][player]">
+                                                                                <select name="point{{$eventTeam->teamId}}[playerId:{{$scoreTeam->playerId}}][player]">
                                                                                     @foreach($players as $player)
                                                                                         @if($player->teamId == $eventTeam->teamId)
                                                                                             <option value="{{$player->id}}" @if($player->id == $scoreTeam->playerId)selected @endif>{{$player->name}}  {{$player->surname}}</option>
@@ -161,7 +161,7 @@
 
                                                                             <label>
                                                                                 Point
-                                                                                <input type="number" name="point{{$eventTeam->teamId}}[{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
+                                                                                <input type="number" name="point{{$eventTeam->teamId}}[playerId:{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
                                                                             </label> 
 
                                                                         </div>
@@ -174,7 +174,7 @@
                                                     </div>
                                                 </div>
                                                 <script>
-                                            
+                                                    var count = 0;
                                                     let newPoint = (id) =>{
                                                         $.ajaxSetup({
                                                             headers: {
@@ -194,7 +194,7 @@
                                                     
                                                     let addPointToATeam = (players, team) =>{
                                                         let options = ''
-
+                                                        count += 1;
                                                         Object.keys(players).forEach(player => {
                                                             
                                                             options += `<option value="${players[player].id}">${players[player].name}  ${players[player].surname}</option>`
@@ -205,14 +205,14 @@
                                                             
                                                             <label>
                                                                 Player
-                                                                <select name="point${team}[][player]" id="player">
+                                                                <select name="point${team}[${count}][player]" id="player">
                                                                     ${options}
                                                                 </select>
                                                             </label>
                                                         
                                                             <label>
                                                                 Points
-                                                                <input type="number" name="point${team}[][points]" min="1">
+                                                                <input type="number" name="point${team}[${count}][points]" min="1">
                                                             </label>
                                                         
                                                         </div>`;
@@ -237,8 +237,9 @@
                                                     };
 
                                                     let changeTeamSelect = (players, team) =>{
+                                                        count += 1;
                                                         let options = ''
-
+                                                        
                                                         Object.keys(players).forEach(player => {
                                                             
                                                             options += `<option value="${players[player].id}">${players[player].name}  ${players[player].surname}</option>`
@@ -249,14 +250,14 @@
                                                             
                                                             <label>
                                                                 Player
-                                                                <select name="point${team}[][player]" id="player">
+                                                                <select name="point${team}[${count}][player]" id="player">
                                                                     ${options}
                                                                 </select>
                                                             </label>
                                                         
                                                             <label>
                                                                 Points
-                                                                <input type="number" name="point${team}[][points]" min="1">
+                                                                <input type="number" name="point${team}[${count}][points]" min="1">
                                                             </label>
                                                         
                                                         </div>`;
@@ -286,7 +287,7 @@
                                                                 
                                                                 <label>
                                                                     Team
-                                                                    <select name="marks[{{$score->teamId}}][team]">
+                                                                    <select name="marks[teamId:{{$score->teamId}}][team]">
                                                                         @foreach($teams as $team)
                                                                             <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
                                                                         @endforeach
@@ -295,7 +296,7 @@
 
                                                                 <label>
                                                                     marks
-                                                                    <input type="text" name="marks[{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
+                                                                    <input type="text" name="marks[teamId:{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
                                                                 </label>
                                                         
                                                             </div>
@@ -309,6 +310,7 @@
                                                 
                                                 <script>                   
                                                     jQuery(document).ready(function(){
+                                                        var count = 0;
                                                         jQuery('#addTeamMarkUp').click(function(){
                                                             $.ajaxSetup({
                                                                 headers: {
@@ -328,6 +330,7 @@
                                                     
                                                         let CreateATeam = (teams, typeOfMark) =>{
                                                         let options = ''
+                                                        count += 1;
 
                                                         Object.keys(teams).forEach(team => {
                                                             
@@ -339,14 +342,14 @@
                                                         
                                                             <label>
                                                                 Team
-                                                                <select name="marks[][team]">
+                                                                <select name="marks[${count}][team]">
                                                                     ${options}
                                                                 </select>
                                                             </label>
 
                                                             <label>
                                                                 marks
-                                                                <input type="number" name="marks[][mark]" min="1">
+                                                                <input type="number" name="marks[${count}][mark]" min="1">
                                                             </label>
                                                     
                                                         </div>`;
@@ -380,7 +383,7 @@
                                                                 
                                                                 <label>
                                                                     Team
-                                                                    <select name="marks[{{$score->teamId}}][team]">
+                                                                    <select name="marks[teamId:{{$score->teamId}}][team]">
                                                                         @foreach($teams as $team)
                                                                             <option value="{{$team->id}}" @if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
                                                                         @endforeach
@@ -389,7 +392,7 @@
 
                                                                 <label>
                                                                     marks
-                                                                    <input type="text" name="marks[{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
+                                                                    <input type="text" name="marks[teamId:{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
                                                                 </label>
                                                         
                                                             </div>
@@ -403,6 +406,7 @@
                                             </div>
                                             <script>
                                                 jQuery(document).ready(function(){
+                                                    var count = 0;
                                                     jQuery('#addTeamMarkDown').click(function(){
                                                         $.ajaxSetup({
                                                             headers: {
@@ -423,7 +427,8 @@
                                                         
                                                     let CreateATeam = (teams) =>{
                                                     let options = ''
-    
+                                                    count += 1;
+
                                                     Object.keys(teams).forEach(team => {
                                                         
                                                         options += `<option value="${teams[team].id}">${teams[team].name}</option>`
@@ -434,14 +439,14 @@
                                                             
                                                         <label>
                                                             Team
-                                                            <select name="marks[][team]">
+                                                            <select name="marks[${count}][team]">
                                                                 ${options}
                                                             </select>
                                                         </label>
     
                                                         <label>
                                                             marks
-                                                            <input type="number" name="marks[][mark]" min="1">
+                                                            <input type="number" name="marks[${count}][mark]" min="1">
                                                         </label>
                                                         
                                                     </div>`;

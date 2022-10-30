@@ -621,7 +621,7 @@
 
             Object.keys(players).forEach(player => {
                     
-                options += `<option value="${players[player].id}">${players[player].name}  ${players[player].name}</option>`
+                options += `<option value="${players[player].id}">${players[player].name}  ${players[player].surname}</option>`
             }); 
 
             document.getElementById(`team_card_${team}_container`).innerHTML = 
