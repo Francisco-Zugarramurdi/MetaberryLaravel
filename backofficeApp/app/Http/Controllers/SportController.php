@@ -72,7 +72,7 @@ class SportController extends Controller
 
     public function update(Request $request, $id){
 
-        $validation = $this->validateCreationRequest($request);
+        $validation = $this->validateUpdateRequest($request);
 
         if($validation !== "ok")
             return $validation;
@@ -95,9 +95,21 @@ class SportController extends Controller
 
         $sport = Sport::findOrFail($id);
         $sport -> name = $request -> name;
-        $sport -> icon = $request -> icon;
+        $sport -> icon = $sport -> icon;
         $sport-> save();
 
+    }
+
+    private function validateUpdateRequest(Request $request){
+
+        $validation = Validator::make($request->all(),[
+            'name'=> 'required'
+        ]);
+
+        if($validation->fails())
+            return $validation->errors()->toJson();
+        return 'ok';
+        
     }
 
     public function destroy($id){
