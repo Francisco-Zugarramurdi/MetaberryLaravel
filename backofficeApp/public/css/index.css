@@ -537,6 +537,12 @@ main {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.main-page-container .user-table-container .user-table tbody tr .ad .image-container {
+  border-radius: 1px;
+}
+.main-page-container .user-table-container .user-table tbody tr .ad .image-container img {
+  border-radius: 1px;
+}
 .main-page-container .user-table-container .user-table tbody tr .user-name {
   padding: 10px 0 10px 15px;
   margin: 0;

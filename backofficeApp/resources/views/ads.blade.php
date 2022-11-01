@@ -71,7 +71,7 @@
         
                                         <label>
                                             <p><span>* </span>Views hired</p>
-                                            <input type="text" name="viewsHired" placeholder="100" id="viewsHired">
+                                            <input type="number" name="viewsHired" placeholder="100" id="viewsHired">
                                         </label>
 
                                     </div>
@@ -119,6 +119,7 @@
                         <tr>
 
                             <th>ID</th>
+                            <th>Preview</th>
                             <th>Image</th>
                             <th>Url</th>
                             <th>Size</th>
@@ -141,6 +142,14 @@
                                         <td class="user-id">
 
                                             <p>{{$ad->id}}</p>
+
+                                        </td>
+
+                                        <td class="user-profile-pic ad">
+
+                                            <div class="image-container">
+                                                <img src="{{ asset('img/public_images').'/'.$ad->image }}" alt="">
+                                            </div>
 
                                         </td>
 
@@ -171,7 +180,7 @@
 
                                         <td class="user-points">
                                             <label>
-                                                <input type="text"name="viewsHired" value="{{$ad->views_hired}}">
+                                                <input type="number" name="viewsHired" value="{{$ad->views_hired}}">
                                             </label>
                                         </td>
     

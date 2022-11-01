@@ -58,7 +58,7 @@ class AdController extends Controller
 
     private function createAd(Request $request){
 
-        $image = $this->saveImage($request);
+        $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
         $ad = Ad::create([
             'image' => $image,
@@ -73,10 +73,10 @@ class AdController extends Controller
         return redirect('/ads');
     }
 
-    private function saveImage(Request $request){
+    private function saveImage(Request $request, $defaultImage){
 
         if($request->hasFile('image')){
-
+            
             $destinationPath = public_path('/img/public_images');
             $image = $request->file('image');
             $name = 'profile_img' . time();
@@ -86,20 +86,24 @@ class AdController extends Controller
             return $imagePath;
 
         }
-
+        return $defaultImage;
     }
+
 
     private function deleteImage($id){
 
         $ad = Ad::findOrFail($id);
-        $image = $ad -> image; 
+        $currentImage = $ad -> image; 
 
-        $destinationPath = public_path('/img/public_images');
+        if($currentImage != 'default_img_do_not_delete.jpg'){
 
-        $imagePath = $destinationPath . '/' . $image;
-
-        File::delete($imagePath);
-
+            $destinationPath = public_path('\img\public_images');
+            $imagePath = $destinationPath . '/' . $currentImage;
+        
+            File::delete($imagePath);
+    
+        }
+    
     }
 
     private function saveTag(Request $request, $ad){
@@ -175,7 +179,7 @@ class AdController extends Controller
 
         }catch(QueryException $e){
             
-            return view('error')->with('errorData',$e)->with('errors', 'Cannot update ad');
+            return $e;
             
         }
         
@@ -183,15 +187,25 @@ class AdController extends Controller
 
     private function updateAd(Request $request, $id){
 
-        $this->deleteImage($id);
-        $image = $this->saveImage($request);
-
         $ad = Ad::findOrFail($id);
-        $ad ->image = $image;
-        $ad ->url = $request -> url;
-        $ad ->views_hired = $request -> viewsHired;
-        $ad ->size = $request -> size;
-        $ad->save();
+        $currentImage = $ad -> image; 
+
+        $image = $this->updateImage($request, $currentImage, $id);
+
+        $ad -> image = $image;
+        $ad -> url = $request -> url;
+        $ad -> views_hired = $request -> viewsHired;
+        $ad -> size = $request -> size;
+        $ad-> save();
+    }
+
+    private function updateImage(Request $request, $currentImage, $id){
+
+        if($request->hasFile('image'))
+            $this->deleteImage($id);
+
+        return $this->saveImage($request, $currentImage);
+
     }
 
     private function updateAdTag(Request $request,$id){
@@ -202,18 +216,27 @@ class AdController extends Controller
     }
     
     public function destroy($id){
-        
+
         try{
-            $ad = Ad::findOrFail($id);
-            $this->deleteImage($id);
-            $ad -> delete();
-            return redirect('/ads');
+
+            return $this->delete($id);
+
         }catch(QueryException $e){
 
             return view('error')->with('errorData',$e)->with('errors', 'Cannot destroy ad');
 
         }
     }
-   
+
+    private function delete($id){
+
+        $ad = Ad::findOrFail($id);
+        $this->deleteImage($id);
+
+        $ad -> delete();
+
+        return redirect('/ads');
+
+    }
 }
 
