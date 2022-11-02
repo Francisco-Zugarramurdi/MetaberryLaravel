@@ -64,7 +64,6 @@ class EventController extends Controller
 
     public function eventEdit($id){
         
-
         $event = Event::leftJoin('leagues_events','leagues_events.id_events','events.id')
         ->leftJoin('leagues','leagues.id','leagues_events.id_leagues')
         ->join('sports','events.id_sports','sports.id')
@@ -85,6 +84,7 @@ class EventController extends Controller
         $eventTeams = DB::table('events_teams')
         ->join('teams', 'teams.id', 'events_teams.id_teams')
         ->where('events_teams.id_events', $event->id)
+        ->where('events_teams.deleted_at', null)
         ->select('teams.id as teamId', 'teams.name as teamName', 
         'events_teams.id_events as eventId')
         ->get();
@@ -98,17 +98,70 @@ class EventController extends Controller
 
         $scores= $this->findScores($event);
 
+        if($event->typeResult == 'points_sets'){
+            return view('eventEditSets')
+            ->with('event',$event)
+            ->with('scores', $scores)
+            ->with('referees',Referee::all())
+            ->with('countries',Country::all())
+            ->with('sports',Sport::all())
+            ->with('leagues',League::all())
+            ->with('players',$players)
+            ->with('teams',Team::all())
+            ->with('eventTeams', $eventTeams);
 
-        return view('eventedit')
-        ->with('event',$event)
-        ->with('scores', $scores)
-        ->with('referees',Referee::all())
-        ->with('countries',Country::all())
-        ->with('sports',Sport::all())
-        ->with('leagues',League::all())
-        ->with('players',$players)
-        ->with('teams',Team::all())
-        ->with('eventTeams', $eventTeams);
+        }
+        if($event->typeResult == 'results_points'){
+            return view('eventEditPoints')
+            ->with('event',$event)
+            ->with('scores', $scores)
+            ->with('referees',Referee::all())
+            ->with('countries',Country::all())
+            ->with('sports',Sport::all())
+            ->with('leagues',League::all())
+            ->with('players',$players)
+            ->with('teams',Team::all())
+            ->with('eventTeams', $eventTeams);
+
+        }
+        if($event->typeResult == 'results_upward'){
+            return view('eventEditMarkUp')
+            ->with('event',$event)
+            ->with('scores', $scores)
+            ->with('referees',Referee::all())
+            ->with('countries',Country::all())
+            ->with('sports',Sport::all())
+            ->with('leagues',League::all())
+            ->with('players',$players)
+            ->with('teams',Team::all())
+            ->with('eventTeams', $eventTeams);
+
+        }
+        if($event->typeResult == 'results_downward'){
+            return view('eventEditMarkDown')
+            ->with('event',$event)
+            ->with('scores', $scores)
+            ->with('referees',Referee::all())
+            ->with('countries',Country::all())
+            ->with('sports',Sport::all())
+            ->with('leagues',League::all())
+            ->with('players',$players)
+            ->with('teams',Team::all())
+            ->with('eventTeams', $eventTeams);
+
+        }
+        
+        if($event->typeResult == null){
+            return view('eventEdit')
+            ->with('event',$event)
+            ->with('referees',Referee::all())
+            ->with('countries',Country::all())
+            ->with('sports',Sport::all())
+            ->with('leagues',League::all())
+            ->with('players',$players)
+            ->with('teams',Team::all())
+            ->with('eventTeams', $eventTeams);
+        }
     }
 
     private function findScores($event){
@@ -150,21 +203,6 @@ class EventController extends Controller
 
     }
 
-    public function editEvent(Request $request, $id){
-        $validation = $this->validateCreationRequest($request);
-
-        if($validation !== 'ok')
-            return $validation;
-        
-        try{
-            $this->updateEvent($request,$id);
-            $this->updateLeague($request,$id);
-            return redirect('/event/list');
-        }
-        catch (QueryException $e){
-            return $e;
-        }
-    }
 
     private function updateEvent($request,$id){
 
@@ -184,6 +222,214 @@ class EventController extends Controller
         ->update([
             'id_leagues'=> $request->league
         ]);
+    }
+
+    
+
+    private function destroyOldTeams(Request $request, $teams, $id){
+        $teamsInDataBase = DB::table("events_teams")
+        ->where('id_events', $id)
+        ->select('events_teams.id_teams as idTeam')
+        ->get();
+        
+        foreach($teamsInDataBase as $teamInDataBase){
+            if(!in_array($teamInDataBase->idTeam, $teams)){
+                DB::table($request->typeResult)
+                ->where('id_teams', $teamInDataBase->idTeam)
+                ->where("id_results",  Result::where('id_events', $id)->first()->id_results)
+                ->update([$request->typeResult . '.deleted_at'=>Carbon::now()]);
+
+                DB::table('events_teams')
+                ->where('id_events',$id)
+                ->where('id_teams', $teamInDataBase->idTeam)
+                ->update(['events_teams.deleted_at'=>Carbon::now()]);
+            }
+        }
+    }
+    private function createNewTeams(Request $request, $teams, $id){
+
+        foreach($teams as $team){
+            $teamInDataBaseExists = DB::table("events_teams")
+            ->where('id_events', $id)
+            ->where('id_teams', $team)
+            ->exists();
+
+            if(!$teamInDataBaseExists){
+                $this->addEventTeam($id, $team);
+            }
+            
+        }
+
+    }
+
+    private function updateTeams(Request $request, $id){
+        $this->destroyOldTeams($request, $request->teams, $id);
+        $this->createNewTeams($request, $request->teams, $id);
+        
+    }
+
+    public function editEventSet(Request $request, $id){
+        $validation = $this->validateCreationRequest($request);
+        if($validation !== 'ok')
+            return $validation;
+        
+        try{
+            $this->updateEvent($request,$id);
+            $this->updateLeague($request,$id);
+            $this->updateTeams($request,$id);
+
+            return redirect('/event/list');
+        }
+        catch (QueryException $e){
+            return $e;
+        }
+    }
+
+
+    public function editEventPoint(Request $request, $id){
+
+        $validation = $this->validateCreationRequest($request);
+
+        if($validation !== 'ok')
+            return $validation;
+        
+        try{
+            $this->updateEvent($request,$id);
+            $this->updateLeague($request,$id);
+            $this->updateTeams($request,$id);
+
+
+            return redirect('/event/list');
+        }
+        catch (QueryException $e){
+            return $e;
+        }
+    }
+
+    private function updateTeamsMarks(Request $request, $id){
+        $this->destroyOldTeams($request, $request->marks[teams], $id);
+        $this->createNewTeams($request, $request->marks[teams], $id);
+    }
+
+    public function editEventMarkUp(Request $request, $id){
+        $validation = $this->validateCreationRequest($request);
+        return $request;
+        if($validation !== 'ok')
+            return $validation;
+        
+        try{
+            $this->updateEvent($request,$id);
+            $this->updateLeague($request,$id);
+            $this->updateTeamsMarks($request,$id);
+            $this->updateResult($request,$id);
+            $this->updateResultsMarkUp($request,$id);
+
+            return redirect('/event/list');
+        }
+        catch (QueryException $e){
+            return $e;
+        }
+    }
+
+    public function editEventMarkDown(Request $request, $id){
+        $validation = $this->validateCreationRequest($request);
+        return $request;
+        if($validation !== 'ok')
+            return $validation;
+        
+        try{
+            $this->updateEvent($request,$id);
+            $this->updateLeague($request,$id);
+            $this->updateTeamsMarks($request,$id);
+            $this->updateResult($request,$id);
+            $this->updateMarkDown($request,$id);
+
+            return redirect('/event/list');
+        }
+        catch (QueryException $e){
+            return $e;
+        }
+    }
+    
+
+    private function updateResultAndType(Request $request, $id){
+        
+        
+        
+        if($request->typeResult == "points_sets"){
+            $this->destroyOldSets();
+            return $this->updateResultSets();
+        }
+        if($request->typeResult == "results_points"){
+            $this->destroyOldPoints();
+            return $this->updateResultPoints();
+        }
+        if($request->typeResult == "results_upward"){
+            $this->destroyOldResultsMarksUp();
+            return $this->updateResultMarkUp();
+        }
+        if($request->typeResult == "results_downward"){
+            $this->destroyOldResultsMarksDown();
+            return $this->updateResultMarkDown();
+        }
+    }
+
+    private function updateResult(){
+
+    }
+
+    private function updateResultSets(Request $request, $id){
+
+    }
+    private function updateResultPoints(Request $request, $id){
+        $resultPoints =  ResultPoint::where("id_results",  Result::where('id_evento', $id));
+
+        foreach($request->points as $point){
+            $resultPointUnique = $resultPoints->where("id_teams", $point->teamId)
+            ->where("id_players", $point->playerId);
+            
+            if($resultPointUnique->lenght = 1){
+                $resultPointUnique->first()->points = $point->points;
+                $resultPointUnique->save();
+                
+                DB::table("results_points")
+                ->with('id_results', $resultPointUnique->first()->id_results)
+                ->with('id_teams', $point->team)
+                ->with('id_players', $point->player)
+                ->update(["points" => $point->points]);
+
+            }
+            if($resultPointUnique->lenght = 0){
+                DB::table("results_points")->insert([
+                    "id_result" => $resultPoints->first()->id_results,
+                    "id_player" => $point->player,
+                    "id_team" => $point->team,
+                    "points" => $point->point
+                ]);
+                
+            }
+        }
+
+        
+    }
+    private function updateResultMarkUp(Request $request, $id){
+
+    }
+    private function updateResultMarkDown(Request $request, $id){
+
+    }
+
+    private function destroyOldSets(Request $request, $id){
+
+    }
+    private function destroyOldPoints(Request $request, $id){
+
+    }
+    private function destroyOldMarkUp(Request $request, $id){
+
+    }
+    private function destroyOldMarkDown(Request $request, $id){
+
     }
 
     private function createEvent(Request $request){

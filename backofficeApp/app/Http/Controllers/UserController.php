@@ -216,10 +216,17 @@ class UserController extends Controller
     
     private function validateEmailUpdate(Request $request){
 
-        if(User::withTrashed()->where('email', $request -> post("email")) -> exists())
-            return 'User already exists';
-        return 'ok';
+        $user = User::where('email', $request->email);
 
+        if($user->where("id", $request->id)->exists()){
+            return 'ok';
+        }
+            
+        if($user->withTrashed()->exists()){
+            return 'ok';
+        }
+
+        return "false";
     }
 
     private function updateImage(Request $request, $currentImage, $id){

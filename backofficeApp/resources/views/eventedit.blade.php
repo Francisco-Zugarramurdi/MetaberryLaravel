@@ -85,6 +85,9 @@
                                                     @endforeach
                                                 </select>
                                             </label>
+                                            <label>
+                                                <input type="hidden" name="typeResult" value="{{$event->typeResult}}">
+                                            </label>
                                         </div>
 
                                         <div class="form-up-container">
@@ -95,7 +98,7 @@
                                                     <div class="team-container">
                                                         <label>
                                                             Team
-                                                            <select name="Team{{$eventTeam->teamId}}" id="localTeam">
+                                                            <select name="Teams[]" id="localTeam">
                                                                 @foreach($teams as $team)
                                                                     <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
                                                                 @endforeach
@@ -133,6 +136,8 @@
                                                 <div class="form-inner-container">
                                                     <div class="form-team-container">
                                                         @foreach($eventTeams as $eventTeam)
+                                                            
+                                                        
                                                             <label>
                                                                 <p><span>* </span>Teams</p>
                                                             </label>
@@ -143,7 +148,7 @@
                                                             </label>
                                                             <label>
                                                                 Team
-                                                                <select name="localTeam" id="{{$eventTeam->teamId}}TeamScore" onChange="changeTeam({{$eventTeam->teamId}})">
+                                                                <select name="teams[]" id="{{$eventTeam->teamId}}TeamScore" onChange="changeTeam({{$eventTeam->teamId}})">
                                                                     @foreach($teams as $team)
                                                                     <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
                                                                     @endforeach
@@ -155,10 +160,12 @@
                                                                     @if($scoreTeam->teamId == $eventTeam->teamId)
                                                                         
                                                                         <div class="team-container">
-                                                                            
+                                                                            <label>
+                                                                                <input type="hidden" name="points[playerId:{{$scoreTeam->playerId}}][team]" value="{{$eventTeam->teamId}}">
+                                                                            </label>
                                                                             <label>
                                                                                 Player
-                                                                                <select name="point{{$eventTeam->teamId}}[playerId:{{$scoreTeam->playerId}}][player]">
+                                                                                <select name="points[playerId:{{$scoreTeam->playerId}}][player]">
                                                                                     @foreach($players as $player)
                                                                                         @if($player->teamId == $eventTeam->teamId)
                                                                                             <option value="{{$player->id}}" @if($player->id == $scoreTeam->playerId)selected @endif>{{$player->name}}  {{$player->surname}}</option>
@@ -169,7 +176,7 @@
 
                                                                             <label>
                                                                                 Point
-                                                                                <input type="number" name="point{{$eventTeam->teamId}}[playerId:{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
+                                                                                <input type="number" name="points[playerId:{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
                                                                             </label> 
 
                                                                         </div>
@@ -203,6 +210,7 @@
                                                     let addPointToATeam = (players, team) =>{
                                                         let options = ''
                                                         count += 1;
+                                                        teamId= players[Object.keys(players)[0]].teamId;
                                                         Object.keys(players).forEach(player => {
                                                             
                                                             options += `<option value="${players[player].id}">${players[player].name}  ${players[player].surname}</option>`
@@ -210,17 +218,19 @@
 
                                                         document.getElementById(`team_card_${team}_container`).innerHTML += 
                                                         `<div class="team-container">
-                                                            
+                                                            <label>
+                                                                <input type="hidden" name="point[${count}][team]" value="${teamId}">
+                                                            </label>
                                                             <label>
                                                                 Player
-                                                                <select name="point${team}[${count}][player]" id="player">
+                                                                <select name="points[${count}][player]" id="player">
                                                                     ${options}
                                                                 </select>
                                                             </label>
                                                         
                                                             <label>
                                                                 Points
-                                                                <input type="number" name="point${team}[${count}][points]" min="1">
+                                                                <input type="number" name="points[${count}][points]" min="1">
                                                             </label>
                                                         
                                                         </div>`;
@@ -247,7 +257,7 @@
                                                     let changeTeamSelect = (players, team) =>{
                                                         count += 1;
                                                         let options = ''
-                                                        
+                                                        teamId = players[Object.keys(players)[0]].teamId;
                                                         Object.keys(players).forEach(player => {
                                                             
                                                             options += `<option value="${players[player].id}">${players[player].name}  ${players[player].surname}</option>`
@@ -255,17 +265,19 @@
 
                                                         document.getElementById(`team_card_${team}_container`).innerHTML = 
                                                         `<div class="team-container">
-                                                            
+                                                            <label>
+                                                                <input type="hidden" name="points[${count}][team]" value="${teamId}">
+                                                            </label>
                                                             <label>
                                                                 Player
-                                                                <select name="point${team}[${count}][player]" id="player">
+                                                                <select name="points[${count}][player]" id="player">
                                                                     ${options}
                                                                 </select>
                                                             </label>
                                                         
                                                             <label>
                                                                 Points
-                                                                <input type="number" name="point${team}[${count}][points]" min="1">
+                                                                <input type="number" name="points[${count}][points]" min="1">
                                                             </label>
                                                         
                                                         </div>`;
@@ -292,10 +304,9 @@
                                                                 
                                                             @foreach($scores as $score)
                                                             <div class="team-container">
-                                                                
                                                                 <label>
                                                                     Team
-                                                                    <select name="marks[teamId:{{$score->teamId}}][team]">
+                                                                    <select name="marks[teamId:{{$score->teamId}}][team]" >
                                                                         @foreach($teams as $team)
                                                                             <option value="{{$team->id}}"@if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
                                                                         @endforeach
