@@ -460,5 +460,38 @@ create table admins(
     primary key(id)
 );
 
+create view AllPosts as
+select users_data.id as id_user, users_data.name as UserName, users_data.photo as UserPhoto, post.post as
+Post, post.dates as PostDate, post.number_of_likes as Likes
+from users_data
+join post
+on users_data.id = post.id_users_data;
+
+create view AllEvents as
+select events.id as eventId,
+events.name as eventName,
+events.details as eventDetails,
+events.date as eventDate,
+events.id_sports as eventIdSport,
+events.id_countries as eventIdCountry,
+events.relevance as eventRelevance,
+results.id as resultId,
+results.type_results as resultType,
+results.results as resultResult,
+results.id_events as resultIdEvent,
+teams.id as teamId,
+teams.name as teamName,
+teams.photo as teamPhoto,
+teams.type_teams as teamType,
+teams.id_sports as teamIdSport,
+teams.id_countries as teamIdCountry
+from events
+join events_teams
+on events.id = events_teams.id_events
+join teams
+on teams.id = events_teams.id_teams
+join results
+on results.id_events = events.id;
+
 insert into tags (tag) values
 ('Main');
