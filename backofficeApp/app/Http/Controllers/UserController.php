@@ -216,13 +216,11 @@ class UserController extends Controller
     
     private function validateEmailUpdate(Request $request, $id){
     
-        $emailExists = User::where('email', $request -> email)->exists();
+        $emailExists = User::withTrashed()->where('email', $request -> email)->exists();
 
-        $user = User::findOrFail($id);
-        $email = $user -> email;
-
-        if($email == $request -> email || $email != $request -> email && !$emailExists)
+        if(User::findOrFail($id)->email == $request -> email || !$emailExists)
             return 'ok';
+    
         return 'User already exists';
             
     }
