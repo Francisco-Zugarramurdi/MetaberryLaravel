@@ -16,7 +16,7 @@ class SportController extends Controller
         $this->middleware('auth');
     }
     
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -62,7 +62,7 @@ class SportController extends Controller
 
     }
 
-    public function index(Request $request){
+    public function Index(Request $request){
 
         $sports = Sport::orderBy('name')->paginate(10);
 
@@ -70,7 +70,7 @@ class SportController extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateUpdateRequest($request);
 
@@ -112,7 +112,7 @@ class SportController extends Controller
         
     }
 
-    public function destroy($id){
+    public function Destroy($id){
 
         $validation = $this->validateDestroy($id);
 

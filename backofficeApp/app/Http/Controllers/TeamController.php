@@ -22,7 +22,7 @@ class TeamController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateRequest($request);
 
@@ -74,7 +74,7 @@ class TeamController extends Controller
 
     }
 
-    public function index(){
+    public function Index(){
         $teams = Team::join('sports','sports.id','teams.id_sports')
         ->join('countries', 'countries.id', 'teams.id_countries')
         ->select("teams.id as id", "teams.name as name", "teams.photo as photo","teams.type_teams as typeTeam", "sports.name as sportName", "countries.name as countryName")
@@ -87,12 +87,12 @@ class TeamController extends Controller
         return view('teams')->with('teams',$teams)->with('countries', $country)->with('sports', $sport);
     }
 
-    public function getTeams(){
+    public function GetTeams(){
         
         return Team::all();
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateRequest($request);
 
@@ -166,7 +166,7 @@ class TeamController extends Controller
 
     }
 
-    public function destroy($id){
+    public function Destroy($id){
 
         $validation = $this->validateDestroy($id);
 
@@ -218,7 +218,7 @@ class TeamController extends Controller
         ->update(['extra_compose.deleted_at'=>Carbon::now()]);
 
     }
-    public function indexTeamBySport(Request $request){
+    public function IndexTeamBySport(Request $request){
         return Team::where('id_sports',$request->id)->get();
 
     }

@@ -20,7 +20,7 @@ class SanctionController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function Index(){
         $sanctions = DB::table('sanctions')
         ->join('sanctions_players','sanctions_players.id_sancion','sanctions.id')
         ->join('players','players.id','sanctions_players.id_players')
@@ -39,7 +39,7 @@ class SanctionController extends Controller
         ->paginate(10);
         return view('sanctions')->with('sanctions',$sanctions)->with('events',Event::all())->with('sanctionsExtra',$sanctionExtra);
     }
-    public function create(Request $request){
+    public function Create(Request $request){
         $validation = $this->validateRequest($request);
         if($validation !== "ok")
             return $validation;
@@ -86,7 +86,7 @@ class SanctionController extends Controller
        
 
     }
-    public function update(Request $request,$id){
+    public function Update(Request $request,$id){
         $validation = $this->validateRequest($request);
         if($validation !== "ok")
             return $validation;
@@ -111,7 +111,7 @@ class SanctionController extends Controller
         }
 
     }
-    public function destroy(Request $request,$id){
+    public function Destroy(Request $request,$id){
         $sanction = Sanction::findOrfail($id)->delete();
         if($request->type == "Player"){
             SanctionPlayers::where('id_sancion',$id)->delete();

@@ -22,97 +22,97 @@ use App\Http\Controllers\SanctionController;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now Create something great!
 |
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('Index');
 })->middleware('auth');
 
-Route::get("/user",[UserController::class,'index']);
-Route::post("/user/create",[UserController::class,'create']);
-Route::put("/user/{id}",[UserController::class,'update']);
-Route::delete("/user/{id}",[UserController::class,'destroy']);
+Route::get("/user",[UserController::class,'Index']);
+Route::post("/user/create",[UserController::class,'Create']);
+Route::put("/user/{id}",[UserController::class,'Update']);
+Route::delete("/user/{id}",[UserController::class,'Destroy']);
 
-Route::get("/user/subscription", [UserController::class, 'indexSubscription']);
-Route::put("/user/subscription/{id}",[UserController::class,'updateSubscription']);
-Route::delete("/user/subscription/{id}", [UserController::class, 'destroySubscription']);
-
-
-Route::get("/ads",[AdController::class,'index']);
-Route::post("/ads/create",[AdController::class,'create']);
-Route::put("/ads/{id}",[AdController::class,'update']);
-Route::delete("/ads/{id}",[AdController::class,'destroy']);
-Route::post("/ads/addTag",[AdController::class,'addTag']);
-
-Route::get("/player",[PlayerController::class,'index']);
-Route::post("/player/create",[PlayerController::class,'create']);
-Route::put("/player/{id}",[PlayerController::class,'update']);
-Route::delete("/player/{id}",[PlayerController::class,'destroy']);
-Route::post("/player/addTeam",[PlayerController::class,'addTeam']);
-Route::post("/player/indexById",[PlayerController::class,'indexPlayersById']);
-Route::post("/player/indexByEvent",[PlayerController::class,'indexPlayersByEvent']);
+Route::get("/user/subscription", [UserController::class, 'IndexSubscription']);
+Route::put("/user/subscription/{id}",[UserController::class,'UpdateSubscription']);
+Route::delete("/user/subscription/{id}", [UserController::class, 'DestroySubscription']);
 
 
-Route::get("/sport",[SportController::class, 'index']);
-Route::post("/sport/create",[SportController::class, 'create']);
-Route::put("/sport/{id}",[SportController::class, 'update']);
-Route::delete("/sport/{id}",[SportController::class,'destroy']);
+Route::get("/ads",[AdController::class,'Index']);
+Route::post("/ads/create",[AdController::class,'Create']);
+Route::put("/ads/{id}",[AdController::class,'Update']);
+Route::delete("/ads/{id}",[AdController::class,'Destroy']);
+Route::post("/ads/addTag",[AdController::class,'AddTag']);
 
-Route::get("/country",[CountryController::class, 'index']);
-Route::post("/country/create",[CountryController::class, 'create']);
-Route::put("/country/{id}",[CountryController::class, 'update']);
-Route::delete("/country/{id}",[CountryController::class,'destroy']);
-
-Route::get("/extra",[ExtraController::class, 'index']);
-Route::post("/extra/create",[ExtraController::class, 'create']);
-Route::put("/extra/{id}",[ExtraController::class, 'update']);
-Route::delete("/extra/{id}",[ExtraController::class,'destroy']);
-Route::post("/extra/indexByEvent",[ExtraController::class,'indexExtrasByEvent']);
+Route::get("/player",[PlayerController::class,'Index']);
+Route::post("/player/create",[PlayerController::class,'Create']);
+Route::put("/player/{id}",[PlayerController::class,'Update']);
+Route::delete("/player/{id}",[PlayerController::class,'Destroy']);
+Route::post("/player/addTeam",[PlayerController::class,'AddTeam']);
+Route::post("/player/indexById",[PlayerController::class,'IndexPlayersById']);
+Route::post("/player/indexByEvent",[PlayerController::class,'IndexPlayersByEvent']);
 
 
+Route::get("/sport",[SportController::class, 'Index']);
+Route::post("/sport/create",[SportController::class, 'Create']);
+Route::put("/sport/{id}",[SportController::class, 'Update']);
+Route::delete("/sport/{id}",[SportController::class,'Destroy']);
 
-Route::get("/league",[LeagueController::class, 'index']);
-Route::post("/league/create",[LeagueController::class, 'create']);
-Route::put("/league/{id}",[LeagueController::class, 'update']);
-Route::delete("/league/{id}",[LeagueController::class,'destroy']);
-Route::post("/league/byCountry",[LeagueController::class,'indexLeagueByCountry']);
+Route::get("/country",[CountryController::class, 'Index']);
+Route::post("/country/create",[CountryController::class, 'Create']);
+Route::put("/country/{id}",[CountryController::class, 'Update']);
+Route::delete("/country/{id}",[CountryController::class,'Destroy']);
 
-Route::get("/team",[TeamController::class,'index']);
-Route::post("/team/create",[TeamController::class,'create']);
-Route::delete("/team/{id}",[TeamController::class,'destroy']);
-Route::put("/team/{id}",[TeamController::class,'update']);
-Route::get("/getTeams",[TeamController::class,'getTeams']);
-Route::post("/team/indexBySport",[TeamController::class,'indexTeamBySport']);
-
-
-Route::get("/referee",[RefereeController::class,'index']);
-Route::post("/referee/create",[RefereeController::class,'create']);
-Route::delete("/referee/{id}",[RefereeController::class,'destroy']);
-Route::put("/referee/{id}",[RefereeController::class,'update']);
+Route::get("/extra",[ExtraController::class, 'Index']);
+Route::post("/extra/create",[ExtraController::class, 'Create']);
+Route::put("/extra/{id}",[ExtraController::class, 'Update']);
+Route::delete("/extra/{id}",[ExtraController::class,'Destroy']);
+Route::post("/extra/indexByEvent",[ExtraController::class,'IndexExtrasByEvent']);
 
 
-Route::get("/event",[EventController::class,'index']);
-Route::get("/event/list",[EventController::class,'indexList']);
-Route::put("/event/{id}",[EventController::class,'update']);
-Route::get("/event/create/set",[EventController::class,'createEventSet']);
-Route::get("/event/create/point",[EventController::class,'createEventPoint']);
-Route::get("/event/create/markUp",[EventController::class,'createEventMarkUp']);
-Route::get("/event/create/markDown",[EventController::class,'createEventMarkDown']);
-Route::delete("/event/list/{id}",[EventController::class,'destroy']);
-Route::get("/event/edit/{id}",[EventController::class,'eventEdit']);
-Route::put("/event/edit/set/{id}",[EventController::class,'editEventSet']);
-Route::put("/event/edit/point/{id}",[EventController::class,'editEventPoint']);
-Route::put("/event/edit/markUp/{id}",[EventController::class,'editEventMarkUp']);
-Route::put("/event/edit/markDown/{id}",[EventController::class,'editEventMarkDown']);
 
-Route::get("/sanction",[SanctionController::class,'index']);
-Route::post("/sanction/create",[SanctionController::class,'create']);
-Route::put("/sanction/{id}",[SanctionController::class,'update']);
-Route::delete("/sanction/{id}",[SanctionController::class,'destroy']);
+Route::get("/league",[LeagueController::class, 'Index']);
+Route::post("/league/create",[LeagueController::class, 'Create']);
+Route::put("/league/{id}",[LeagueController::class, 'Update']);
+Route::delete("/league/{id}",[LeagueController::class,'Destroy']);
+Route::post("/league/byCountry",[LeagueController::class,'IndexLeagueByCountry']);
+
+Route::get("/team",[TeamController::class,'Index']);
+Route::post("/team/create",[TeamController::class,'Create']);
+Route::delete("/team/{id}",[TeamController::class,'Destroy']);
+Route::put("/team/{id}",[TeamController::class,'Update']);
+Route::get("/getTeams",[TeamController::class,'GetTeams']);
+Route::post("/team/indexBySport",[TeamController::class,'IndexTeamBySport']);
+
+
+Route::get("/referee",[RefereeController::class,'Index']);
+Route::post("/referee/create",[RefereeController::class,'Create']);
+Route::delete("/referee/{id}",[RefereeController::class,'Destroy']);
+Route::put("/referee/{id}",[RefereeController::class,'Update']);
+
+
+Route::get("/event",[EventController::class,'Index']);
+Route::get("/event/list",[EventController::class,'IndexList']);
+Route::put("/event/{id}",[EventController::class,'Update']);
+Route::get("/event/create/set",[EventController::class,'CreateEventSet']);
+Route::get("/event/create/point",[EventController::class,'CreateEventPoint']);
+Route::get("/event/create/markUp",[EventController::class,'CreateEventMarkUp']);
+Route::get("/event/create/markDown",[EventController::class,'CreateEventMarkDown']);
+Route::delete("/event/list/{id}",[EventController::class,'Destroy']);
+Route::get("/event/edit/{id}",[EventController::class,'EventEdit']);
+Route::put("/event/edit/set/{id}",[EventController::class,'EditEventSet']);
+Route::put("/event/edit/point/{id}",[EventController::class,'EditEventPoint']);
+Route::put("/event/edit/markUp/{id}",[EventController::class,'EditEventMarkUp']);
+Route::put("/event/edit/markDown/{id}",[EventController::class,'EditEventMarkDown']);
+
+Route::get("/sanction",[SanctionController::class,'Index']);
+Route::post("/sanction/create",[SanctionController::class,'Create']);
+Route::put("/sanction/{id}",[SanctionController::class,'Update']);
+Route::delete("/sanction/{id}",[SanctionController::class,'Destroy']);
 
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'Index'])->name('home');

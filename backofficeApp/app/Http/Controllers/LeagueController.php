@@ -21,7 +21,7 @@ class LeagueController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -52,7 +52,7 @@ class LeagueController extends Controller
         return 'ok';
     }
 
-    public function createLeague(Request $request){
+    public function CreateLeague(Request $request){
         
         $image = $this->saveImage($request, 'default_img_do_not_delete.jpg');
 
@@ -95,7 +95,7 @@ class LeagueController extends Controller
 
     }
 
-    public function index(Request $request){
+    public function Index(Request $request){
     
         $league = League::join('leagues_countries', 'leagues_countries.id_leagues', 'leagues.id')
         ->join('countries','countries.id','leagues_countries.id_countries')
@@ -108,7 +108,7 @@ class LeagueController extends Controller
         return view('league')->with('leagues', $league)->with('countries', $country);
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -178,7 +178,7 @@ class LeagueController extends Controller
 
     }
 
-    public function destroy($id){
+    public function Destroy($id){
 
         $validation = $this->validateDestroy($id);
 
@@ -214,7 +214,7 @@ class LeagueController extends Controller
         return redirect('/league');
 
     }
-    public function indexLeagueByCountry(Request $request){
+    public function IndexLeagueByCountry(Request $request){
         return LeagueCountry::join('leagues','leagues.id','leagues_countries.id_leagues')
         ->where('leagues_countries.id_countries',$request->id)
         ->select('leagues.id as id','leagues.name as name')
