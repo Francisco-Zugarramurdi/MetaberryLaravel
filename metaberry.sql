@@ -212,7 +212,7 @@ create table users_data(
 create table users(
     id bigint unsigned primary key,
     name varchar(255) not null,
-    email varchar(255) not null,
+    email varchar(255) not null unique,
     email_verified_at timestamp null default null,
     password varchar(255) not null,
     remember_token varchar(255) default null,
