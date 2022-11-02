@@ -484,14 +484,44 @@ teams.name as teamName,
 teams.photo as teamPhoto,
 teams.type_teams as teamType,
 teams.id_sports as teamIdSport,
-teams.id_countries as teamIdCountry
+teams.id_countries as teamIdCountry,
+leagues.id as leagueId,
+leagues.name as leagueName,
+leagues.details as leagueDetails,
+leagues.photo as leaguePhoto
 from events
 join events_teams
 on events.id = events_teams.id_events
 join teams
 on teams.id = events_teams.id_teams
 join results
-on results.id_events = events.id;
+on results.id_events = events.id
+join leagues_events
+on leagues_events.id_events = events.id
+join leagues
+on leagues.id = leagues_events.id_leagues;
 
 insert into tags (tag) values
 ('Main');
+
+
+create table leagues(
+    id serial primary key,
+    name varchar(50) not null,
+    details text not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
+    photo text not null
+);
+ 
+create table leagues_events(
+    id_events bigint unsigned not null,
+    id_leagues bigint unsigned not null,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
+    primary key (id_events,id_leagues),
+    foreign key (id_events) references events(id),
+    foreign key (id_leagues) references leagues(id)
+);
