@@ -215,14 +215,16 @@ class UserController extends Controller
     }
     
     private function validateEmailUpdate(Request $request, $id){
+    
+        $emailExists = User::where('email', $request -> email)->exists();
 
-        $user = User::where('email', $request->email);
+        $user = User::findOrFail($id);
+        $email = $user -> email;
 
-        if($user->where("id", $request->id)->exists() || $user->withTrashed()->exists())
+        if($email == $request -> email || $email != $request -> email && !$emailExists)
             return 'ok';
-            
         return 'User already exists';
-
+            
     }
 
     private function updateImage(Request $request, $currentImage, $id){
