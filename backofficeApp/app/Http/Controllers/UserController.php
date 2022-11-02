@@ -172,7 +172,7 @@ class UserController extends Controller
     public function update(Request $request, $id){
 
         $validation = $this->validateRegexRequest($request);
-        $validateEmail = $this->validateEmailUpdate($request);
+        $validateEmail = $this->validateEmailUpdate($request, $id);
         
         if($validation !== "ok")
             return view('error')->with('errors', $validation); 
@@ -214,19 +214,17 @@ class UserController extends Controller
 
     }
     
-    private function validateEmailUpdate(Request $request){
+    private function validateEmailUpdate(Request $request, $id){
+    
+        $emailExists = User::where('email', $request -> email)->exists();
 
-        $user = User::where('email', $request->email);
+        $user = User::findOrFail($id);
+        $email = $user -> email;
 
-        if($user->where("id", $request->id)->exists()){
+        if($email == $request -> email || $email != $request -> email && !$emailExists)
             return 'ok';
-        }
+        return 'User already exists';
             
-        if($user->withTrashed()->exists()){
-            return 'ok';
-        }
-
-        return "false";
     }
 
     private function updateImage(Request $request, $currentImage, $id){
