@@ -57,22 +57,54 @@ class EventController extends Controller
 
     public function IndexCards(Request $request){
 
-        // $mergedCollection = $events->toBase()->merge($team);
+        //Traenros los eventos
+        //con sus resultados
+        // ->join('events_teams','events_teams.id_events','events.id')
+        // ->join('teams','teams.id','events_teams.id_teams')
+        // $resultByScore = $event->join('results_points','results_points.id_results','results.id');
+        
+        $events = DB::table('events')
+        ->join('leagues_events','leagues_events.id_events','events.id')
+        ->join('leagues','leagues_events.id_leagues','leagues.id')
+        ->join('results','results.id_events','events.id')
+        ->join('countries','countries.id','events.id_countries')
+        ->join('sports','sports.id','events.id_sports')
+        ->select('events.id as id','events.name as name','events.relevance as relevance','events.date as date','results.type_results as type','results.id as idResults','leagues.name as league','sports.name as sport','countries.name as country')
+        ->get();
+        foreach($events as $event){
+            $event->teams = DB::table('teams')->join('events_teams','events_teams.id_events','teams.id')
+            ->where('id_events',$event->id)
+            ->select('teams.name as name','teams.photo as photo')
+            ->get();
+            if($events->type = "results_points"){
+                $event->results = DB::table('results_points')
+                ->where('results_points.id_results',$event->idResults)
+                ->select('point as point')
+                ->get();
+            }
 
-        // dd($mergedCollection);
-        // //validate
-
-        $events = DB::table('AllEvents')->get();
-        $points = DB::table('AllEvents')->join('results_points', 'AllEvents.resultId', 'results_points.id_results')->get();
-        $sets = DB::table('AllEvents')->join('points_sets', 'AllEvents.resultId', 'points_sets.id_results')->get();
-        $markUp = DB::table('AllEvents')->join('results_upward', 'AllEvents.resultId', 'results_upward.id_results')->get();
-        $markDown = DB::table('AllEvents')->join('results_downward', 'AllEvents.resultId', 'results_downward.id_results')->get();
-
-
-        $indexEvent = $events->toBase()->merge([$points, $sets, $markUp, $markDown]);
-
-        dd($indexEvent);
-
-    }
+            if($events->type = "points_sets"){
+                $event->results = DB::table('points_sets')
+                ->where('points_sets.id_results',$event->idResults)
+                ->select('number_set as set','points_set as point')
+                ->get();
+            }
+            if($events->type = "results_upward"){
+                $event->results = DB::table('results_upward')
+                ->where('id_results',$event->idResults)
+                ->select('position as position','result as result')
+                ->get();
+            }
+            if($events->type = "results_downward"){
+                $event->results = DB::table('results_downward')
+                ->where('id_results',$event->idResults)
+                ->select('position as position','result as result')
+                ->get();
+            }
+        }
+        
+        dd($events);
+        
+        }
 
 }
