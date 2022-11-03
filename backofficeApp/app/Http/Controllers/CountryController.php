@@ -20,7 +20,7 @@ class CountryController extends Controller
         $this->middleware('auth');
     }
     
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -84,7 +84,7 @@ class CountryController extends Controller
 
     }
 
-    public function index(Request $request){
+    public function Index(Request $request){
 
         $countries = Country::orderBy('name')->paginate(10);
 
@@ -92,7 +92,7 @@ class CountryController extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -151,7 +151,7 @@ class CountryController extends Controller
 
     }
 
-    public function destroy($id){
+    public function Destroy($id){
 
         $validation = $this->validateDestroy($id);
 

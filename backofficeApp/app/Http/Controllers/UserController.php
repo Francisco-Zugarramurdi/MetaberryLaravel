@@ -32,7 +32,7 @@ class UserController extends Controller
 
     }
 
-    public function index(){
+    public function Index(){
 
         $users = UserData::join('users','users.id','users_data.id')
         ->orderBy('users.name')
@@ -41,7 +41,7 @@ class UserController extends Controller
         return view('users')->with('users',$users);
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateRequest($request);
 
@@ -169,7 +169,7 @@ class UserController extends Controller
         return $defaultImage;
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateRegexRequest($request);
         $validateEmail = $this->validateEmailUpdate($request, $id);
@@ -258,7 +258,7 @@ class UserController extends Controller
 
     }
 
-    public function destroy($id){
+    public function Destroy($id){
         try{
             return $this->delete($id);
         }
@@ -282,7 +282,7 @@ class UserController extends Controller
 
     }
 
-    public function indexSubscription(){
+    public function IndexSubscription(){
 
         $subscription = UserData::join('users','users.id','users_data.id')
         ->join('users_subscriptions','users_subscriptions.id_users','users_data.id')
@@ -338,7 +338,7 @@ class UserController extends Controller
 
     }
 
-    public function destroySubscription($id){
+    public function DestroySubscription($id){
 
         try{
 
@@ -366,7 +366,7 @@ class UserController extends Controller
 
     }
 
-    public function updateSubscription(Request $request, $id){
+    public function UpdateSubscription(Request $request, $id){
         
         try{
             

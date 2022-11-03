@@ -32,7 +32,7 @@ class EventController extends Controller
         $this->middleware('auth');
     }
     
-    public function index(){
+    public function Index(){
         
         return view('events')
         ->with('countries',Country::all())
@@ -43,7 +43,7 @@ class EventController extends Controller
         ->with('teams',Team::all());
     }
 
-    public function indexList(){
+    public function IndexList(){
         
         $event = Event::leftJoin('leagues_events','leagues_events.id_events','events.id')
         ->leftJoin('leagues','leagues.id','leagues_events.id_leagues')
@@ -62,7 +62,7 @@ class EventController extends Controller
         ->with('teams',Team::all());
     }
 
-    public function eventEdit($id){
+    public function EventEdit($id){
         
         $event = Event::leftJoin('leagues_events','leagues_events.id_events','events.id')
         ->leftJoin('leagues','leagues.id','leagues_events.id_leagues')
@@ -268,7 +268,7 @@ class EventController extends Controller
         
     }
 
-    public function editEventSet(Request $request, $id){
+    public function EditEventSet(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
         if($validation !== 'ok')
             return $validation;
@@ -286,7 +286,7 @@ class EventController extends Controller
     }
 
 
-    public function editEventPoint(Request $request, $id){
+    public function EditEventPoint(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -311,7 +311,7 @@ class EventController extends Controller
         $this->createNewTeams($request, $request->marks[teams], $id);
     }
 
-    public function editEventMarkUp(Request $request, $id){
+    public function EditEventMarkUp(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
         return $request;
         if($validation !== 'ok')
@@ -331,7 +331,7 @@ class EventController extends Controller
         }
     }
 
-    public function editEventMarkDown(Request $request, $id){
+    public function EditEventMarkDown(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
         return $request;
         if($validation !== 'ok')
@@ -488,7 +488,7 @@ class EventController extends Controller
         ]);
     }
 
-    public function createEventSet(Request $request){
+    public function CreateEventSet(Request $request){
 
         $validation = $this->validateCreationRequest($request);
         
@@ -555,7 +555,7 @@ class EventController extends Controller
 
     }
 
-    public function createEventPoint(Request $request){
+    public function CreateEventPoint(Request $request){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -621,7 +621,7 @@ class EventController extends Controller
 
     }
 
-    public function createEventMarkUp(Request $request){
+    public function CreateEventMarkUp(Request $request){
 
         $validation = $this->validateCreationRequestForMarks($request);
 
@@ -710,7 +710,7 @@ class EventController extends Controller
 
     }
 
-    public function createEventMarkDown(Request $request){
+    public function CreateEventMarkDown(Request $request){
 
         $validation = $this->validateCreationRequestForMarks($request);
         
@@ -777,7 +777,7 @@ class EventController extends Controller
 
     }
 
-    public function destroy($id){
+    public function Destroy($id){
 
         try{
 

@@ -13,7 +13,7 @@ class AdTagController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
         
         $validation = $this->validateRequest($request);
 
@@ -75,7 +75,7 @@ class AdTagController extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateRequest($request);
 
@@ -103,7 +103,7 @@ class AdTagController extends Controller
         $tag -> save();
     }
 
-    public function destroy($id){
+    public function Destroy($id){
         try{
             $tag = AdTag::findOrFail($id);
             $tag->delete();
@@ -117,7 +117,7 @@ class AdTagController extends Controller
         }
     }
 
-    public function index(){
+    public function Index(){
         return AdTag::all();
     }
 

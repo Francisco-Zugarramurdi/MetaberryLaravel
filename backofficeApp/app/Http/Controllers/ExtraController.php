@@ -20,7 +20,7 @@ class ExtraController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateCreationRequest($request);
 
@@ -88,7 +88,7 @@ class ExtraController extends Controller
             'contract_end' => $request->contractEnd
         ]);
     }
-    public function index(){
+    public function Index(){
         $extras = Extra::leftJoin('extra_compose','extra_compose.id_extra','extras.id')
         ->leftJoin('teams','extra_compose.id_teams','teams.id')
         ->select('extras.id as id','extras.name as name','extras.surname as surname','extras.photo as photo','extras.rol as rol','teams.name as teamName','extra_compose.contract_start as contractStart','extra_compose.contract_end as contractEnd')
@@ -100,7 +100,7 @@ class ExtraController extends Controller
         
     }
     
-    public function destroy($id){
+    public function Destroy($id){
         try{
             $this->deleteImage($id);
             Extra::findOrFail($id)->delete();
@@ -112,7 +112,7 @@ class ExtraController extends Controller
         
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
 
         if($validation !== 'ok')
@@ -177,7 +177,7 @@ class ExtraController extends Controller
             'contract_end'=>$request->contractEnd
         ]);
     }
-    public function indexExtrasByEvent(Request $request){
+    public function IndexExtrasByEvent(Request $request){
 
         return DB::table('events')
         ->join('events_teams','events_teams.id_events','events.id')

@@ -21,7 +21,7 @@ class AdController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
 
         $validation = $this->validateRequestCreate($request);
         
@@ -123,7 +123,7 @@ class AdController extends Controller
 
     }
 
-    public function index(){
+    public function Index(){
 
         $ads = Ad::join('ad_tags', 'ad_tags.id_ad', 'ads.id')
         ->join('tags','tags.id','ad_tags.id_tag')
@@ -142,7 +142,7 @@ class AdController extends Controller
         return view('ads')->with('ads',$indexAd)->with('tags',$tag)->with('adsModal',$ads);
     }
 
-    public function addTag(Request $request,$id){
+    public function AddTag(Request $request,$id){
 
         $tagInput = $request->input('tag');
         
@@ -164,7 +164,7 @@ class AdController extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
         
         $validation = $this->validateRequestCreate($request);
         
@@ -215,7 +215,7 @@ class AdController extends Controller
       
     }
     
-    public function destroy($id){
+    public function Destroy($id){
 
         try{
 

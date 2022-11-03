@@ -24,7 +24,7 @@ class PlayerController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(Request $request){
+    public function Create(Request $request){
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok")
             return $validation;
@@ -117,7 +117,7 @@ class PlayerController extends Controller
 
     }
 
-    public function index(){
+    public function Index(){
 
         $players = Player::join('players_teams','players_teams.id_players','players.id')
         ->join('teams','players_teams.id_teams','teams.id')
@@ -129,7 +129,7 @@ class PlayerController extends Controller
         
     }
 
-    public function destroy($id){
+    public function Destroy($id){
 
         $validation = $this->validateDestroy($id);
 
@@ -191,7 +191,7 @@ class PlayerController extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function Update(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok")
@@ -256,7 +256,7 @@ class PlayerController extends Controller
             'contract_end' => $request->contractEnd,
             'status' => $request->status ]);
     }
-    public function addTeam(Request $request){
+    public function AddTeam(Request $request){
         $team = Team::where('name',$request->team)->first();
         if($team->exists()){
              DB::table('players_teams')->insert([
@@ -270,14 +270,14 @@ class PlayerController extends Controller
         return redirect('/player');
     }
 
-    public function indexPlayersById(Request $request){
+    public function IndexPlayersById(Request $request){
         return Player::leftJoin('players_teams','players_teams.id_players','players.id')
         ->leftJoin('teams','players_teams.id_teams','teams.id')
         ->select('players.id as id','players.name as name','players.surname as surname','players.photo as photo','teams.name as teamName','teams.id as teamId','players_teams.contract_start as contractStart','players_teams.contract_end as contractEnd','players_teams.status as status')
         ->get()
         ->where('teamId', $request->teamId);
     }
-    public function indexPlayersByEvent(Request $request){
+    public function IndexPlayersByEvent(Request $request){
         $players = DB::table('events')
         ->join('events_teams','events_teams.id_events','events.id')
         ->join('players_teams','players_teams.id_teams','events_teams.id_teams')
