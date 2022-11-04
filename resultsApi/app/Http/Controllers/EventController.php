@@ -17,7 +17,7 @@ class EventController extends Controller
 
         $events = $this->setEventCards($this->getEventsCards());
 
-        dd(json_decode($events, true));
+        return json_decode($events, true);
 
     }
 
@@ -170,8 +170,8 @@ class EventController extends Controller
         ->where('players_teams.contract_start','<',$date)
         ->where('players_teams.contract_end', '>',$date)
         ->where('players_teams.id_teams',$id)
-        ->select('players.id as playerID','players.name as playerName','players.surname as playerSurname',
-        'players.photo as playerPhoto')
+        ->select('players.id as playerID','players.name as name','players.surname as surname',
+        'players.photo as photo')
         ->get()->toArray();
     }
 
@@ -181,8 +181,8 @@ class EventController extends Controller
         ->where('extra_compose.id_teams',$id)
         ->where('extra_compose.contract_start','<',$date)
         ->where('extra_compose.contract_end', '>',$date)
-        ->select('extras.id as extraID','extras.name as extraName','extras.surname as extraSurname',
-        'extras.photo as extraPhoto', 'extras.rol as extraRol')
+        ->select('extras.id as extraID','extras.name as name','extras.surname as surname',
+        'extras.photo as photo', 'extras.rol as rol')
         ->get()->toArray();
     }
 
@@ -209,8 +209,8 @@ class EventController extends Controller
         return DB::table('results_points')
         ->join('players','results_points.id_players','players.id')
         ->where('results_points.id_results',$resultID)
-        ->select('point as point','players.name as playerName','players.surname as playerSurname',
-        'players.photo as playerPhoto')
+        ->select('point as point','players.name as name','players.surname as surname',
+        'players.photo as photo')
         ->get()->toArray();
 
     }

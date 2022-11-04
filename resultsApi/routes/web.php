@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +16,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pepe/{id}', [EventController::class, 'IndexEvent']);
