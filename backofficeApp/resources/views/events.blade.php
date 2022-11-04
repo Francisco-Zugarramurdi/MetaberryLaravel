@@ -23,13 +23,14 @@
             </div>
 
             <div class="create-user-container">
+                
                     <a href="/event/list" class="dropdown-button"> Go to Event List </a>
                     <button type="button" class="dropdown-button" id="button-set" onClick="dropdown('sets')">Create event by Sets
-                        <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
-                        <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
+                        <span class="hidden material-symbols-outlined" id="show_icon_sets">expand_more</span>
+                        <span class="material-symbols-outlined" id="hide_icon_sets">expand_less</span>
                     </button>
     
-                    <div class="unhide-container hide" id="sets">
+                    <div class="unhide-container" id="sets">
     
                             <h2>Create Event by Sets</h2>
         
@@ -82,7 +83,7 @@
                                             </select>
                                         </label>
                                         <label>
-                                            <p>Referee</p>
+                                            <p><span>* </span>Referee</p>
                                             <select name="referee" id="referee">
                                                 @foreach ($referees as $referee)
                                                     <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
@@ -90,7 +91,7 @@
                                             </select>
                                         </label>
                                         <label>
-                                            <p>Result is ready</p>
+                                            <p>Load result now</p>
                                             <input type="checkbox" name="resultReady">
                                         </label>
                                     </div>
@@ -113,16 +114,29 @@
                                                 @endforeach
                                             </select>
                                         </label>
-                                        <label>
-                                            <button type="button" id="add-set-local">Add Set for Local Team</button>
-                                            <div id="setContainerLocal"></div>
-                                            
-                                        </label>
-                                        <label>
-                                            <button type="button" id="add-set-visitor">Add Set for Visitor Team</button>
-                                            <div id="setContainerVisitor"></div>
-                                            
-                                        </label>
+
+                                        <div class="set-container">
+
+                                            <label>
+                                                <button type="button" id="add-set">Add Set</button>
+                                            </label>
+
+                                            <div class="set-inner-container">
+
+                                                <div class="set-local-container">
+                                                    <p class="set-title">Local Set</p>
+                                                    <div id="setContainerLocal"></div>
+                                                </div>
+
+                                                <div class="set-visitor-container">
+                                                    <p class="set-title">Visitor Set</p>
+                                                    <div id="setContainerVisitor"></div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
                                         <label>
                                             Winner
                                             <select name="winner" id="winner">
@@ -145,11 +159,11 @@
                     </div>            
     
                     <button type="button" class="dropdown-button" id="button-points" onClick="dropdown('points')">Create event by Points
-                        <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
-                        <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
+                        <span class="hidden material-symbols-outlined" id="show_icon_points">expand_more</span>
+                        <span class="material-symbols-outlined" id="hide_icon_points">expand_less</span>
                     </button>
     
-                    <div class="unhide-container hide" id="points">
+                    <div class="unhide-container" id="points">
     
                             <h2>Create Event by Points</h2>
         
@@ -207,7 +221,7 @@
                                         </label>
 
                                         <label>
-                                            <p>Referee</p>
+                                            <p><span>* </span>Referee</p>
                                             <select name="referee" id="referee">
                                                 @foreach ($referees as $referee)
                                                     <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
@@ -216,7 +230,7 @@
                                         </label>
 
                                         <label>
-                                            <p>Result is ready</p>
+                                            <p>Load result now</p>
                                             <input type="checkbox" name="resultReady">
                                         </label>
 
@@ -266,6 +280,7 @@
                                                 </select>
 
                                             </label>
+
                                             <div class="team-card-container" id="team_card_Visitor_container">
                                                 
                                                 <div class="team-container">
@@ -292,11 +307,11 @@
                     </div>            
                     
                     <button type="button" class="dropdown-button" id="button-markup" onClick="dropdown('markUp')">Create event by MarkUp
-                        <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
-                        <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
+                        <span class="hidden material-symbols-outlined" id="show_icon_markUp">expand_more</span>
+                        <span class="material-symbols-outlined" id="hide_icon_markUp">expand_less</span>
                     </button>
     
-                    <div class="unhide-container hide" id="markUp">
+                    <div class="unhide-container" id="markUp">
     
                             <h2>Create Event by Mark Up</h2>
         
@@ -349,7 +364,7 @@
                                             </select>
                                         </label>
                                         <label>
-                                            <p>Referee</p>
+                                            <p><span>* </span>Referee</p>
                                             <select name="referee" id="referee">
                                                 @foreach ($referees as $referee)
                                                     <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
@@ -357,7 +372,7 @@
                                             </select>
                                         </label>
                                         <label>
-                                            <p>Result is ready</p>
+                                            <p>Load result now</p>
                                             <input type="checkbox" name="resultReady">
                                         </label>
                                     </div>
@@ -400,11 +415,11 @@
                     </div>            
     
                     <button type="button" class="dropdown-button" id="button-markdown" onClick="dropdown('markDown')">Create event by MarkDown
-                        <span class="hidden material-symbols-outlined" id="show_icon">expand_more</span>
-                        <span class="material-symbols-outlined" id="hide_icon">expand_less</span>
+                        <span class="hidden material-symbols-outlined" id="show_icon_markDown">expand_more</span>
+                        <span class="material-symbols-outlined" id="hide_icon_markDown">expand_less</span>
                     </button>
     
-                    <div class="unhide-container hide" id="markDown">
+                    <div class="unhide-container" id="markDown">
     
                             <h2>Create Event by Mark Down</h2>
         
@@ -457,7 +472,7 @@
                                             </select>
                                         </label>
                                         <label>
-                                            <p>Referee</p>
+                                            <p><span>* </span>Referee</p>
                                             <select name="referee" id="referee">
                                                 @foreach ($referees as $referee)
                                                     <option value="{{$referee->id}}">{{$referee->name}} {{$referee->surname}}</option>
@@ -465,7 +480,7 @@
                                             </select>
                                         </label>
                                         <label>
-                                            <p>Result is ready</p>
+                                            <p>Load result now</p>
                                             <input type="checkbox" name="resultReady">
                                         </label>
                                     </div>
@@ -514,6 +529,7 @@
     <script>
         document.getElementById('event').classList.add("focus");
     </script>
+
     <script src="{{ asset('js/Event.js') }}"></script>
 
     <script>
@@ -536,7 +552,6 @@
                         addPointToATeam(players, 'Local')
                 }});
             });
-            
 
             jQuery('#add_team_visitor_button').click(function(){
                 $.ajaxSetup({

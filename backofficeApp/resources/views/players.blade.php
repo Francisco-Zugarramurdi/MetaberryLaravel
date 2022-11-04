@@ -71,7 +71,6 @@
                             <div class="form-up-container">
     
                                 <div class="form-inner-container">
-    
                                     <label>
                                         <p><span>* </span>Name</p>
                                         <input type="text" name="name" placeholder="John" id="name">
@@ -91,8 +90,35 @@
                                     </label>
 
                                     <label>
+                                        <p>Team name</p>
+                                        <select name="team" id="teamName">
+                                            @foreach($teams as $team)
+                                            <option value="{{$team->id}}">{{$team->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                    <label>
+                                        <p><span>* </span>Contract start date</p>
+                                        <input type="date" name="contractStart"id="contractStart">
+                                    </label>
+                                    <label>
+                                        <p><span>* </span>Contract end date</p>
+                                        <input type="date" name="contractEnd" id="contractEnd">
+                                    </label>
+                                    <label>
+                                        <p><span>* </span>Status</p>
+                                        <select name="status" id="status">
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                    </label>
+    
+                                </div>
+
+                                <div class="form-inner-container individual">
+                                    <label>
                                         <p>Individual Team</p>
-                                        <input type="checkbox" name="individual">
+                                        <input type="checkbox" name="individual" class="individual-checkbox">
                                     </label>
                                     <label>
                                         <p>Individual Team's Sport</p>
@@ -110,30 +136,6 @@
                                             @endforeach
                                         </select>
                                     </label>
-                                    <label>
-                                        <p>Team name</p>
-                                        <select name="team" id="teamName">
-                                            @foreach($teams as $team)
-                                            <option value="{{$team->id}}">{{$team->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </label>
-                                    <label>
-                                        <p>Contract start date</p>
-                                        <input type="date" name="contractStart"id="contractStart">
-                                    </label>
-                                    <label>
-                                        <p>Contract end date</p>
-                                        <input type="date" name="contractEnd" id="contractEnd">
-                                    </label>
-                                    <label>
-                                        <p>Status</p>
-                                        <select name="status" id="status">
-                                            <option value="active">Active</option>
-                                            <option value="inactive">Inactive</option>
-                                        </select>
-                                    </label>
-    
                                 </div>
                             </div>
     
@@ -208,8 +210,12 @@
                                         </td>
                                         
                                         <td class="user-image">
-                                            <label>
-                                                <input type="file" name="image" accept="image/*" id="photo">
+                                            <label class="custom-selector">
+                                                <input type="file" name="image" accept="image/*" id="{{$player->id}}" class="input-image">
+                                                <label for="{{$player->id}}" class="label-image">
+                                                    <span class="material-symbols-outlined">upload</span>
+                                                    <p>Change image...</p>
+                                                </label>
                                             </label>
                                         </td>
                                         
@@ -220,12 +226,12 @@
                                                 </select>
                                              </label>
                                         </td>
-                                        <td class="user-image">
+                                        <td class="user-name">
                                             <label>
                                                 <input type="date" name="contractStart"id="contractStart" value="{{$player->contractStart}}">
                                             </label>
                                         </td>
-                                        <td class="user-image">
+                                        <td class="user-name">
                                             <label>
                                                 <input type="date" name="contractEnd" id="contractEnd" value="{{$player->contractEnd}}">
                                             </label>
@@ -239,7 +245,6 @@
                                             </label>
                                         </td>
                                         <td class="actions-buttons">
-                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>

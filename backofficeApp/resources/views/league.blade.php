@@ -135,8 +135,12 @@
                                         </td>
 
                                         <td class="user-image">
-                                            <label>
-                                                <input type="file" name="image" accept="image/*" id="photo">
+                                            <label class="custom-selector">
+                                                <input type="file" name="image" accept="image/*" id="{{$league->id}}" class="input-image">
+                                                <label for="{{$league->id}}" class="label-image">
+                                                    <span class="material-symbols-outlined">upload</span>
+                                                    <p>Change image...</p>
+                                                </label>
                                             </label>
                                         </td>
                                         

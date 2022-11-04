@@ -44,14 +44,19 @@
     
                                 <div class="form-inner-container">
                                     <label>
-                                        Type:
+                                       <p><span>* </span>Type of competitor</p>
                                         <select id="type" name="type">
                                             <option value="Player" default>Player</option>
                                             <option value="Extra">Extra</option>
                                         </select>
                                     </label>
                                     <label>
-                                        Event:
+                                        <p id="labelID">Player</p>
+                                       <select name="player" id="playerSelect">
+                                       </select>
+                                    </label>
+                                    <label>
+                                        <p><span>* </span>Event</p>
                                        <select name="event" id="eventSelect" class="event">
                                         @foreach($events as $event)
                                             <option value="{{$event->id}}">{{$event->name}}</option>
@@ -59,16 +64,11 @@
                                        </select>
                                     </label>
                                     <label>
-                                        <p id="labelID">Player:</p>
-                                       <select name="player" id="playerSelect">
-                                       </select>
-                                    </label>
-                                    <label>
-                                        Sanction:
+                                        <p><span>* </span>Sanction</p>
                                         <input type="text" name="sanction" id="sanction">
                                     </label>
                                     <label>
-                                        Minute:
+                                        <p><span>* </span>Time</p>
                                         <input type="number" name="minute" id="minute">
                                     </label>
                                   
@@ -230,7 +230,7 @@
                                         </td>
 
                                         <td class="actions-buttons">
-                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
+                                        
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>
@@ -303,7 +303,6 @@
                     },
                     success: function(players){
                         let options = '';
-                        console.log(players);
                         Object.keys(players).forEach(player => {
                         options += `<option value="${players[player].id}">${players[player].name} ${players[player].surname}</option>`
                         }); 
@@ -326,7 +325,6 @@
                     },
                     success: function(extras){
                         let options = '';
-                        console.log(extras);
                         Object.keys(extras).forEach(extra => {
                     
                         options += `<option value="${extras[extra].id}">${extras[extra].name} ${extras[extra].surname}</option>`
@@ -337,11 +335,10 @@
                     }});
                 }
                 jQuery('#type').change(function(){
-                    console.log("A");
                     if(jQuery('#eventSelect').val()){
                         handleSelectUpdate();
                     }
-                    document.getElementById('labelID').innerHTML = `${jQuery('#type').val()}:`
+                    document.getElementById('labelID').innerHTML = `${jQuery('#type').val()}`
                 })
             });
     </script>

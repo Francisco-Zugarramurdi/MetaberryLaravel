@@ -150,8 +150,12 @@
                                         </td>
 
                                         <td class="user-image">
-                                            <label>
-                                                <input type="file" name="image" accept="image/*" id="photo">
+                                            <label class="custom-selector">
+                                                <input type="file" name="image" accept="image/*" id="{{$team->id}}" class="input-image">
+                                                <label for="{{$team->id}}" class="label-image">
+                                                    <span class="material-symbols-outlined">upload</span>
+                                                    <p>Change image...</p>
+                                                </label>
                                             </label>
                                         </td>
                                         
@@ -189,7 +193,7 @@
                                         </td>
 
                                         <td class="actions-buttons">
-                                            <!-- <button type="button" class="edit-input-btn" onClick="editFormInput()"></button> -->
+                                    
                                             <button type="submit" class="submit-btn">
                                                 <span class="material-symbols-outlined">send</span>
                                             </button>

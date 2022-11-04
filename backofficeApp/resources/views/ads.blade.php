@@ -154,10 +154,15 @@
                                         </td>
 
                                         <td class="user-image">
-                                            <label>
-                                                <input type="file" name="image" accept="image/*" id="photo">
+                                            <label class="custom-selector">
+                                                <input type="file" name="image" accept="image/*" id="{{$ad->id}}" class="input-image">
+                                                <label for="{{$ad->id}}" class="label-image">
+                                                    <span class="material-symbols-outlined">upload</span>
+                                                    <p>Change image...</p>
+                                                </label>
                                             </label>
                                         </td>
+                                        
     
                                         <td class="user-name">
                                             <label>
