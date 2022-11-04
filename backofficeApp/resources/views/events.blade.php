@@ -786,7 +786,6 @@
                 }});
             }
             function changeTeams(teams,idTeams){
-                console.log(idTeams)
                 let options = ''
                 count += 1;
                 Object.keys(teams).forEach(team => {
