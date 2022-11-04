@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pepe', [EventController::class, 'IndexCards']);
+Route::get('/pepe/{id}', [EventController::class, 'IndexEvent']);

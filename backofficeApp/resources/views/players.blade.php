@@ -213,10 +213,12 @@
                                             </label>
                                         </td>
                                         
-                                        <td class="user-name">
+                                        <td class="user-type">
                                             <label>
-                                                <input name="teamName" type="text" value="{{$player->teamName}}" readonly>
-                                            </label>
+                                                <select name="teamName" readonly>
+                                                    <option value="{{$player->teamID}}">{{$player->teamName}}</option>
+                                                </select>
+                                             </label>
                                         </td>
                                         <td class="user-image">
                                             <label>

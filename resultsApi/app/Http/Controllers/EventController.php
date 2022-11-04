@@ -9,102 +9,236 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Event;
 use App\Models\Result;
 use App\Models\Team;
-
+use App\Models\Player;
 class EventController extends Controller
 {
    
-    /*
-        1. Index en Landing Page 
-            Filtrar por: relevancia
-
-            (   ) (   ) (   )
-            (   ) (   ) (   )
-            (   ) (   ) (   )
-
-            TODOS LOS EVENTOS + RESULTADOS
-
-        2. Index en Scores
-            -> Filtrar por: fecha, deporte, pais.
-
-
-        3. Index en Evento
-        4. Index en Feed Usuario
-            -> Filtrar por: equipos favoritos
-        5. Index en Perfil Equipo
-            -> Filtrar por: evento relevante al equipo
-            
-        
-        $eventBySet = DB::table('AllEvents')
-        ->join('points_sets', 'AllEvents.resultId', 'points_sets.id_results')->get();
-
-        $eventByPoint = DB::table('AllEvents')
-        ->join('results_points', 'AllEvents.resultId', 'results_points.id_results')->get();
-
-        $eventByMarkUp = DB::table('AllEvents')
-        ->join('results_points', 'AllEvents.resultId', 'results_points.id_results')->get();
-
-        $eventByMarkDown = DB::table('AllEvents')
-        ->join('results_points', 'AllEvents.resultId', 'results_points.id_results')->get();
-
-
-        array[] lindo
-
-        foreach($eventBySet as set)
-
-            -> array lindo
-        
-    */
-
     public function IndexCards(Request $request){
 
-        //Traenros los eventos
-        //con sus resultados
-        // ->join('events_teams','events_teams.id_events','events.id')
-        // ->join('teams','teams.id','events_teams.id_teams')
-        // $resultByScore = $event->join('results_points','results_points.id_results','results.id');
-        
-        $events = DB::table('events')
-        ->join('leagues_events','leagues_events.id_events','events.id')
-        ->join('leagues','leagues_events.id_leagues','leagues.id')
+        $events = $this->setEventCards($this->getEventsCards());
+
+        dd(json_decode($events, true));
+
+    }
+
+    private function getEventsCards(){
+
+       return DB::table('events')
+        ->leftJoin('leagues_events','leagues_events.id_events','events.id')
+        ->leftJoin('leagues','leagues_events.id_leagues','leagues.id')
         ->join('results','results.id_events','events.id')
         ->join('countries','countries.id','events.id_countries')
         ->join('sports','sports.id','events.id_sports')
         ->select('events.id as id','events.name as name','events.relevance as relevance','events.date as date','results.type_results as type','results.id as idResults','leagues.name as league','sports.name as sport','countries.name as country')
         ->get();
+
+    }
+
+    private function setEventCards($events){
+
         foreach($events as $event){
-            $event->teams = DB::table('teams')->join('events_teams','events_teams.id_events','teams.id')
-            ->where('id_events',$event->id)
-            ->select('teams.name as name','teams.photo as photo')
-            ->get();
-            if($events->type = "results_points"){
-                $event->results = DB::table('results_points')
-                ->where('results_points.id_results',$event->idResults)
-                ->select('point as point')
-                ->get();
-            }
 
-            if($events->type = "points_sets"){
-                $event->results = DB::table('points_sets')
-                ->where('points_sets.id_results',$event->idResults)
-                ->select('number_set as set','points_set as point')
-                ->get();
-            }
-            if($events->type = "results_upward"){
-                $event->results = DB::table('results_upward')
-                ->where('id_results',$event->idResults)
-                ->select('position as position','result as result')
-                ->get();
-            }
-            if($events->type = "results_downward"){
-                $event->results = DB::table('results_downward')
-                ->where('id_results',$event->idResults)
-                ->select('position as position','result as result')
-                ->get();
+            $event -> teams = $this->getTeam($event -> id);
+
+            foreach($event -> teams as $key => $team){
+
+                if($event -> type == "results_points"){
+                    $event -> teams[$key] -> result = $this->getResultPoint($event -> idResults, $team -> id);   
+                }
+     
+                if($event->type == "points_sets"){
+                    $event->teams[$key]->result = $this->getResultSet($event -> idResults, $team -> id);
+                }
+
+                if($event->type == "results_upward"){
+                    $event->teams[$key]->result = $this->getResultUpward($event -> idResults, $team -> id);
+                }
+                if($event->type == "results_downward"){
+                    $event->teams[$key]->result = $this->getResultDownward($event -> idResults, $team -> id);
+                }
             }
         }
-        
-        dd($events);
-        
-        }
 
-}
+        return $events;
+
+    }
+
+    private function getTeam($eventID){
+
+        return DB::table('teams')
+        ->join('events_teams','events_teams.id_teams','teams.id')
+        ->where('id_events',$eventID)
+        ->select('teams.id as id','teams.name as name','teams.photo as photo')
+        ->get()->toArray();
+
+    }
+
+    private function getResultPoint($resultID, $teamID){
+
+        return DB::table('results_points')
+        ->where('results_points.id_results',$resultID)
+        ->where('results_points.id_teams',$teamID)
+        ->select('point as point')
+        ->get();
+
+    }
+
+    private function getResultSet($resultID, $teamID){
+
+        return DB::table('points_sets')
+        ->where('points_sets.id_results',$resultID)
+        ->where('points_sets.id_teams',$teamID)
+        ->select('number_set as set','points_set as point')
+        ->get();
+
+    }
+
+    private function getResultUpward($resultID, $teamID){
+
+        return DB::table('results_upward')
+        ->where('id_results',$resultID)
+        ->where('id_teams',$teamID)
+        ->select('position as position','result as result')
+        ->get();
+
+    }
+
+    private function getResultDownward($resultID, $teamID){
+
+        return DB::table('results_downward')
+        ->where('id_results',$resultID)
+        ->where('id_teams',$teamID)
+        ->select('position as position','result as result')
+        ->get();
+
+    }
+
+    public function IndexEvent($id){
+
+        $event = $this->getEventData($id);
+        $event -> teams = $this->getTeamData($this->getTeam($id),$event->date,$event -> type, $event->resultsID);
+        $event -> sanctions = $this->getSanctions($id);
+
+        dd($event);
+
+
+    }
+
+    private function getEventData($id){
+        return DB::table('events')
+        ->leftJoin('leagues_events','leagues_events.id_events','events.id')
+        ->leftJoin('leagues','leagues_events.id_leagues','leagues.id')
+        ->join('results','results.id_events','events.id')
+        ->join('countries','countries.id','events.id_countries')
+        ->join('sports','sports.id','events.id_sports')
+        ->join('referee_events', 'referee_events.id_events','events.id')
+        ->join('referee','referee_events.id_referee', 'referee.id')
+        ->where('events.id', $id)
+        ->select('events.id as eventID','events.name as eventName','events.relevance as relevance',
+        'events.date as date','results.type_results as type','results.id as resultsID','leagues.name as league',
+        'sports.name as sport','countries.name as country', 'events.details as details')
+        ->first();
+    }
+
+    private function getTeamData($teams,$date,$type,$resultID){
+
+        foreach($teams as $key => $team){
+            
+            $teams[$key]->player = $this->getPlayer($team->id,$date);
+            $teams[$key]->extras = $this->getExtra($team->id,$date);
+
+            if($type == 'results_points'){
+                $teams[$key]->result = $this->getResultPointData($resultID);
+            }
+            if($type == 'points_sets'){
+                $teams[$key]->result = $this->getResultSetData($resultID);
+            }
+            if($type == 'results_upward'){
+                $teams[$key]->result = $this->getResultUpwardData($resultID);
+            }
+            if($type == 'results_downward'){
+                $teams[$key]->result = $this->getResultDownwardData($resultID);
+            }
+                
+        }
+        return $teams;
+    }
+
+    private function getPlayer($id,$date){
+        return DB::table('players')
+        ->join('players_teams','players_teams.id_players','players.id')
+        ->where('players_teams.contract_start','<',$date)
+        ->where('players_teams.contract_end', '>',$date)
+        ->where('players_teams.id_teams',$id)
+        ->select('players.id as playerID','players.name as playerName','players.surname as playerSurname',
+        'players.photo as playerPhoto')
+        ->get()->toArray();
+    }
+
+    private function getExtra($id,$date){
+        return DB::table('extras')
+        ->join('extra_compose','extra_compose.id_extra','extras.id')
+        ->where('extra_compose.id_teams',$id)
+        ->where('extra_compose.contract_start','<',$date)
+        ->where('extra_compose.contract_end', '>',$date)
+        ->select('extras.id as extraID','extras.name as extraName','extras.surname as extraSurname',
+        'extras.photo as extraPhoto', 'extras.rol as extraRol')
+        ->get()->toArray();
+    }
+
+    private function getSanctions($id){
+          
+        return  DB::table('sanctions')
+        ->join('sanctions_players','sanctions_players.id_sancion','sanctions.id')
+        ->join('players','sanctions_players.id_players', 'players.id')
+        ->where('sanctions.id_events',$id)
+        ->select('sanctions.id as sanctionID','sanctions.sancion as sanction','sanctions_players.id_players as sanctionPlayer',
+        'sanctions_players.minute as minute', 'players.name as name','players.surname as surname')
+        ->get()->merge( DB::table('sanctions')
+        ->join('sanctions_extra','sanctions_extra.id_sancion','sanctions.id')
+        ->join('extras','sanctions_extra.id_extra', 'extras.id')
+        ->where('sanctions.id_events',$id)
+        ->select('sanctions.id as sanctionID','sanctions.sancion as sanction','sanctions_extra.id_extra as sanctionExtra',
+        'sanctions_extra.minute as minute', 'extras.name as name','extras.surname as surname')
+        ->get())->toArray();
+            
+    }
+
+    private function getResultPointData($resultID){
+
+        return DB::table('results_points')
+        ->join('players','results_points.id_players','players.id')
+        ->where('results_points.id_results',$resultID)
+        ->select('point as point','players.name as playerName','players.surname as playerSurname',
+        'players.photo as playerPhoto')
+        ->get()->toArray();
+
+    }
+
+    private function getResultSetData($resultID){
+
+        return DB::table('points_sets')
+        ->where('points_sets.id_results',$resultID)
+        ->select('number_set as set','points_set as point')
+        ->get()->toArray();
+
+    }
+
+    private function getResultUpwardData($resultID){
+
+        return DB::table('results_upward')
+        ->where('id_results',$resultID)
+        ->select('position as position','result as result')
+        ->get()->toArray();
+
+    }
+
+    private function getResultDownwardData($resultID){
+
+        return DB::table('results_downward')
+        ->where('id_results',$resultID)
+        ->select('position as position','result as result')
+        ->get()->toArray();
+
+    }
+}    
