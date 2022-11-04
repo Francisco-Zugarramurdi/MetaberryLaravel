@@ -84,7 +84,7 @@ class EventController extends Controller
         $eventTeams = DB::table('events_teams')
         ->join('teams', 'teams.id', 'events_teams.id_teams')
         ->where('events_teams.id_events', $event->id)
-        ->where('events_teams.deleted_at', null)
+        ->whereNull('events_teams.deleted_at')
         ->select('teams.id as teamId', 'teams.name as teamName', 
         'events_teams.id_events as eventId')
         ->get();
@@ -172,6 +172,7 @@ class EventController extends Controller
             ->select('points_sets.number_set as numberSet', 'points_sets.points_set as points',
             'teams.id as teamId', 'teams.name as teamName')
             ->where('id_results', $event->resultId)
+            ->whereNull('points_sets.deleted_at')
             ->get();
         }
         if($event->typeResult == 'results_points'){
@@ -181,6 +182,7 @@ class EventController extends Controller
             'players.id as playerId', 'players.name as playerName','players.surname as playerSurname' ,
             'teams.id as teamId', 'teams.name as teamName')
             ->where('id_results', $event->resultId)
+            ->whereNull('results_points.deleted_at')
             ->get();
         }
         if($event->typeResult == 'results_upward'){
@@ -188,6 +190,7 @@ class EventController extends Controller
             ->select('results_upward.result as result', 'results_upward.position as position',
             'teams.id as teamId', 'teams.name as teamName',)
             ->where('id_results', $event->resultId)
+            ->whereNull('results_upward.deleted_at')
             ->get();
         }
         if($event->typeResult == 'results_downward'){
@@ -196,6 +199,7 @@ class EventController extends Controller
             ->select('results_downward.result as result', 'results_downward.position as position',
             'teams.id as teamId', 'teams.name as teamName',)
             ->where('id_results', $event->resultId)
+            ->whereNull('results_downward.deleted_at')
             ->get();
 
         }
@@ -229,14 +233,17 @@ class EventController extends Controller
     private function destroyOldTeams(Request $request, $teams, $id){
         $teamsInDataBase = DB::table("events_teams")
         ->where('id_events', $id)
+        ->whereNull('deleted_at')
         ->select('events_teams.id_teams as idTeam')
         ->get();
-        
+
         foreach($teamsInDataBase as $teamInDataBase){
+            
             if(!in_array($teamInDataBase->idTeam, $teams)){
+
                 DB::table($request->typeResult)
                 ->where('id_teams', $teamInDataBase->idTeam)
-                ->where("id_results",  Result::where('id_events', $id)->first()->id_results)
+                ->where("id_results",  Result::where('id_events', $id)->first()->id)
                 ->update([$request->typeResult . '.deleted_at'=>Carbon::now()]);
 
                 DB::table('events_teams')
@@ -245,21 +252,27 @@ class EventController extends Controller
                 ->update(['events_teams.deleted_at'=>Carbon::now()]);
             }
         }
+
     }
     private function createNewTeams(Request $request, $teams, $id){
 
         foreach($teams as $team){
+            
             $teamInDataBaseExists = DB::table("events_teams")
             ->where('id_events', $id)
-            ->where('id_teams', $team)
-            ->exists();
+            ->where('id_teams', $team);
 
-            if(!$teamInDataBaseExists){
+            if(!$teamInDataBaseExists->exists()){
                 $this->addEventTeam($id, $team);
             }
             
+            if($teamInDataBaseExists->where("deleted_at", "!=", null)->exists()){
+                DB::table('events_teams')
+                ->where('id_events',$id)
+                ->where('id_teams', $team)
+                ->update(['events_teams.deleted_at'=>null]);
+            }
         }
-
     }
 
     private function updateTeams(Request $request, $id){
@@ -289,7 +302,6 @@ class EventController extends Controller
     public function EditEventPoint(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
-
         if($validation !== 'ok')
             return $validation;
         
@@ -307,13 +319,21 @@ class EventController extends Controller
     }
 
     private function updateTeamsMarks(Request $request, $id){
-        $this->destroyOldTeams($request, $request->marks[teams], $id);
-        $this->createNewTeams($request, $request->marks[teams], $id);
+        $teams = array_map(function($mark) {
+            return $mark['team'];
+        }, $request->marks);
+
+        $this->destroyOldTeams($request,$teams, $id);
+        $this->createNewTeams($request,$teams, $id);
+
     }
+
+    
 
     public function EditEventMarkUp(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
-        return $request;
+
+
         if($validation !== 'ok')
             return $validation;
         
@@ -321,8 +341,6 @@ class EventController extends Controller
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeamsMarks($request,$id);
-            $this->updateResult($request,$id);
-            $this->updateResultsMarkUp($request,$id);
 
             return redirect('/event/list');
         }
@@ -333,7 +351,6 @@ class EventController extends Controller
 
     public function EditEventMarkDown(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
-        return $request;
         if($validation !== 'ok')
             return $validation;
         
