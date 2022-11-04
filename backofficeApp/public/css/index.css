@@ -266,9 +266,28 @@ main {
   align-items: flex-start;
   margin: 0 0 0 10px;
 }
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .add-btn {
+  width: auto;
+  height: auto;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .add-btn button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: var(--blue);
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .add-btn button span {
+  color: var(--white);
+}
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container {
   width: inherit;
-  height: 15vh;
+  height: 40vh;
   display: flex;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -283,24 +302,6 @@ main {
   justify-content: flex-start;
   align-items: center;
   margin: 10px 0;
-}
-.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn {
-  width: 4vw;
-  height: 6vw;
-}
-.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn button {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  background-color: var(--blue);
-  border-radius: 10px;
-}
-.main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container .add-btn button span {
-  color: var(--white);
 }
 .main-page-container .create-user-container .unhide-container .create-user-form .form-up-container .form-inner-container .form-team-container .team-card-container .team-container label {
   width: 7vw;

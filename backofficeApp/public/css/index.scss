@@ -8,8 +8,8 @@
     --light-gray: #4C5766;
     --lightest-gray: #9fa3a8;
     --blue: rgb(43, 107, 226);
-
     --dark-blue: rgb(32, 75, 183);
+    --subtle-blue: rgba(43, 107, 226, 0.271);
     --error-red: #FF5252;
     --error-border: #FF2C2C;
 
@@ -338,6 +338,16 @@ main {
                     flex-direction: row;
                     justify-content: space-between;
 
+                    .individual{
+
+                        background-color: var(--subtle-blue);
+                        height: fit-content;
+                        border-radius: 15px;
+                        padding: 1.5%;
+                        margin: 0 0 0 15px;
+
+                    }
+
                     .form-inner-container {
 
                         width: 30vw;
@@ -351,10 +361,38 @@ main {
                             align-items: flex-start;
                             margin: 0 0 0 10px;
 
+                            .add-btn{
+    
+                                width: auto;
+                                height: auto;
+
+                                button{
+
+                                    width: 35px;
+                                    height: 35px;
+                                    display: flex;
+                                    flex-direction: row;
+                                    justify-content: center;
+                                    align-items: center;
+                                    border: none;
+                                    background-color: var(--blue);
+                                    border-radius: 50%;
+                                    margin-left: 10px;
+
+                                    span{
+
+                                        color: var(--white);
+
+                                    }
+
+                                }
+
+                            }
+
                             .team-card-container{
 
                                 width: inherit;
-                                height: 15vh;
+                                height: 40vh;
                                 display: flex;
                                 overflow-x: hidden;
                                 overflow-y: scroll;
@@ -370,33 +408,7 @@ main {
                                     justify-content: flex-start;
                                     align-items: center;
                                     margin: 10px 0;
-                                    
-                                    .add-btn{
-    
-                                        width: 4vw;
-                                        height: 6vw;
-    
-                                        button{
-    
-                                            width: 35px;
-                                            height: 35px;
-                                            display: flex;
-                                            flex-direction: row;
-                                            justify-content: center;
-                                            align-items: center;
-                                            border: none;
-                                            background-color: var(--blue);
-                                            border-radius: 10px;
-    
-                                            span{
-    
-                                                color: var(--white);
-    
-                                            }
-    
-                                        }
-    
-                                    }
+
     
                                     label{
     
@@ -501,6 +513,13 @@ main {
 
                             }
 
+                            .individual-checkbox{
+
+                                width: 30px;
+                                height: 30px;
+
+                            }
+
                             input {
 
                                 width: 15vw;
@@ -557,7 +576,7 @@ main {
                                 filter: drop-shadow(0 0 3px #262d3730);
                                 padding: 0px 10px;
                                 color: var(--white);
-                                font-size: 700;
+                                font-size: 1em;
                                 transition: .2s;
                                 cursor: pointer;
 
@@ -581,6 +600,98 @@ main {
                                 background-color: #5a7b0c;
                                 transform: scale(.98);
 
+                            }
+
+                        }
+
+                        .set-container{
+
+                            width: 30vw;
+                            height: 30vh;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin: 15px 0 30px 15px;
+
+
+                            label{
+
+                                button{
+                                    width: 10vw;
+                                    height: 4vh;
+                                    text-align: center;
+                                    background-color: var(--blue);
+                                    border-radius: 5px;
+                                    color: var(--white);
+                                    font-weight: 600;
+                                    font-size: 1em;
+                                    border: none;
+                                    padding: 1.5%;
+                                    transition: .3s;
+                                    margin-top: 15px;
+
+                                }
+                            }
+
+                            .set-inner-container{
+
+                                width: inherit;
+                                height: 20vh;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                .set-visitor-container, .set-local-container{
+
+                                    width: 14vw;
+                                    height: inherit;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    align-items: center;
+                                    background-color: var(--subtle-blue);
+                                    border-radius: 15px;
+                                    overflow-y: scroll;
+                                    overflow-x: hidden;
+
+                                    .set-title{
+                                        font-size: 1em;
+                                        font-weight: 700;
+                                        color: var(--dark-gray);
+                                        margin-top: 15px;
+                                    }
+
+                                    p{
+                                        font-size: .9em;
+                                        font-weight: 800;
+                                        color: var(--light-gray);
+                                        margin-top: 10px;
+                                    }
+
+                                    input{
+
+                                        border: none;
+                                        border-radius: 5px;
+                                        width: inherit;
+                                        height: 3vh;
+                                        background-color: var(--white);
+                                        font-weight: 500;
+                                        padding: 5px 2.5px 5px 5px;
+                                        border-radius: 5px;
+
+                                    }
+
+                                    #setContainerVisitor #setContaineLocal{
+
+                                        width: inherit;
+                                        display: flex;
+                                        flex-direction: column;
+    
+                                    }
+                                }
+    
                             }
 
                         }
@@ -814,6 +925,54 @@ main {
 
                     padding: 10px 0 10px 15px;
                     margin: 0;
+
+                    .custom-selector{
+
+                        .input-image{
+
+                            width: .1px;
+                            height: .1px;
+                            opacity: 0;
+                            overflow: hidden;
+                            position: absolute;
+                            z-index: 0;
+
+                        }
+
+                        .label-image {
+
+                            width: 8vw;
+                            height: 4vh;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-around;
+                            align-items: center;
+                            border: none;
+                            border-radius: 5px;
+                            background-color: #6F9615;
+                            filter: drop-shadow(0 0 3px #262d3730);
+                            padding: 0px 10px;
+                            color: var(--white);
+                            font-size: .8em;
+                            transition: .2s;
+                            cursor: pointer;
+
+                            p{
+
+                                font-weight: 700;
+                                color: var(--white);
+
+                            }
+
+                        }
+                        .label-image:hover{
+
+                            background-color: #5a7b0c;
+                            transform: scale(.98);
+
+                        }
+
+                    }
 
                     input {
 
@@ -1148,15 +1307,6 @@ main {
 
 }
 
-
-
-#setContainerLocal, #setContainerVisitant{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    height: 20vh;
-}
 
 .login-container{
 

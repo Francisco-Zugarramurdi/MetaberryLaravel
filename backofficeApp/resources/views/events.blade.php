@@ -248,6 +248,7 @@
                                                 Add a local team
                                                 <button type="button" id="add_team_local_button"><span class="material-symbols-outlined">add</span></button>
                                             </label>
+                                            
                                             <label>
                                                 Local Team
                                                 <select name="localTeam" id="localTeamScore">
@@ -376,6 +377,7 @@
                                             <input type="checkbox" name="resultReady">
                                         </label>
                                     </div>
+
                                     <div class="form-inner-container">
                                         
                                         <div class="form-team-container">
@@ -400,6 +402,7 @@
                                         </div>
 
                                     </div>
+
                                 </div>
         
                                 <div class="form-down-container">
@@ -484,6 +487,7 @@
                                             <input type="checkbox" name="resultReady">
                                         </label>
                                     </div>
+
                                     <div class="form-inner-container">
                                         
                                         <div class="form-team-container">
@@ -506,6 +510,7 @@
                                             </div>
 
                                         </div>
+                                    </div>
                                 </div>
         
                                 <div class="form-down-container">
@@ -518,7 +523,8 @@
         
                             </form>
                         
-                    </div>            
+                    </div>
+                                
             </div>
 
         </div>
@@ -718,7 +724,7 @@
                 </label>
 
                 <label>
-                    marks
+                    Mark
                     <input type="number" name="marks[${count}][mark]" min="1">
                 </label>
         
