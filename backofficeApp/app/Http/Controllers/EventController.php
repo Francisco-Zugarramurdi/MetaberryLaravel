@@ -281,6 +281,13 @@ class EventController extends Controller
         
     }
 
+    private function editResult($request, $id){
+        if($request->result != null){
+            $result = Result::where("id_events", $id);
+            $result->result = $request->result . " winner";
+        }
+    }
+
     public function EditEventSet(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
         if($validation !== 'ok')
@@ -290,6 +297,7 @@ class EventController extends Controller
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeams($request,$id);
+            $this->updateResult($request,$id);
 
             return redirect('/event/list');
         }
@@ -309,6 +317,7 @@ class EventController extends Controller
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeams($request,$id);
+            $this->updateResult($request,$id);
 
 
             return redirect('/event/list');
@@ -341,6 +350,7 @@ class EventController extends Controller
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeamsMarks($request,$id);
+            $this->updateResult($request,$id);
 
             return redirect('/event/list');
         }

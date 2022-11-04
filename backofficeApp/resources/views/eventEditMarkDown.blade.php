@@ -108,31 +108,31 @@
                                             
                                             @foreach($eventTeams as $eventTeam)
                                                 
-                                                        <div class="team-container">
-                                                            
-                                                            <label>
-                                                                Team
-                                                                <select name="marks[teamId:{{$score->teamId}}][team]">
-                                                                    @foreach($teams as $team)
-                                                                        <option value="{{$team->id}}" @if($team->id == $score->teamId)selected @endif>{{$team->name}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </label>
-                                                            
-                                                            <label>
-                                                                marks
-                                                                @foreach($scores as $score)
-                                                                    @if($score->teamId == eventId)
-                                                                        <input type="text" name="marks[teamId:{{$score->teamId}}][mark]" min="1" value= {{$score->result}} >
-                                                                    @endif
-                                                                @endforeach
-                                                            </label>
+                                                <div class="team-container">
                                                     
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
+                                                    <label>
+                                                        Team
+                                                        <select name="marks[teamId:{{$eventTeam->teamId}}][team]">
+                                                            @foreach($teams as $team)
+                                                                <option value="{{$team->id}}" @if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+                                                    
+                                                    <label>
+                                                        marks
+                                                            <input type="text" name="marks[teamId:{{$eventTeam->teamId}}][mark]" min="1" 
+                                                                @foreach($scores as $scoreTeam) 
+                                                                    @if($scoreTeam->teamId == $eventTeam->teamId) 
+                                                                        value= {{$scoreTeam->result}} 
+                                                                    @endif 
+                                                                @endforeach
+                                                            >
+                                                    </label>
+                                            
+                                                </div>
 
+                                            @endforeach
                                         </div>
 
                                     </div>
