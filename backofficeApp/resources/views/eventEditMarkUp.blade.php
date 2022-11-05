@@ -149,7 +149,7 @@
                                     </div>
                                     <div class="form-down-container">
         
-                                        <input type="submit" value="Create" class="create-btn" id="submit">
+                                        <input type="submit" value="Edit" class="create-btn" id="submit">
 
                                         <div id="error" class="error"></div>
 

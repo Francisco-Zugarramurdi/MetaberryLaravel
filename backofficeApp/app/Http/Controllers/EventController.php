@@ -281,7 +281,7 @@ class EventController extends Controller
         
     }
 
-    private function editResult($request, $id){
+    private function updateResult($request, $id){
         if($request->result != null){
             $result = Result::where("id_events", $id);
             $result->result = $request->result . " winner";
@@ -312,13 +312,13 @@ class EventController extends Controller
         $validation = $this->validateCreationRequest($request);
         if($validation !== 'ok')
             return $validation;
-        
+
         try{
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeams($request,$id);
             $this->updateResult($request,$id);
-
+            $this->updateResultPoints($request,$id);
 
             return redirect('/event/list');
         }
@@ -326,6 +326,63 @@ class EventController extends Controller
             return $e;
         }
     }
+
+    private function updateResultPoints($request,$id){
+        $resultPoints =  ResultPoint::where("id_results", Result::where('id_events', $id)->first()->id );
+        $this->destroyOldPoints($request,$id,$resultPoints);
+        $this->createAndUpdatePoints($request,$id,$resultPoints);
+        
+    }
+
+    private function destroyOldPoints($request,$id,$resultPoints){
+
+        $teams = array_map(function($point){
+            return $point["team"];
+        }, $request->points);
+        
+        $players = array_map(function($point){
+            return $point["player"];
+        }, $request->points);
+
+        foreach($resultPoints->get() as $resultPoint){
+            if(!(in_array($resultPoint->id_players, $players) && in_array($resultPoint->id_teams, $teams))){
+                DB::table("results_points")->where("id_results", $resultPoint->id_results)
+                ->where("id_players", $resultPoint->id_players)
+                ->where("id_teams", $resultPoint->id_teams)
+                ->update(['deleted_at'=>Carbon::now()]);
+
+            }   
+        }
+    }
+    private function createAndUpdatePoints($request,$id,$resultPoints){
+        
+        foreach($request->points as $point){
+
+            $resultPointUnique = ResultPoint::where("id_results", Result::where('id_events', $id)->first()->id )
+            ->where("id_teams", $point["team"])
+            ->where("id_players", $point["player"]);
+
+            if($resultPointUnique->exists()){
+                DB::table("results_points")
+                ->where("id_results", $resultPointUnique->first()->id_results)
+                ->where("id_players", $resultPointUnique->first()->id_players)
+                ->where("id_teams", $resultPointUnique->first()->id_teams)
+                ->update(['point'=>$point["points"]]);
+
+            }
+            if(!$resultPointUnique->exists()){
+
+                ResultPoint::create([
+                    "id_results" => Result::where('id_events', $id)->first()->id,
+                    "id_players" => $point["player"],
+                    "id_teams" => $point["team"],
+                    "point" => $point["points"]
+                ]);
+                
+            }
+        }
+    }
+
 
     private function updateTeamsMarks(Request $request, $id){
         $teams = array_map(function($mark) {
@@ -337,7 +394,7 @@ class EventController extends Controller
 
     }
 
-    
+
 
     public function EditEventMarkUp(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
@@ -377,68 +434,11 @@ class EventController extends Controller
             return $e;
         }
     }
-    
-
-    private function updateResultAndType(Request $request, $id){
-        
-        
-        
-        if($request->typeResult == "points_sets"){
-            $this->destroyOldSets();
-            return $this->updateResultSets();
-        }
-        if($request->typeResult == "results_points"){
-            $this->destroyOldPoints();
-            return $this->updateResultPoints();
-        }
-        if($request->typeResult == "results_upward"){
-            $this->destroyOldResultsMarksUp();
-            return $this->updateResultMarkUp();
-        }
-        if($request->typeResult == "results_downward"){
-            $this->destroyOldResultsMarksDown();
-            return $this->updateResultMarkDown();
-        }
-    }
-
-    private function updateResult(){
-
-    }
 
     private function updateResultSets(Request $request, $id){
 
     }
-    private function updateResultPoints(Request $request, $id){
-        $resultPoints =  ResultPoint::where("id_results",  Result::where('id_evento', $id));
 
-        foreach($request->points as $point){
-            $resultPointUnique = $resultPoints->where("id_teams", $point->teamId)
-            ->where("id_players", $point->playerId);
-            
-            if($resultPointUnique->lenght = 1){
-                $resultPointUnique->first()->points = $point->points;
-                $resultPointUnique->save();
-                
-                DB::table("results_points")
-                ->with('id_results', $resultPointUnique->first()->id_results)
-                ->with('id_teams', $point->team)
-                ->with('id_players', $point->player)
-                ->update(["points" => $point->points]);
-
-            }
-            if($resultPointUnique->lenght = 0){
-                DB::table("results_points")->insert([
-                    "id_result" => $resultPoints->first()->id_results,
-                    "id_player" => $point->player,
-                    "id_team" => $point->team,
-                    "points" => $point->point
-                ]);
-                
-            }
-        }
-
-        
-    }
     private function updateResultMarkUp(Request $request, $id){
 
     }
@@ -446,18 +446,6 @@ class EventController extends Controller
 
     }
 
-    private function destroyOldSets(Request $request, $id){
-
-    }
-    private function destroyOldPoints(Request $request, $id){
-
-    }
-    private function destroyOldMarkUp(Request $request, $id){
-
-    }
-    private function destroyOldMarkDown(Request $request, $id){
-
-    }
 
     private function createEvent(Request $request){
     

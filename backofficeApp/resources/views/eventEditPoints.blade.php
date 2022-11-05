@@ -134,7 +134,7 @@
 
                                                                             <label>
                                                                                 Point
-                                                                                <input type="number" name="points[playerId:{{$scoreTeam->playerId}}][point]" min="1" value= {{$scoreTeam->point}}>
+                                                                                <input type="number" name="points[playerId:{{$scoreTeam->playerId}}][points]" min="1" value= {{$scoreTeam->point}}>
                                                                             </label> 
 
                                                                         </div>
@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="form-down-container">
         
-                                        <input type="submit" value="Create" class="create-btn" id="submit">
+                                        <input type="submit" value="Edit" class="create-btn" id="submit">
 
                                         <div id="error" class="error"></div>
 
@@ -194,7 +194,7 @@
         document.getElementById(`team_card_${team}_container`).innerHTML += 
         `<div class="team-container">
             <label>
-                <input type="hidden" name="point[${count}][team]" value="${teamId}">
+                <input type="hidden" name="points[${count}][team]" value="${teamId}">
             </label>
             <label>
                 Player
