@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +26,7 @@ Route::get('/signup', function () {
     return view('sign-up');
 });
 
-
 Route::post('/login',[AuthController::class,'Login']);
 Route::post('/signup',[AuthController::class,'Sign']);
 Route::post('/logout',[AuthController::class,'Logout']);
+Route::post('/userData',[UserController::class,'Navbar']);

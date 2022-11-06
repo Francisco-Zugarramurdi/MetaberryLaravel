@@ -446,7 +446,6 @@ class EventController extends Controller
 
     }
 
-
     private function createEvent(Request $request){
     
         return Event::create([
@@ -606,7 +605,6 @@ class EventController extends Controller
 
     }
 
-
     private function addPointResult(Request $request, $eventID){
         return $result = DB::table('results')->insertGetId([
             'type_results'=>"results_points",
@@ -669,6 +667,7 @@ class EventController extends Controller
         }
 
     }
+
     private function validateCreationRequestForMarks($request){
         $validation = $this->validateCreationRequest($request);
         if($validation !== "ok"){
@@ -680,6 +679,7 @@ class EventController extends Controller
         }
         return "ok";
     }
+    
     private function validateMarks($request){
         $validation = Validator::make($request->all(),[
             'marks' => 'required'

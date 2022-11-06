@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Session;
 
 class AuthController extends Controller
 {
@@ -19,7 +20,9 @@ class AuthController extends Controller
         if($authentication['status'] == "Success"){
 
             $request->session()->put('authenticated', true);
-            $request->session()->put('profilePhoto', $authentication['photo']);
+            $request->session()->put('user_id', $authentication['id']);
+            $request->session()->save();
+            
             return redirect("/");
 
         }
@@ -42,7 +45,8 @@ class AuthController extends Controller
         if($authentication['status'] == "Success"){
 
             $request->session()->put('authenticated', true);
-            $request->session()->put('profilePhoto', $authentication['photo']);
+            $request->session()->put('user_id', $authentication['id']);
+            $request->session()->save();
             return redirect('/');
         }
 

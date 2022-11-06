@@ -89,23 +89,17 @@ class UserController extends Controller
         return [
             "status" => "Success",
             "body" => "Created succesfully",
-            "photo" => $user->photo
+            "id" => Auth()->user()->id
         ];
     }
 
     public function authenticate(Request $request){
 
         $validation =  $this->validateAuthenticationRequest($request);
-        
-        $userPhoto = UserData::join('users','users.id','users_data.id')
-        ->where('email',$request->email)
-        ->select('photo as photo')
-        ->first()
-        ->photo;
-                
+
         if($validation['status'] !== "Success")
             return $validation;
-        return $this->authenticateUser($request->only('email', 'password'),$userPhoto);
+        return $this->authenticateUser($request->only('email', 'password'));
         
     }
 
@@ -133,7 +127,7 @@ class UserController extends Controller
         ];
     }
 
-    private function authenticateUser($credentials,$photo){
+    private function authenticateUser($credentials){
 
         if(!Auth::attempt($credentials))
             return [
@@ -143,7 +137,16 @@ class UserController extends Controller
         return [
             "status" => "Success",
             "body" => "Authenticated",
-            "photo" => $photo
+            "id" => Auth()->user()->id
         ];
+    }
+
+    public function index($id){
+
+        return User::join('users_data','users_data.id','users.id')
+        ->where('users.id', $id)
+        ->select('users.id as id','users_data.photo as photo','users_data.name as name','users.email as email')
+        ->first();
+
     }
 }

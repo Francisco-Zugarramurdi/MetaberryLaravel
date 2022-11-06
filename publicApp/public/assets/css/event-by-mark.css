@@ -146,23 +146,24 @@ header nav {
   align-items: center;
 }
 header nav .log-in-header-nav-container-1 {
-  width: 15vw;
+  width: 20vw;
   height: 5vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 0 1.5%;
+  padding: 0;
 }
 header nav .log-in-header-nav-container-1 a {
   padding: 0;
   text-decoration: none;
   color: var(--black);
-  padding: 0 10% 0 0;
+  padding: 0;
 }
 header nav .log-in-header-nav-container-1 a .material-symbols-outlined {
   font-size: 2.2em;
   transition: 0.2s;
+  padding: 0 15px;
 }
 header nav .log-in-header-nav-container-1 a .material-symbols-outlined:hover {
   color: var(--main-purple);
@@ -173,6 +174,7 @@ header nav .log-in-header-nav-container-1 .profile-image {
   height: 45px;
   border-radius: 50%;
   background-color: var(--lightest-gray);
+  margin: 0 15px 0 30px;
 }
 header nav .log-in-header-nav-container-1 .profile-image img {
   width: 100%;
@@ -181,6 +183,15 @@ header nav .log-in-header-nav-container-1 .profile-image img {
   -o-object-fit: cover;
      object-fit: cover;
 }
+header nav .log-in-header-nav-container-1 .username {
+  font-weight: 600;
+  padding: 0 15px 0 0;
+  transition: 0.3s;
+  cursor: pointer;
+}
+header nav .log-in-header-nav-container-1 .username:hover, header nav .log-in-header-nav-container-1 .username:focus {
+  color: var(--main-purple);
+}
 header nav .nav-logo {
   display: flex;
   flex-direction: row;
@@ -188,6 +199,8 @@ header nav .nav-logo {
   width: 10vw;
   height: 5vh;
   transition: 0.2s;
+  position: absolute;
+  right: 47%;
 }
 header nav .nav-logo:hover {
   filter: drop-shadow(0 0 20px var(--shade-purple));
@@ -691,23 +704,24 @@ header nav {
   align-items: center;
 }
 header nav .log-in-header-nav-container-1 {
-  width: 15vw;
+  width: 20vw;
   height: 5vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 0 1.5%;
+  padding: 0;
 }
 header nav .log-in-header-nav-container-1 a {
   padding: 0;
   text-decoration: none;
   color: var(--black);
-  padding: 0 10% 0 0;
+  padding: 0;
 }
 header nav .log-in-header-nav-container-1 a .material-symbols-outlined {
   font-size: 2.2em;
   transition: 0.2s;
+  padding: 0 15px;
 }
 header nav .log-in-header-nav-container-1 a .material-symbols-outlined:hover {
   color: var(--main-purple);
@@ -718,6 +732,7 @@ header nav .log-in-header-nav-container-1 .profile-image {
   height: 45px;
   border-radius: 50%;
   background-color: var(--lightest-gray);
+  margin: 0 15px 0 30px;
 }
 header nav .log-in-header-nav-container-1 .profile-image img {
   width: 100%;
@@ -726,6 +741,15 @@ header nav .log-in-header-nav-container-1 .profile-image img {
   -o-object-fit: cover;
      object-fit: cover;
 }
+header nav .log-in-header-nav-container-1 .username {
+  font-weight: 600;
+  padding: 0 15px 0 0;
+  transition: 0.3s;
+  cursor: pointer;
+}
+header nav .log-in-header-nav-container-1 .username:hover, header nav .log-in-header-nav-container-1 .username:focus {
+  color: var(--main-purple);
+}
 header nav .nav-logo {
   display: flex;
   flex-direction: row;
@@ -733,6 +757,8 @@ header nav .nav-logo {
   width: 10vw;
   height: 5vh;
   transition: 0.2s;
+  position: absolute;
+  right: 47%;
 }
 header nav .nav-logo:hover {
   filter: drop-shadow(0 0 20px var(--shade-purple));

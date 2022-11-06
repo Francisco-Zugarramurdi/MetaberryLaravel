@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
     @if(session()->has('authenticated'))
@@ -6,7 +7,9 @@
         <nav>
 
             <div class="log-in-header-nav-container-1">
-                <a class="profile-image" href="/"><img src='http://127.0.0.1:8005/img/public_images/{{session("profilePhoto")}}'></a>
+
+                <a class="profile-image" href="/"><img id="userImage"></a>
+                <p id="userName" class="username"></p>
                 <a href="/"><span class="material-symbols-outlined">notifications</span></a>
                 <a href="/"><span class="material-symbols-outlined">scoreboard</span></a>
 
@@ -42,6 +45,29 @@
         </nav>
 
     </header>
+    <script>
+
+        jQuery(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            jQuery.ajax({
+                url: "{{ url('/userData') }}",
+                method: 'POST',
+                success: function(data){
+                    const image = document.getElementById('userImage')
+                    const name = document.getElementById('userName')
+
+                    name.innerHTML = `${data['name']}`;
+                    image.src = `http://127.0.0.1:8005/img/public_images/${data['photo']}`;
+
+                }
+            });
+        });
+
+    </script>
     @else
     <header>
 
