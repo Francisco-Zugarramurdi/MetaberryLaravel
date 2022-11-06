@@ -1,0 +1,157 @@
+@import '_main.scss';
+
+main{
+
+    background-color: var(--white);
+
+}
+
+.sport-nav-section{
+
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 7% 0 3% 0;
+    cursor: pointer;
+
+    .sport-group-container{
+
+        width: 70%;
+        display: grid;
+        justify-content: space-evenly;
+        align-items: center;
+        grid-template-columns: auto auto auto auto auto auto auto auto;
+
+        .sport-container{
+
+            width: 4vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .sport-icon{
+
+                width: 4vw;
+                height: 4vw;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--light-purple);
+                filter: drop-shadow(-5px 5px 15px var(--shade-purple));
+                border-radius: 50%;
+                margin: 0 0 15% 0;
+
+                .material-symbols-outlined{
+
+                    font-size: 3.2em;
+                    color: var(--white);
+                    transition: 0.2s;
+
+                }
+
+            }
+
+            .sport-name{
+
+                font-size: 1.3em;
+                font-weight: 600;
+
+            }
+
+        }
+
+        .sport-container:hover span{
+
+            transform: rotate(-45deg);
+
+        }
+
+    }
+
+}
+
+.scores-section{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray);
+
+    .form-filter-section{
+
+        width: 100%;
+        height: 15vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: var(--white);
+
+        form{
+
+            padding: 0 1.5%;
+
+            .event-date-label{
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-end;
+                font-size: 1em;
+                font-weight: 600;
+                color: var(--grayish-black);
+
+                .event-date{
+
+                    width: 10vw;
+                    height: 1.5vw;
+                    border-radius: 5px;
+                    border: none;
+                    background-color: var(--gray);
+                    padding: 3% 5%;
+                    margin: 3% 0;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .default-main-section{
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        h1{
+
+            padding: 3% 3% 0 ;
+
+        }
+
+        .event-group-container{
+
+            width: 100%;
+            display: grid;
+            justify-content: space-around;
+            align-items: center;
+            grid-template-columns: auto auto auto;
+            @include set-event;
+            padding: 3% 0;
+
+        }
+
+    }
+
+}

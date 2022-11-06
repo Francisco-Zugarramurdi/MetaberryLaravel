@@ -1,0 +1,204 @@
+@import "_main.scss";
+* {
+  font-family: "Manrope", sans-serif;
+}
+
+// body {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 100%;
+//   background-color: var(--white);
+
+//   .sign-log-form-container{
+
+//     width: 30vw;
+//     height: 75vh;
+//     margin: 20% 0 10% 0;
+
+//     .personal-data-container{
+
+//       width: 20vw;
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: space-between;
+//       align-items: center;
+
+//       label{
+
+//         width: 9vw;
+//         display: flex;
+//         flex-direction: column;
+//         font-size: 1em;
+//         padding: 0;
+//         margin: 0 0 3%;
+//         font-weight: 600;
+
+//         input{
+
+//           width: 8.5vw;
+//           height: 5vh;
+//           border: none;
+//           border-radius: 10px;
+//           padding: 0 5%;
+//           margin: 5% 0;
+//           font-weight: 600;
+
+//         }
+
+//       }
+
+//         label:last-of-type{
+
+//           width: 9vw;
+//           display: flex;
+//           flex-direction: column;
+//           justify-content: flex-start;
+//           align-items: flex-start;
+//           font-size: 1em;
+//           padding: 0;
+//           font-weight: 600;
+
+//           input{
+
+//             width: 8.5vw;
+//             height: 5vh;
+//             border: none;
+//             border-radius: 10px;
+//             padding: 0 5%;
+//             margin: 5% 0;
+//             font-weight: 600;
+
+//           }
+
+//         }
+
+//     }
+
+//     .form{
+
+//       width: 25vw;
+//       height: 55vh;
+
+//     }
+
+//     .sign-log-up-section{
+
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: center;
+//       align-items: flex-end;
+//       padding: 0;
+
+//     }
+
+//   }
+  
+
+//   // .general {
+//   //   display: flex;
+//   //   background-color: var(--white);
+//   //   flex-direction: column;
+//   //   align-items: center;
+//   //   width: 30%;
+//   //   margin-top: 2%;
+//   //   filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+//   //   border: 1px solid var(--black);
+//   //   border-radius: 20px;
+
+//   //   .main {
+//   //     display: flex;
+//   //     flex-direction: column;
+//   //     align-items: center;
+//   //     width: 100%;
+//   //     height: 55vh;
+//   //     text-align: left;
+
+//   //     .sign-up {
+//   //       width: 70%;
+//   //       display: flex;
+//   //       flex-direction: column;
+//   //       align-items: flex-start;
+//   //       margin-top: 5%;
+//   //     }
+
+//   //     .log-in-section {
+//   //       display: flex;
+//   //       flex-direction: column;
+//   //       justify-content: center;
+//   //       align-items: center;
+//   //       width: 100%;
+//   //       height: 10vh;
+//   //       text-align: center;
+//   //       border: 1px solid #000;
+//   //       border-bottom: none;
+//   //       border-left: none;
+//   //       border-right: none;
+//   //       a {
+//   //         @include set-a-link;
+//   //         font-weight: 700;
+//   //       }
+//   //     }
+
+//   //     //FORM
+//   //     .form {
+//   //       width: 70%;
+//   //       margin-top: 5%;
+//   //       height: 35vh;
+//   //       form {
+//   //         display: flex;
+//   //         flex-direction: column;
+//   //         justify-content: space-around;
+//   //         height: 30vh;
+
+//   //         label {
+//   //           display: flex;
+//   //           flex-direction: column;
+
+//   //           input {
+//   //             border: 1px solid #000;
+//   //             border-radius: 20px;
+//   //             font-size: 1em;
+//   //             padding: 0 2% 0 2%;
+//   //           }
+//   //         }
+
+//   //         .inputs {
+//   //           display: flex;
+//   //           flex-direction: row;
+//   //           align-items: center;
+//   //           justify-content: space-between;
+//   //         }
+
+//   //         .form-input-text {
+//   //           width: 100%;
+//   //           border: 1px solid #000;
+//   //         }
+
+//   //         .div-button {
+//   //           display: flex;
+//   //           flex-direction: column;
+//   //           align-items: flex-end;
+//   //           margin-top: 2%;
+
+//   //           .button {
+//   //             height: 5vh;
+//   //             width: 40%;
+//   //             @include primary-color-a-button;
+//   //             &:hover {
+//   //               @include primary-hover-color-a-button;
+//   //             }
+//   //           }
+//   //         }
+//   //       }
+//   //     }
+//   //     //FORM
+//   //   }
+//   // }
+
+// }
+
+// //MEDIA QUERIES
+
+// //MEDIA QUERIES

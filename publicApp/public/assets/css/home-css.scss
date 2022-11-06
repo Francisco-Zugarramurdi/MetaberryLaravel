@@ -1,0 +1,315 @@
+@import './_main.scss';
+
+body{
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+main{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--gray);
+
+}
+
+.create-a-post-container{
+
+    width: 35vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--white);
+    border-radius: 20px;
+    filter: drop-shadow(-10px 15px 10px var(--shade-scnd-purple));
+    margin: 7% 0 3% 0;
+    @include set-a-link;
+
+    .create-a-post-header{
+
+        width: 100%;
+        background-color: var(--white);
+        border-radius: 20px 20px 0 0;
+        filter: drop-shadow(5px 15px 10px var(--shade-scnd-purple));
+
+        .cap-header{
+
+            padding: 3% 5%;
+            font-size: 1.2em;
+            font-weight: 600;
+
+        }
+
+    }
+
+    .create-a-post-body{
+
+        width: 100%;
+        height: 25vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .cap-container{
+
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+    
+            .cap-user-profile-img{
+    
+                width: 3vw;
+                height: 3vw;
+                border-radius: 50%;
+    
+            }
+
+            .cap-form{
+
+                width: 25vw;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                margin: 0 3%;
+
+                .cap-text{
+                    
+                    width: 18vw;
+                    height: 7vh;
+                    border: none;
+                    resize: none;
+                    border-radius: 10px;
+                    padding: 3% 5%;
+                    background-color: var(--gray);
+
+                }
+
+                .cap-text::placeholder{
+
+                    font-weight: 600;
+                    font-size: 1.2em
+
+                }
+
+                .cap-post{
+
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                    width: 3vw;
+                    padding: 1.5% 7%;
+                    border: none;
+                    border-radius: 10px;
+                    background-color: var(--main-purple);
+                    filter: drop-shadow(-5px 5px 10px var(--shade-purple));
+                    color: var(--white);
+                    font-weight: 600;
+                    transition: 0.2s;
+
+                }
+
+                .cap-post:hover{
+
+                    background-color: var(--light-purple);
+
+                }
+
+            }
+
+        }
+
+    }
+}
+
+.feed-section{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include set-event;
+    @include set-post;
+    @include set-a-link;
+
+    .event-container{
+
+        width: 30vw;
+        height: 35vh;
+        margin: 0 0 3% 0;
+
+        .event-title-holder{
+
+            width: 100%;
+            height: 10vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            .event-user-profile-img{
+
+                width: 3vw;
+                height: 3vw;
+                border-radius: 50%;
+                margin: 0 3% 0 5%;
+
+            }
+
+            .event-title-info{
+
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .event-title, .event-state{
+
+                    padding: 0;
+
+                }
+
+                .event-title{
+
+                    font-weight: 700;
+
+                }
+
+                .event-state{
+
+                    font-size: 0.8em;
+
+                }
+
+
+            }
+            
+
+        }
+
+        .actions-holder{
+    
+            width: 100%;
+            height: 6vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: var(--gray);
+            border-radius: 0 0 20px 20px;
+
+            span{
+
+                font-size: 2em;
+                padding: 5% 0% 5% 5%;
+                color: var(--main-purple);
+                transition: 0.2s;
+                cursor: pointer;
+
+            }
+
+            span:last-of-type{
+
+                font-size: 1em;
+                padding: 5% 0 5% 3%;
+
+            }
+
+            .material-symbols-outlined:hover{
+
+                transform: rotate(-5deg);
+
+            }
+
+            .action-text{
+
+                font-weight: 600;
+
+
+            }
+    
+        }
+        
+    }
+    
+
+}
+
+.favorite-teams-container{
+
+    width: 15vw;
+    height: 35vh;
+    background-color: var(--white);
+    border-radius: 20px;
+    filter: drop-shadow(-10px 15px 10px var(--shade-scnd-purple));
+    position: fixed;
+    left: 0;
+    margin: 7% 5%;
+    @include set-a-link;
+    
+    .favorite-teams-header{
+
+        width: 100%;
+        height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--main-purple);
+        border-radius: 20px 20px 0 0;
+        z-index: 2;
+        filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
+
+        .ft-header{
+
+            font-weight: 700;
+            padding: 0 10%;
+            color: var(--white);
+
+        }
+
+    }
+    
+    .favorite-teams-body{
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 3% 0;
+
+        .team-container{
+
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 5% 10%;
+
+            .team-name{
+
+                font-weight: 600;
+                padding: 0 5%;
+                @include set-a-link;
+
+            }
+
+        }
+
+
+    }
+
+}

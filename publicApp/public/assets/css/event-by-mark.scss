@@ -1,0 +1,57 @@
+@import './_main.scss';
+@import './variables/_variables.scss';
+@import './event.scss';
+
+* {
+    margin: 0;
+}
+
+.resultDisplay {
+
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2em;
+    padding: 3%;
+    align-items: center;
+
+    .results {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        ul:first-of-type li:first-of-type{
+            font-weight: 500;
+        }
+        ul {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            margin: 2%;
+            align-items: center;
+            -color: aliceblue;
+            li {
+                pad: 1.5%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                margin: 1%;
+                img{
+                    margin: 3%;
+                }
+                .name {
+                    width: 50%;
+                    margin-right: 15%;
+                    font-size: 1.2em;
+                }
+
+                .time {
+                    font-size: 1.5em;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

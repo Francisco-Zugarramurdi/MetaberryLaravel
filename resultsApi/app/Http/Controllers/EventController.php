@@ -15,9 +15,7 @@ class EventController extends Controller
    
     public function IndexCards(Request $request){
 
-        $events = $this->setEventCards($this->getEventsCards());
-
-        return json_decode($events, true);
+        return $this->setEventCards($this->getEventsCards());
 
     }
 
@@ -30,7 +28,7 @@ class EventController extends Controller
         ->join('countries','countries.id','events.id_countries')
         ->join('sports','sports.id','events.id_sports')
         ->select('events.id as id','events.name as name','events.relevance as relevance','events.date as date','results.type_results as type','results.id as idResults','leagues.name as league','sports.name as sport','countries.name as country')
-        ->get();
+        ->get()->toArray();
 
     }
 
@@ -79,7 +77,7 @@ class EventController extends Controller
         ->where('results_points.id_results',$resultID)
         ->where('results_points.id_teams',$teamID)
         ->select('point as point')
-        ->get();
+        ->get()->toArray();
 
     }
 
@@ -89,7 +87,7 @@ class EventController extends Controller
         ->where('points_sets.id_results',$resultID)
         ->where('points_sets.id_teams',$teamID)
         ->select('number_set as set','points_set as point')
-        ->get();
+        ->get()->toArray();
 
     }
 
@@ -99,7 +97,7 @@ class EventController extends Controller
         ->where('id_results',$resultID)
         ->where('id_teams',$teamID)
         ->select('position as position','result as result')
-        ->get();
+        ->get()->toArray();
 
     }
 
@@ -109,7 +107,7 @@ class EventController extends Controller
         ->where('id_results',$resultID)
         ->where('id_teams',$teamID)
         ->select('position as position','result as result')
-        ->get();
+        ->get()->toArray();
 
     }
 
@@ -119,8 +117,7 @@ class EventController extends Controller
         $event -> teams = $this->getTeamData($this->getTeam($id),$event->date,$event -> type, $event->resultsID);
         $event -> sanctions = $this->getSanctions($id);
 
-        dd($event);
-
+        return $event;
 
     }
 
@@ -134,7 +131,7 @@ class EventController extends Controller
         ->join('referee_events', 'referee_events.id_events','events.id')
         ->join('referee','referee_events.id_referee', 'referee.id')
         ->where('events.id', $id)
-        ->select('events.id as eventID','events.name as eventName','events.relevance as relevance',
+        ->select('events.id as id','events.name as name','events.relevance as relevance',
         'events.date as date','results.type_results as type','results.id as resultsID','leagues.name as league',
         'sports.name as sport','countries.name as country', 'events.details as details')
         ->first();
@@ -151,13 +148,13 @@ class EventController extends Controller
                 $teams[$key]->result = $this->getResultPointData($resultID);
             }
             if($type == 'points_sets'){
-                $teams[$key]->result = $this->getResultSetData($resultID);
+                $teams[$key]->result = $this->getResultSetData($resultID, $team->id);
             }
             if($type == 'results_upward'){
-                $teams[$key]->result = $this->getResultUpwardData($resultID);
+                $teams[$key]->result = $this->getResultUpwardData($resultID, $team->id);
             }
             if($type == 'results_downward'){
-                $teams[$key]->result = $this->getResultDownwardData($resultID);
+                $teams[$key]->result = $this->getResultDownwardData($resultID, $team->id);
             }
                 
         }
@@ -215,30 +212,46 @@ class EventController extends Controller
 
     }
 
-    private function getResultSetData($resultID){
+    private function getResultSetData($resultID, $teamID){
 
         return DB::table('points_sets')
         ->where('points_sets.id_results',$resultID)
+        ->where('points_sets.id_teams',$teamID)
         ->select('number_set as set','points_set as point')
         ->get()->toArray();
 
     }
 
-    private function getResultUpwardData($resultID){
+    private function getResultUpwardData($resultID,  $teamID){
 
         return DB::table('results_upward')
         ->where('id_results',$resultID)
+        ->where('results_upward.id_teams',$teamID)
         ->select('position as position','result as result')
         ->get()->toArray();
 
     }
 
-    private function getResultDownwardData($resultID){
+    private function getResultDownwardData($resultID,  $teamID){
 
         return DB::table('results_downward')
         ->where('id_results',$resultID)
+        ->where('results_downward.id_teams',$teamID)
         ->select('position as position','result as result')
         ->get()->toArray();
 
     }
+
+    public function IndexCountries(){
+
+        return DB::table('countries')->select('id as id','name as country')->get()->toArray();
+
+    }
+
+    public function IndexSports(){
+
+        return DB::table('sports')->select('id as id','name as sport', 'icon as icon')->get()->toArray();
+
+    }
+
 }    

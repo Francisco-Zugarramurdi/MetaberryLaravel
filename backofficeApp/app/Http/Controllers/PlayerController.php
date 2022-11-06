@@ -39,7 +39,9 @@ class PlayerController extends Controller
     private function validateCreationRequest(Request $request){
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
-            'surname'=> 'required'
+            'surname'=> 'required',
+            'contractStart' => 'date',
+            'contractEnd' => 'after:contractStart'
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();

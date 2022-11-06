@@ -1,0 +1,854 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap%27");
+:root {
+  --white: white;
+  --black: black;
+  --grayish-black: #4b4b4b;
+  --light-gray: #6e6e6e;
+  --main-purple: #3724e3;
+  --shade-purple: #2b25d93c;
+  --shade-scnd-purple: #2b25d91e;
+  --light-purple: #7A6DEC;
+  --lightest-purple: #BCB6F6;
+  --gray: #EBECEF;
+  --red: #eb3824;
+  --light-red: #FF5252;
+  --yellow: #E3C40E;
+  --green: #19a909;
+  --orange: #f37927;
+}
+
+* {
+  font-family: "Manrope", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  height: 10vh;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  background-color: var(--white);
+}
+header nav {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav .header-nav-container-1 {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1.5%;
+}
+header nav .header-nav-container-1 a {
+  margin: 0 3% 0 0;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+}
+header nav .header-nav-container-1 a img {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+header nav .header-nav-container-1 a:first-of-type {
+  width: 20%;
+}
+header nav .header-nav-container-2 {
+  width: 50%;
+  padding: 0 1.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+header nav .header-nav-container-2 a {
+  margin: 0 3% 0 0;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+}
+header nav .header-nav-container-2 .login-btn {
+  border: 1px solid var(--black);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+}
+header nav .header-nav-container-2 .login-btn:hover {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+}
+header nav .header-nav-container-2 .signup-btn {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+}
+header nav .header-nav-container-2 .signup-btn:hover:hover {
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
+  filter: none;
+  border-radius: 10px;
+}
+header nav .header-nav-container-2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: none;
+  text-decoration: none;
+  border: none;
+  background-color: var(--white);
+  transition: 0.5s;
+  cursor: pointer;
+}
+header nav .header-nav-container-2 button span {
+  font-size: 2.5em;
+}
+header nav .header-nav-container-2 button:hover {
+  transform: rotate(90deg);
+}
+
+header {
+  width: 100%;
+  height: 10vh;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  z-index: 4;
+}
+header nav {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav .log-in-header-nav-container-1 {
+  width: 15vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1.5%;
+}
+header nav .log-in-header-nav-container-1 a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  padding: 0 10% 0 0;
+}
+header nav .log-in-header-nav-container-1 a .material-symbols-outlined {
+  font-size: 2.2em;
+  transition: 0.2s;
+}
+header nav .log-in-header-nav-container-1 a .material-symbols-outlined:hover {
+  color: var(--main-purple);
+  transform: rotate(-5deg);
+}
+header nav .log-in-header-nav-container-1 .profile-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--lightest-gray);
+}
+header nav .log-in-header-nav-container-1 .profile-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+header nav .nav-logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 10vw;
+  height: 5vh;
+  transition: 0.2s;
+}
+header nav .nav-logo:hover {
+  filter: drop-shadow(0 0 20px var(--shade-purple));
+}
+header .log-in-header-nav-container-2 {
+  height: 5vh;
+  padding: 0 1.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+header .log-in-header-nav-container-2 .nav-searchbar {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input {
+  height: 3vh;
+  width: 15vw;
+  border: none;
+  background-color: var(--gray);
+  border-radius: 10px;
+  padding: 1.5% 5%;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input::-moz-placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input:-ms-input-placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input::placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button {
+  border: none;
+  background-color: var(--white);
+  margin: 5%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button .material-symbols-outlined {
+  font-size: 2.2em;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button:hover {
+  color: var(--main-purple);
+  transform: scale(1.1, 1.1);
+}
+header .log-in-header-nav-container-2 .logout-container {
+  width: 40px;
+  height: 40px;
+}
+header .log-in-header-nav-container-2 .logout-container .logout-button {
+  width: inherit;
+  height: inherit;
+  background-color: var(--light-red);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: 0.3s;
+}
+header .log-in-header-nav-container-2 .logout-container .logout-button .material-symbols-outlined {
+  font-weight: 600;
+  color: white;
+}
+header .log-in-header-nav-container-2 .logout-container:hover > .logout-button {
+  background-color: var(--red);
+  transform: scale(0.9);
+}
+header .log-in-header-nav-container-2 .logout-container:focus > .logout-button {
+  background-color: var(--red);
+  transform: scale(0.95);
+}
+header .log-in-header-nav-container-2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: none;
+  text-decoration: none;
+  border: none;
+  background-color: var(--white);
+  transition: 0.5s;
+  cursor: pointer;
+}
+header .log-in-header-nav-container-2 button span {
+  font-size: 2.5em;
+}
+header .log-in-header-nav-container-2 button:hover {
+  transform: rotate(90deg);
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--main-purple);
+  color: var(--white);
+  height: 15vh;
+  width: 100%;
+  cursor: pointer;
+}
+footer img {
+  width: 5%;
+}
+footer .texts {
+  width: 12%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+footer .texts a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  color: var(--white);
+  font-weight: 600;
+}
+footer .copyright {
+  font-size: 0.7em;
+}
+
+.sign-form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+  position: absolute;
+  bottom: 0;
+}
+.sign-form-container .sign-container {
+  width: 40vw;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sign-form-container .sign-container form {
+  width: 22vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.sign-form-container .sign-container form .sign-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 0 5vh;
+}
+.sign-form-container .sign-container form .sign-text-container .sign-title {
+  font-size: 2em;
+  font-weight: 700;
+  padding: 0 0 1.5% 0;
+}
+.sign-form-container .sign-container form .sign-text-container .sign-text {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--light-gray);
+}
+.sign-form-container .sign-container form .sign-text-container .sign-text a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 800;
+  -webkit-text-decoration: underline 2px;
+          text-decoration: underline 2px;
+  text-underline-offset: 1px;
+  color: inherit;
+}
+.sign-form-container .sign-container form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0 0 3% 0;
+}
+.sign-form-container .sign-container form label input {
+  height: 5vh;
+  border: none;
+  border-radius: 10px;
+  padding: 0 3%;
+  margin: 3% 0;
+  font-weight: 600;
+  background-color: var(--gray);
+  transition: 0.2s;
+  outline-color: var(--main-purple);
+}
+.sign-form-container .sign-container form label:hover > input {
+  background-color: var(--lightest-purple);
+}
+.sign-form-container .sign-container form .sign-form-button {
+  width: 100%;
+  height: 5vh;
+  border: none;
+  border-radius: 10px;
+  padding: 0 3%;
+  margin: 3% 0;
+  font-size: 1.2em;
+  font-weight: 700;
+  background-color: var(--main-purple);
+  color: var(--white);
+  transition: 0.2s;
+}
+.sign-form-container .sign-container form .sign-form-button:hover {
+  background-color: #2717bd;
+  transform: scale(0.97, 0.97);
+}
+.sign-form-container .sign-container form .sign-form-button:focus {
+  background-color: var(--light-purple);
+}
+.sign-form-container .sign-container form .form-name-container {
+  width: inherit;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.sign-form-container .sign-container form .form-name-container label {
+  width: 45%;
+}
+.sign-form-container .sign-container form .form-name-container label input {
+  padding: 0 10%;
+}
+.sign-form-container .sign-container .legal {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--light-gray);
+}
+.sign-form-container .sign-container .legal a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  color: var(--main-purple);
+  -webkit-text-decoration: underline 1px;
+          text-decoration: underline 1px;
+  text-underline-offset: 2px;
+}
+.sign-form-container .sign-aside-container {
+  width: 60vw;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sign-form-container .sign-aside-container .image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40vw;
+  height: 70vh;
+  background-image: url(/assets/img/illustrations/login-video.gif);
+  background-size: cover;
+  border-radius: 40px;
+  position: relative;
+}
+.sign-form-container .sign-aside-container .image-container .text-up {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: var(--shade-scnd-purple);
+  border-radius: 40px 40px 0 0;
+}
+.sign-form-container .sign-aside-container .image-container .text-up p {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--white);
+  padding: 3% 5%;
+}
+.sign-form-container .sign-aside-container .image-container .text-up p:last-of-type {
+  font-size: 1em;
+  color: var(--gray);
+}
+.sign-form-container .sign-aside-container .image-container .text-down {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: var(--shade-scnd-purple);
+  border-radius: 0 0 40px 40px;
+}
+.sign-form-container .sign-aside-container .image-container .text-down p {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--gray);
+  padding: 3% 5%;
+}
+.sign-form-container .sign-aside-container .image-container .left {
+  width: 10%;
+  position: absolute;
+  left: -50px;
+  bottom: 75%;
+}
+.sign-form-container .sign-aside-container .image-container .right {
+  width: 10%;
+  position: absolute;
+  right: -50px;
+  top: 70%;
+}
+.sign-form-container .sign-aside-container .image-container .legal {
+  font-size: 0.8em;
+  color: var(--light-gray);
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-purple);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--light-purple);
+}
+
+.hero-section {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10% 0;
+}
+.hero-section .hero-section-text {
+  width: 30%;
+}
+.hero-section .hero-section-text h1 {
+  font-size: 3em;
+}
+.hero-section .hero-section-text h1 span {
+  color: var(--main-purple);
+}
+.hero-section .hero-section-text h2 {
+  font-size: 1.5em;
+  font-weight: 500;
+  padding: 3% 0 10%;
+}
+.hero-section .hero-section-text .join-btn {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+  font-size: 1.2em;
+  padding: 1.5% 5%;
+}
+.hero-section .hero-section-text .join-btn:hover:hover {
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
+  filter: none;
+  border-radius: 10px;
+}
+
+.event-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray);
+}
+.event-section .event-head {
+  font-size: 1.5em;
+  padding: 3% 0;
+}
+.event-section .event-group-container {
+  width: 100%;
+  display: grid;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-template-columns: auto auto auto;
+}
+.event-section .event-group-container .event-container {
+  width: 25vw;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 3% 0 10% 0;
+  background-color: var(--white);
+  border-radius: 20px;
+  filter: drop-shadow(-10px 15px 10px var(--shade-scnd-purple));
+}
+.event-section .event-group-container .event-container .event-title-holder {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 20px 20px 0 0;
+  z-index: 2;
+  filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
+}
+.event-section .event-group-container .event-container .event-title-holder .event-title,
+.event-section .event-group-container .event-container .event-title-holder .event-state {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  padding: 3% 5%;
+}
+.event-section .event-group-container .event-container .event-title-holder .event-title {
+  font-weight: 700;
+}
+.event-section .event-group-container .event-container .event-title-holder .event-state {
+  font-weight: 500;
+}
+.event-section .event-group-container .event-container .event-holder {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 3% 0;
+  background-color: var(--white);
+  border-radius: 0 0 20px 20px;
+}
+.event-section .event-group-container .event-container .event-holder .team-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.event-section .event-group-container .event-container .event-holder .team-holder .team-logo {
+  width: 60px;
+  padding: 20% 0;
+  cursor: pointer;
+}
+.event-section .event-group-container .event-container .event-holder .team-holder .team-name {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 600;
+}
+.event-section .event-group-container .event-container .event-holder .event-score {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.event-section .events-btn {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+  padding: 1% 3%;
+  margin: 3% 0;
+}
+.event-section .events-btn:hover {
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
+  filter: none;
+  border-radius: 10px;
+}
+.event-section .events-btn:hover {
+  background-color: var(--gray);
+}
+
+.about-livescore-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 5% 0;
+  cursor: default;
+}
+.about-livescore-section .about-head {
+  font-size: 1.5em;
+  padding: 3% 0;
+}
+.about-livescore-section .about-card-group-container {
+  width: 100%;
+  display: grid;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-template-columns: auto auto;
+}
+.about-livescore-section .about-card-group-container .about-card-container {
+  width: 30vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 3% 0;
+}
+.about-livescore-section .about-card-group-container .about-card-container .material-symbols-outlined {
+  font-size: 5em;
+  color: var(--main-purple);
+  transition: 0.5s;
+}
+.about-livescore-section .about-card-group-container .about-card-container .material-symbols-outlined:hover {
+  transform: scale(1.1, 1.1);
+  transform: rotate(5deg);
+}
+.about-livescore-section .about-card-group-container .about-card-container .about-card-description-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.about-livescore-section .about-card-group-container .about-card-container .about-card-description-container .about-description-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 5% 0 10% 0;
+  -webkit-text-decoration: underline 3px wavy var(--main-purple);
+          text-decoration: underline 3px wavy var(--main-purple);
+  text-underline-offset: 10px;
+}
+.about-livescore-section .about-card-group-container .about-card-container .about-card-description-container .about-description-container {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.subscription-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 5% 0;
+  background-color: var(--gray);
+  cursor: default;
+}
+.subscription-section .sub-head {
+  font-size: 1.5em;
+  padding: 3% 0;
+}
+.subscription-section .subscription-group-container {
+  width: 100%;
+  display: grid;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-template-columns: auto auto auto;
+}
+.subscription-section .subscription-group-container .subscription-container {
+  width: 20vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 20px;
+  filter: drop-shadow(-10px 15px 20px var(--shade-purple));
+  transition: 0.2s;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-info {
+  padding: 10% 10%;
+  border-radius: 20px 20px 0 0;
+  z-index: 2;
+  background-color: var(--white);
+  filter: drop-shadow(0 10px 20px var(--shade-purple));
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-info .sub-type {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-info .sub-price {
+  font-weight: 500;
+  font-size: 2.2em;
+  padding: 3% 0;
+  color: var(--main-purple);
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-info .sub-price span {
+  color: var(--black);
+  font-size: 0.5em;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-info .sub-desc {
+  font-weight: 500;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-data {
+  padding: 10% 10%;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-data ul li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style: none;
+  padding: 3% 0;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-data ul li .material-symbols-outlined {
+  font-size: 1.2em;
+  padding: 0 3%;
+}
+.subscription-section .subscription-group-container .subscription-container .subscription-data ul li .enph {
+  font-weight: 600;
+}
+.subscription-section .subscription-group-container .subscription-container .sub-btn {
+  width: 50%;
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+  padding: 3% 10%;
+  text-align: center;
+  font-weight: 600;
+}
+.subscription-section .subscription-group-container .subscription-container .sub-btn:hover {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+}
+.subscription-section .subscription-group-container .subscription-container .sub-btn-default {
+  width: 50%;
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+  padding: 3% 10%;
+  text-align: center;
+}
+.subscription-section .subscription-group-container .subscription-container .sub-btn-default:hover:hover {
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
+  filter: none;
+  border-radius: 10px;
+}
+.subscription-section .subscription-group-container .subscription-container:hover {
+  transform: translateY(-20px);
+}/*# sourceMappingURL=index-css.css.map */

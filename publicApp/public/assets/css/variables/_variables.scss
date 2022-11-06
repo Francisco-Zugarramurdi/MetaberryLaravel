@@ -1,0 +1,429 @@
+:root {
+  --white: white;
+  --black: black;
+  --grayish-black: #4b4b4b;
+  --light-gray: #6e6e6e;
+  --main-purple: #3724e3;
+  --shade-purple: #2b25d93c;
+  --shade-scnd-purple: #2b25d91e;
+  --light-purple: #7A6DEC;
+  --lightest-purple: #BCB6F6;
+  --gray: #EBECEF;
+  --red: #eb3824;
+  --light-red: #FF5252;
+  --yellow: #E3C40E;
+  --green: #19a909;
+  --orange: #f37927;
+
+}
+
+* {
+  font-family: "Manrope", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+//Mixin botones primarios y secundarios
+
+@mixin primary-color-a-button {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+}
+
+@mixin primary-hover-color-a-button {
+  &:hover {
+    border: 1px solid var(--black);
+    background-color: var(--white);
+    color: var(--black);
+    filter: none;
+    border-radius: 10px;
+  }
+}
+
+@mixin secondary-line-a-button {
+  border: 1px solid var(--black);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+}
+
+@mixin secondary-hover-line-a-button {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+}
+
+//Fin mixins botones primarios y secundarios
+
+//Mixin setear un link a: Padding 0, Text-decoration: none, color: black.
+
+@mixin set-a-link {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+}
+
+//Fin mixins setear un link a
+
+//Mixins de evento
+
+@mixin set-event {
+
+  .event-container {
+
+    width: 25vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 3% 0 10% 0;
+    background-color: var(--white);
+    border-radius: 20px;
+    filter: drop-shadow(-10px 15px 10px var(--shade-scnd-purple));
+
+    .event-title-holder {
+
+      width: 100%;
+      height: 5vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--white);
+      border-radius: 20px 20px 0 0;
+      z-index: 2;
+      filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
+
+      .event-title,
+      .event-state {
+
+        @include set-a-link;
+        padding: 3% 5%;
+
+      }
+
+      .event-title {
+
+        font-weight: 700;
+
+      }
+
+      .event-state {
+
+        font-weight: 500;
+
+      }
+
+    }
+
+    .event-holder {
+
+      width: 100%;
+      height: 20vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 3% 0;
+      background-color: var(--white);
+      border-radius: 0 0 20px 20px;
+
+      .team-holder {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .team-logo {
+
+          width: 60px;
+          padding: 20% 0;
+          cursor: pointer;
+
+        }
+
+        .team-name {
+
+          @include set-a-link;
+          font-weight: 600;
+
+        }
+
+      }
+
+      .event-score {
+
+        font-size: 1.5em;
+        font-weight: 500;
+
+      }
+
+    }
+
+  }
+
+}
+
+//Fin mixins de evento
+
+@mixin set-create-post{
+
+  .create-a-post-body{
+
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .cap-container{
+
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+
+        .cap-user-profile-img{
+
+            width: 3vw;
+            height: 3vw;
+            border-radius: 50%;
+
+        }
+
+        .cap-form{
+
+            width: 25vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin: 0 3%;
+
+            .cap-text{
+                
+                width: 18vw;
+                height: 7vh;
+                border: none;
+                resize: none;
+                border-radius: 10px;
+                padding: 3% 5%;
+                background-color: var(--gray);
+
+            }
+
+            .cap-text::placeholder{
+
+                font-weight: 600;
+                font-size: 1.2em
+
+            }
+
+            .cap-post{
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                width: 3vw;
+                padding: 1.5% 7%;
+                border: none;
+                border-radius: 10px;
+                background-color: var(--main-purple);
+                filter: drop-shadow(-10px 15px 10px var(--shade-scnd-purple));
+                color: var(--white);
+                font-weight: 600;
+                transition: 0.2s;
+
+            }
+
+            .cap-post:hover{
+
+                background-color: var(--light-purple);
+
+            }
+
+        }
+
+    }
+
+}
+}
+
+@mixin set-post{
+
+  .user-post-container{
+
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 0 10% 0;
+    background-color: var(--white);
+    border-radius: 20px;
+    filter: drop-shadow(-10px 15px 5px var(--shade-scnd-purple));
+
+    .user-post-title-holder{
+
+      width: 100%;
+      height: 10vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: var(--white);
+      border-radius: 20px 20px 0 0;
+      z-index: 2;
+      filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
+      .event-user-profile-img{
+
+        width: 3vw;
+        height: 3vw;
+        border-radius: 50%;
+        margin: 0 3% 0 5%;
+
+      }
+
+      .user-post-info{
+
+        .post-info-title, .post-info-date{
+
+          @include set-a-link;
+
+        }
+
+        .post-info-title{
+
+          font-weight: 700;
+
+        }
+
+        .post-info-date{
+
+          font-weight: 500;
+          font-size: 0.8em;
+
+        }
+
+      }
+
+    }
+
+    .user-post-holder{
+
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      padding: 5% 0;
+
+      .post-body{
+
+        font-weight: 600;
+        padding: 0 5%;
+
+      }
+
+    }
+
+    .actions-holder{
+
+      width: 100%;
+      height: 6vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: var(--gray);
+      border-radius: 0 0 20px 20px;
+
+      span{
+
+        font-size: 2em;
+        padding: 5% 0% 5% 5%;
+        color: var(--main-purple);
+        transition: 0.2s;
+        cursor: pointer;
+
+      }
+
+      span:last-of-type{
+
+        font-size: 1em;
+        padding: 5% 0 5% 3%;
+
+    }
+
+    .material-symbols-outlined:hover{
+
+      transform: rotate(-5deg);
+
+  }
+
+  .action-text{
+
+      font-weight: 600;
+
+
+  }
+
+    }
+
+  }
+
+
+}
+
+
+//Inner NAV
+@mixin InnerNav {
+  .innerNav {
+    background-color: var(--gray);
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    // padding: 1.5% 3%;
+
+    ul {
+      display: flex;
+      align-items: center;
+
+      li {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        font-size: 1.2em;
+        font-weight: 700;
+        margin-left: 20%;
+        text-align: center;
+        height: 5vh;
+        cursor: pointer;
+
+      }
+
+      li:hover {
+        border-bottom: 3px black solid;
+      }
+    }
+  }
+}
+
+
+
+//Fin mixins de evento

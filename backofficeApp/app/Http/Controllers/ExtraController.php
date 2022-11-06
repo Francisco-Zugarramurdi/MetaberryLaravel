@@ -25,7 +25,7 @@ class ExtraController extends Controller
         $validation = $this->validateCreationRequest($request);
 
         if($validation !== "ok")
-            return $validation;
+            return view('error')->with('errors', $validation);
         try{
             return $this->createExtra($request);
         
@@ -38,7 +38,9 @@ class ExtraController extends Controller
         $validation = Validator::make($request->all(),[
             'name'=> 'required',
             'surname'=> 'required',
-            'rol'=> 'required'
+            'rol'=> 'required',
+            'contractStart' => 'date',
+            'contractEnd' => 'after:contractStart'
         ]);
         if($validation->fails())
             return $validation->errors()->toJson();

@@ -1,0 +1,366 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap%27");
+:root {
+  --white: white;
+  --black: black;
+  --grayish-black: #4b4b4b;
+  --light-gray: #6e6e6e;
+  --main-purple: #3724e3;
+  --shade-purple: #2b25d93c;
+  --shade-scnd-purple: #2b25d91e;
+  --light-purple: #7A6DEC;
+  --lightest-purple: #BCB6F6;
+  --gray: #EBECEF;
+  --red: #eb3824;
+  --light-red: #FF5252;
+  --yellow: #E3C40E;
+  --green: #19a909;
+  --orange: #f37927;
+}
+
+* {
+  font-family: "Manrope", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  height: 5vh;
+  padding: 1% 1.5%;
+  background-color: var(--white);
+}
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+header nav .header-nav-container-1 {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+header nav .header-nav-container-1 a {
+  margin: 0 3% 0 0;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+}
+header nav .header-nav-container-1 a img {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+header nav .header-nav-container-1 a:first-of-type {
+  width: 20%;
+}
+header nav .header-nav-container-2 {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+header nav .header-nav-container-2 a {
+  margin: 0 3% 0 0;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+}
+header nav .header-nav-container-2 .login-btn {
+  border: 1px solid var(--black);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+}
+header nav .header-nav-container-2 .login-btn:hover {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+}
+header nav .header-nav-container-2 .signup-btn {
+  border: 1px solid var(--main-purple);
+  background-color: var(--main-purple);
+  filter: drop-shadow(-5px 10px 10px var(--shade-purple));
+  color: var(--white);
+  border-radius: 10px;
+  padding: 1% 3%;
+  transition: 0.5s;
+}
+header nav .header-nav-container-2 .signup-btn:hover:hover {
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
+  filter: none;
+  border-radius: 10px;
+}
+header nav .header-nav-container-2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: none;
+  text-decoration: none;
+  border: none;
+  background-color: var(--white);
+  transition: 0.5s;
+  cursor: pointer;
+}
+header nav .header-nav-container-2 button span {
+  font-size: 2.5em;
+}
+header nav .header-nav-container-2 button:hover {
+  transform: rotate(90deg);
+}
+
+header {
+  height: 5vh;
+  padding: 1% 1.5%;
+  background-color: var(--white);
+}
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav .log-in-header-nav-container-1 {
+  width: 20vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+header nav .log-in-header-nav-container-1 a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  padding: 0 10% 0 0;
+}
+header nav .log-in-header-nav-container-1 a .material-symbols-outlined {
+  font-size: 2.2em;
+  transition: 0.2s;
+}
+header nav .log-in-header-nav-container-1 a .material-symbols-outlined:hover {
+  color: var(--main-purple);
+  transform: rotate(-5deg);
+}
+header nav .nav-logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 10vw;
+  height: 5vh;
+  transition: 0.2s;
+}
+header nav .nav-logo:hover {
+  filter: drop-shadow(0 0 20px var(--shade-purple));
+}
+header .log-in-header-nav-container-2 {
+  width: 20vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+header .log-in-header-nav-container-2 .nav-searchbar {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input {
+  height: 3vh;
+  width: 15vw;
+  border: none;
+  background-color: var(--gray);
+  border-radius: 10px;
+  padding: 1.5% 5%;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input::-moz-placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input:-ms-input-placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input::placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button {
+  border: none;
+  background-color: var(--white);
+  margin: 5%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button .material-symbols-outlined {
+  font-size: 2.2em;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button:hover {
+  color: var(--main-purple);
+  transform: scale(1.1, 1.1);
+}
+header .log-in-header-nav-container-2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: none;
+  text-decoration: none;
+  border: none;
+  background-color: var(--white);
+  transition: 0.5s;
+  cursor: pointer;
+}
+header .log-in-header-nav-container-2 button span {
+  font-size: 2.5em;
+}
+header .log-in-header-nav-container-2 button:hover {
+  transform: rotate(90deg);
+}
+
+header {
+  height: 5vh;
+  padding: 1% 1.5%;
+  background-color: var(--white);
+}
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav .log-in-header-nav-container-1 {
+  width: 20vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+header nav .log-in-header-nav-container-1 a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  padding: 0 10% 0 0;
+}
+header nav .log-in-header-nav-container-1 a .material-symbols-outlined {
+  font-size: 2.2em;
+  transition: 0.2s;
+}
+header nav .log-in-header-nav-container-1 a .material-symbols-outlined:hover {
+  color: var(--main-purple);
+  transform: rotate(-5deg);
+}
+header nav .nav-logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 10vw;
+  height: 5vh;
+  transition: 0.2s;
+}
+header nav .nav-logo:hover {
+  filter: drop-shadow(0 0 20px var(--shade-purple));
+}
+header .log-in-header-nav-container-2 {
+  width: 20vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+header .log-in-header-nav-container-2 .nav-searchbar {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input {
+  height: 3vh;
+  width: 15vw;
+  border: none;
+  background-color: var(--gray);
+  border-radius: 10px;
+  padding: 1.5% 5%;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input::-moz-placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input:-ms-input-placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar input::placeholder {
+  font-weight: 500;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button {
+  border: none;
+  background-color: var(--white);
+  margin: 5%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button .material-symbols-outlined {
+  font-size: 2.2em;
+}
+header .log-in-header-nav-container-2 .nav-searchbar button:hover {
+  color: var(--main-purple);
+  transform: scale(1.1, 1.1);
+}
+header .log-in-header-nav-container-2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: none;
+  text-decoration: none;
+  border: none;
+  background-color: var(--white);
+  transition: 0.5s;
+  cursor: pointer;
+}
+header .log-in-header-nav-container-2 button span {
+  font-size: 2.5em;
+}
+header .log-in-header-nav-container-2 button:hover {
+  transform: rotate(90deg);
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--main-purple);
+  color: var(--white);
+  height: 15vh;
+  width: 100%;
+  cursor: pointer;
+}
+footer img {
+  width: 5%;
+}
+footer .texts {
+  width: 12%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+footer .texts a {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  color: var(--white);
+  font-weight: 600;
+}
+footer .copyright {
+  font-size: 0.7em;
+}/*# sourceMappingURL=main.css.map */

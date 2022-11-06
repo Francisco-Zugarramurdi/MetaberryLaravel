@@ -1,0 +1,27 @@
+@import './_main.scss';
+@import './variables/_variables.scss';
+@import './event.scss';
+* {
+    margin: 0;
+}
+
+.resultDisplay {
+    @include set-event; 
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .event-container{
+        height: 20vh;
+        filter: none;
+        margin: 0;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+   
+}

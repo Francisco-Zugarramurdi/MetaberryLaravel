@@ -1,0 +1,57 @@
+@import './_main.scss';
+@include InnerNav;
+
+.userDisplay {
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .user{
+        display: flex;
+        width: 20%;
+        align-items: center;
+        margin-left:1.5%;
+        img {
+            margin: 2%;
+            border-radius: 100%;
+            height: 10vh;
+        }
+        .data{
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 3%;
+
+            .userName{
+                font-weight: 700;
+                font-size: 1.2em;
+            }
+            .email{
+                font-size: 0.8em;
+            }
+            .points{
+                font-weight: 600;
+            }
+
+        }
+    
+        #result {
+            margin: 4%;
+            font-size: 1.5em;
+            font-weight: 800;
+        }
+    }
+  
+}
+.display {
+    @include set-post;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray);
+    .user-post-container{
+        margin: 1% 3%;
+    }
+}

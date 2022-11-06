@@ -14,10 +14,10 @@ use \Illuminate\Database\QueryException;
 class UserController extends Controller
 {
     public function create(Request $request){
-        
+
         $validation = $this->validateCreationRequest($request);
 
-        if($validation !== "ok")
+        if($validation['status'] !== "Success")
             return $validation;
         try {
             return $this->createUser($request);
@@ -25,8 +25,8 @@ class UserController extends Controller
         catch (QueryException $e){
 
             return [
-                "error" => 'Cannot create user',
-                "trace" => $e -> getMessage()
+                "status" => "Error",
+                "body" => $e->getMessage()
             ];
 
         }
@@ -36,8 +36,8 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name' => 'required',
-            'email' => 'required|regex:/^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
-            'password' => 'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
+            'email' => 'required|regex:/(?i)^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
+            'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
             'password_confirmation' => 'required'
         ]);
         
@@ -46,13 +46,22 @@ class UserController extends Controller
 
         if(User::where('email', $request -> post("email")) -> exists())
 
-            return 'User already exists';
+            return [
+                "status" => "Error",
+                "body" => "User already exists"
+            ];
 
         if($request->post("password") !== $request->post("password_confirmation"))
 
-            return 'error: Passwords do not match'; 
+            return [
+                "status" => "Error",
+                "body" => "Passwords do not match"
+            ];
 
-        return 'ok';
+        return [
+            "status" => "Success",
+            "body" => "Created succesfully"
+        ];
     }
 
     private function createUser($request){
@@ -61,13 +70,14 @@ class UserController extends Controller
 
             'name' => $request -> post("name"),
             'credit_card' => '',
-            'photo' => '',
+            'photo' => 'default_img_do_not_delete.jpg',
             'points' => 0,
-            'type_of_user' => "free",
+            'type_of_user' => 'free',
             'total_points' => 0
 
         ]);
-        return User::create([
+
+        User::create([
 
             'id' => $user -> id,
             'name' => $request -> post("name"),
@@ -75,15 +85,27 @@ class UserController extends Controller
             'password' => Hash::make($request -> post("password"))
 
         ]);
+
+        return [
+            "status" => "Success",
+            "body" => "Created succesfully",
+            "photo" => $user->photo
+        ];
     }
 
     public function authenticate(Request $request){
 
         $validation =  $this->validateAuthenticationRequest($request);
-
-        if($validation !== "ok")
+        
+        $userPhoto = UserData::join('users','users.id','users_data.id')
+        ->where('email',$request->email)
+        ->select('photo as photo')
+        ->first()
+        ->photo;
+                
+        if($validation['status'] !== "Success")
             return $validation;
-        return $this->authenticateUser($request->only('email', 'password'));
+        return $this->authenticateUser($request->only('email', 'password'),$userPhoto);
         
     }
 
@@ -101,14 +123,27 @@ class UserController extends Controller
         $target = User::where('email',$request->post("email"))->first();
 
         if(!$target)
-            return 'error: Authentication failure, invalid email'; 
-        return "ok";
+            return [
+                "status" => "Error",
+                "body" => "Invalid credentials"
+            ];
+        return [
+            "status" => "Success",
+            "body" => "Validated succesfully"
+        ];
     }
 
-    private function authenticateUser($credentials){
+    private function authenticateUser($credentials,$photo){
 
         if(!Auth::attempt($credentials))
-            return 'error: Authentication failure, invalid password or email';
-        return 'Success';
+            return [
+                "status" => "Error",
+                "body" => "Invalid credentials"
+            ];
+        return [
+            "status" => "Success",
+            "body" => "Authenticated",
+            "photo" => $photo
+        ];
     }
 }

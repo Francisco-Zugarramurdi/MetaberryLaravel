@@ -1,0 +1,189 @@
+@import './_main.scss';
+@import './variables/_variables.scss';
+@include InnerNav;
+
+
+.display {
+    display: flex;
+    background-color: var(--gray);
+    .renderArea {
+        width: 60%;
+        background-color: var(--gray);
+        .card {
+            margin: 4% 5%;
+            width: 35%;
+            background-color: var(--white);
+            border-radius:20px;
+            padding: 0 0 3% 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            filter: drop-shadow(-5px 10px 10px var(--shade-scnd-purple));
+            .title {
+                border-radius: 20px 20px 0 0;
+                padding: 3% 5%;
+                width: 90%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                z-index: 2;
+                background-color: var(--white);
+                filter: drop-shadow(-5px 10px 10px var(--shade-scnd-purple));
+
+                p {
+                    font-size: 1.2em;
+                    font-weight: 700;
+                }
+
+                .minuto {
+                    font-weight: 500;
+                }
+
+            }
+
+            p.info {
+                padding: 3% 5%;
+                font-size: 1.2em;
+            }
+        }
+    }
+    .sideData{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        width: 40vw;
+        margin: 0 3% ;
+        padding: 0;
+        .about{
+            padding: 3% 5%;
+            height: 20vh;
+            width: 30vw;
+            margin: 5% 0;
+            background-color: var(--white);
+            border-radius: 20px;
+            filter: drop-shadow(-5px 10px 10px var(--shade-scnd-purple));
+
+            h3{
+                display: flex;
+                align-items: center;
+                padding: 1.5% 0;
+                span{
+                    margin-left: 1%;
+                    font-weight: 300;
+                }
+            }
+            
+            p{
+                width: 25vw;
+            }    
+        }
+
+    }
+    .bet{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3% 5%;
+        height: 20vh;
+        width: 30vw;
+        background-color: var(--lightest-purple);
+        border-radius: 20px;
+        filter: drop-shadow(-5px 10px 10px var(--shade-scnd-purple));
+        .vs{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3% 0;
+            p{
+              margin: 4%;  
+              font-weight: 700;
+            }
+        }
+        button{
+            @include primary-color-a-button;
+            padding: 3% 10%;
+        }
+        button:hover{
+            @include primary-hover-color-a-button;
+        }
+    }
+    .post{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 30vw;
+        height: 10vh;
+        padding: 3% 5%;
+        background-color: var(--white);
+        border-radius: 20px;
+        margin: 5% 0;
+        filter: drop-shadow(-5px 10px 10px var(--shade-scnd-purple));
+        .cta{
+            width: 100%;
+            height: 10vh;
+            display: flex;
+            justify-content: space-between;
+
+            p:first-of-type{
+
+                font-weight: 600;
+
+            }
+        }
+        form{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .post-input{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 25vw;
+
+                img{
+                    width: 2.5vw;
+                    height: 2.5vw;
+                    border-radius: 100%;
+                    margin: 2%;
+                }
+                input{
+                    background-color: var(--gray);
+                    border: none;
+                    width: 20vw;
+                    border-radius: 10px;
+                    height: 5vh;
+                    padding: 0 3%;
+                }
+
+            }
+            button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: none;
+                padding: 2%;
+                background-color: var(--light-purple);
+                border-radius: 50%;
+                transition: 0.2s;
+                span{
+                    font-weight: 400;
+                    color: var(--white);
+                }
+            }
+            button:hover{
+                transition: 0.2s;
+                transform: scale(1.2);
+            }
+        }
+    }
+  
+     
+    
+}
