@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Middleware\Authenticate;
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,16 @@ Route::get('/login', function () {
 Route::get('/signup', function () {
     return view('sign-up');
 });
+Route::get('/scores',function(){
+    return view('scores');
+});
 
 Route::post('/login',[AuthController::class,'Login']);
 Route::post('/signup',[AuthController::class,'Sign']);
 Route::post('/logout',[AuthController::class,'Logout']);
+
 Route::post('/userData',[UserController::class,'Navbar']);
+
+Route::post('/events',[EventController::class,'Index']);
+Route::post('/sports',[EventController::class,'IndexSport']);
+Route::post('/countries',[EventController::class,'IndexCountry']);
