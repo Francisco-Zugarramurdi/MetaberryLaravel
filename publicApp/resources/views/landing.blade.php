@@ -24,8 +24,10 @@
 
             <div class="hero-section-text">
 
-                <h1>We're the <span>first and only </span>social media dedicated to sports</h1>
-                <h2>Post, like, follow, watch and gain points by doing what you enjoy</h2>
+                <h1>Enjoy from <span>anywhere, at any time</span> your favorite events</h1>
+                <h2>You won't miss that special match again. Add to favorites teams, leagues
+                    and events to catch up with their activities.
+                </h2>
                 <a href="/signup" class="join-btn">Join Now</a>
 
             </div>
@@ -79,184 +81,13 @@
 
                 </div>
 
-                <div class="event-container">
-
-                    <div class="event-title-holder">
-
-                        <a href="/" class="event-title">Event Title</a>
-                        <p class="event-state">State</p>
-
-                    </div>
-
-                    <div class="event-holder">
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/argentina.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                        <div class="score-holder">
-
-                            <p class="event-score">0 - 0</p>
-
-                        </div>
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/uruguay.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="event-container">
-
-                    <div class="event-title-holder">
-
-                        <a href="/" class="event-title">Event Title</a>
-                        <p class="event-state">State</p>
-
-                    </div>
-
-                    <div class="event-holder">
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/argentina.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                        <div class="score-holder">
-
-                            <p class="event-score">0 - 0</p>
-
-                        </div>
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/uruguay.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="event-container">
-
-                    <div class="event-title-holder">
-
-                        <a href="/" class="event-title">Event Title</a>
-                        <p class="event-state">State</p>
-
-                    </div>
-
-                    <div class="event-holder">
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/argentina.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                        <div class="score-holder">
-
-                            <p class="event-score">0 - 0</p>
-
-                        </div>
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/uruguay.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="event-container">
-
-                    <div class="event-title-holder">
-
-                        <a href="/" class="event-title">Event Title</a>
-                        <p class="event-state">State</p>
-
-                    </div>
-
-                    <div class="event-holder">
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/argentina.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                        <div class="score-holder">
-
-                            <p class="event-score">0 - 0</p>
-
-                        </div>
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/uruguay.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="event-container">
-
-                    <div class="event-title-holder">
-
-                        <a href="/" class="event-title">Event Title</a>
-                        <p class="event-state">State</p>
-
-                    </div>
-
-                    <div class="event-holder">
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/argentina.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                        <div class="score-holder">
-
-                            <p class="event-score">0 - 0</p>
-
-                        </div>
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/uruguay.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
             </div>
 
             <a href="/" class="events-btn">See More</a>
 
         </div>
 
-        <div class="about-livescore-section" id="aboutSection">
+        {{-- <div class="about-livescore-section" id="aboutSection">
 
             <h2 class="about-head">How does Livesore work?</h2>
 
@@ -360,7 +191,7 @@
 
             </div>
 
-        </div>
+        </div> --}}
 
         <div class="subscription-section">
 
@@ -383,8 +214,6 @@
                         <ul>
 
                             <li><span class="material-symbols-outlined">check_circle</span>
-                                Add 3 teams to favorites</li>
-                            <li><span class="material-symbols-outlined">cancel</span>
                                 Follow teams, events and leagues</li>
                             <li><span class="material-symbols-outlined">cancel</span>
                                 Remove Ads</li>
@@ -413,8 +242,6 @@
                         <ul>
 
                             <li><span class="material-symbols-outlined">check_circle</span>
-                                Add 7 teams to favorites</li>
-                            <li><span class="material-symbols-outlined">check_circle</span>
                                 Follow teams, events and leagues</li>
                             <li><span class="material-symbols-outlined">check_circle</span>
                                 Remove Ads</li>
@@ -433,7 +260,7 @@
 
                         <p class="sub-type">Enterprise</p>
                         <p class="sub-price">$50 <span>/year</span></p>
-                        <p class="sub-desc">Save up to 2 months of payments and get all the benefits from premium plan
+                        <p class="sub-desc">Save up to 2 months of payments and get all the benefits from the premium plan
                         </p>
 
                     </div>
@@ -442,8 +269,6 @@
 
                         <ul>
 
-                            <li><span class="material-symbols-outlined">check_circle</span>
-                                Add 7 teams to favorites</li>
                             <li><span class="material-symbols-outlined">check_circle</span>
                                 Follow teams, events and leagues</li>
                             <li><span class="material-symbols-outlined">check_circle</span>
@@ -467,15 +292,6 @@
     <footer>
 
         <img src="https://github.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/blob/main/Dise%C3%B1o/Produccion/assets/img/logo/Recurso%2022white.png?raw=true">
-
-        <div class="texts">
-
-            <a href="#aboutSection">How does it work?</a>
-            <a href="/">Scores</a>
-
-        </div>
-
-        <p class="copyright">All Rights Reserved. 2022 Metaberry</p>
 
     </footer>
 

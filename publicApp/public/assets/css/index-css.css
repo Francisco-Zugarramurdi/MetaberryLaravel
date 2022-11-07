@@ -145,7 +145,7 @@ header nav {
   align-items: center;
 }
 header nav .log-in-header-nav-container-1 {
-  width: 20vw;
+  width: 25vw;
   height: 5vh;
   display: flex;
   flex-direction: row;
@@ -298,35 +298,23 @@ header .log-in-header-nav-container-2 button:hover {
 }
 
 footer {
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   background-color: var(--main-purple);
   color: var(--white);
-  height: 15vh;
-  width: 100%;
-  cursor: pointer;
+  cursor: default;
 }
 footer img {
-  width: 5%;
+  width: 3%;
+  margin: 30px 0;
+  transition: 0.3s;
 }
-footer .texts {
-  width: 12%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-footer .texts a {
-  padding: 0;
-  text-decoration: none;
-  color: var(--black);
-  color: var(--white);
-  font-weight: 600;
-}
-footer .copyright {
-  font-size: 0.7em;
+footer img:hover {
+  transform: scale(1.1);
 }
 
 .sign-form-container {
@@ -769,7 +757,7 @@ footer .copyright {
 }
 .subscription-section .subscription-group-container .subscription-container {
   width: 20vw;
-  height: 60vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -833,6 +821,7 @@ footer .copyright {
   padding: 3% 10%;
   text-align: center;
   font-weight: 600;
+  margin: 0 0 50px 0;
 }
 .subscription-section .subscription-group-container .subscription-container .sub-btn:hover {
   border: 1px solid var(--main-purple);
@@ -854,6 +843,11 @@ footer .copyright {
   transition: 0.5s;
   padding: 3% 10%;
   text-align: center;
+  margin: 0 0 50px 0;
+  letter-spacing: 0.8px;
+}
+.subscription-section .subscription-group-container .subscription-container .sub-btn-default:hover {
+  font-weight: 600;
 }
 .subscription-section .subscription-group-container .subscription-container .sub-btn-default:hover:hover {
   border: 1px solid var(--black);

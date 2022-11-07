@@ -146,7 +146,7 @@ header nav {
   align-items: center;
 }
 header nav .log-in-header-nav-container-1 {
-  width: 20vw;
+  width: 25vw;
   height: 5vh;
   display: flex;
   flex-direction: row;
@@ -299,35 +299,23 @@ header .log-in-header-nav-container-2 button:hover {
 }
 
 footer {
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   background-color: var(--main-purple);
   color: var(--white);
-  height: 15vh;
-  width: 100%;
-  cursor: pointer;
+  cursor: default;
 }
 footer img {
-  width: 5%;
+  width: 3%;
+  margin: 30px 0;
+  transition: 0.3s;
 }
-footer .texts {
-  width: 12%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-footer .texts a {
-  padding: 0;
-  text-decoration: none;
-  color: var(--black);
-  color: var(--white);
-  font-weight: 600;
-}
-footer .copyright {
-  font-size: 0.7em;
+footer img:hover {
+  transform: scale(1.1);
 }
 
 .sign-form-container {
@@ -704,7 +692,7 @@ header nav {
   align-items: center;
 }
 header nav .log-in-header-nav-container-1 {
-  width: 20vw;
+  width: 25vw;
   height: 5vh;
   display: flex;
   flex-direction: row;
@@ -857,35 +845,23 @@ header .log-in-header-nav-container-2 button:hover {
 }
 
 footer {
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   background-color: var(--main-purple);
   color: var(--white);
-  height: 15vh;
-  width: 100%;
-  cursor: pointer;
+  cursor: default;
 }
 footer img {
-  width: 5%;
+  width: 3%;
+  margin: 30px 0;
+  transition: 0.3s;
 }
-footer .texts {
-  width: 12%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-footer .texts a {
-  padding: 0;
-  text-decoration: none;
-  color: var(--black);
-  color: var(--white);
-  font-weight: 600;
-}
-footer .copyright {
-  font-size: 0.7em;
+footer img:hover {
+  transform: scale(1.1);
 }
 
 .sign-form-container {

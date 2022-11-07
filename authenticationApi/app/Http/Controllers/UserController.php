@@ -44,19 +44,23 @@ class UserController extends Controller
         if($validator->fails())
             return $validator->errors()->toJson();
 
-        if(User::where('email', $request -> post("email")) -> exists())
+        if(User::where('email', $request -> post("email")) -> exists()){
 
             return [
                 "status" => "Error",
                 "body" => "User already exists"
             ];
 
-        if($request->post("password") !== $request->post("password_confirmation"))
+        }
+
+        if($request->post("password") !== $request->post("password_confirmation")){
 
             return [
                 "status" => "Error",
                 "body" => "Passwords do not match"
             ];
+
+        }
 
         return [
             "status" => "Success",
@@ -89,7 +93,7 @@ class UserController extends Controller
         return [
             "status" => "Success",
             "body" => "Created succesfully",
-            "id" => Auth()->user()->id
+            "id" => $user->id
         ];
     }
 

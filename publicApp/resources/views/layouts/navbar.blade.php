@@ -10,8 +10,9 @@
 
                 <a class="profile-image" href="/"><img id="userImage"></a>
                 <p id="userName" class="username"></p>
-                <a href="/"><span class="material-symbols-outlined">notifications</span></a>
+                <a href="/"><span class="material-symbols-outlined">star</span></a>
                 <a href="/"><span class="material-symbols-outlined">scoreboard</span></a>
+                <a href="/"><span class="material-symbols-outlined">notifications</span></a>
 
             </div>
 

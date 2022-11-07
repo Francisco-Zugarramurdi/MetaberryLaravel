@@ -49,7 +49,6 @@ class AuthController extends Controller
             $request->session()->save();
             return redirect('/');
         }
-
         return view('/sign-up',[ 'error' => true, 'body' => $authentication]);
 
     }
