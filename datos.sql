@@ -194,10 +194,11 @@ insert into users_data(name,points,type_of_user,total_points, photo, credit_card
 ('Fede',100,'free',100,'default_img_do_not_delete.jpg','4321432143214321'), 
 ('Nico',5000,'paid_monthly',6000,'default_img_do_not_delete.jpg','4321432143214321');
 insert into users(id, name, email,password) values 
-(1,'Lucas Medina','lucasmedina@gmail.com','HASH01Lucas'), (2,'Yves Motta','yvesmotta1@gmail.com','HASH01Yves'), 
-(3,'Zara zugarramurdi','zarita@gmail.com','HASH01Zara'), (4,'Fede  
-Notienesurname','elfedefacha@gmail.com','Fedenotienehasheadalacontra'),
-(5,'Nicolas Mora','nico@gmail.com','HASH01Nico'); 
+(1,'Lucas Medina','lucas.medina@gmail.com','$2a$12$8b5EvWx9fT8GDYW.RpaUEusP7wgE0Z915fH6l225MTp9VcVUim37W'), 
+(2,'Yves Motta','yvesmotta1@gmail.com','$2a$12$CZnLkKx7/vBM46rTFZ7Uvu.XGIbieBuOoPPsysxYWpr0/y8zBmwSG'), 
+(3,'Fran zugarramurdi','zarita@gmail.com','$2a$12$KhKxPUz5hk1jU6IeDfesZ.kDc.3bAYLkwWOiK1vjM6aLKn9OICfz6'), 
+(4,'Fede Notienesurname','elfedefacha@gmail.com','$2a$12$gBR.edJZqqwa.NVW7vVwZOL.aQSCNV0jymf6EhKCApcjiVKncMknC'),
+(5,'Nicolas Mora','nico@gmail.com','$2a$12$gBR.edJZqqwa.NVW7vVwZOL.aQSCNV0jymf6EhKCApcjiVKncMknC'); 
 insert into premium_league(id_users_data, id_leagues) values 
 (1,1), 
 (1,2), 
