@@ -230,22 +230,29 @@ class EventController extends Controller
 
     
 
+    private function updateTeams(Request $request, $id){
+        $this->destroyOldTeams($request, $request->teams, $id);
+        $this->createNewTeams($request, $request->teams, $id);
+        
+    }
+
+    
     private function destroyOldTeams(Request $request, $teams, $id){
         $teamsInDataBase = DB::table("events_teams")
         ->where('id_events', $id)
         ->whereNull('deleted_at')
         ->select('events_teams.id_teams as idTeam')
         ->get();
-
+        
         foreach($teamsInDataBase as $teamInDataBase){
             
             if(!in_array($teamInDataBase->idTeam, $teams)){
-
+                
                 DB::table($request->typeResult)
                 ->where('id_teams', $teamInDataBase->idTeam)
                 ->where("id_results",  Result::where('id_events', $id)->first()->id)
                 ->update([$request->typeResult . '.deleted_at'=>Carbon::now()]);
-
+                
                 DB::table('events_teams')
                 ->where('id_events',$id)
                 ->where('id_teams', $teamInDataBase->idTeam)
@@ -255,13 +262,13 @@ class EventController extends Controller
 
     }
     private function createNewTeams(Request $request, $teams, $id){
-
+        
         foreach($teams as $team){
             
             $teamInDataBaseExists = DB::table("events_teams")
             ->where('id_events', $id)
             ->where('id_teams', $team);
-
+            
             if(!$teamInDataBaseExists->exists()){
                 $this->addEventTeam($id, $team);
             }
@@ -274,30 +281,25 @@ class EventController extends Controller
             }
         }
     }
-
-    private function updateTeams(Request $request, $id){
-        $this->destroyOldTeams($request, $request->teams, $id);
-        $this->createNewTeams($request, $request->teams, $id);
-        
-    }
-
+    
     private function updateResult($request, $id){
         if($request->result != null){
             $result = Result::where("id_events", $id);
             $result->result = $request->result . " winner";
         }
     }
-
+    
     public function EditEventSet(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
         if($validation !== 'ok')
-            return $validation;
+        return $validation;
         
         try{
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeams($request,$id);
             $this->updateResult($request,$id);
+            $this->updateResultSets($request,$id);
 
             return redirect('/event/list');
         }
@@ -306,12 +308,84 @@ class EventController extends Controller
         }
     }
 
+    private function updateResultSets($request,$id){
+
+        $this->destroyOldSets($request,$id);
+        $this->createAndUpdateSets($request,$id);
+
+    }
+
+    private function destroyOldSets($request,$id){
+        $resultId = Result::where('id_events', $id)->first()->id;
+
+        $setsFirstTeam = PointsSet::where("id_results", $resultId)->where("id_teams", $request->teams[0])->whereNull("deleted_at");
+        $setsSecondTeam = PointsSet::where("id_results", $resultId)->where("id_teams", $request->teams[1])->whereNull("deleted_at");
+
+        if($setsFirstTeam->count() > $setsSecondTeam->count()){
+            DB::table("points_sets")
+            ->where("id_results", $resultId)
+            ->where("id_teams", $request->teams[0])
+            ->whereNull("deleted_at")
+            ->update(['deleted_at'=>Carbon::now()]);
+        }
+        if($setsFirstTeam->count() < $setsSecondTeam->count()){
+            DB::table("points_sets")
+            ->where("id_results", $resultId)
+            ->where("id_teams", $request->teams[1])
+            ->whereNull("deleted_at")
+            ->update(['deleted_at'=>Carbon::now()]);
+        }
+    }
+    private function createAndUpdateSets($request,$id){
+        $actualSetNumber = 1;
+        $resultId = Result::where('id_events', $id)->first()->id;
+        $createdOrUpdatedSets = array();
+
+        foreach($request->sets as $set){
+
+            if(array_key_exists("setNumber",$set)){
+                DB::table("points_sets")
+                ->where("id_results", $resultId )
+                ->where("id_teams", $set["team"])
+                ->where("number_set", $set["setNumber"])
+                ->update(["points_set" => $set["set"]]);
+                
+                $actualSetNumber = $set["setNumber"];
+            }
+
+            if(!array_key_exists("setNumber",$set)){
+
+                if(PointsSet::where("id_results", $resultId)->where("id_teams", $set["team"])->where("number_set", $actualSetNumber)->whereNull("deleted_at")->exists()){
+                    $actualSetNumber++;
+
+                }
+                
+                if(PointsSet::where("id_results", $resultId)->where("id_teams", $set["team"])->where("number_set", $actualSetNumber)->exists()){
+                    DB::table("points_sets")
+                    ->where("id_results", $resultId )
+                    ->where("id_teams", $set["team"])
+                    ->where("number_set", $actualSetNumber)
+                    ->update(["points_set" => $set["set"],
+                    "deleted_at" => null]);
+                    
+                }else{
+                    $createdOrUpdatedSets[] = DB::table("points_sets")
+                    ->insert(["id_results" => $resultId,
+                    "id_teams" => $set["team"],
+                    "number_set" => $actualSetNumber,
+                    "points_set" => $set["set"]]);
+                }
+
+            }
+        }
+    }
 
     public function EditEventPoint(Request $request, $id){
 
         $validation = $this->validateCreationRequest($request);
         if($validation !== 'ok')
             return $validation;
+            
 
         try{
             $this->updateEvent($request,$id);
@@ -328,6 +402,7 @@ class EventController extends Controller
     }
 
     private function updateResultPoints($request,$id){
+       
         $resultPoints =  ResultPoint::where("id_results", Result::where('id_events', $id)->first()->id );
         $this->destroyOldPoints($request,$id,$resultPoints);
         $this->createAndUpdatePoints($request,$id,$resultPoints);
@@ -399,15 +474,15 @@ class EventController extends Controller
     public function EditEventMarkUp(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
 
-
         if($validation !== 'ok')
             return $validation;
-        
+
         try{
             $this->updateEvent($request,$id);
             $this->updateLeague($request,$id);
             $this->updateTeamsMarks($request,$id);
             $this->updateResult($request,$id);
+            $this->updateResultMarkUp($request,$id);
 
             return redirect('/event/list');
         }
@@ -415,6 +490,59 @@ class EventController extends Controller
             return $e;
         }
     }
+    
+    private function updateResultMarkUp($request,$id){
+
+        $marks = array_map(function($mark){
+
+            if(gettype($mark["mark"])=="string"){
+                $MarkInSeconds = explode(":", $mark["mark"]);
+                $MarkInSeconds = $MarkInSeconds[0]*3600 + $MarkInSeconds[1]*60 + $MarkInSeconds[2];
+                $mark["mark"] = $MarkInSeconds;
+            }
+            
+            return $mark;
+
+        }, $request->marks);
+
+        
+
+        usort($marks, function($a, $b){
+            if ($a["mark"] == $b["mark"]) {
+                return 0;
+            }
+            return ($a["mark"] < $b["mark"]) ? -1 : 1;
+        });
+
+        $position = 0;
+
+        foreach($marks as $mark){
+            $position += 1;
+            $resultMark = ResultUpward::where("id_results", Result::where('id_events', $id)->first()->id )
+            ->where("id_teams", $mark["team"]);
+
+            if($resultMark->exists()){
+                DB::table("results_upward")
+                ->where("id_results", $resultMark->first()->id_results)
+                ->where("id_teams", $resultMark->first()->id_teams)
+                ->update(["result"=>$mark["mark"],
+            "position" => $position]);
+
+            }
+            if(!$resultMark->exists()){
+
+                ResultPoint::create([
+                    "id_results" => Result::where('id_events', $id)->first()->id,
+                    "id_players" => $point["player"],
+                    "id_teams" => $point["team"],
+                    "result" => $mark["mark"]
+                ]);
+                
+            }
+        }
+    }
+
+    
 
     public function EditEventMarkDown(Request $request, $id){
         $validation = $this->validateCreationRequest($request);
@@ -435,16 +563,6 @@ class EventController extends Controller
         }
     }
 
-    private function updateResultSets(Request $request, $id){
-
-    }
-
-    private function updateResultMarkUp(Request $request, $id){
-
-    }
-    private function updateResultMarkDown(Request $request, $id){
-
-    }
 
     private function createEvent(Request $request){
     
