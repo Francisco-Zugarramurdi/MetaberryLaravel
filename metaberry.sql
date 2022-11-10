@@ -236,6 +236,9 @@ create table users_subscriptions(
 create table premium_league(
     id_users_data bigint unsigned not null,
     id_leagues bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_leagues),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_leagues) references leagues(id)
@@ -244,6 +247,9 @@ create table premium_league(
 create table premium_sports(
     id_users_data bigint unsigned not null,
     id_sports bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_sports),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_sports) references sports(id)
@@ -252,6 +258,9 @@ create table premium_sports(
 create table premium_events(
     id_users_data bigint unsigned not null,
     id_events bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_events),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_events) references events(id)
@@ -260,6 +269,9 @@ create table premium_events(
 create table premium_teams(
     id_users_data bigint unsigned not null,
     id_teams bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_teams),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_teams) references teams(id)
