@@ -14,13 +14,13 @@ insert into sports(name, icon) values
 ('Boxeo','sports_mma'), 
 ('Patin','roller_skating');
 insert into countries(name, photo) values 
-('Uruguay','default_img_do_not_delete.jpg'), 
-('Argentina','default_img_do_not_delete.jpg'), 
-('Brasil','default_img_do_not_delete.jpg'),
-('Estados Unidos','default_img_do_not_delete.jpg'), 
-('Chile','default_img_do_not_delete.jpg'), 
-('Alemania','default_img_do_not_delete.jpg'), 
-('España','default_img_do_not_delete.jpg');
+('Uruguay','uru.jpg'), 
+('Argentina','arg.jpg'), 
+('Brasil','bra.jpg'),
+('Estados Unidos','eeuu.jpg'), 
+('Chile','chi.jpg'), 
+('Alemania','ale.jpg'), 
+('España','esp.jpg');
 insert into players(name, surname, photo) values 
 ('Luis','Suarez','1.jpg'), 
 ('Luis','Perez','2.png'), 
@@ -64,6 +64,7 @@ insert into players(name, surname, photo) values
 ('Arturo','DiMario','34.jpg'), 
 ('Viviana','Sosa','default_img_do_not_delete.jpg'), 
 ('Mario','McArthur','default_img_do_not_delete.jpg'); 
+
 insert into events(name, details, id_sports, id_countries, date,  relevance) values 
 ('Gran parque central','Se juega en el parque  central',1,1,"2022-01-01",5),
 ('Campeon del siglo','Se juega en la  bombonera',1,2,"2022-02-01",4),
@@ -72,18 +73,18 @@ insert into events(name, details, id_sports, id_countries, date,  relevance) val
 ('Carrera de personas','Se corre en el hipodromo',4,5,"2022-01-01",5); 
 
 insert into teams(name, type_teams, id_sports, id_countries, photo) values 
-('Nacional', 'Group',1,1,'default_img_do_not_delete.jpg'), 
-('Boca', 'Group',1,2,'default_img_do_not_delete.jpg'), 
-('Peñarol', 'Group',1,1,'default_img_do_not_delete.jpg'), 
-('Racing', 'Group',1,2,'default_img_do_not_delete.jpg'), 
-('Tennis team1', 'Individual',2,2,'default_img_do_not_delete.jpg'), 
-('Tennis team2', 'Individual',2,2,'default_img_do_not_delete.jpg'),
-('Auto1', 'Individual',4,6,'default_img_do_not_delete.jpg'), 
-('Auto2', 'Individual',4,6,'default_img_do_not_delete.jpg'), 
-('Auto3', 'Individual',4,6,'default_img_do_not_delete.jpg'), 
-('Auto4', 'Individual',4,6,'default_img_do_not_delete.jpg'), 
-('Corredor1', 'Individual',4,5,'default_img_do_not_delete.jpg'), 
-('Corredor2', 'Individual',4,5,'default_img_do_not_delete.jpg');
+('Nacional', 'Group',1,1,'nacional.jpg'), 
+('Boca', 'Group',1,2,'boca.jpg'), 
+('Peñarol', 'Group',1,1,'peñarol.jpg'), 
+('Racing', 'Group',1,2,'racing.jpg'), 
+('Tennis team1', 'Individual',2,2,'tennis1.jpg'), 
+('Tennis team2', 'Individual',2,2,'tennis2.jpg'),
+('Auto1', 'Individual',4,6,'Auto1.jpg'), 
+('Auto2', 'Individual',4,6,'Auto2.jpg'), 
+('Auto3', 'Individual',4,6,'Auto3.jpg'), 
+('Auto4', 'Individual',4,6,'Auto4.jpg'), 
+('Corredor1', 'Individual',4,5,'Corredor1.jpg'), 
+('Corredor2', 'Individual',4,5,'Corredor2.jpg');
 
 insert into players_teams(id_players, id_teams, contract_start, contract_end, status) values 
 (1,1,"2020-01-01","2022-12-12","Active"), 
@@ -271,11 +272,11 @@ insert into results_downward(id_results,id_teams,position,result) values
 (4,10,2,9);
 
 insert into ads (view_counter, views_hired, url, image, size) values
-(1,10,'url.url','sphoto.com','small'),
-(1,10,'url.url','bigphoto.com','big'),
-(1,10,'url.url','mphoto.com','medium'),
-(1,10,'url.url','photous.com','ultra'),
-(1,10,'url.url','photo.com','big');
+(1,10,'cocacola.com','adsmall.jpg','small'),
+(1,10,'youtube.com','adbig.jpg','big'),
+(1,10,'google.com','admedium.jpg','medium'),
+(1,10,'bet365.com','adultra.jpg','ultra'),
+(1,10,'spotify.com','adbig.jpg','big');
 
 insert into tags(tag) values
 ('Futbol'),
