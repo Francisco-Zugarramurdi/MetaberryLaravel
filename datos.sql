@@ -276,7 +276,9 @@ insert into ads (view_counter, views_hired, url, image, size) values
 (1,10,'youtube.com','adbig.jpg','big'),
 (1,10,'google.com','admedium.jpg','medium'),
 (1,10,'bet365.com','adultra.jpg','ultra'),
-(1,10,'spotify.com','adbig.jpg','big');
+(1,10,'spotify.com','adbig.jpg','big'),
+(1,10,'yahoo.com','adssmall.jpg','small'),
+(1,10,'pedirotootot.com','addsmall.jpg','small');
 
 insert into tags(tag) values
 ('Futbol'),
@@ -286,8 +288,12 @@ insert into tags(tag) values
 
 insert into ad_tags(id_tag, id_ad) values
 (1,1),
-(2,3),
-(1,2);
+(2,2),
+(3,3),
+(2,4),
+(2,5),
+(2,6),
+(1,7);
 
 insert into users_subscriptions(id_users, type_of_subscription) values
 (1,'paid_yearly'),

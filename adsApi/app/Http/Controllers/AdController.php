@@ -19,7 +19,7 @@ class AdController extends Controller
         try{
             $possibleAds = $this->findAds($request);
             if(count($possibleAds)==0){
-                return 'error, no ads available';
+                return 'Error, no ads available';
             }
             return $ad = $this->selectAd($possibleAds);
 
