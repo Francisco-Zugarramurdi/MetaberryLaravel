@@ -18,28 +18,7 @@
 
 <body>
 
-    <header>
-
-        <nav>
-
-            <div class="header-nav-container-1">
-                <a href="./index.html"><img
-                        src="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/Recurso%2019.png"></a>
-                <a href="./index.html#aboutSection">How does it work?</a>
-                <a href="./scores.html">Scores</a>
-            </div>
-
-            <div class="header-nav-container-2">
-
-                <a href="./log-in.html" class="login-btn">Login</a>
-                <a href="./sign-up.html" class="signup-btn">Create an Account</a>
-                <button><span class="material-symbols-outlined">settings</span></button></li>
-
-            </div>
-
-        </nav>
-
-    </header>
+@include('layouts.navbar')
 
     <main>
 
