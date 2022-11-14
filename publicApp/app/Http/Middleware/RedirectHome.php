@@ -6,7 +6,7 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Authenticate extends Middleware
+class RedirectHome extends Middleware
 {
     /**
      * Get the path the user should be redirected to when they are not authenticated.
@@ -16,8 +16,8 @@ class Authenticate extends Middleware
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if($request->session()->get('authenticated') != true)
-            return redirect("/login");
+        if($request->session()->get('authenticated') == true)
+            return redirect("/scores");
 
         return $next($request);
     }

@@ -8,8 +8,8 @@
 
             <div class="log-in-header-nav-container-1">
 
-                <a class="profile-image" href="/"><img id="userImage"></a>
-                <p id="userName" class="username"></p>
+                <a class="profile-image" href="/user"><img id="userImage"></a>
+                <a href="/user" id="userName" class="username"></a>
                 <a href="/"><span class="material-symbols-outlined">star</span></a>
                 <a href="/"><span class="material-symbols-outlined">scoreboard</span></a>
                 <a href="/"><span class="material-symbols-outlined">notifications</span></a>
@@ -26,20 +26,6 @@
                     <button type="submit"><span class="material-symbols-outlined">search</span></button>
 
                 </form>
-
-                <div class="logout-container">
-                    <a class="logout-button" href="/logout"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        <span class="material-symbols-outlined">
-                            power_settings_new
-                        </span>
-                    </a>
-    
-                    <form id="logout-form" action="/logout" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
 
             </div>
 

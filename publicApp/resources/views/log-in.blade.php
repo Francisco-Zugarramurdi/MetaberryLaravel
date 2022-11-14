@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="_token" content="{{csrf_token()}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/icon.ico">
     <link rel="stylesheet"
@@ -14,21 +15,7 @@
 
 <body>
 
-    <header>
-        <nav>
-
-            <div class="header-nav-container-1">
-                <a href="/"><img src="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/Recurso%2019.png"></a>
-                <a href="/#aboutSection">How does it work?</a>
-                <a href="/">Scores</a>
-            </div>
-
-            <div class="header-nav-container-2">
-                <button><span class="material-symbols-outlined">settings</span></button></li>
-            </div>
-
-        </nav>
-    </header>
+    @include('layouts.navbar')
 
     <main>
 

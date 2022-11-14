@@ -12,9 +12,17 @@
   --gray: #EBECEF;
   --red: #eb3824;
   --light-red: #FF5252;
-  --yellow: #E3C40E;
+  --yellow: #d6af2e;
+  --shade-yellow: #b99318;
   --green: #19a909;
   --orange: #f37927;
+  --grayish: #ced0d3;
+  --dark-gray: #262D37;
+  --light-gray: #4C5766;
+  --lightest-gray: #9fa3a8;
+  --blue: rgb(43, 107, 226);
+  --dark-blue: rgb(32, 75, 183);
+  --subtle-blue: rgba(43, 107, 226, 0.271);
 }
 
 * {
@@ -529,66 +537,106 @@ footer img:hover {
   justify-content: flex-start;
   align-items: center;
   margin: 0;
-  padding: 0;
+  padding-left: 0;
 }
-.innerNav ul {
-  display: flex;
-  align-items: center;
+.innerNav .user-profile:first-of-type {
+  margin-left: 60px;
 }
-.innerNav ul li {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  font-size: 1.2em;
-  font-weight: 700;
-  margin-left: 20%;
-  text-align: center;
-  height: 5vh;
+.innerNav button {
+  width: auto;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--main-purple);
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--white);
   cursor: pointer;
+  margin: 0 30px 0 0;
+  transition: 0.3s;
 }
-.innerNav ul li:hover {
-  border-bottom: 3px black solid;
+.innerNav button:hover {
+  background-color: var(--light-purple);
+  transform: scale(0.98);
 }
 
 .userDisplay {
   width: 100%;
-  height: 35vh;
+  height: 20vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 75px 0 0 0;
 }
 .userDisplay .user {
   display: flex;
-  width: 20%;
+  width: auto;
   align-items: center;
   margin-left: 1.5%;
+  position: absolute;
 }
-.userDisplay .user img {
-  margin: 2%;
-  border-radius: 100%;
-  height: 10vh;
+.userDisplay .user .profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--main-purple);
+  margin: 0 15px 0 30px;
+  padding: 3px;
+}
+.userDisplay .user .profile-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .userDisplay .user .data {
-  width: 60%;
+  width: auto;
+  height: inherit;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 3%;
+  margin-left: 15px;
 }
 .userDisplay .user .data .userName {
   font-weight: 700;
-  font-size: 1.2em;
+  white-space: nowrap;
+  font-size: 1.3em;
 }
 .userDisplay .user .data .email {
-  font-size: 0.8em;
-}
-.userDisplay .user .data .points {
-  font-weight: 600;
+  font-size: 1em;
+  font-weight: 500;
 }
 .userDisplay .user #result {
   margin: 4%;
   font-size: 1.5em;
   font-weight: 800;
+}
+.userDisplay .user .edit-user-btn {
+  position: relative;
+  left: 30px;
+  top: -15px;
+  background-color: var(--shade-scnd-purple);
+  padding: 8px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.3s;
+  text-decoration: none;
+}
+.userDisplay .user .edit-user-btn span {
+  font-size: 1.5em;
+  color: var(--black);
+}
+.userDisplay .user .edit-user-btn:hover {
+  background-color: var(--lightest-purple);
 }
 
 .display {
@@ -677,6 +725,140 @@ footer img:hover {
 .display .user-post-container .actions-holder .action-text {
   font-weight: 600;
 }
-.display .user-post-container {
-  margin: 1% 3%;
+
+.edit-user-container {
+  margin: 150px 0 0 60px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+}
+.edit-user-container h1 {
+  margin: 30px;
+}
+.edit-user-container form {
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 30px;
+}
+.edit-user-container form .form-up-container {
+  width: inherit;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.edit-user-container form .form-up-container .logout-button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--red);
+  border-radius: 10px;
+  transition: 0.3s;
+  text-underline-offset: 3px;
+  margin: 30px 0;
+}
+.edit-user-container form .form-up-container .upgrade-account {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  border: none;
+  padding: 10px 30px;
+  background-color: var(--yellow);
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 10px;
+  transition: 0.3s;
+  text-decoration: none;
+  margin: 15px 0 0 0;
+}
+.edit-user-container form .form-up-container .upgrade-account:hover, .edit-user-container form .form-up-container .upgrade-account:focus {
+  background-color: var(--shade-yellow);
+  transform: scale(0.98);
+}
+.edit-user-container form .form-up-container label {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px 0;
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+.edit-user-container form .form-up-container label .input {
+  width: 250px;
+  height: 40px;
+  background-color: var(--gray);
+  border: none;
+  border-radius: 10px;
+  margin: 10px 0 0 0;
+  padding: 0 10px;
+}
+.edit-user-container form .form-up-container .custom-selector .input-image {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+}
+.edit-user-container form .form-up-container .custom-selector .label-image {
+  width: 10vw;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--lightest-gray);
+  padding: 0px 10px;
+  color: var(--white);
+  font-size: 1em;
+  transition: 0.2s;
+  cursor: pointer;
+  padding: 10px 30px;
+}
+.edit-user-container form .form-up-container .custom-selector .label-image p {
+  font-weight: 700;
+  color: var(--white);
+}
+.edit-user-container form .form-up-container .custom-selector .label-image:hover {
+  background-color: var(--light-gray);
+  transform: scale(0.98);
+}
+.edit-user-container form .form-down-container {
+  width: inherit;
+  height: auto;
+  margin: 30px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+.edit-user-container form .form-down-container button {
+  width: auto;
+  height: auto;
+  border: none;
+  padding: 10px 30px;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--white);
+  border-radius: 10px;
+  background-color: var(--main-purple);
+  transition: 0.3s;
+}
+.edit-user-container form .form-down-container button:hover, .edit-user-container form .form-down-container button:focus {
+  background-color: var(--light-purple);
+  transform: scale(0.98);
 }/*# sourceMappingURL=user-profile.css.map */

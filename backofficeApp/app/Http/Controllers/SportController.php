@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sport;
+use App\Models\Event;
+use App\Models\Team;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Validator;
 use \Illuminate\Database\QueryException;

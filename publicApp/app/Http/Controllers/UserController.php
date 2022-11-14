@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class UserController extends Controller
 {
 
-    public function Navbar(Request $request){
+    public function getUserData(Request $request){
 
         $id = $request->session()->get('user_id');
 
@@ -17,6 +17,22 @@ class UserController extends Controller
         
         return $user_data;
 
+    }
+
+    public function Update(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::post('http://localhost:8000/api/user/'. $id, [
+            'email'=> $request->email,
+            'name'=> $request->name,
+            'password'=> $request->password
+        ]);
+
+        $user_data = json_decode($response, true);
+
+        return redirect("/user");
+        
     }
 
 }

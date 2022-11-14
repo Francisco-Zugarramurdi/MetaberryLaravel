@@ -8,6 +8,7 @@ use Session;
 
 class AuthController extends Controller
 {
+
     public function Login(Request $request){
 
         $response = Http::post('http://localhost:8000/api/user/authenticate',[
@@ -23,7 +24,7 @@ class AuthController extends Controller
             $request->session()->put('user_id', $authentication['id']);
             $request->session()->save();
             
-            return redirect("/");
+            return redirect("/scores");
 
         }
 
@@ -47,7 +48,7 @@ class AuthController extends Controller
             $request->session()->put('authenticated', true);
             $request->session()->put('user_id', $authentication['id']);
             $request->session()->save();
-            return redirect('/');
+            return redirect('/scores');
         }
         return view('/sign-up',[ 'error' => true, 'body' => $authentication]);
 

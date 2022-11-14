@@ -11,9 +11,17 @@
   --gray: #EBECEF;
   --red: #eb3824;
   --light-red: #FF5252;
-  --yellow: #E3C40E;
+  --yellow: #d6af2e;
+  --shade-yellow: #b99318;
   --green: #19a909;
   --orange: #f37927;
+  --grayish: #ced0d3;
+  --dark-gray: #262D37;
+  --light-gray: #4C5766;
+  --lightest-gray: #9fa3a8;
+  --blue: rgb(43, 107, 226);
+  --dark-blue: rgb(32, 75, 183);
+  --subtle-blue: rgba(43, 107, 226, 0.271);
 
 }
 
@@ -397,32 +405,37 @@
     justify-content: flex-start;
     align-items: center;
     margin: 0;
-    padding: 0;
-    // padding: 1.5% 3%;
+    padding-left: 0;
 
-    ul {
-      display: flex;
-      align-items: center;
+    .user-profile:first-of-type{
 
-      li {
-        display: flex;
-        align-items: center;
-        list-style: none;
-        font-size: 1.2em;
-        font-weight: 700;
-        margin-left: 20%;
-        text-align: center;
-        height: 5vh;
-        cursor: pointer;
+      margin-left: 60px;
+  
+    }
 
-      }
+    button{
 
-      li:hover {
-        border-bottom: 3px black solid;
-      }
+      width: auto;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 30px;
+      background-color: var(--main-purple);
+      font-size: 1em;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      margin: 0 30px 0 0;
+      transition: .3s;
+    }
+
+    button:hover{
+
+      background-color: var(--light-purple);
+      transform: scale(.98);
+
+    }
     }
   }
-}
 
 
 
