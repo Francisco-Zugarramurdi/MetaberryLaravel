@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\RedirectHome;
 /*
@@ -31,6 +32,9 @@ Route::get('/signup', function () {
 Route::get('/scores', function () {
     return view('scores');
 });
+Route::get('/scores',function(){
+    return view('scores');
+});
 
 Route::get('/subscribe', function () {
     return view('subscribe');
@@ -49,3 +53,7 @@ Route::post('/signup',[AuthController::class,'Sign']);
 Route::post('/logout',[AuthController::class,'Logout']);
 Route::post('/userData',[UserController::class,'getUserData']);
 Route::post('/user/edit',[UserController::class,'Update']);
+
+Route::post('/events',[EventController::class,'Index']);
+Route::post('/sports',[EventController::class,'IndexSport']);
+Route::post('/countries',[EventController::class,'IndexCountry']);

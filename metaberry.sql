@@ -31,7 +31,7 @@ create table players(
  
 create table events(
     id serial primary key,
-    name varchar(50) not null,
+    name varchar(20) not null,
     details text not null,
     id_sports bigint unsigned not null,
     id_countries bigint unsigned not null,
@@ -233,66 +233,12 @@ create table users_subscriptions(
     foreign key (id_users) references users_data(id)
 );
  
-create table post(
-    id serial,
-    post text not null,
-    id_users_data bigint unsigned not null,
-    dates date not null,
-    number_of_likes bigint not null,
-    id_events bigint unsigned not null,
-    primary key (id, id_users_data,id_events),
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
-    foreign key (id_users_data) references users_data(id),
-    foreign key (id_events) references events(id)
-);
-create table user_likes(
-    id_post bigint unsigned not null,
-    id_users_data bigint unsigned not null,
-    primary key (id_post, id_users_data),
-    foreign key (id_post) references post(id),
-    foreign key (id_users_data) references users_data(id)
-);
- 
-create table comments (
-    id serial,
-    comments text not null,
-    id_post bigint unsigned not null,
-    id_users_data bigint unsigned not null,
-    dates date not null,
-    is_child tinyint(1) not null,
-    primary key (id,id_post,id_users_data),
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
-    foreign key (id_post) references post(id),
-    foreign key (id_users_data) references users_data(id)
-);
- 
-create table comments_parent(
-    id_comments_parent bigint unsigned not null,
-    id_comments_child bigint unsigned not null,
-    primary key (id_comments_parent,id_comments_child),
-    foreign key (id_comments_parent) references comments(id),
-    foreign key (id_comments_child) references comments(id)
-);
- 
-create table reward(
-    id serial,
-    reward varchar(50) not null,
-    id_users_data bigint unsigned not null,
-    date_of_delivery date not null,
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
-    primary key (id,id_users_data),
-    foreign key (id_users_data) references users_data(id)
-);
- 
 create table premium_league(
     id_users_data bigint unsigned not null,
     id_leagues bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_leagues),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_leagues) references leagues(id)
@@ -301,6 +247,9 @@ create table premium_league(
 create table premium_sports(
     id_users_data bigint unsigned not null,
     id_sports bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_sports),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_sports) references sports(id)
@@ -309,6 +258,9 @@ create table premium_sports(
 create table premium_events(
     id_users_data bigint unsigned not null,
     id_events bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_events),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_events) references events(id)
@@ -317,6 +269,9 @@ create table premium_events(
 create table premium_teams(
     id_users_data bigint unsigned not null,
     id_teams bigint unsigned not null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    deleted_at timestamp null default null,
     primary key (id_users_data,id_teams),
     foreign key (id_users_data) references users_data(id),
     foreign key (id_teams) references teams(id)
@@ -333,8 +288,6 @@ create table favourite_user(
     foreign key (id_teams) references teams(id)
 );
 
-
-
 create table results(
     id serial,
     type_results varchar(30) not null,
@@ -347,25 +300,9 @@ create table results(
     foreign key (id_events) references events(id)
 );
  
-create table bets(
-    id serial,
-    amount int unsigned not null,
-    id_users_data bigint unsigned not null,
-    id_events bigint unsigned not null,
-    id_teams bigint unsigned not null,
-    dates date not null,
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
-    primary key (id,id_users_data,id_events,id_teams),
-    foreign key (id_users_data) references users_data(id),
-    foreign key (id_teams) references teams(id),
-    foreign key (id_events) references events(id)
-);
- 
 create table points_sets(
     number_set tinyint not null,
-    points_set int not null,
+    points_set int not null default 0,
     id_teams bigint unsigned not null,
     id_results bigint unsigned not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -379,7 +316,7 @@ create table points_sets(
 create table results_points(
     id_results bigint unsigned not null,
     id_teams bigint unsigned not null,
-    point int not null,
+    point int not null default 0,
     id_players bigint unsigned not null,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -394,7 +331,7 @@ create table results_upward(
     id_results bigint unsigned not null,
     id_teams bigint unsigned not null,
     position int not null,
-    result time not null,
+    result int unsigned not null default 0,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
@@ -407,7 +344,7 @@ create table results_downward(
     id_results bigint unsigned not null,
     id_teams bigint unsigned not null,
     position int not null,
-    result time not null,
+    result int unsigned not null default 0,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp null default null,
@@ -460,13 +397,6 @@ create table admins(
     primary key(id)
 );
 
-create view AllPosts as
-select users_data.id as id_user, users_data.name as UserName, users_data.photo as UserPhoto, post.post as
-Post, post.dates as PostDate, post.number_of_likes as Likes
-from users_data
-join post
-on users_data.id = post.id_users_data;
-
 create view AllEvents as
 select events.id as eventId,
 events.name as eventName,
@@ -503,25 +433,3 @@ on leagues.id = leagues_events.id_leagues;
 
 insert into tags (tag) values
 ('Main');
-
-
-create table leagues(
-    id serial primary key,
-    name varchar(50) not null,
-    details text not null,
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
-    photo text not null
-);
- 
-create table leagues_events(
-    id_events bigint unsigned not null,
-    id_leagues bigint unsigned not null,
-	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    deleted_at timestamp null default null,
-    primary key (id_events,id_leagues),
-    foreign key (id_events) references events(id),
-    foreign key (id_leagues) references leagues(id)
-);

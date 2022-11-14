@@ -27,6 +27,7 @@ class EventController extends Controller
         ->join('results','results.id_events','events.id')
         ->join('countries','countries.id','events.id_countries')
         ->join('sports','sports.id','events.id_sports')
+        ->where('events.deleted_at',null)
         ->select('events.id as id','events.name as name','events.relevance as relevance','events.date as date','results.type_results as type','results.id as idResults','leagues.name as league','sports.name as sport','countries.name as country')
         ->get()->toArray();
 
@@ -90,15 +91,15 @@ class EventController extends Controller
         ->get()->toArray();
 
     }
-
+    
     private function getResultUpward($resultID, $teamID){
-
+        
         return DB::table('results_upward')
         ->where('id_results',$resultID)
         ->where('id_teams',$teamID)
         ->select('position as position','result as result')
-        ->get()->toArray();
-
+        ->get()
+        ->toArray();
     }
 
     private function getResultDownward($resultID, $teamID){
@@ -107,7 +108,8 @@ class EventController extends Controller
         ->where('id_results',$resultID)
         ->where('id_teams',$teamID)
         ->select('position as position','result as result')
-        ->get()->toArray();
+        ->get()
+        ->toArray();
 
     }
 
@@ -244,13 +246,13 @@ class EventController extends Controller
 
     public function IndexCountries(){
 
-        return DB::table('countries')->select('id as id','name as country')->get()->toArray();
+        return DB::table('countries')->where('deleted_at',null)->select('id as id','name as country')->get()->toArray();
 
     }
 
     public function IndexSports(){
 
-        return DB::table('sports')->select('id as id','name as sport', 'icon as icon')->get()->toArray();
+        return DB::table('sports')->where('deleted_at',null)->select('id as id','name as sport', 'icon as icon')->get()->toArray();
 
     }
 

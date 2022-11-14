@@ -684,6 +684,41 @@ main {
 .feed-section .event-container .event-title-holder .event-state {
   font-weight: 500;
 }
+.feed-section .event-container .event-mark-holder {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 3% 0;
+  background-color: var(--white);
+  border-radius: 0 0 20px 20px;
+}
+.feed-section .event-container .event-mark-holder .team-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+.feed-section .event-container .event-mark-holder .team-holder .team-logo {
+  width: 60px;
+  padding: 20% 0;
+  cursor: pointer;
+}
+.feed-section .event-container .event-mark-holder .team-holder .time {
+  font-weight: 800;
+}
+.feed-section .event-container .event-mark-holder .team-holder .team-name {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 600;
+}
+.feed-section .event-container .event-mark-holder .event-score {
+  font-size: 1.5em;
+  font-weight: 500;
+}
 .feed-section .event-container .event-holder {
   width: 100%;
   height: 20vh;
@@ -745,7 +780,8 @@ main {
   border-radius: 50%;
   margin: 0 3% 0 5%;
 }
-.feed-section .user-post-container .user-post-title-holder .user-post-info .post-info-title, .feed-section .user-post-container .user-post-title-holder .user-post-info .post-info-date {
+.feed-section .user-post-container .user-post-title-holder .user-post-info .post-info-title,
+.feed-section .user-post-container .user-post-title-holder .user-post-info .post-info-date {
   padding: 0;
   text-decoration: none;
   color: var(--black);

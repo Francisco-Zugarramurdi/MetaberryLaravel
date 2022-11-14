@@ -674,7 +674,8 @@ footer img:hover {
   border-radius: 50%;
   margin: 0 3% 0 5%;
 }
-.display .user-post-container .user-post-title-holder .user-post-info .post-info-title, .display .user-post-container .user-post-title-holder .user-post-info .post-info-date {
+.display .user-post-container .user-post-title-holder .user-post-info .post-info-title,
+.display .user-post-container .user-post-title-holder .user-post-info .post-info-date {
   padding: 0;
   text-decoration: none;
   color: var(--black);

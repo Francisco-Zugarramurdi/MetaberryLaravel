@@ -19,7 +19,7 @@ class AdController extends Controller
         try{
             $possibleAds = $this->findAds($request);
             if(count($possibleAds)==0){
-                return 'error, no ads available';
+                return 'Error, no ads available';
             }
             return $ad = $this->selectAd($possibleAds);
 
@@ -53,9 +53,9 @@ class AdController extends Controller
             "tags.tag as tag",
             "ad_tags.id_tag as idTag",
             "ad_tags.id_ad as idAd")
-            ->get()
             ->where('size', $request->size)
-            ->where('tag', $request->tag);
+            ->where('tag', $request->tag)
+            ->get();
     }
 
     private function selectAd($ads){

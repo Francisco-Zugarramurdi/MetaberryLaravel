@@ -91,39 +91,94 @@
                                         </div>
 
                                         <div class="form-up-container">
-                                            
+  
                                             <div class="form-inner-container">
-                                                @foreach($eventTeams as $eventTeam)
-                                                    <div class="team-container">
-                                                        <label>
-                                                            Team
-                                                            <select name="teams[]" id="localTeam">
-                                                                @foreach($teams as $team)
-                                                                    <option value="{{$team->id}}"@if($team->id == $eventTeam->teamId)selected @endif>{{$team->name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </label>
-                                                        <label>
-                                                            <button type="button" id="add-set" onClick="addSet({{$eventTeam->teamId}})">Add Set</button>
-                                                            <div id="setContainer{{$eventTeam->teamId}}">
-                                                            
-                                                            @foreach($scores as $score)
-                                                                @if($score->teamId == $eventTeam->teamId)
-                                                                    {{$score->numberSet}} <input type='number' name='sets{{$eventTeam->teamId}}[{{$score->numberSet}}]' value={{$score->points}}>
-                                                                @endif
-                                                            @endforeach
-                                                            
-                                                                
-                                                            </div>
-                                                            
-                                                        </label>
-                                                    </div>
-                                                @endforeach
 
+                                                <label>
+                                                    Local Team
+                                                    <select name="teams[]" id="localTeamSets">
+                                                        @foreach($teams as $team)
+                                                            <option value="{{$team->id}}" @if($team->id == $eventTeams[0]->teamId)selected @endif>{{$team->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </label>
+
+                                                <label>
+                                                    Vistant Team
+                                                    <select name="teams[]" id="visitorTeamSets">
+                                                        @foreach($teams as $team)
+                                                            <option value="{{$team->id}}"@if($team->id == $eventTeams[1]->teamId)selected @endif>{{$team->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </label>
+
+                                                <div class="set-container">
+
+                                                    <label>
+                                                        <button type="button" id="add-set" onClick="addSets()">Add Set</button>
+                                                    </label>
+
+                                                    <div class="set-inner-container">
+
+                                                        <div class="set-local-container">
+                                                            <p class="set-title">Local Set</p>
+                                                            <div id="setContainerLocal">
+                                                                @foreach($scores as $score)
+                                                                    @if($score->teamId == $eventTeams[0]->teamId)
+                                                                        <label>
+                                                                            <input type="hidden" name="sets[localOldNumberSet:{{$score->numberSet}}][setNumber]" value="{{$score->numberSet}}">
+                                                                        </label>
+                                                                        <label>
+                                                                            <input type="hidden" name="sets[localOldNumberSet:{{$score->numberSet}}][team]" value="{{$eventTeams[0]->teamId}}">
+                                                                        </label>
+                                                                        <label>
+                                                                            <input type='number' name='sets[localOldNumberSet:{{$score->numberSet}}][set]' value={{$score->points}}>
+                                                                        </label>
+                                                                        
+                                                                    @endif
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="set-visitor-container">
+                                                            <p class="set-title">Visitor Set</p>
+                                                            <div id="setContainerVisitor">
+                                                                @foreach($scores as $score)
+                                                                    @if($score->teamId == $eventTeams[1]->teamId)
+                                                                        <label>
+                                                                            <input type="hidden" name="sets[visitorOldNumberSet:{{$score->numberSet}}][setNumber]" value="{{$score->numberSet}}">
+                                                                        </label>
+                                                                        <label>
+                                                                            <input type="hidden" name="sets[visitorOldNumberSet:{{$score->numberSet}}][team]" value="{{$eventTeams[1]->teamId}}">
+                                                                        </label>
+                                                                        <label>
+                                                                            <input type='number' name='sets[visitorOldNumberSet:{{$score->numberSet}}][set]' value={{$score->points}}>
+                                                                        </label>
+                                                                        
+                                                                    @endif
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <label>
+                                                    Winner
+                                                    <select name="winner" id="winner">
+                                                        <option value="local">Local</option>
+                                                        <option value="visitor">Visitor</option>
+                                                    </select>
+                                                </label>
                                             </div>
                                             
 
+
                                         </div>
+                                            
+
+                                        
 
                                     </div>
                                     <div class="form-down-container">
@@ -139,13 +194,47 @@
         </div>
         
     </main>
-    <script>
-        var setNumber = 0;
-        let addSet = (id)=>{
-            setNumber++;
-            document.getElementById(`setContainer${id}`).innerHTML += `Set(${setNumber})<input type='number' name='sets${id}[]'>`;
-        };
 
-    </script>   
+    <script>
+        var setNumberVisitor = 0;
+        var setNumberLocal = 0;
+
+        let addSets = ()=>{
+            idTeamLocal = document.getElementById("localTeamSets").value;
+            idTeamVisitor = document.getElementById("visitorTeamSets").value;
+
+            setNumberLocal++;
+            setNumberVisitor++;
+
+            document.getElementById("setContainerLocal").innerHTML += `
+            <label>
+                <input type="hidden" name="sets[localNewNumberSet:${setNumberLocal}][team]" value="${idTeamLocal}">
+            </label>
+            <label>
+                <input type='number' name='sets[localNewNumberSet:${setNumberLocal}][set]'>
+            </label>
+            `;
+
+            document.getElementById("setContainerVisitor").innerHTML += `
+            <label>
+                <input type="hidden" name="sets[visitorNewNumberSet:${setNumberLocal}][team]" value="${idTeamVisitor}">
+            </label>
+            <label>
+                <input type='number' name='sets[visitorNewNumberSet:${setNumberLocal}][set]'>
+            </label>
+            `;
+    }
+    
+    jQuery('#localTeamSets').change(function(){
+        document.getElementById("setContainerLocal").innerHTML ="";
+        document.getElementById("setContainerVisitor").innerHTML ="";
+    });
+
+    jQuery('#visitorTeamSets').change(function(){
+        document.getElementById("setContainerLocal").innerHTML ="";
+        document.getElementById("setContainerVisitor").innerHTML ="";
+    });
+    ;
+    </script>
 </body>
 </html>
