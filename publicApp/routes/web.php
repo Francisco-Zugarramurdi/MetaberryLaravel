@@ -19,7 +19,7 @@ use App\Http\Middleware\RedirectHome;
 
 Route::get('/', function () {
     return view('landing');
-});
+})->middleware(RedirectHome::class);
 
 Route::get('/login', function () {
     return view('log-in');

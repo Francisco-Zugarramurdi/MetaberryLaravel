@@ -9,9 +9,9 @@
     <link rel="icon" href="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/icon.ico">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="{{ asset('assets/css/user-profile.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/subscription.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <title>Livescore - Profile</title>
+    <title>Livescore - Upgrade Account</title>
 </head>
 
 <body>
