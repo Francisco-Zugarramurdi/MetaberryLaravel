@@ -17,7 +17,7 @@ class AdController extends Controller
             return $validation;
         
         try{
-            $possibleAds = $this->findAds($request);
+            return $possibleAds = $this->findAds($request);
             if(count($possibleAds)==0){
                 return 'error, no ads available';
             }
@@ -42,22 +42,22 @@ class AdController extends Controller
     }
 
     private function findAds(Request $request){
-        return $ads = Ad::join('ad_tags', 'ad_tags.id_ad', 'ads.id')
-            ->join('tags','tags.id','ad_tags.id_tag')
-            ->select("ads.id as id",
-            "ads.image as image",
-            "ads.url as url",
-            "ads.size as size",
-            "ads.views_hired as views_hired",
-            "ads.view_counter as view_counter",
-            "tags.tag as tag",
-            "ad_tags.id_tag as idTag",
-            "ad_tags.id_ad as idAd")
-            ->get()
+             $ads = Ad::join('ad_tags','ads.id','ad_tags.id_ad')
+            ->join('tags','ad_tags.id_tag','tags.id')
             ->where('size', $request->size)
-            ->where('tag', $request->tag);
+            ->where('tag', $request->tag)
+            ->select('ads.id as id_ads',
+            'ads.view_counter as counter',
+            'ads.views_hired as hired',
+            'ads.url as url',
+            'ads.image as image',
+            'ads.size as size',
+            'tags.id as id_tag',
+            'tags.tag as tag')
+            ->get();
+            return $ads;
     }
-
+    
     private function selectAd($ads){
         
         $AdSelected = $ads->sortBy('view_counter')->first();
@@ -74,5 +74,4 @@ class AdController extends Controller
         }
     }
 
-}   
-
+}
