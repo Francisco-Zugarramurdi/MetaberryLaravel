@@ -7,8 +7,6 @@ use App\Models\Sport;
 use App\Models\Event;
 use App\Models\Team;
 use App\Models\Tag;
-use App\Models\Event;
-use App\Models\Team;
 use Illuminate\Support\Facades\Validator;
 use \Illuminate\Database\QueryException;
 

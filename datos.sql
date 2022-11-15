@@ -43,7 +43,7 @@ insert into players(name, surname, photo) values
 ('Joaquín','DiMario','19.jpg'), 
 ('Arturo','Williams','20.jpg'), 
 ('Joaquín','DiMario','21.jpg'), 
-('Nicolas','DiMario','22.jpg'), 
+('Nicolas','Guiliam','22.jpg'), 
 ('Alberto','Williams','23.jpg'), 
 ('Arturo','Perez','24.jpg'), 
 ('Joaquín','Lopéz','25.jpg'), 
