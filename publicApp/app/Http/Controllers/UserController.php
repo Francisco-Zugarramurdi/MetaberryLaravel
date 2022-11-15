@@ -8,7 +8,23 @@ use Illuminate\Support\Facades\Http;
 class UserController extends Controller
 {
 
-    public function getUserData(Request $request){
+    public function GetIndexView(Request $request){
+
+        $user_data = $this->getUserData($request);
+
+        return view('user-profile')->with('data', $user_data);
+
+    }
+
+    public function GetEditView(Request $request){
+
+        $user_data = $this->getUserData($request);
+
+        return view('edit-user-profile')->with('data', $user_data);
+
+    }
+
+    private function getUserData(Request $request){
 
         $id = $request->session()->get('user_id');
 

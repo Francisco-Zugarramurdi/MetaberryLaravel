@@ -43,7 +43,7 @@ insert into players(name, surname, photo) values
 ('Joaquín','DiMario','19.jpg'), 
 ('Arturo','Williams','20.jpg'), 
 ('Joaquín','DiMario','21.jpg'), 
-('Nicolas','DiMario','22.jpg'), 
+('Nicolas','Guiliam','22.jpg'), 
 ('Alberto','Williams','23.jpg'), 
 ('Arturo','Perez','24.jpg'), 
 ('Joaquín','Lopéz','25.jpg'), 
@@ -73,10 +73,10 @@ insert into events(name, details, id_sports, id_countries, date,  relevance) val
 ('Carrera de personas','Se corre en el hipodromo',4,5,"2022-01-01",5); 
 
 insert into teams(name, type_teams, id_sports, id_countries, photo) values 
-('Nacional', 'Group',1,1,'nacional.jpg'), 
-('Boca', 'Group',1,2,'boca.jpg'), 
-('Peñarol', 'Group',1,1,'peñarol.jpg'), 
-('Racing', 'Group',1,2,'racing.jpg'), 
+('Nacional', 'Group',1,1,'nacional.png'), 
+('Boca', 'Group',1,2,'boca.png'), 
+('Peñarol', 'Group',1,1,'peñarol.png'), 
+('Racing', 'Group',1,2,'racing.png'), 
 ('Tennis team1', 'Individual',2,2,'tennis1.jpg'), 
 ('Tennis team2', 'Individual',2,2,'tennis2.jpg'),
 ('Auto1', 'Individual',4,6,'Auto1.jpg'), 

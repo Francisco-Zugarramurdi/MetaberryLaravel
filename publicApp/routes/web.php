@@ -32,26 +32,18 @@ Route::get('/signup', function () {
 Route::get('/scores', function () {
     return view('scores');
 });
-Route::get('/scores',function(){
-    return view('scores');
-});
+
 
 Route::get('/subscribe', function () {
     return view('subscribe');
 })->middleware(Authenticate::class);
 
-Route::get('/user', function () {
-    return view('user-profile');
-})->middleware(Authenticate::class);
-
-Route::get('/user/edit', function () {
-    return view('edit-user-profile');
-})->middleware(Authenticate::class);
+Route::get('/user',[UserController::class,'GetIndexView'])->middleware(Authenticate::class);
+Route::get('/user/edit',[UserController::class,'GetEditView'])->middleware(Authenticate::class);
 
 Route::post('/login',[AuthController::class,'Login']);
 Route::post('/signup',[AuthController::class,'Sign']);
 Route::post('/logout',[AuthController::class,'Logout']);
-Route::post('/userData',[UserController::class,'getUserData']);
 Route::post('/user/edit',[UserController::class,'Update']);
 
 Route::post('/events',[EventController::class,'Index']);

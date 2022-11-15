@@ -21,10 +21,10 @@
     <main>
         <section class="userDisplay">
             <div class="user">
-                <a class="profile-image" href="/user"><img id="displayImage"></a>
+                <a class="profile-image" href="/user"><img src="http://127.0.0.1:8005/img/public_images/{{$data['photo']}}"></a>
                 <div class="data">
-                    <p class="userName" id="displayName"></p>
-                    <p class="email" id="displayEmail"></p>
+                    <p class="userName" id="displayName">{{$data['name']}}</p>
+                    <p class="email" id="displayEmail">{{$data['email']}}</p>
                 </div>
                 <a href="/user/edit" class="edit-user-btn"><span class="material-symbols-outlined">settings</span></a>
                 
@@ -40,7 +40,7 @@
         </section>
     </main>
 
-    <script>
+    {{-- <script>
 
         jQuery(document).ready(function(){
             $.ajaxSetup({
@@ -62,7 +62,7 @@
 
                 }
             });
-        });
+        }); --}}
 
     </script>
 </body>

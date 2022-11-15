@@ -527,4 +527,92 @@ footer img:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--light-purple);
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+}
+main .line {
+  display: block;
+  width: 100%;
+  background-color: var(--grayish);
+  height: 1px;
+  margin: 30px 0;
+}
+main .subscription-container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+main .subscription-container .header {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+  margin-bottom: 30px;
+}
+main .subscription-container .header h1 {
+  font-size: 1.8em;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+main .subscription-container .header p {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--grayish-black);
+}
+main .subscription-container .subscription-card-container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+main .subscription-container .subscription-card-container .card-container {
+  width: 250px;
+  height: 150px;
+  background-color: var(--main-purple);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30px 30px;
+  border-radius: 20px;
+  margin: 0 15px;
+  transition: 0.3s;
+  filter: drop-shadow(10px 15px 10px var(--shade-scnd-purple));
+}
+main .subscription-container .subscription-card-container .card-container .type-subscription {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--white);
+}
+main .subscription-container .subscription-card-container .card-container .price {
+  font-size: 1.5em;
+  color: var(--white);
+  font-weight: 600;
+}
+main .subscription-container .subscription-card-container .card-container .price span {
+  font-size: 0.6em;
+  color: rgba(255, 255, 255, 0.748);
+}
+main .subscription-container .subscription-card-container .card-container .data-container {
+  color: rgba(255, 255, 255, 0.748);
+  font-weight: 500;
+}
+main .subscription-container .subscription-card-container .card-container:hover {
+  transform: scale(0.98);
 }/*# sourceMappingURL=subscription.css.map */

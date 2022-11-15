@@ -23,16 +23,51 @@
             <div class="header">
 
                 <h1>Wanna upgrade your experience in Livescore?</h1>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus aliquid iste accusantium.</p>
+                <p>Pay your subscription with your Visa Card</p>
 
             </div>
+
+            <div class="subscription-card-container">
+
+                    <div class="card-container">
+
+                        <div class="inner-container">
+                            <p class="type-subscription">Premium</p>
+                            <p class="price">$5 <span>/month</span></p>
+                        </div>
+    
+                        <div class="data-container">
+                            Our subscription based plan. 
+                            Get rid of the ads and enhance your experience
+                        </div>
+    
+                    </div>
+    
+                    <div class="card-container">
+
+                        <div class="inner-container">
+                            <p class="type-subscription">Enterprise</p>
+                            <p class="price">$50 <span>/year</span></p>
+                        </div>
+                            
+                        <div class="data-container">
+                            Save up to 2 months of payments and get all
+                            the benefits from premium plan
+                        </div>
+    
+                    </div>
+    
+            </div>
+
+            <hr class="line">
 
             <div class="subscription-form-container">
 
                 <form method="POST" action="/user/subscribe">
                     @method('POST')
                     @csrf
-                    <p>Pay with your visa card</p>
+
+                    <p>Pay with card</p>
 
                     <div class="inner-container">
 
@@ -46,45 +81,14 @@
                             <input type="radio" name="subscription-type" value="paid_yearly">
                         </label>
 
+                        <label>
+                            Credit Card
+                            <input type="number" min="1">
+                        </label>
+
                     </div>
 
                 </form>
-
-            </div>
-
-        </div>
-
-        <div class="subscription-card-container">
-
-            <div class="subscription-type-card">
-
-                <div class="card-container">
-                    
-                    <p>Premium</p>
-                    <p>$5 <span>/month</span></p>
-
-                    <div class="data-container">
-                        Our subscription based plan. 
-                        Get rid of the ads and enhance your experience
-                    </div>
-
-                </div>
-
-                <div class="card-container">
-                    
-                    <p>Enterprise</p>
-
-                    <div class="price-container">
-                        <p>$50 <span>/year</span></p>
-                        <p>2 months OFF</p>
-                    </div>
-                        
-                    <div class="data-container">
-                        Save up to 2 months of payments and get all
-                        the benefits from premium plan
-                    </div>
-
-                </div>
 
             </div>
 

@@ -44,42 +44,11 @@
 
             <h2 class="event-head">Most popular events</h2>
 
-            <div class="event-group-container">
+            <div class="event-group-container" id="eventsContainer">
 
-                <div class="event-container">
 
-                    <div class="event-title-holder">
 
-                        <a href="/" class="event-title">Event Title</a>
-                        <p class="event-state">State</p>
 
-                    </div>
-
-                    <div class="event-holder">
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/argentina.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                        <div class="score-holder">
-
-                            <p class="event-score">0 - 0</p>
-
-                        </div>
-
-                        <div class="team-holder">
-
-                            <img src="./assets/img/photos/team-logos/60px/uruguay.png" class="team-logo">
-                            <a href="/" class="team-name">Team Name</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -297,5 +266,258 @@
 
 
 </body>
+
+<script>
+    jQuery(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        jQuery.ajax({
+            url: "{{ url('/sports') }}",
+            method: 'POST',
+            success: function(sports) {
+                sports.forEach(sport => {
+                    document.getElementById('sportsContainer').innerHTML +=
+                        `
+                        <div class="sport-container">
+
+                            <div class="sport-icon">
+
+                                <span class="material-symbols-outlined">${sport['icon']}</span>
+
+                            </div>
+                            <p class="sport-name">${sport['sport']}</p>
+
+                        </div>
+                    
+                    `
+                });
+            }
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        jQuery.ajax({
+            url: "{{ url('/countries') }}",
+            method: 'POST',
+            success: function(countries) {
+                countries.forEach(country => {
+                    document.getElementById('countriesContainer').innerHTML +=
+                        `
+                    <option value='${country["id"]}'>${country['country']}</option>
+                    `;
+
+                });
+            }
+        });
+    });
+</script>
+<script>
+    jQuery(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        jQuery.ajax({
+            url: "{{ url('/events') }}",
+            method: 'POST',
+            success: function(events) {
+                console.log(events);
+
+                events.forEach(event => {
+                    if (event['type'] == "results_points") {
+
+                        document.getElementById('eventsContainer').innerHTML += loadPoints(
+                            event);
+                    }
+                    if (event['type'] == "results_downward") {
+                        document.getElementById('eventsContainer').innerHTML += loadMarkDown(event);
+                    }
+                    if(event['type'] ==="results_upward"){
+                        document.getElementById('eventsContainer').innerHTML += loadMarkUp(event);
+
+                    }
+
+                });
+            }
+        });
+
+        function loadMarkUp(event) {
+            return `
+                <div class="event-container">
+
+                        <div class="event-title-holder">
+
+                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <p class="event-state">${event['date']}</p>
+
+                        </div>
+
+                        <div class="event-mark-holder">
+                            ${markUp(event['teams'])}                    
+                        </div>
+
+                </div>
+            `
+        }
+        function markUp(teams) {
+            result = "";
+            teams = orderUp(teams);
+            for(let i = 0;i<teams.length;i++){
+                result += `
+                <div class="team-holder">
+                    <a href="" class="team-name">${teams[i]['name']}</a>
+                    <p class="time">${teams[i]['result'][0]['result']}</p>    
+                </div>
+            
+                `
+                if(i == 2)
+                    return result;
+            }
+            return result;
+        }
+        function orderUp(teams){
+            let sorted = false;
+            while(!sorted){
+                swap = false;
+                for(let i = 0;i<teams.length-1;i++){
+                    console.log(teams[i]['result'][0]['result']);
+                
+                    position = teams[i]['result'][0]['result'];
+                    next = teams[i+1]['result'][0]['result'];
+                    if(next < position){
+                        carry = teams[i];
+                        teams[i] = teams[i+1]
+                        teams[i+1] = carry;
+                        swap = true;
+                    }
+                    
+                }
+                if(!swap){
+                    sorted = true;
+                }
+            }
+            return teams;
+            
+
+        }
+
+
+        function loadMarkDown(event) {
+            return `
+                <div class="event-container">
+
+                        <div class="event-title-holder">
+
+                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <p class="event-state">${event['date']}</p>
+
+                        </div>
+
+                        <div class="event-mark-holder">
+                            ${markDown(event['teams'])}                    
+                        </div>
+
+                </div>
+            `
+        }
+
+        function markDown(teams) {
+            result = "";
+            teams = orderDown(teams);
+            for(let i = 0;i<teams.length;i++){
+                result += `
+                <div class="team-holder">
+                    <a href="" class="team-name">${teams[i]['name']}</a>
+                    <p class="time">${teams[i]['result'][0]['result']}</p>    
+                </div>
+            
+                `
+                if(i == 2)
+                    return result;
+            }
+            return result;
+        }
+        function orderDown(teams){
+            let sorted = false;
+            while(!sorted){
+                swap = false;
+                for(let i = 0;i<teams.length-1;i++){
+                    console.log(teams[i]['result'][0]['result']);
+                
+                    position = teams[i]['result'][0]['result'];
+                    next = teams[i+1]['result'][0]['result'];
+                    if(next > position){
+                        carry = teams[i];
+                        teams[i] = teams[i+1]
+                        teams[i+1] = carry;
+                        swap = true;
+                    }
+                    
+                }
+                if(!swap){
+                    sorted = true;
+                }
+            }
+            return teams;
+            
+
+        }
+
+        function loadPoints(event) {
+            return `
+                <div class="event-container">
+
+                        <div class="event-title-holder">
+
+                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <p class="event-state">${event['date']}</p>
+
+                        </div>
+
+                        <div class="event-holder">
+
+                            <div class="team-holder">
+
+                                <img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo">
+                                <a href="" class="team-name">${event["teams"][0]["name"]}</a>
+
+                            </div>
+
+                            <div class="score-holder">
+
+                                <p class="event-score">${totalPoints(event["teams"][0]['result'])} - ${totalPoints(event["teams"][1]['result'])}</p>
+
+                            </div>
+
+                            <div class="team-holder">
+
+                                <img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo">
+                                <a href="" class="team-name">${event["teams"][1]["name"]}</a>
+
+                            </div>
+
+                        </div>
+
+                </div>
+            `
+        }
+
+        function totalPoints(result) {
+            let total = 0;
+            result.forEach(point => {
+                total += point['point'];
+            });
+
+            return total;
+        }
+    });
+</script>
 
 </html>
