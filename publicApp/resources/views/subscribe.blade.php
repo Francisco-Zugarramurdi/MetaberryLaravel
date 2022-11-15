@@ -72,22 +72,21 @@
                     @method('POST')
                     @csrf
 
-                    <p>Subscription information</p>
+                    <p class="info">Subscription information</p>
 
                     <div class="inner-container">
 
                         <label>
                             Credit Card
                             <input type="number" min="1" placeholder="4123 1234 1234 1234" name="credit_card">
-                            <span class="material-symbols-outlined">credit_card</span>
                         </label>
 
                         <input type="hidden" id="typeSubscription" name="type_of_user" value="">
-                        <p>Your chosen subscription <span id="showType"></span></p>
 
+                        <button type="submit">Suscribe</button>
+                    
                     </div>
 
-                    <button type="submit">Suscribe</button>
 
                 </form>
 
@@ -102,7 +101,6 @@
         function setType(type){
 
             document.getElementById('typeSubscription').value = type;
-            document.getElementById('showType').innerHTML = type;
 
         }
 

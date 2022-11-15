@@ -626,4 +626,56 @@ main .subscription-container .subscription-card-container button {
 }
 main .subscription-container .subscription-card-container button:hover, main .subscription-container .subscription-card-container button:focus {
   background-color: #665ad9;
+  transform: scale(0.98);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.378));
+  color: rgba(255, 255, 255, 0.712);
+}
+main .subscription-container .subscription-form-container .info {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--grayish-black);
+}
+main .subscription-container .subscription-form-container .inner-container {
+  width: 230px;
+  height: auto;
+  margin: 15px 0;
+}
+main .subscription-container .subscription-form-container .inner-container label {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--grayish-black);
+}
+main .subscription-container .subscription-form-container .inner-container label input {
+  width: 200px;
+  height: 30px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  margin-top: 5px;
+  font-weight: 600;
+  background-color: var(--grayish);
+}
+main .subscription-container .subscription-form-container button {
+  width: 230px;
+  height: 40px;
+  background-color: var(--light-purple);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1em;
+  color: var(--white);
+  transition: 0.2s;
+  margin: 15px 0;
+}
+main .subscription-container .subscription-form-container button:hover, main .subscription-container .subscription-form-container button:focus {
+  background-color: #665ad9;
+  transform: scale(0.98);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.378));
+  color: rgba(255, 255, 255, 0.712);
 }/*# sourceMappingURL=subscription.css.map */

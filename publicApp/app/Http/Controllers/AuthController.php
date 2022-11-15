@@ -20,6 +20,7 @@ class AuthController extends Controller
 
         if($authentication['status'] == "Success"){
 
+            $request->session()->regenerate();
             $request->session()->put('authenticated', true);
             $request->session()->put('user_id', $authentication['id']);
             $request->session()->save();
