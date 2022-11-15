@@ -14,9 +14,9 @@ main{
 
         display: block;
         width: 100%;               
-        background-color: var(--grayish);
+        background-color: rgba(0, 0, 0, 0.204);
         height: 1px;
-        margin: 30px 0;
+        margin: 60px 0;
       
     }
 
@@ -67,60 +67,75 @@ main{
             justify-content: space-evenly;
             align-items: center;
 
-            .card-container{
-
-                width: 250px;
-                height: 150px;
-                background-color: var(--main-purple);
-
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: flex-start;
-                padding: 30px 30px;
-                border-radius: 20px;
-                margin: 0 15px;
-                transition: .3s;
-                filter: drop-shadow(10px 15px 10px var(--shade-scnd-purple));
-
-                .type-subscription{
-
-                    font-size: 1.2em;
-                    font-weight: 600;
-                    color: var(--white);
-
-                }
-
-                .price{
-
-                    font-size: 1.5em;
-                    color: var(--white);
-                    font-weight: 600;
-
-                    span{
-
-                        font-size: .6em;
-                        color: rgba(255, 255, 255, 0.748);
-
+                .card-container{
+    
+                    width: 250px;
+                    height: 200px;
+                    background-color: var(--main-purple);
+    
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    padding: 30px 30px;
+                    border-radius: 20px;
+                    margin: 0 15px;
+                    transition: .3s;
+                    filter: drop-shadow(10px 15px 10px var(--shade-scnd-purple));
+    
+                    .type-subscription{
+    
+                        font-size: 1.2em;
+                        font-weight: 600;
+                        color: var(--white);
+    
                     }
+    
+                    .price{
+    
+                        font-size: 1.5em;
+                        color: var(--white);
+                        font-weight: 600;
+    
+                        span{
+    
+                            font-size: .6em;
+                            color: rgba(255, 255, 255, 0.748);
+    
+                        }
+    
+                    }
+    
+                    .data-container{
+    
+                        color: rgba(255, 255, 255, 0.748);
+                        font-weight: 500;
+    
+    
+                    }
+    
+                }
+
+
+                button{
+
+                    width: 250px;
+                    height: 40px;
+                    background-color: var(--light-purple);
+                    border: none;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    font-size: 1em;
+                    color: var(--white);
+                    transition: .2s;
 
                 }
 
-                .data-container{
+                button:hover, button:focus{
 
-                    color: rgba(255, 255, 255, 0.748);
-                    font-weight: 500;
-
-
+                    background-color: #665ad9;
                 }
 
-            }
-
-            .card-container:hover{
-
-                transform: scale(.98);
-
-            }
 
         }
 

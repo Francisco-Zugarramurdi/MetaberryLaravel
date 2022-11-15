@@ -40,30 +40,5 @@
         </section>
     </main>
 
-    {{-- <script>
-
-        jQuery(document).ready(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            });
-            jQuery.ajax({
-                url: "{{ url('/userData') }}",
-                method: 'POST',
-                success: function(data){
-                    const image = document.getElementById('displayImage')
-                    const name = document.getElementById('displayName')
-                    const email = document.getElementById('displayEmail')
-
-                    name.innerHTML = `${data['name']}`;
-                    email.innerHTML = `${data['email']}`;
-                    image.src = `http://127.0.0.1:8005/img/public_images/${data['photo']}`;
-
-                }
-            });
-        }); --}}
-
-    </script>
 </body>
 </html>

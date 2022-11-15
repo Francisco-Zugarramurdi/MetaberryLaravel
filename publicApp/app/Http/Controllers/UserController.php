@@ -51,4 +51,19 @@ class UserController extends Controller
         
     }
 
+    public function UpdateSubscription(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::post('http://localhost:8000/api/user/subscription/'. $id, [
+            'type_of_user'=> $request->type_of_user,
+            'credit_card' => $request->credit_card
+        ]);
+
+        $user_data = json_decode($response, true);
+
+        return redirect("/user")->with('data', $user_data);
+
+    }
+
 }

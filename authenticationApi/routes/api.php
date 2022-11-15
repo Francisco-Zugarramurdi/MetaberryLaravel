@@ -21,3 +21,4 @@ Route::post("/user/create",[UserController::class,'create']);
 Route::post("/user/authenticate",[UserController::class,'authenticate']);
 Route::get("/user/{id}",[UserController::class,'Index']);
 Route::post("/user/{id}",[UserController::class,'Update']);
+Route::post("/user/subscription/{id}",[UserController::class,'Suscribe']);

@@ -45,6 +45,7 @@ Route::post('/login',[AuthController::class,'Login']);
 Route::post('/signup',[AuthController::class,'Sign']);
 Route::post('/logout',[AuthController::class,'Logout']);
 Route::post('/user/edit',[UserController::class,'Update']);
+Route::post('/user/subscription',[UserController::class,'UpdateSubscription']);
 
 Route::post('/events',[EventController::class,'Index']);
 Route::post('/sports',[EventController::class,'IndexSport']);

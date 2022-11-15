@@ -306,4 +306,53 @@ class UserController extends Controller
         $user-> save();
 
     }
+
+    public function Suscribe(Request $request, $id){
+
+        $validateCard = $this->validateRegexCreditCard($request);
+        
+        if($validateCard['status'] !== "Success")
+            return $validateCard;
+        try{
+                
+            return $this->updateOnSub($request, $id);
+
+        }
+        catch (QueryException $e){
+
+            return [
+                "status" => "Error",
+                "body" => $e->getMessage()
+            ];
+            
+        }
+
+    }
+
+    private function updateOnSub(Request $request, $id){
+
+        $user = UserData::findOrFail($id);
+        $user -> type_of_user = $request -> type_of_user;
+        $user -> credit_card = $request -> credit_card;
+        $user -> save();        
+
+        return $user;
+
+    }
+
+    private function validateRegexCreditCard(Request $request){
+
+        $validator = Validator::make($request->all(),
+        [
+            'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/|nullable'
+        ]);
+
+        if($validator->fails())
+            return $validator->errors()->toJson();
+        return [
+            "status" => "Success",
+            "body" => "Validated succesfully"
+        ];
+
+    }
 }

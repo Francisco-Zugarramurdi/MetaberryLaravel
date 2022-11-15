@@ -541,9 +541,9 @@ main {
 main .line {
   display: block;
   width: 100%;
-  background-color: var(--grayish);
+  background-color: rgba(0, 0, 0, 0.204);
   height: 1px;
-  margin: 30px 0;
+  margin: 60px 0;
 }
 main .subscription-container {
   width: auto;
@@ -583,7 +583,7 @@ main .subscription-container .subscription-card-container {
 }
 main .subscription-container .subscription-card-container .card-container {
   width: 250px;
-  height: 150px;
+  height: 200px;
   background-color: var(--main-purple);
   display: flex;
   flex-direction: column;
@@ -613,6 +613,17 @@ main .subscription-container .subscription-card-container .card-container .data-
   color: rgba(255, 255, 255, 0.748);
   font-weight: 500;
 }
-main .subscription-container .subscription-card-container .card-container:hover {
-  transform: scale(0.98);
+main .subscription-container .subscription-card-container button {
+  width: 250px;
+  height: 40px;
+  background-color: var(--light-purple);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1em;
+  color: var(--white);
+  transition: 0.2s;
+}
+main .subscription-container .subscription-card-container button:hover, main .subscription-container .subscription-card-container button:focus {
+  background-color: #665ad9;
 }/*# sourceMappingURL=subscription.css.map */

@@ -41,7 +41,10 @@
                             Get rid of the ads and enhance your experience
                         </div>
     
+                        <button type="button" class="type-button" onClick="setType('monhtly')">Choose this plan</button>
+
                     </div>
+
     
                     <div class="card-container">
 
@@ -55,6 +58,8 @@
                             the benefits from premium plan
                         </div>
     
+                        <button type="button" class="type-button" onClick="setType('yearly')">Choose this plan</button>
+
                     </div>
     
             </div>
@@ -63,30 +68,26 @@
 
             <div class="subscription-form-container">
 
-                <form method="POST" action="/user/subscribe">
+                <form method="POST" action="/user/subscription">
                     @method('POST')
                     @csrf
 
-                    <p>Pay with card</p>
+                    <p>Subscription information</p>
 
                     <div class="inner-container">
 
                         <label>
-                            Monthly subscription
-                            <input type="radio" name="subscription-type" value="paid_monthly">
-                        </label>
-    
-                        <label>
-                            Anual subscription
-                            <input type="radio" name="subscription-type" value="paid_yearly">
+                            Credit Card
+                            <input type="number" min="1" placeholder="4123 1234 1234 1234" name="credit_card">
+                            <span class="material-symbols-outlined">credit_card</span>
                         </label>
 
-                        <label>
-                            Credit Card
-                            <input type="number" min="1">
-                        </label>
+                        <input type="hidden" id="typeSubscription" name="type_of_user" value="">
+                        <p>Your chosen subscription <span id="showType"></span></p>
 
                     </div>
+
+                    <button type="submit">Suscribe</button>
 
                 </form>
 
@@ -96,5 +97,16 @@
 
     </main>
     
+    <script>
+
+        function setType(type){
+
+            document.getElementById('typeSubscription').value = type;
+            document.getElementById('showType').innerHTML = type;
+
+        }
+
+    </script>
+
 </body>
 </html>
