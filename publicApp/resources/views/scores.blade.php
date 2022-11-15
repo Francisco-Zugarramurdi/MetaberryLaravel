@@ -18,7 +18,12 @@
 
 <body>
 
-@include('layouts.navbar',$data)
+    @if(session()->has('authenticated')){
+        @include('layouts.navbar',$data)
+    }
+    @else
+        @include('layouts.navbar')
+    @endif
 
     <main>
 
