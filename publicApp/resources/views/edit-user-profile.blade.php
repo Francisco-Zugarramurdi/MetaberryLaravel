@@ -16,7 +16,7 @@
 
 <body>
     
-    @include('layouts.navbar')
+    @include('layouts.navbar', $data)
 
     <main>
         <section class="edit-user-container">

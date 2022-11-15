@@ -24,6 +24,22 @@ class UserController extends Controller
 
     }
 
+    public function GetScoreView(Request $request){
+
+        $user_data = $this->getUserData($request);
+
+        return view('scores')->with('data', $user_data);
+
+    }
+
+    public function GetLandingView(Request $request){
+
+        $user_data = $this->getUserData($request);
+
+        return view('landing')->with('data', $user_data);
+
+    }
+
     private function getUserData(Request $request){
 
         $id = $request->session()->get('user_id');

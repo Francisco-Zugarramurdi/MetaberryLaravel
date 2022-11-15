@@ -17,10 +17,6 @@ use App\Http\Middleware\RedirectHome;
 |
 */
 
-Route::get('/', function () {
-    return view('landing');
-})->middleware(RedirectHome::class);
-
 Route::get('/login', function () {
     return view('log-in');
 })->middleware(RedirectHome::class);
@@ -29,17 +25,14 @@ Route::get('/signup', function () {
     return view('sign-up');
 })->middleware(RedirectHome::class);
 
-Route::get('/scores', function () {
-    return view('scores');
-});
-
-
 Route::get('/subscribe', function () {
     return view('subscribe');
 })->middleware(Authenticate::class);
 
 Route::get('/user',[UserController::class,'GetIndexView'])->middleware(Authenticate::class);
 Route::get('/user/edit',[UserController::class,'GetEditView'])->middleware(Authenticate::class);
+Route::get('/scores',[UserController::class,'GetScoreView']);
+Route::get('/',[UserController::class,'GetLandingView'])->middleware(RedirectHome::class);
 
 Route::post('/login',[AuthController::class,'Login']);
 Route::post('/signup',[AuthController::class,'Sign']);
