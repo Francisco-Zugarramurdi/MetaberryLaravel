@@ -30,12 +30,12 @@
                 <div class="form-up-container">
                     <label>
                         Nickname
-                        <input type="text" class="input" id='inputName' value="" name="name">
+                        <input type="text" class="input" value="{{$data['name']}}" name="name">
                     </label>
 
                     <label>
                         Email
-                        <input type="text" class="input" id='inputEmail' value="" name="email">
+                        <input type="text" class="input" value="{{$data['email']}}" name="email">
                     </label>
 
                     <label>
