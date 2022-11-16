@@ -95,7 +95,7 @@ class UserController extends Controller
 
             'name' => $request -> post("name"),
             'credit_card' => '',
-            'photo' => 'default_img_do_not_delete.jpg',
+            'photo' => $this->saveImage(),
             'points' => 0,
             'type_of_user' => 'free',
             'total_points' => 0
@@ -116,6 +116,22 @@ class UserController extends Controller
             "body" => "Created succesfully",
             "id" => $user->id
         ];
+    }
+
+    private function saveImage(){
+
+        $image_array = [
+
+            "avatar_01" => "avatar_01.png",
+            "avatar_02" => "avatar_02.png",
+            "avatar_03" => "avatar_03.png",
+            "avatar_04" => "avatar_04.png"
+        ];
+
+        $rand_image = array_rand($image_array);
+
+        return $image_array[$rand_image];
+
     }
 
     public function authenticate(Request $request){
@@ -369,40 +385,7 @@ class UserController extends Controller
 
     }
 
-    // private function createSubscription(Request $request, $id){
-
-    //     if($request-> type_of_user == 'paid_monthly' || $request-> type_of_user == 'paid_yearly'){
-
-    //         UserSubscription::create([
-    
-    //             'id_users' => $id,
-    //             'type_of_subscription' => $request -> type_of_user
-    
-    //         ]);
-
-    //     }
-
-    // }
-
-    // private function updateUserSubscription(Request $request, $typeOfUser, $id){
-
-    //     if($typeOfUser == 'free'){
-
-    //         return $this->createSubscription($request, $id);
-
-    //     }
-
-    //     $this->validateSubscriptionUpdate($request, $id);
-
-    // }
-
     private function validateSubscriptionUpdate($request, $id){
-
-        // if($request-> type_of_user == 'free'){
-
-        //     return UserSubscription::where('id_users', $id)->delete();
-
-        // }
 
         UserSubscription::where('id_users', $id)
         ->update([

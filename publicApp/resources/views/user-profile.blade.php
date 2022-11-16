@@ -31,9 +31,7 @@
             </div>
         </section>
         <section class="innerNav">
-            <button type="button" class="user-profile">Events</button>
-            <button type="button">Teams</button>
-            <button type="button">Leagues</button>
+            <button type="button" class="user-profile">Events you follow</button>
         </section>
         <section class="display">
             

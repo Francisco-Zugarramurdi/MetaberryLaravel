@@ -182,6 +182,7 @@ header nav .log-in-header-nav-container-1 .profile-image {
   border-radius: 50%;
   background-color: var(--lightest-gray);
   margin: 0 15px 0 30px;
+  border: 1px solid var(--main-purple);
 }
 header nav .log-in-header-nav-container-1 .profile-image img {
   width: 100%;
