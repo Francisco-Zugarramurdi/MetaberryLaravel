@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/event-by-score-css.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <title>Livescore - Scores</title>
+    <title>Livescore - Events</title>
 </head>
 <body>
 
