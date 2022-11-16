@@ -16,4 +16,23 @@ class EventController extends Controller
     public function Index(){
         return json_decode(Http::get('http://localhost:8001/api/index/'),true);
     }
+    public function IndexEvent(Request $request, $id){
+       $info=(json_decode(Http::get('http://localhost:8001/api/index/'.$id),true));
+
+       $user_data = $this->getUserData($request);
+
+       return view('events')->with('info',$info)->with('data', $user_data);
+
+    }
+
+    private function getUserData(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::get('http://localhost:8000/api/user/'. $id);
+        $user_data = json_decode($response, true);
+        
+        return $user_data;
+
+    }
 }

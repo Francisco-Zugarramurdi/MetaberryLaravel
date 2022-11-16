@@ -1136,6 +1136,24 @@ footer img:hover {
   margin: 0;
   padding-left: 0;
 }
+.innerNav ul {
+  display: flex;
+  align-items: center;
+}
+.innerNav ul li {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-left: 20%;
+  text-align: center;
+  height: 5vh;
+  cursor: pointer;
+}
+.innerNav ul li:hover {
+  border-bottom: 3px black solid;
+}
 .innerNav .user-profile:first-of-type {
   margin-left: 60px;
 }
@@ -1333,6 +1351,55 @@ footer img:hover {
 .display .post form button:hover {
   transition: 0.2s;
   transform: scale(1.2);
+}
+
+.innerNav {
+  background-color: var(--gray);
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  padding-left: 0;
+}
+.innerNav ul {
+  display: flex;
+  align-items: center;
+}
+.innerNav ul li {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-left: 20%;
+  text-align: center;
+  height: 5vh;
+  cursor: pointer;
+}
+.innerNav ul li:hover {
+  border-bottom: 3px black solid;
+}
+.innerNav .user-profile:first-of-type {
+  margin-left: 60px;
+}
+.innerNav button {
+  width: auto;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--main-purple);
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  margin: 0 30px 0 0;
+  transition: 0.3s;
+}
+.innerNav button:hover {
+  background-color: var(--light-purple);
+  transform: scale(0.98);
 }
 
 * {

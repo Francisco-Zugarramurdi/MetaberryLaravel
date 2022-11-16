@@ -275,7 +275,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
@@ -336,7 +336,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
@@ -397,7 +397,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>

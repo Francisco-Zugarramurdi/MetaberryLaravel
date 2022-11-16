@@ -441,7 +441,7 @@
 
 
 }
-
+  
 
 //Inner NAV
 @mixin InnerNav {
@@ -454,6 +454,27 @@
     align-items: center;
     margin: 0;
     padding-left: 0;
+    ul {
+        display: flex;
+        align-items: center;
+  
+        li {
+          display: flex;
+          align-items: center;
+          list-style: none;
+          font-size: 1.2em;
+          font-weight: 700;
+          margin-left: 20%;
+          text-align: center;
+          height: 5vh;
+          cursor: pointer;
+  
+        }
+  
+        li:hover {
+          border-bottom: 3px black solid;
+        }
+      }
 
     .user-profile:first-of-type{
 
