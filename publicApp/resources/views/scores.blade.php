@@ -14,6 +14,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <title>Livescore - Scores</title>
+
+    <style>
+        @media (min-width: 600px) {
+        
+        }
+    </style>
 </head>
 
 <body>
@@ -26,6 +32,14 @@
     @endif
 
     <main>
+
+    <div class="desktopAds" id="Large">
+
+    </div>
+
+    <div class="mobileAds" id="Small">
+        
+    </div>
 
         <div class="sport-nav-section">
 
@@ -73,6 +87,14 @@
 
     </main>
 
+    <div class="mobileAds" id="Small">
+
+    </div>
+
+    <div class="desktopAds" id="Large">
+        
+    </div>
+
     <footer>
 
         <img
@@ -88,9 +110,84 @@
         <p class="copyright">All Rights Reserved. 2022 Metaberry</p>
 
     </footer>
-
+    
 </body>
 
+
+@if(!session()->has('user_sub'))
+    <script>
+        jQuery(document).ready(function() {
+
+            if(window.innerWidth > 768){
+            
+                let ads = document.getElementsByClassName("desktopAds")
+                console.log(typeof(ads))
+                Object.keys(ads).forEach(ad=>{
+                    console.log(ads[ad].id, "Main")
+                    
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        }
+                    })
+                    jQuery.ajax({
+                        url: "{{ url('http://localhost:8003/api/ad/') }}",
+                        method: 'POST',
+                        data: {
+                            size: ads[ad].id,
+                            tag: "Main"
+                        },
+
+                        success: function(adResult) {
+                            
+                            if(adResult != "Error, no ads available"){
+                                ads[ad].innerHTML = `
+                                <a href="${adResult.url}"><img src="http://127.0.0.1:8005/img/public_images/${adResult.image}"></a>
+                                `
+                            }
+                        }
+                    });
+
+                
+                })
+            }else{
+                let ads = document.getElementsByClassName("mobileAds")
+                console.log(typeof(ads))
+                Object.keys(ads).forEach(ad=>{
+                    console.log(ads[ad].id, "Main")
+                    
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        }
+                    })
+                    jQuery.ajax({
+                        url: "{{ url('http://localhost:8003/api/ad/') }}",
+                        method: 'POST',
+                        data: {
+                            size: ads[ad].id,
+                            tag: "Main"
+                        },
+
+                        success: function(adResult) {
+                            if(adResult != "Error, no ads available"){
+                                ads[ad].innerHTML = `
+                                <p>http://127.0.0.1:8005/img/public_images/${adResult.url}</p>
+                                `
+                            }
+                            
+                        }
+                    });
+
+                
+                })
+            }
+
+        })
+
+        
+    </script>
+@endif
 <script>
     jQuery(document).ready(function() {
         $.ajaxSetup({

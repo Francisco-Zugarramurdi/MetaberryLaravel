@@ -55,7 +55,7 @@
                                     
                                         <label>
                                             <p><span>* </span>Url</p>
-                                            <input type="text" name="url" placeholder="Futbol.com" id="url">
+                                            <input type="text" name="url" placeholder="https://www.Futbol.com" id="url">
                                         </label>
 
                                         <label>

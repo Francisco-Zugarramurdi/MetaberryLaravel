@@ -4,4 +4,4 @@ MODE con: cols=100 lines=30
 title AuthApi
 
 cd authenticationApi
-php artisan serve 
+php artisan serve --port=8000
