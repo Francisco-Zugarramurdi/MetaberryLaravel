@@ -35,7 +35,7 @@
         </section>
         <section class="display">
             
-        div class="desktopAds" id="Large"></div>
+        <div class="desktopAds" id="Large"></div>
         <div class="mobileAds" id="Small"></div>
         </section>
     </main>

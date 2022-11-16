@@ -30,16 +30,16 @@
     @else
         @include('layouts.navbar')
     @endif
+    <div class="space"></div>
+    <div class="ads">
+        <div class="desktopAds" id="Wide"></div>
+
+        <div class="mobileAds" id="Small"></div>
+    </div>
 
     <main>
 
-    <div class="desktopAds" id="Large">
-
-    </div>
-
-    <div class="mobileAds" id="Small">
-        
-    </div>
+    
 
         <div class="sport-nav-section">
 
@@ -87,12 +87,10 @@
 
     </main>
 
-    <div class="mobileAds" id="Small">
+    <div class="ads">
+        <div class="desktopAds" id="Wide"></div>
 
-    </div>
-
-    <div class="desktopAds" id="Large">
-        
+        <div class="mobileAds" id="Small"></div>
     </div>
 
     <footer>
