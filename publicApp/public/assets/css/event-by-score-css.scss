@@ -1,6 +1,7 @@
 @import './_main.scss';
 @import './variables/_variables.scss';
 @import './event.scss';
+@include InnerNav;
 * {
     margin: 0;
 }

@@ -266,10 +266,10 @@ insert into results_upward(id_results,id_teams,position,result) values
 (5,12,1,12);
 
 insert into results_downward(id_results,id_teams,position,result) values
-(4,7,3,16),
-(4,8,4,15),
-(4,9,1,10),
-(4,10,2,9);
+(4,7,1,9),
+(4,8,2,10),
+(4,9,3,15),
+(4,10,4,16);
 
 insert into ads (view_counter, views_hired, url, image, size) values
 (1,10,'cocacola.com','adsmall.jpg','small'),

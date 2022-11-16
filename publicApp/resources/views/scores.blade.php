@@ -30,16 +30,16 @@
     @else
         @include('layouts.navbar')
     @endif
+    <div class="space"></div>
+    <div class="ads">
+        <div class="desktopAds" id="Wide"></div>
+
+        <div class="mobileAds" id="Small"></div>
+    </div>
 
     <main>
 
-    <div class="desktopAds" id="Large">
-
-    </div>
-
-    <div class="mobileAds" id="Small">
-        
-    </div>
+    
 
         <div class="sport-nav-section">
 
@@ -87,12 +87,10 @@
 
     </main>
 
-    <div class="mobileAds" id="Small">
+    <div class="ads">
+        <div class="desktopAds" id="Wide"></div>
 
-    </div>
-
-    <div class="desktopAds" id="Large">
-        
+        <div class="mobileAds" id="Small"></div>
     </div>
 
     <footer>
@@ -275,7 +273,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/mark/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
@@ -336,7 +334,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/mark/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
@@ -397,7 +395,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
