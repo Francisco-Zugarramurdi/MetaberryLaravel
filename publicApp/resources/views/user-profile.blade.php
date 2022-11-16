@@ -35,8 +35,86 @@
         </section>
         <section class="display">
             
+        div class="desktopAds" id="Large"></div>
+        <div class="mobileAds" id="Small"></div>
         </section>
     </main>
+
+    @if(!session()->has('user_sub'))
+        <script>
+            jQuery(document).ready(function() {
+
+                if(window.innerWidth > 768){
+                
+                    let ads = document.getElementsByClassName("desktopAds")
+                    console.log(typeof(ads))
+                    Object.keys(ads).forEach(ad=>{
+                        console.log(ads[ad].id, "Main")
+                        
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            }
+                        })
+                        jQuery.ajax({
+                            url: "{{ url('http://localhost:8003/api/ad/') }}",
+                            method: 'POST',
+                            data: {
+                                size: ads[ad].id,
+                                tag: "Main"
+                            },
+
+                            success: function(adResult) {
+                                
+                                if(adResult != "Error, no ads available"){
+                                    ads[ad].innerHTML = `
+                                    <a href="${adResult.url}"><img src="http://127.0.0.1:8005/img/public_images/${adResult.image}"></a>
+                                    `
+                                }
+                            }
+                        });
+
+                    
+                    })
+                }else{
+                    let ads = document.getElementsByClassName("mobileAds")
+                    console.log(typeof(ads))
+                    Object.keys(ads).forEach(ad=>{
+                        console.log(ads[ad].id, "Main")
+                        
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            }
+                        })
+                        jQuery.ajax({
+                            url: "{{ url('http://localhost:8003/api/ad/') }}",
+                            method: 'POST',
+                            data: {
+                                size: ads[ad].id,
+                                tag: "Main"
+                            },
+
+                            success: function(adResult) {
+                                if(adResult != "Error, no ads available"){
+                                    ads[ad].innerHTML = `
+                                    <p>http://127.0.0.1:8005/img/public_images/${adResult.url}</p>
+                                    `
+                                }
+                                
+                            }
+                        });
+
+                    
+                    })
+                }
+
+            })
+
+            
+        </script>
+    @endif
+
 
 </body>
 </html>
