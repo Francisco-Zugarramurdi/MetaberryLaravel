@@ -581,6 +581,12 @@ main .subscription-container .subscription-card-container {
   justify-content: space-evenly;
   align-items: center;
 }
+main .subscription-container .subscription-card-container form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
 main .subscription-container .subscription-card-container .card-container {
   width: 250px;
   height: 200px;
@@ -612,6 +618,18 @@ main .subscription-container .subscription-card-container .card-container .price
 main .subscription-container .subscription-card-container .card-container .data-container {
   color: rgba(255, 255, 255, 0.748);
   font-weight: 500;
+}
+main .subscription-container .subscription-card-container .cancel {
+  background-color: var(--green);
+}
+main .subscription-container .subscription-card-container .cancel button {
+  background-color: #15780a;
+}
+main .subscription-container .subscription-card-container .cancel button:hover, main .subscription-container .subscription-card-container .cancel button:focus {
+  background-color: #15780a;
+  transform: scale(0.98);
+  filter: drop-shadow(0 0 5px #116707);
+  color: rgba(255, 255, 255, 0.712);
 }
 main .subscription-container .subscription-card-container button {
   width: 250px;

@@ -22,3 +22,5 @@ Route::post("/user/authenticate",[UserController::class,'authenticate']);
 Route::get("/user/{id}",[UserController::class,'Index']);
 Route::post("/user/{id}",[UserController::class,'Update']);
 Route::post("/user/subscription/{id}",[UserController::class,'Suscribe']);
+Route::delete("/user/subscription/{id}",[UserController::class,'DestroySubscription']);
+Route::put("/user/subscription/{id}",[UserController::class,'UpdateSubscription']);

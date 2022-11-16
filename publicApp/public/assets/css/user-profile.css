@@ -782,8 +782,27 @@ footer img:hover {
   text-decoration: none;
   margin: 15px 0 0 0;
 }
+.edit-user-container form .form-up-container .cancel-account {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  border: none;
+  padding: 10px 30px;
+  background-color: var(--red);
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 10px;
+  transition: 0.3s;
+  text-decoration: none;
+  margin: 15px 0 0 0;
+}
 .edit-user-container form .form-up-container .upgrade-account:hover, .edit-user-container form .form-up-container .upgrade-account:focus {
   background-color: var(--shade-yellow);
+  transform: scale(0.98);
+}
+.edit-user-container form .form-up-container .cancel-account:hover, .edit-user-container form .form-up-container .cancel-account:focus {
+  background-color: var(--light-red);
   transform: scale(0.98);
 }
 .edit-user-container form .form-up-container label {

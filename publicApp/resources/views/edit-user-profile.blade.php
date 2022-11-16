@@ -43,7 +43,11 @@
                         <input type="password" class="input" name="password">
                     </label>
 
-                    <a href="/subscribe" class="upgrade-account">Upgrade account</a>
+                    @if(session()->has('user_sub'))
+                        <a href="/subscribe" class="cancel-account">Cancel subscription</a>
+                    @else
+                        <a href="/subscribe" class="upgrade-account">Upgrade account</a>
+                    @endif
 
                     <a class="logout-button" href="/logout"
                         onclick="event.preventDefault();

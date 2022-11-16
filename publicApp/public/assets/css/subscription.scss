@@ -67,12 +67,20 @@ main{
             justify-content: space-evenly;
             align-items: center;
 
+            form{
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+
+            }
+
                 .card-container{
     
                     width: 250px;
                     height: 200px;
                     background-color: var(--main-purple);
-    
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
@@ -113,9 +121,30 @@ main{
     
     
                     }
+
+                    
+                }
+                
+                .cancel{
+
+                    background-color: var(--green);
+                    
+
+                    button{
+
+                        background-color: #15780a;
+                    
+                    }
+
+                    button:hover, button:focus{
+
+                        background-color: #15780a;
+                        transform: scale(.98);
+                        filter: drop-shadow(0 0 5px #116707);
+                        color: rgba(255, 255, 255, 0.712);
+                    }
     
                 }
-
 
                 button{
 

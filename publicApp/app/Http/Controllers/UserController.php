@@ -67,7 +67,7 @@ class UserController extends Controller
         
     }
 
-    public function UpdateSubscription(Request $request){
+    public function Suscribe(Request $request){
 
         $id = $request->session()->get('user_id');
 
@@ -78,8 +78,53 @@ class UserController extends Controller
 
         $user_data = json_decode($response, true);
 
-        return redirect("/user")->with('data', $user_data);
+        if($user_data['status'] == "Success"){
 
+            $request->session()->put('user_sub', $user_data['user_subscription']);
+            $request->session()->save();
+
+        }
+        
+        return redirect("/user")->with('data', $user_data);
+    }
+
+    public function DeleteSubscription(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::delete('http://localhost:8000/api/user/subscription/'. $id);
+
+        $user_data = json_decode($response, true);
+
+        if($user_data['status'] == "Success"){
+
+            $request->session()->forget('user_sub');
+        }
+        
+        return redirect("/user")->with('data', $user_data);
+    }
+
+    public function UpdateSubscription(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::put('http://localhost:8000/api/user/subscription/'. $id,[
+
+            'type_of_user'=> $request->type_of_user
+
+        ]);
+
+        $user_data = json_decode($response, true);
+
+        if($user_data['status'] == "Success"){
+
+            $request->session()->forget('user_sub');
+            $request->session()->put('user_sub', $user_data['user_subscription']);
+            $request->session()->save();
+            
+            return redirect("/user")->with('data', $user_data);
+        }
+        
     }
 
 }

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserData;
+use App\Models\UserSubscription;
 use \Illuminate\Database\QueryException;
 use Carbon\Carbon;
 
@@ -313,6 +314,7 @@ class UserController extends Controller
         
         if($validateCard['status'] !== "Success")
             return $validateCard;
+
         try{
                 
             return $this->updateOnSub($request, $id);
@@ -336,7 +338,18 @@ class UserController extends Controller
         $user -> credit_card = $request -> credit_card;
         $user -> save();        
 
-        return $user;
+        UserSubscription::create([
+    
+            'id_users' => $id,
+            'type_of_subscription' => $request -> type_of_user
+
+        ]);
+
+        return [
+            "status" => "Success",
+            "body" => "Suscription made successfully",
+            "user_subscription" => $user -> type_of_user
+        ];
 
     }
 
@@ -355,4 +368,115 @@ class UserController extends Controller
         ];
 
     }
+
+    // private function createSubscription(Request $request, $id){
+
+    //     if($request-> type_of_user == 'paid_monthly' || $request-> type_of_user == 'paid_yearly'){
+
+    //         UserSubscription::create([
+    
+    //             'id_users' => $id,
+    //             'type_of_subscription' => $request -> type_of_user
+    
+    //         ]);
+
+    //     }
+
+    // }
+
+    // private function updateUserSubscription(Request $request, $typeOfUser, $id){
+
+    //     if($typeOfUser == 'free'){
+
+    //         return $this->createSubscription($request, $id);
+
+    //     }
+
+    //     $this->validateSubscriptionUpdate($request, $id);
+
+    // }
+
+    private function validateSubscriptionUpdate($request, $id){
+
+        // if($request-> type_of_user == 'free'){
+
+        //     return UserSubscription::where('id_users', $id)->delete();
+
+        // }
+
+        UserSubscription::where('id_users', $id)
+        ->update([
+            'type_of_subscription' => $request -> type_of_user
+        ]);
+
+    }
+
+    public function DestroySubscription($id){
+
+        try{
+
+            $this->updateSubscriptionOnDelete($id);
+
+            $subscription = UserSubscription::where('id_users', $id)
+            ->where('deleted_at', null)->first();
+
+            UserSubscription::findOrFail($subscription->id)->delete();
+            
+            return [
+                "status" => "Success",
+                "body" => "Subscription deleted successfully"
+            ];
+
+        }
+        catch(QueryException $e){
+
+            return [
+                "status" => "Error",
+                "body" => $e->getMessage()
+            ];
+
+        }
+
+    }
+
+    private function updateSubscriptionOnDelete($id){
+
+        $user = UserData::findOrFail($id);
+        $user -> type_of_user = 'free';
+        $user -> save();
+
+    }
+
+    public function UpdateSubscription(Request $request, $id){
+        
+        try{
+            
+            $subscription = UserSubscription::where('id_users', $id)
+            ->where('deleted_at', null)->first();
+
+            $user = UserData::findOrFail($id);
+
+            $subscription -> type_of_subscription = $request -> type_of_user;
+            $subscription-> save();
+            $user -> type_of_user = $request -> type_of_user;
+            $user -> save();
+
+            return [
+                "status" => "Success",
+                "body" => "User subscription updated successfully",
+                "user_subscription" => $user -> type_of_user
+            ];
+            
+        }
+        catch (QueryException $e){
+
+            return [
+                "status" => "Error",
+                "body" => $e->getMessage()
+            ];
+            
+        }
+
+    }
+
 }

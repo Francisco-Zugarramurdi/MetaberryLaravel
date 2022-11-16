@@ -18,6 +18,91 @@
     
     <main>
 
+        @if(session()->has('user_sub'))
+        <div class="subscription-container">
+
+            <div class="header">
+
+                <h1>Want to cancel your subscription?</h1>
+                <p>Upgrade to Enterprise, or cancel your subscription now</p>
+
+            </div>
+
+            <div class="subscription-card-container">
+
+                <form method="POST" action="/user/subscription/delete">
+                    @method('POST')
+                    @csrf
+
+                    <div class="card-container cancel">
+
+                        <div class="inner-container">
+                            <p class="type-subscription">Basic</p>
+                            <p class="price">$0 <span>/month</span></p>
+                        </div>
+    
+                        <div class="data-container">
+                            Our free plan
+                            Although limited, you can access to a great experience in our site
+                        </div>
+    
+                        <button type="submit" class="type-button">Cancel your subscription</button>
+
+                    </div>
+
+                    @if(session('user_sub') == 'paid_yearly')
+
+                        <div class="card-container">
+
+                            <div class="inner-container">
+                                <p class="type-subscription">Premium</p>
+                                <p class="price">$5 <span>/month</span></p>
+                            </div>
+        
+                            <div class="data-container">
+                                Our subscription based plan. 
+                                Get rid of the ads and enhance your experience
+                            </div>
+        
+                            <button type="button" class="type-button" onClick="setType('paid_monhtly')">Downgrade to Premium</button>
+
+                        </div>
+
+                    @else
+                    
+                        <div class="card-container">
+
+                            <div class="inner-container">
+                                <p class="type-subscription">Enterprise</p>
+                                <p class="price">$50 <span>/year</span></p>
+                            </div>
+                                
+                            <div class="data-container">
+                                Save up to 2 months of payments and get all
+                                the benefits from premium plan
+                            </div>
+        
+                            <button type="button" class="type-button" onClick="setType('paid_yearly')">Upgrade to Enterprise</button>
+
+                        </div>
+
+                    @endif
+    
+
+                </form>
+
+                <form action="/user/subscription/update" method="POST" id="updateSubscription">
+                    @csrf
+                    <input type="hidden" id="typeSubscription" name="type_of_user" value="">
+
+                </form>
+
+    
+            </div>
+
+
+        </div>
+        @else
         <div class="subscription-container">
 
             <div class="header">
@@ -41,7 +126,7 @@
                             Get rid of the ads and enhance your experience
                         </div>
     
-                        <button type="button" class="type-button" onClick="setType('monhtly')">Choose this plan</button>
+                        <button type="button" class="type-button" onClick="setType('paid_monthly')">Choose this plan</button>
 
                     </div>
 
@@ -58,7 +143,7 @@
                             the benefits from premium plan
                         </div>
     
-                        <button type="button" class="type-button" onClick="setType('yearly')">Choose this plan</button>
+                        <button type="button" class="type-button" onClick="setType('paid_yearly')">Choose this plan</button>
 
                     </div>
     
@@ -87,12 +172,12 @@
                     
                     </div>
 
-
                 </form>
 
             </div>
 
         </div>
+        @endif
 
     </main>
     
@@ -101,6 +186,7 @@
         function setType(type){
 
             document.getElementById('typeSubscription').value = type;
+            document.getElementById('updateSubscription').submit();
 
         }
 
