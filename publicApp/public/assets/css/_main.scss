@@ -481,20 +481,11 @@ footer {
             }
         }
 
-        .legal{
+        .error{
 
             font-size: 0.8em;
             font-weight: 600;
-            color: var(--light-gray);
-
-            a{
-
-                @include set-a-link;
-                color: var(--main-purple);
-                text-decoration: underline 1px;
-                text-underline-offset: 2px;
-
-            }
+            color: var(--red);
 
         }
 

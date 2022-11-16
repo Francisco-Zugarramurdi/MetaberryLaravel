@@ -63,6 +63,13 @@ class UserController extends Controller
 
         $user_data = json_decode($response, true);
 
+        $data = $this->getUserData($request);
+
+        if($user_data['status'] != "Success"){
+
+            return view('edit-user-profile',[ 'error' => true, 'body' => $user_data['body'], 'data' => $data]);
+            
+        }
         return redirect("/user");
         
     }
@@ -83,9 +90,12 @@ class UserController extends Controller
             $request->session()->put('user_sub', $user_data['user_subscription']);
             $request->session()->save();
 
+            return redirect("/user")->with('data', $user_data);
+    
         }
         
-        return redirect("/user")->with('data', $user_data);
+        return view('subscribe',[ 'error' => true, 'body' => $user_data['body'], 'data' => $user_data]);
+
     }
 
     public function DeleteSubscription(Request $request){

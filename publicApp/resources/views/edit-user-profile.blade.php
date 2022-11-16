@@ -43,6 +43,12 @@
                         <input type="password" class="input" name="password">
                     </label>
 
+                    @if(isset($error))
+                        @foreach($body as $error)
+                            <p class="error">{{$error[0]}}</p>
+                        @endforeach
+                    @endif
+
                     @if(session()->has('user_sub'))
                         <a href="/subscribe" class="cancel-account">Cancel subscription</a>
                     @else

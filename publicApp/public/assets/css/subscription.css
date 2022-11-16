@@ -432,19 +432,10 @@ footer img:hover {
 .sign-form-container .sign-container form .form-name-container label input {
   padding: 0 10%;
 }
-.sign-form-container .sign-container .legal {
+.sign-form-container .sign-container .error {
   font-size: 0.8em;
   font-weight: 600;
-  color: var(--light-gray);
-}
-.sign-form-container .sign-container .legal a {
-  padding: 0;
-  text-decoration: none;
-  color: var(--black);
-  color: var(--main-purple);
-  -webkit-text-decoration: underline 1px;
-          text-decoration: underline 1px;
-  text-underline-offset: 2px;
+  color: var(--red);
 }
 .sign-form-container .sign-aside-container {
   width: 60vw;
@@ -658,6 +649,12 @@ main .subscription-container .subscription-form-container .inner-container {
   width: 230px;
   height: auto;
   margin: 15px 0;
+}
+main .subscription-container .subscription-form-container .inner-container .error {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--red);
+  margin-top: 10px;
 }
 main .subscription-container .subscription-form-container .inner-container label {
   width: 200px;

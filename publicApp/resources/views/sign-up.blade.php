@@ -23,7 +23,7 @@
 
             <div class="sign-container">
 
-                <form action="/signup" method="post">
+                <form action="/signup" method="post" id="form">
                 @csrf
                 @method('POST')
 
@@ -75,9 +75,13 @@
 
                     <input class="sign-form-button" type="submit" value="Create Account">
 
-                </form>
+                    @if(isset($error))
+                        @foreach($body as $error)
+                            <p class="error">{{$error[0]}}</p>
+                        @endforeach
+                    @endif
 
-                <p class="legal">By signing up I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Police</a></p>
+                </form>
 
             </div>
 

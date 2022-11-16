@@ -153,7 +153,7 @@
 
             <div class="subscription-form-container">
 
-                <form method="POST" action="/user/subscription">
+                <form method="POST" action="/user/subscription" id="subscriptionForm">
                     @method('POST')
                     @csrf
 
@@ -163,12 +163,19 @@
 
                         <label>
                             Credit Card
-                            <input type="number" min="1" placeholder="4123 1234 1234 1234" name="credit_card">
+                            <input type="number" min="1" placeholder="4123 1234 1234 1234" name="credit_card" required>
                         </label>
 
                         <input type="hidden" id="typeSubscription" name="type_of_user" value="">
 
-                        <button type="submit">Suscribe</button>
+                        @if(isset($error))
+                            @foreach($body as $error)
+                                <p class="error">{{$error[0]}}</p>
+                            @endforeach
+                        @endif
+                        <p class="error" id="error"></p>
+
+                        <button type="button" onClick="submitForm()">Suscribe</button>
                     
                     </div>
 
@@ -186,7 +193,22 @@
         function setType(type){
 
             document.getElementById('typeSubscription').value = type;
-            document.getElementById('updateSubscription').submit();
+
+        }
+
+        function submitForm(){
+
+            $type = document.getElementById('typeSubscription').value;
+
+            if(!$type){
+
+                $error = document.getElementById('error')
+
+                $error.innerHTML = "Please choose a subscription plan";
+
+            }
+
+            document.getElementById('subscriptionForm').submit();
 
         }
 

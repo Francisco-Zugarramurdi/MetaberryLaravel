@@ -186,6 +186,15 @@ main{
                 height: auto;
                 margin: 15px 0;
 
+                .error{
+
+                    font-size: 0.8em;
+                    font-weight: 600;
+                    color: var(--red);
+                    margin-top: 10px;
+        
+                }
+
                 label{
 
                     width: 200px;

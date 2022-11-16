@@ -54,6 +54,12 @@
 
                     <input class="sign-form-button" type="submit" value="Log In">
 
+                    @if(isset($error))
+                        @foreach($body as $error)
+                            <p class="error">{{$error[0]}}</p>
+                        @endforeach
+                    @endif
+
                 </form>
 
             </div>
@@ -86,6 +92,7 @@
         </div>
 
     </main>
+    
 
 </body>
 

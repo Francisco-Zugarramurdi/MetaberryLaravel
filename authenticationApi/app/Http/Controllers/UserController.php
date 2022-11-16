@@ -35,15 +35,26 @@ class UserController extends Controller
 
     private function validateCreationRequest($request){
 
+        $error_messages = [
+            'password.regex' => 
+            'Password must have at least 8 characters, a number and a capital letter',
+        ];
+
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'email' => 'required|regex:/(?i)^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix',
             'password' => 'required|regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^',
             'password_confirmation' => 'required'
-        ]);
+        ], $error_messages);
         
-        if($validator->fails())
-            return $validator->errors()->toJson();
+        if($validator->fails()){
+
+            return [
+                "status" => "Error",
+                "body" => $validator->errors()
+            ];     
+
+        }
 
         if(User::where('email', $request -> post("email")) -> exists()){
 
@@ -79,8 +90,14 @@ class UserController extends Controller
             
         ]);
 
-        if($validator->fails())
-            return $validator->errors()->toJson();
+        if ($validator->fails()){
+
+            return [
+                "status" => "Error",
+                "body" => $validator->errors()
+            ];     
+
+        }
         return [
             "status" => "Success",
             "body" => "Validated succesfully"
@@ -153,8 +170,14 @@ class UserController extends Controller
 
         ]);
 
-        if ($validator->fails())
-            return $validator->errors()->toJson();         
+        if($validator->fails()){
+
+            return [
+                "status" => "Error",
+                "body" => $validator->errors() 
+            ];     
+
+        }
         $target = User::where('email',$request->post("email"))->first();
 
         if(!$target)
@@ -249,7 +272,6 @@ class UserController extends Controller
         if($regexEmail['status'] !== "Success"){
             
             return $regexEmail;
-            
         }
         
         $emailExists = User::withTrashed()->where('email', $request -> email)->exists();
@@ -262,10 +284,16 @@ class UserController extends Controller
             ];
             
         }
+
+        $error_array = [
+            "User" => ["User already exists"]
+        ];
         
+        $error_obj = (object) $error_array;
+
         return [
             "status" => "Error",
-            "body" => "User already exists"
+            "body" => $error_obj
         ];
             
     }
@@ -277,8 +305,14 @@ class UserController extends Controller
             'email' => 'regex:/(?i)^([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/ix'
         ]);
 
-        if($validator->fails())
-            return $validator->errors()->toJson();
+        if ($validator->fails()){
+
+            return [
+                "status" => "Error",
+                "body" => $validator->errors()
+            ];     
+
+        }
         return [
             "status" => "Success",
             "body" => "Validated succesfully"
@@ -302,8 +336,14 @@ class UserController extends Controller
             'password' => 'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^'
         ]);
     
-        if($validator->fails())
-            return $validator->errors()->toJson();
+        if ($validator->fails()){
+
+            return [
+                "status" => "Error",
+                "body" => $validator->errors() 
+            ];     
+
+        }
         return [
             "status" => "Success",
             "body" => "Validated succesfully"
@@ -376,8 +416,14 @@ class UserController extends Controller
             'credit_card' => 'regex:/^4[0-9]{12}(?:[0-9]{3})?$/|nullable'
         ]);
 
-        if($validator->fails())
-            return $validator->errors()->toJson();
+        if ($validator->fails()){
+
+            return [
+                "status" => "Error",
+                "body" => $validator->errors() 
+            ];     
+
+        }
         return [
             "status" => "Success",
             "body" => "Validated succesfully"
