@@ -47,3 +47,4 @@ Route::post('/sports',[EventController::class,'IndexSport']);
 Route::post('/countries',[EventController::class,'IndexCountry']);
 
 Route::get('/event/{id}',[EventController::class,'IndexEvent']);
+Route::get('/event/mark/{id}',[EventController::class,'IndexEventMark']);

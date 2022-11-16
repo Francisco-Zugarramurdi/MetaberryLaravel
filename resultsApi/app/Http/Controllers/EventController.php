@@ -137,6 +137,7 @@ class EventController extends Controller
         ->select('position as position','result as result')
         ->get()
         ->toArray();
+        
     }
 
     private function getResultDownward($resultID, $teamID){
@@ -258,19 +259,19 @@ class EventController extends Controller
     private function getResultUpwardData($resultID,  $teamID){
 
         return DB::table('results_upward')
+        ->join('teams','results_upward.id_teams','teams.id')
         ->where('id_results',$resultID)
-        ->where('results_upward.id_teams',$teamID)
-        ->select('position as position','result as result','results_upward.id_teams as team')
+        ->select('position as position','result as result','results_upward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto')
         ->get()->toArray();
 
     }
 
-    private function getResultDownwardData($resultID,  $teamID){
+    private function getResultDownwardData($resultID){
 
         return DB::table('results_downward')
+        ->join('teams','results_downward.id_teams','teams.id')
         ->where('id_results',$resultID)
-        ->where('results_downward.id_teams',$teamID)
-        ->select('position as position','result as result','results_downward.id_teams as team')
+        ->select('position as position','result as result','results_downward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto')
         ->get()->toArray();
 
     }

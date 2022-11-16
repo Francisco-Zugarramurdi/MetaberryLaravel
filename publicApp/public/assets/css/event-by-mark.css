@@ -1372,6 +1372,19 @@ footer img:hover {
   justify-content: center;
   width: 80%;
 }
+.resultDisplay .results .event-image-container {
+  margin: 3%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.resultDisplay .results .event-image-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 .resultDisplay .results ul:first-of-type li:first-of-type {
   font-weight: 500;
 }
