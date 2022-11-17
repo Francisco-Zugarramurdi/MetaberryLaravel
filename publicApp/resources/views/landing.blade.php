@@ -52,7 +52,7 @@
 
             </div>
 
-            <a href="/" class="events-btn">See More</a>
+            <a href="/scores" class="events-btn">See More</a>
 
         </div>
 
