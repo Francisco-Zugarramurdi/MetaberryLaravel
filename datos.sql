@@ -85,7 +85,7 @@ insert into teams(name, type_teams, id_sports, id_countries, photo) values
 ('F1 Player 2', 'Individual',4,6,'Verstappen.jpg'), 
 ('F1 Player 3', 'Individual',4,6,'Norris.jpg'), 
 ('F1 Player 4', 'Individual',4,6,'Perez.jpg'), 
-('Atleta 1', 'Individual',4,5,'Gastly.jpg'), 
+('Atleta 1', 'Individual',4,5,'Mist.jpg'), 
 ('Atleta 2', 'Individual',4,5,'Hamilton.jpg');
 
 insert into players_teams(id_players, id_teams, contract_start, contract_end, status) values 

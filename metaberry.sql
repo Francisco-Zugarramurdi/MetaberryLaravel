@@ -301,7 +301,7 @@ create table results(
 );
  
 create table points_sets(
-    number_set tinyint not null,
+    number_set tinyint not null default 1,
     points_set int not null default 0,
     id_teams bigint unsigned not null,
     id_results bigint unsigned not null,
@@ -330,7 +330,7 @@ create table results_points(
 create table results_upward(
     id_results bigint unsigned not null,
     id_teams bigint unsigned not null,
-    position int not null,
+    position int not null default 1,
     result int unsigned not null default 0,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -343,7 +343,7 @@ create table results_upward(
 create table results_downward(
     id_results bigint unsigned not null,
     id_teams bigint unsigned not null,
-    position int not null,
+    position int not null default 1,
     result int unsigned not null default 0,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
