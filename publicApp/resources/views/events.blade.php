@@ -91,7 +91,8 @@
                 <h3>About the event<span class="material-symbols-outlined">
                         info
                     </span></h3>
-                <p>{{$info['details']}}</p>
+                <p>Name: {{$info['name']}}</p>
+                <p>Details: {{$info['details']}}</p>
             </div>
         </div>
     </section>
