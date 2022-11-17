@@ -543,6 +543,28 @@ footer img:hover {
      object-fit: fill;
 }
 
+#small {
+  width: 300;
+  height: 250;
+}
+#small img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+#small {
+  width: 300;
+  height: 250;
+}
+#small img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
 * {
   font-family: "Manrope", sans-serif;
 }
