@@ -182,6 +182,9 @@
             
         </script>
     @endif
+
+    
+
 <script>
     jQuery(document).ready(function() {
         $.ajaxSetup({
@@ -196,7 +199,7 @@
                 sports.forEach(sport => {
                     document.getElementById('sportsContainer').innerHTML +=
                         `
-                        <div class="sport-container">
+                        <div class="sport-container" onClick="getEventsBySport(${sport['id']})">
 
                             <div class="sport-icon">
 
@@ -232,7 +235,9 @@
         });
     });
 </script>
+
 <script>
+
     jQuery(document).ready(function() {
         $.ajaxSetup({
             headers: {
@@ -267,7 +272,10 @@
             }
         });
 
-        function loadSets(event) {
+        
+    });
+
+    function loadSets(event) {
             return `
                 <div class="event-container">
 
@@ -469,7 +477,46 @@
 
             return total;
         }
-    });
+
+    const getEventsBySport = (id) => {
+            document.getElementById("eventsContainer").innerHTML = ""
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            })
+            jQuery.ajax({
+                url: "{{ url('http://localhost:8001/api/getEventsBySport') }}",
+                method: 'POST',
+                data: {
+                    idSport: id
+                },
+
+                success: function(events) {
+                    console.log(events);
+                    events.forEach(event => {
+                        if (event['type'] == "results_points") {
+
+                            document.getElementById('eventsContainer').innerHTML += loadPoints(
+                                event);
+                        }
+                        if (event['type'] == "results_downward") {
+                            document.getElementById('eventsContainer').innerHTML += loadMarkDown(event);
+                        }
+                        if(event['type'] ==="results_upward"){
+                            document.getElementById('eventsContainer').innerHTML += loadMarkUp(event);
+
+                        }
+                        if(event['type'] ==="points_sets"){
+                            document.getElementById('eventsContainer').innerHTML += loadSets(event);
+
+                        }
+
+                    });
+                }
+            });
+        }
+
 </script>
 
 </html>
