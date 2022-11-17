@@ -16,13 +16,14 @@ class RedirectRegister extends Middleware
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if($request->session()->get('authenticated') != true)
+        if(!$request->session()->has('authenticated')){
 
             $request->session()->put('intendedView', 'subscribe');
             $request->session()->save();
-
+        
             return redirect("/signup");
-
+            
+        }
         return $next($request);
     }
     

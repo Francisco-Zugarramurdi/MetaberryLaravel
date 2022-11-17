@@ -50,11 +50,25 @@ class AuthController extends Controller
             $request->session()->put('user_id', $authentication['id']);
             $request->session()->save();
 
-            return view($this->redirectIntendedView($request));
+            return $this->validateRedirection($request);
+
             
         }
 
         return view('sign-up',[ 'error' => true, 'body' => $authentication['body']]);
+
+    }
+
+    private function validateRedirection(Request $request){
+
+        $validateRedirect = $this->redirectIntendedView($request);
+
+        if($validateRedirect['redirecting'] == 'Redirect to Intended View'){
+
+            return view($validateRedirect['body']);
+
+        }
+        return redirect("/scores");
 
     }
 
@@ -65,11 +79,17 @@ class AuthController extends Controller
             $redirectTo = session()->get('intendedView');
             session()->forget('intendedView');
             
-            return $redirectTo;
+            return [
+                "redirecting" => 'Redirect to Intended View',
+                "body" => $redirectTo
+            ];
 
         }
 
-        return redirect("/scores");
+        return [
+            "redirecting" => 'Redirect to Scores',
+            "body" => '/scores'
+        ];
 
     }
 
