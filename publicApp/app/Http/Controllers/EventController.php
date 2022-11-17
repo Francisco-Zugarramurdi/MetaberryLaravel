@@ -29,7 +29,14 @@ class EventController extends Controller
         $info=(json_decode(Http::get('http://localhost:8001/api/index/'.$id),true));
         $user_data = $this->getUserData($request);
  
-        return view('eventsm')->with('info',$info)->with('data', $user_data);
+        return view('eventsmark')->with('info',$info)->with('data', $user_data);
+ 
+     }
+
+     public function IndexEventSet(Request $request, $id){
+        $info=(json_decode(Http::get('http://localhost:8001/api/index/'.$id),true));
+        $user_data = $this->getUserData($request);
+        return view('eventsset')->with('info',$info)->with('data', $user_data);
  
      }
 
