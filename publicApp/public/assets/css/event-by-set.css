@@ -1420,7 +1420,18 @@ footer img:hover {
   justify-content: flex-start;
   align-items: center;
 }
-.resultDisplay .player img {
+.resultDisplay .player .event-image-container {
+  margin: 3%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.resultDisplay .player .event-image-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
   padding: 0 3% 0 0;
 }
 .resultDisplay .player p {
