@@ -237,10 +237,47 @@
                         document.getElementById('eventsContainer').innerHTML += loadMarkUp(event);
 
                     }
+                    if(event['type'] ==="points_sets"){
+                        document.getElementById('eventsContainer').innerHTML += loadSets(event);
+
+                    }
 
                 });
             }
         });
+
+        function loadSets(event) {
+            return `
+                <div class="event-container">
+
+                         <div class="event-title-holder">
+
+                          <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
+                           <p class="event-state">${event['date']}</p>
+
+                         </div>
+
+                         <div class="event-holder">
+
+                           <div class="team-holder">
+
+                           <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
+                            <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
+
+                          </div>
+
+                            <div class="team-holder">
+
+                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo"></div>
+                            <p class="sets"><a href="" class="team-name">${event["teams"][1]["name"]}</a></p>
+
+                           </div>
+
+                     </div>
+
+                </div>
+            `
+        }
 
         function loadMarkUp(event) {
             return `
@@ -248,7 +285,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/mark/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
@@ -309,7 +346,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/mark/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
@@ -370,7 +407,7 @@
 
                         <div class="event-title-holder">
 
-                            <a href="./event-by-mark.html" class="event-title">${event['name']}</a>
+                            <a href="./event/${event['id']}" class="event-title">${event['name']}</a>
                             <p class="event-state">${event['date']}</p>
 
                         </div>
