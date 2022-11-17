@@ -66,7 +66,8 @@ class EventController extends Controller
         ->join('sports','sports.id','events.id_sports')
         ->where('events.deleted_at',null)
         ->select('events.id as id','events.name as name','events.relevance as relevance','events.date as date','results.type_results as type','results.id as idResults','leagues.name as league','sports.name as sport','countries.name as country')
-        ->get()->toArray();
+        ->get()
+        ->toArray();
 
     }
 
@@ -262,7 +263,7 @@ class EventController extends Controller
         ->join('teams','results_upward.id_teams','teams.id')
         ->where('id_results',$resultID)
         ->select('position as position','result as result','results_upward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto')
-        ->get()->toArray();
+        ->orderBy('position')->get()->toArray();
 
     }
 
@@ -272,7 +273,7 @@ class EventController extends Controller
         ->join('teams','results_downward.id_teams','teams.id')
         ->where('id_results',$resultID)
         ->select('position as position','result as result','results_downward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto')
-        ->get()->toArray();
+        ->orderBy('position')->get()->toArray();
 
     }
 

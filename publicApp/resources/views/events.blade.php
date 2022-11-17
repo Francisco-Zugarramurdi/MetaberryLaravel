@@ -39,9 +39,7 @@
                     </div>
 
                     <div class="score-holder">
-
-                        <p class="event-score">{{$info['resultwin']}}</p>
-
+                       <p class="event-score">{{$info['resultwin']}}</p>
                     </div>
 
                     <div class="team-holder">
@@ -104,9 +102,7 @@
 
 </body>
 
-<script>
-    
-</script>
+
 
 @if(!session()->has('user_sub'))
         <script>
@@ -191,6 +187,5 @@
 
             
         </script>
-    @endif
-
+@endif
 </html>

@@ -30,12 +30,16 @@
     <div class="results">
         
                 <ul>
-                    @foreach($info['result'] as $result)
-                        <li> {{$result['position']}}. 
-                            <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$result['teamPhoto']}}"></div> 
-                            <p class="name">{{$result['teamName']}}</p>
-                            <p class="time">{{$result['result']}}'</p>
-                        </li>
+                    @foreach($info['result'] as $i => $result)
+                    @if($i <= 5)
+                        @if( $result['position'] >= 1)
+                            <li> {{$result['position']}}.
+                                <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$result['teamPhoto']}}"></div> 
+                                <p class="name">{{$result['teamName']}}</p>
+                                <p class="time">{{$result['result']}}'</p>
+                            </li>
+                        @endif
+                    @endif
                     @endforeach
                 </ul>
 
