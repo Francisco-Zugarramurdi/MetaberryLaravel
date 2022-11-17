@@ -163,17 +163,17 @@
 
                         <label>
                             Credit Card
-                            <input type="number" min="1" placeholder="4123 1234 1234 1234" name="credit_card" required>
+                            <input id="card" type="number" min="1" placeholder="4123 1234 1234 1234" name="credit_card" required>
                         </label>
 
                         <input type="hidden" id="typeSubscription" name="type_of_user" value="">
 
                         @if(isset($error))
                             @foreach($body as $error)
-                                <p class="error">{{$error[0]}}</p>
+                                <p class="error" id="validator">{{$error[0]}}</p>
                             @endforeach
                         @endif
-                        <p class="error" id="error"></p>
+                        <div class="error" id="error"></div>
 
                         <button type="button" onClick="submitForm()">Suscribe</button>
                     
@@ -199,16 +199,30 @@
         function submitForm(){
 
             $type = document.getElementById('typeSubscription').value;
+            $card = document.getElementById('card');
+            $error = document.getElementById('error');
+            $validator_error = document.getElementById('validator');
+
+            $error.innerHTML = ""
+            $validator_error = ""
 
             if(!$type){
 
-                $error = document.getElementById('error')
 
-                $error.innerHTML = "Please choose a subscription plan";
+                $error.innerHTML += "<p>Please choose a subscription plan</p>";
+
+            }
+            
+            if($card.value == ''){
+
+                $error.innerHTML += "<p>The credit card field is required</p>";
+                
+            } else if($type){
+
+                document.getElementById('subscriptionForm').submit();
 
             }
 
-            document.getElementById('subscriptionForm').submit();
 
         }
 

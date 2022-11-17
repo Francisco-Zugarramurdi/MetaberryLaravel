@@ -673,6 +673,7 @@ main .subscription-container .subscription-form-container .inner-container {
   margin: 15px 0;
 }
 main .subscription-container .subscription-form-container .inner-container .error {
+  display: block;
   font-size: 0.8em;
   font-weight: 600;
   color: var(--red);
