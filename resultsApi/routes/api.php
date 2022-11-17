@@ -23,3 +23,4 @@ Route::get('/index',[EventController::class,'IndexCards']);
 Route::get('/index/{id}',[EventController::class,'IndexEvent']);
 Route::get('/indexcountry',[EventController::class,'IndexCountries']);
 Route::get('/indexsport',[EventController::class,'IndexSports']);
+Route::post('/getEventsBySport',[EventController::class,'GetEventsBySport']);
