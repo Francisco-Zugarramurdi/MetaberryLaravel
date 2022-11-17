@@ -30,7 +30,9 @@
     @else
         @include('layouts.navbar')
     @endif
+
     <div class="space"></div>
+    
     <div class="ads">
         <div class="desktopAds" id="Wide"></div>
 
@@ -38,8 +40,6 @@
     </div>
 
     <main>
-
-    
 
         <div class="sport-nav-section">
 

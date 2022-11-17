@@ -715,18 +715,18 @@ footer img:hover {
   z-index: 2;
   filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
 }
-.display .event-container .event-title-holder .event-title,
 .display .event-container .event-title-holder .event-state {
+  padding: 3% 5%;
+  color: var(--grayish-black);
+  font-weight: 600;
+  font-size: 1em;
+}
+.display .event-container .event-title-holder .event-title {
   padding: 0;
   text-decoration: none;
   color: var(--black);
   padding: 3% 5%;
-}
-.display .event-container .event-title-holder .event-title {
   font-weight: 700;
-}
-.display .event-container .event-title-holder .event-state {
-  font-weight: 500;
 }
 .display .event-container .event-mark-holder {
   width: 100%;

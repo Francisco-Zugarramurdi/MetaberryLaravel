@@ -110,23 +110,20 @@
             z-index: 2;
             filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
 
-            .event-title,
             .event-state {
 
-                @include set-a-link;
                 padding: 3% 5%;
+                color: var(--grayish-black);
+                font-weight: 600;
+                font-size: 1em;
 
             }
 
             .event-title {
 
+                @include set-a-link;
+                padding: 3% 5%;
                 font-weight: 700;
-
-            }
-
-            .event-state {
-
-                font-weight: 500;
 
             }
 

@@ -40,8 +40,7 @@
             <div class="header-nav-container-1">
 
                 <a href="/"><img src="https://github.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/blob/main/Dise%C3%B1o/Produccion/assets/img/logo/Recurso%2019.png?raw=true"></a>
-                <a href="#aboutSection">How does it work?</a>
-                <a href="/">Scores</a>
+                <a href="/scores">Scores</a>
 
             </div>
 

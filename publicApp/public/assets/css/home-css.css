@@ -696,18 +696,18 @@ main {
   z-index: 2;
   filter: drop-shadow(-5px 15px 10px var(--shade-scnd-purple));
 }
-.feed-section .event-container .event-title-holder .event-title,
 .feed-section .event-container .event-title-holder .event-state {
+  padding: 3% 5%;
+  color: var(--grayish-black);
+  font-weight: 600;
+  font-size: 1em;
+}
+.feed-section .event-container .event-title-holder .event-title {
   padding: 0;
   text-decoration: none;
   color: var(--black);
   padding: 3% 5%;
-}
-.feed-section .event-container .event-title-holder .event-title {
   font-weight: 700;
-}
-.feed-section .event-container .event-title-holder .event-state {
-  font-weight: 500;
 }
 .feed-section .event-container .event-mark-holder {
   width: 100%;
