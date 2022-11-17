@@ -803,4 +803,18 @@ main {
 .scores-section .default-main-section .event-group-container .event-container .event-holder .event-score {
   font-size: 1.5em;
   font-weight: 500;
+}
+.scores-section .default-main-section .event-group-container .event-container .event-image-container {
+  margin: 3%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding-bottom: 10%;
+}
+.scores-section .default-main-section .event-group-container .event-container .event-image-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=scores-css.css.map */
