@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="score-holder">
-                       <p class="event-score">{{$info['resultwin']}}</p>
+                       <p class="event-score">{{$info['teams'][0]['points']}} - {{$info['teams'][1]['points']}}</p>
                     </div>
 
                     <div class="team-holder">
@@ -62,21 +62,23 @@
 
     <section class="display">
             <div class="renderArea">
-                @foreach($info['result'] as $result)
+                @foreach($info['teams'] as $team)
                 <div class="card">
                    
                     <div class="title">
-                    
-                        <p>Anotación: {{$result['teamName']}}</p>
+
+                        <p>Anotaciones: {{$team['name']}}</p>
+                        
                     </div>
-                    <p class="info">{{$result['name']}} {{$result['surname']}} anoto: {{$result['point']}} </p>
-                   
+                    @foreach($team['result'] as $result)
+                    <p class="info">{{$result ['namePlayer']}} {{$result['surnamePlayer']}} anoto: {{$result['point']}} </p>
+                   @endforeach
                 </div>
                 @endforeach
                 @foreach($info['sanctions'] as $sanctions)
                 <div class="card">
                     <div class="title">
-                        <p>Penalization</p>
+                        <p>Penalizaciones:</p>
                         <p class="minuto">Minuto: {{$sanctions['minute']}}</p>
                     </div>
                     <p class="info">{{$sanctions['sanction']}} para {{$sanctions['name']}} {{$sanctions['surname']}}</p>
@@ -111,7 +113,6 @@
 </main>
 
 </body>
-
 
 
 @if(!session()->has('user_sub'))

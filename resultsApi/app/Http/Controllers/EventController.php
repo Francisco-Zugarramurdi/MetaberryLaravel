@@ -36,10 +36,11 @@ class EventController extends Controller
         $event -> teams = $this->getTeamData($this->getTeam($id),$event->date,$event -> type, $event->resultsID);
         $event -> sanctions = $this->getSanctions($id); 
         
-        foreach($event->teams as $team){
-        
+        foreach($event -> teams as $key => $team){
+           
             if($event-> type == 'results_points'){
-                $event->result = $this->getResultPointData($event->resultsID);
+                $event -> teams[$key] -> result = $this->getResultPoint($event -> resultsID, $team -> id);  
+                $event -> teams[$key] -> points = $this->loadPoints($this->getResultPoint($event -> resultsID, $team -> id));  
             }
             if($event-> type == 'points_sets'){
                 $event->result = $this->getResultSetData($event->resultsID, $team->id);
@@ -113,9 +114,11 @@ class EventController extends Controller
     private function getResultPoint($resultID, $teamID){
 
         return DB::table('results_points')
+        ->join('players','players.id','results_points.id_players')
+        ->join('teams','teams.id','results_points.id_teams')
         ->where('results_points.id_results',$resultID)
         ->where('results_points.id_teams',$teamID)
-        ->select('point as point')
+        ->select('results_points.point as point','players.id as playerId','players.name as namePlayer','players.surname as surnamePlayer','teams.name as teamName','teams.id as teamId')
         ->get()->toArray();
 
     }
@@ -169,7 +172,17 @@ class EventController extends Controller
         'sports.name as sport','countries.name as country', 'events.details as details')
         ->first();
     }
+    private function loadPoints($points){
+        $totalPoints=0;
+       
+        foreach($points as $point){
 
+            $totalPoints += $point->point;
+
+        }
+       
+        return  $totalPoints;
+    }
     private function getTeamData($teams,$date,$type,$resultID){
 
         foreach($teams as $key => $team){
@@ -179,6 +192,7 @@ class EventController extends Controller
 
             if($type == 'results_points'){
                 $teams[$key]->result = $this->getResultPointData($resultID);
+                
             }
             if($type == 'points_sets'){
                 $teams[$key]->result = $this->getResultSetData($resultID, $team->id);
@@ -244,7 +258,7 @@ class EventController extends Controller
         ->select('point as point','players.name as name','players.surname as surname',
         'players.photo as photo','teams.name as teamName','teams.id as teamId')
         ->get()->toArray();
-
+        
     }
 
     private function getResultSetData($resultID){
