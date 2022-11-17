@@ -39,8 +39,7 @@
                     </div>
 
                     <div class="score-holder">
-                        <p class="event-score">${totalPoints($info["teams"][0]['result'])} - ${totalPoints($info["teams"][1]['result'])}</p>
-                        <p class="event-score">{{$info['resultwin']}}</p>
+                       <p class="event-score">{{$info['resultwin']}}</p>
                     </div>
 
                     <div class="team-holder">
@@ -103,13 +102,7 @@
 
 </body>
 
-<script>
-     jQuery(document).ready(function() {
-        function loadPoints(result){
-            
-        }
-     });
-</script>
+
 
 @if(!session()->has('user_sub'))
         <script>
