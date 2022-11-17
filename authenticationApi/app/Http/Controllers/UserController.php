@@ -56,17 +56,11 @@ class UserController extends Controller
 
         }
 
-        $error_array = [
-            "User" => ["User already exists"]
-        ];
-        
-        $error_obj = (object) $error_array;
-
         if(User::where('email', $request -> post("email")) -> exists()){
 
             return [
                 "status" => "Error",
-                "body" => $error_obj
+                "body" => ['Password' => ['User already exists']]
             ];
 
         }
@@ -75,7 +69,7 @@ class UserController extends Controller
 
             return [
                 "status" => "Error",
-                "body" => "Passwords do not match"
+                "body" => ['Password' => ['Passwords do not match']]
             ];
 
         }
@@ -158,11 +152,12 @@ class UserController extends Controller
     }
 
     public function authenticate(Request $request){
-
+        
         $validation =  $this->validateAuthenticationRequest($request);
 
         if($validation['status'] !== "Success")
             return $validation;
+
         return $this->authenticateUser($request->only('email', 'password'));
         
     }
@@ -189,8 +184,9 @@ class UserController extends Controller
         if(!$target)
             return [
                 "status" => "Error",
-                "body" => "Invalid credentials"
+                "body" => ['User' => ['Invalid credentials']]
             ];
+
         return [
             "status" => "Success",
             "body" => "Validated succesfully"
@@ -200,10 +196,12 @@ class UserController extends Controller
     private function authenticateUser($credentials){
 
         if(!Auth::attempt($credentials))
+        
             return [
                 "status" => "Error",
-                "body" => "Invalid credentials"
+                "body" => ['User' => ['Invalid credentials']]
             ];
+
         return [
             "status" => "Success",
             "body" => "Authenticated",
@@ -291,15 +289,9 @@ class UserController extends Controller
             
         }
 
-        $error_array = [
-            "User" => ["User already exists"]
-        ];
-        
-        $error_obj = (object) $error_array;
-
         return [
             "status" => "Error",
-            "body" => $error_obj
+            "body" => ['User' => ['User already exists']]
         ];
             
     }
