@@ -452,7 +452,7 @@ footer img:hover {
   justify-content: space-between;
   width: 40vw;
   height: 70vh;
-  background-image: url(/assets/img/illustrations/login-video.gif);
+  background-image: url(./login-signup-video.gif);
   background-size: cover;
   border-radius: 40px;
   position: relative;
@@ -1039,7 +1039,7 @@ footer img:hover {
   justify-content: space-between;
   width: 40vw;
   height: 70vh;
-  background-image: url(/assets/img/illustrations/login-video.gif);
+  background-image: url(./login-signup-video.gif);
   background-size: cover;
   border-radius: 40px;
   position: relative;

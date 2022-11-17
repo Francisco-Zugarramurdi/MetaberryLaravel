@@ -56,112 +56,6 @@
 
         </div>
 
-        {{-- <div class="about-livescore-section" id="aboutSection">
-
-            <h2 class="about-head">How does Livesore work?</h2>
-
-            <div class="about-card-group-container">
-
-                <div class="about-card-container">
-
-                    <span class="material-symbols-outlined">magic_button</span>
-
-                    <div class="about-card-description-container">
-
-                        <p class="about-description-title">
-
-                            Gain Points
-
-                        </p>
-
-                        <p class="about-description-container">
-
-                            Each actions you make comes with a reward, liking, commenting and publishing posts also you
-                            can have a selection up to 3 "favorite" teams and every time they win a match you earn more
-                            points! and of course you can always bet your points by predicting next matches results!
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="about-card-container">
-
-                    <span class="material-symbols-outlined">monetization_on</span>
-
-                    <div class="about-card-description-container">
-
-                        <p class="about-description-title">
-
-                            Make bets
-
-                        </p>
-
-                        <p class="about-description-container">
-
-                            Take advantage of your sports knowledge and put those points to work as much as you want in
-                            any upcoming event and if your guess was right you will get 50% of your gambled points.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="about-card-container">
-
-                    <span class="material-symbols-outlined">chat_bubble</span>
-
-                    <div class="about-card-description-container">
-
-                        <p class="about-description-title">
-
-                            Make posts
-
-                        </p>
-
-                        <p class="about-description-container">
-
-                            Take action in your community and express your thoughts and opinions about the events
-                            through our post system enabling you to interact with other users you can like and even
-                            comment your own opinion in any post you encounter.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="about-card-container">
-
-                    <span class="material-symbols-outlined">workspace_premium</span>
-
-                    <div class="about-card-description-container">
-
-                        <p class="about-description-title">
-
-                            Win prizes
-
-                        </p>
-
-                        <p class="about-description-container">
-
-                            Win amazing prizes, What about some tickets to the next great game? or maybe a full meet and
-                            greet experience with your favorite athlete? if you work hard enough you may get it,
-                            periodically top score players are rewarded by the admin team with these kind of prizes that
-                            may include tickets to games, full on trips, meetings and discounts!
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div> --}}
-
         <div class="subscription-section">
 
             <h2 class="sub-head">Ready to level up to Livescore Premium?</h2>
@@ -191,7 +85,7 @@
 
                     </div>
 
-                    <a href="/" class="sub-btn">Choose Plan</a>
+                    <a href="/signup" class="sub-btn">Choose Plan</a>
 
                 </div>
 
@@ -219,7 +113,7 @@
 
                     </div>
 
-                    <a href="/" class="sub-btn">Choose Plan</a>
+                    <a href="/subscribe" class="sub-btn">Choose Plan</a>
 
                 </div>
 
@@ -247,7 +141,7 @@
 
                     </div>
 
-                    <a href="/" class="sub-btn-default">Choose Plan</a>
+                    <a href="/subscribe" class="sub-btn-default">Choose Plan</a>
 
                 </div>
 

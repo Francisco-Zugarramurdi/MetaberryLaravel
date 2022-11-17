@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\RedirectHome;
+use App\Http\Middleware\RedirectRegister;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,7 @@ Route::get('/signup', function () {
 
 Route::get('/subscribe', function () {
     return view('subscribe');
-})->middleware(Authenticate::class);
+})->middleware(RedirectRegister::class)->name('subscribe');
 
 Route::get('/user',[UserController::class,'GetIndexView'])->middleware(Authenticate::class);
 Route::get('/user/edit',[UserController::class,'GetEditView'])->middleware(Authenticate::class);

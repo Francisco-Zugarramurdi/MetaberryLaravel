@@ -86,31 +86,30 @@
             </div>
 
             <div class="sign-aside-container">
-
+                
                 <div class="image-container">
 
                     <div class="text-up">
 
-                        <p>Western Women's Soccer Team</p>
+                        <p>LA. Fem. Athletism</p>
                         <p>12 hours ago</p>
 
                     </div>
 
                     <div class="text-down">
 
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit dicta illum maiores nemo
-                            eos blanditiis aperiam distinctio illo? Deleniti earum autem veritatis, dolore eaque amet
-                            porro neque et provident cupiditate!</p>
+                        <p>The girls are now practicing for the next tournament. 
+                            We can't wait to see you guys there! Are you coming?
+                        Don't miss our upcoming match, 13th of August at the Lockhart Field in LA.</p>
 
                     </div>
 
                     <img src="https://github.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/blob/main/Dise%C3%B1o/Produccion/assets/img/illustrations/abstract-729.gif?raw=true" alt="" class="right">
                     <img src="https://github.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/blob/main/Dise%C3%B1o/Produccion/assets/img/illustrations/abstract-red-speech-bubble.gif?raw=true" class="left" alt="">
-                    <p class="legal">All pictures shown are for illustation purpose only. The actual product may vary.
-                    </p>
+                    <p class="legal">All pictures shown are for illustation purpose only. The actual product may vary.</p>
 
                 </div>
-
+            
             </div>
 
         </div>

@@ -49,9 +49,27 @@ class AuthController extends Controller
             $request->session()->put('authenticated', true);
             $request->session()->put('user_id', $authentication['id']);
             $request->session()->save();
-            return redirect('/scores');
+
+            return view($this->redirectIntendedView($request));
+            
         }
+
         return view('sign-up',[ 'error' => true, 'body' => $authentication['body']]);
+
+    }
+
+    private function redirectIntendedView(Request $request){
+        
+        if (session()->has('intendedView')) {
+            
+            $redirectTo = session()->get('intendedView');
+            session()->forget('intendedView');
+            
+            return $redirectTo;
+
+        }
+
+        return redirect("/scores");
 
     }
 

@@ -70,14 +70,16 @@
 
                     <div class="text-up">
 
-                        <p>Western Women's Soccer Team</p>
+                        <p>LA. Fem. Athletism</p>
                         <p>12 hours ago</p>
 
                     </div>
 
                     <div class="text-down">
 
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit dicta illum maiores nemo eos blanditiis aperiam distinctio illo? Deleniti earum autem veritatis, dolore eaque amet porro neque et provident cupiditate!</p>
+                        <p>The girls are now practicing for the next tournament. 
+                            We can't wait to see you guys there! Are you coming?
+                        Don't miss our upcoming match, 13th of August at the Lockhart Field in LA.</p>
 
                     </div>
 
