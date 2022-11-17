@@ -246,12 +246,12 @@ class EventController extends Controller
 
     }
 
-    private function getResultSetData($resultID, $teamID){
+    private function getResultSetData($resultID){
 
         return DB::table('points_sets')
+        ->join('teams','points_sets.id_teams','teams.id')
         ->where('points_sets.id_results',$resultID)
-        ->where('points_sets.id_teams',$teamID)
-        ->select('number_set as set','points_set as point','points_sets.id_teams as team')
+        ->select('number_set as set','points_set as point','points_sets.id_teams as team','teams.name as teamName')
         ->get()->toArray();
 
     }

@@ -10,7 +10,7 @@
         href="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/icon.ico">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="{{ asset('/assets/css/event-by-score-css.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/event-by-set.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <title>Livescore - Events</title>
@@ -27,33 +27,19 @@
 <main>
 
     <section class="resultDisplay">
-            <div class="event-container">
-
-                <div class="event-holder">
-
-                    <div class="team-holder">
-
-                        <img src="http://127.0.0.1:8005/img/public_images/{{$info['teams'][0]['photo']}}" class="team-logo">
-                        <a href="" class="team-name">{{$info['teams'][0]['name']}}</a>
-
-                    </div>
-
-                    <div class="score-holder">
-
-                        <p class="event-score">{{$info['resultwin']}}</p>
-
-                    </div>
-
-                    <div class="team-holder">
-
-                    <img src="http://127.0.0.1:8005/img/public_images/{{$info['teams'][1]['photo']}}" class="team-logo">
-                    <a href="" class="team-name">{{$info['teams'][1]['name']}}</a>
-
-                    </div>
-
+            @foreach($info['teams'] as $team)
+                <div class="player">
+                    <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$team['photo']}}"></div>
+                        <p>{{$team['name']}}</p>
+                        <ul>
+                            @foreach($info['result'] as $result)
+                            @if($result['team'] == $team['id'])
+                            <li>{{$result['point']}}</li>
+                            @endif
+                            @endforeach
+                        </ul>
                 </div>
-
-            </div>
+            @endforeach 
     </section>
 
     <section class="innerNav">
@@ -61,7 +47,6 @@
             <li>Timeline</li>
         </ul>
     </section>
-
     <section class="display">
             <div class="renderArea">
                 @foreach($info['result'] as $result)
@@ -71,7 +56,7 @@
                     
                         <p>Anotación: {{$result['teamName']}}</p>
                     </div>
-                    <p class="info">{{$result['name']}} {{$result['surname']}} anoto: {{$result['point']}} </p>
+                    <p class="info"> {{$result['teamName']}} anoto: {{$result['point']}} en set numero: {{$result['set']}}</p>
                    
                 </div>
                 @endforeach
