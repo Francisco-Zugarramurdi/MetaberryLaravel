@@ -687,13 +687,41 @@ footer img:hover {
   padding: 0;
 }
 .display .sideData .about {
-  padding: 3% 5%;
-  height: 20vh;
-  width: 30vw;
+  width: 60%;
+  height: auto;
   margin: 5% 0;
   background-color: var(--white);
   border-radius: 20px;
+  padding: 30px;
   filter: drop-shadow(-5px 10px 10px var(--shade-scnd-purple));
+}
+.display .sideData .about .title-container {
+  margin: 15px 0;
+}
+.display .sideData .about .title-container .title-data {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--light-gray);
+  padding: 5px 0;
+}
+.display .sideData .about .title-container .title {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--black);
+}
+.display .sideData .about .details-container {
+  margin: 15px 0;
+}
+.display .sideData .about .details-container .details-data {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--light-gray);
+  padding: 5px 0;
+}
+.display .sideData .about .details-container .details {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--black);
 }
 .display .sideData .about h3 {
   display: flex;

@@ -27,25 +27,24 @@
 <main>
 
     <section class="resultDisplay">
-    <div class="results">
-        
-                <ul>
-                    @foreach($info['result'] as $i => $result)
-                    @if($i <= 5)
-                        @if( $result['position'] >= 1)
-                            <li> {{$result['position']}}.
-                                <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$result['teamPhoto']}}"></div> 
-                                <p class="name">{{$result['teamName']}}</p>
-                                <p class="time">{{$result['result']}}'</p>
-                            </li>
+        <div class="results">
+            
+                    <ul>
+                        @foreach($info['result'] as $i => $result)
+                        @if($i <= 5)
+                            @if( $result['position'] >= 1)
+                                <li> 
+                                    <p class="position">{{$result['position']}}.</p>
+                                    <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$result['teamPhoto']}}"></div> 
+                                    <p class="name">{{$result['teamName']}}</p>
+                                    <p class="time">{{$result['result']}}'</p>
+                                </li>
+                            @endif
                         @endif
-                    @endif
-                    @endforeach
-                </ul>
+                        @endforeach
+                    </ul>
 
-    </div>
-        
-
+        </div>
     </section>
 
     <section class="innerNav">
@@ -69,11 +68,15 @@
                 
         <div class="sideData">
             <div class="about">
-                <h3>About the event<span class="material-symbols-outlined">
-                        info
-                    </span></h3>
-                    <p>Name: {{$info['name']}}</p>
-                <p>Details: {{$info['details']}}</p>
+                <h3>About the event<span class="material-symbols-outlined">info</span></h3>
+                <div class="title-container">
+                    <p class="title-data">Event Name</p>
+                    <p class="title">{{$info['name']}}</p>
+                </div>
+                <div class="details-container">
+                    <p class="details-data">Event Details</p>
+                    <p class="details">{{$info['details']}}</p>
+                </div>
             </div>
             <div class="ads">
                 <div class="desktopAds" id="Small"></div>

@@ -72,13 +72,23 @@
             </div>
                 
             <div class="sideData">
-            <div class="about">
-                <h3>About the event<span class="material-symbols-outlined">
-                        info
-                    </span></h3>
-                    <p>Name: {{$info['name']}}</p>
-                <p>Details: {{$info['details']}}</p>
-            </div>
+                <div class="sideData">
+                    <div class="about">
+                        <h3>About the event<span class="material-symbols-outlined">info</span></h3>
+                        <div class="title-container">
+                            <p class="title-data">Event Name</p>
+                            <p class="title">{{$info['name']}}</p>
+                        </div>
+                        <div class="details-container">
+                            <p class="details-data">Event Details</p>
+                            <p class="details">{{$info['details']}}</p>
+                        </div>
+                    </div>
+                    <div class="ads">
+                        <div class="desktopAds" id="Small"></div>
+                        <div class="mobileAds" id="Small"></div>
+                    </div>
+                </div>
             <div class="ads">
                 <div class="desktopAds" id="Small"></div>
                 <div class="mobileAds" id="Small"></div>
