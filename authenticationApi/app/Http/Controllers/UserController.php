@@ -56,11 +56,17 @@ class UserController extends Controller
 
         }
 
+        $error_array = [
+            "User" => ["User already exists"]
+        ];
+        
+        $error_obj = (object) $error_array;
+
         if(User::where('email', $request -> post("email")) -> exists()){
 
             return [
                 "status" => "Error",
-                "body" => "User already exists"
+                "body" => $error_obj
             ];
 
         }
