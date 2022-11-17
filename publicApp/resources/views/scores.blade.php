@@ -92,22 +92,6 @@
 
         <div class="mobileAds" id="Small"></div>
     </div>
-
-    <footer>
-
-        <img
-            src="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/Recurso%2022white.png">
-
-        <div class="texts">
-
-            <a href="./index.html#aboutSection">How does it work?</a>
-            <a href="./scores.html">Scores</a>
-
-        </div>
-
-        <p class="copyright">All Rights Reserved. 2022 Metaberry</p>
-
-    </footer>
     
 </body>
 
