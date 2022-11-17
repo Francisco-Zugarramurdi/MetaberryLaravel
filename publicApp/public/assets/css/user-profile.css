@@ -642,9 +642,26 @@ footer img:hover {
   margin-left: 15px;
 }
 .userDisplay .user .data .userName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   font-weight: 700;
   white-space: nowrap;
   font-size: 1.3em;
+}
+.userDisplay .user .data .userName .premium-user {
+  padding-right: 10px;
+}
+.userDisplay .user .data .userName .premium-user span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--yellow);
+  font-size: 1.2em;
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 .userDisplay .user .data .email {
   font-size: 1em;

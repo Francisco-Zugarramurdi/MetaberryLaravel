@@ -23,8 +23,14 @@
             <div class="user">
                 <a class="profile-image" href="/user"><img src="http://127.0.0.1:8005/img/public_images/{{$data['photo']}}"></a>
                 <div class="data">
-                    <p class="userName" id="displayName">{{$data['name']}}</p>
-                    <p class="email" id="displayEmail">{{$data['email']}}</p>
+                    <p class="userName" id="displayName">
+                        @if(session()->has('user_sub'))
+                        <span class="premium-user"><span class="material-symbols-outlined">star</span></span>
+                        @endif
+                        {{$data['name']}}
+            
+                    </p>
+                        <p class="email" id="displayEmail">{{$data['email']}}</p>
                 </div>
                 <a href="/user/edit" class="edit-user-btn"><span class="material-symbols-outlined">settings</span></a>
                 
