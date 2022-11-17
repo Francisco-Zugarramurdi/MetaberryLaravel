@@ -277,6 +277,30 @@ class EventController extends Controller
 
     }
 
-   
+    public function GetEventsBySport(Request $request){
+
+        $events = DB::table('events')
+        ->leftJoin('leagues_events','leagues_events.id_events','events.id')
+        ->leftJoin('leagues','leagues_events.id_leagues','leagues.id')
+        ->join('results','results.id_events','events.id')
+        ->join('countries','countries.id','events.id_countries')
+        ->join('sports','sports.id','events.id_sports')
+        ->whereNull('events.deleted_at')
+        ->where("events.id_sports", $request->idSport)
+        ->select('events.id as id','events.name as name','events.relevance as relevance','events.date as date',
+        'results.type_results as type','results.id as idResults',
+        'leagues.name as league',
+        'sports.name as sport',
+        'countries.name as country')
+        ->get()->toArray();
+
+        $events = $this->setEventCards($events);
+        
+        return $events;
+
+
+        
+    }
+
 
 }    

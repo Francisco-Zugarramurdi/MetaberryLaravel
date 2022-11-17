@@ -189,11 +189,11 @@ insert into referee_events(id_referee, id_events, dates) values
 (2,4,"2022-01-01"),
 (2,5,"2022-01-01");
 insert into users_data(name,points,type_of_user,total_points, photo, credit_card)  values 
-('Lukitas',10000,'paid_yearly',240000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Yves',3000,'paid_monthly',20000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Zara',9000,'free',100000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Fede',100,'free',100,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Nico',5000,'paid_monthly',6000,'default_img_do_not_delete.jpg','4321432143214321');
+('Lukitas',10000,'paid_yearly',240000,'avatar_01.png','4321432143214321'), 
+('Yves',3000,'paid_monthly',20000,'avatar_02.png','4321432143214321'), 
+('Zara',9000,'free',100000,'avatar_03.png','4321432143214321'), 
+('Fede',100,'free',100,'avatar_04.png','4321432143214321'), 
+('Nico',5000,'paid_monthly',6000,'avatar_01.png','4321432143214321');
 insert into users(id, name, email,password) values 
 (1,'Lucas Medina','lucas.medina@gmail.com','$2a$12$8b5EvWx9fT8GDYW.RpaUEusP7wgE0Z915fH6l225MTp9VcVUim37W'), 
 (2,'Yves Motta','yvesmotta1@gmail.com','$2a$12$CZnLkKx7/vBM46rTFZ7Uvu.XGIbieBuOoPPsysxYWpr0/y8zBmwSG'), 
