@@ -15,13 +15,13 @@ insert into sports(name, icon) values
 ('Patin','roller_skating');
 
 insert into countries(name, photo) values 
-('Uruguay','uru.jpg'), 
-('Argentina','arg.jpg'), 
-('Brasil','bra.jpg'),
-('Estados Unidos','eeuu.jpg'), 
-('Chile','chi.jpg'), 
-('Alemania','ale.jpg'), 
-('España','esp.jpg');
+('Uruguay','default_img_do_not_delete.jpg'), 
+('Argentina','default_img_do_not_delete.jpg'), 
+('Brasil','default_img_do_not_delete.jpg'),
+('Estados Unidos','default_img_do_not_delete.jpg'), 
+('Chile','default_img_do_not_delete.jpg'), 
+('Alemania','default_img_do_not_delete.jpg'), 
+('España','default_img_do_not_delete.jpg');
 
 insert into players(name, surname, photo) values 
 ('Luis','Suarez','Bentancur.jpg'), 
@@ -51,7 +51,7 @@ insert into players(name, surname, photo) values
 ('Joaquín','Lopéz','Son.jpg'), 
 ('Arturo','McArthur','White.jpg'), 
 ('Juana','Jhons','Doherty.jpg'), 
-('Viviana','Perez','Harley.jpg'), 
+('Viviana','Perez','Kane.jpg'), 
 ('Soriana','Rodirguez','Camp.jpg'), 
 ('Camila','Williams','Thompson.jpg'), 
 ('Estaban','Perez','Son.jpg'), 
@@ -86,7 +86,7 @@ insert into teams(name, type_teams, id_sports, id_countries, photo) values
 ('F1 Player 3', 'Individual',4,6,'Norris.jpg'), 
 ('F1 Player 4', 'Individual',4,6,'Perez.jpg'), 
 ('Atleta 1', 'Individual',4,5,'Mist.jpg'), 
-('Atleta 2', 'Individual',4,5,'Hamilton.jpg');
+('Atleta 2', 'Individual',4,5,'Camp.jpg');
 
 insert into players_teams(id_players, id_teams, contract_start, contract_end, status) values 
 (1,1,"2020-01-01","2022-12-12","Active"), 
@@ -191,11 +191,11 @@ insert into referee_events(id_referee, id_events, dates) values
 (2,4,"2022-01-01"),
 (2,5,"2022-01-01");
 insert into users_data(name,points,type_of_user,total_points, photo, credit_card)  values 
-('Lukitas',10000,'paid_yearly',240000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Yves',3000,'paid_monthly',20000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Zara',9000,'free',100000,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Fede',100,'free',100,'default_img_do_not_delete.jpg','4321432143214321'), 
-('Nico',5000,'paid_monthly',6000,'default_img_do_not_delete.jpg','4321432143214321');
+('Lukitas',10000,'paid_yearly',240000,'avatar_01.png','4321432143214321'), 
+('Yves',3000,'paid_monthly',20000,'avatar_02.png','4321432143214321'), 
+('Zara',9000,'free',100000,'avatar_03.png','4321432143214321'), 
+('Fede',100,'free',100,'avatar_04.png','4321432143214321'), 
+('Nico',5000,'paid_monthly',6000,'avatar_02.png','4321432143214321');
 insert into users(id, name, email,password) values 
 (1,'Lucas Medina','lucas.medina@gmail.com','$2a$12$8b5EvWx9fT8GDYW.RpaUEusP7wgE0Z915fH6l225MTp9VcVUim37W'), 
 (2,'Yves Motta','yvesmotta1@gmail.com','$2a$12$CZnLkKx7/vBM46rTFZ7Uvu.XGIbieBuOoPPsysxYWpr0/y8zBmwSG'), 
@@ -274,13 +274,13 @@ insert into results_downward(id_results,id_teams,position,result, unit) values
 (4,10,4,16,"minutes");
 
 insert into ads (view_counter, views_hired, url, image, size) values
-(1,10,'cocacola.com','adsmall.jpg','small'),
-(1,10,'youtube.com','adbig.jpg','big'),
-(1,10,'google.com','admedium.jpg','medium'),
-(1,10,'bet365.com','adultra.jpg','ultra'),
-(1,10,'spotify.com','adbig.jpg','big'),
-(1,10,'yahoo.com','adssmall.jpg','small'),
-(1,10,'pedirotootot.com','addsmall.jpg','small');
+(1,10,'cocacola.com','default_img_do_not_delete.jpg','small'),
+(1,10,'youtube.com','default_img_do_not_delete.jpg','big'),
+(1,10,'google.com','default_img_do_not_delete.jpg','medium'),
+(1,10,'bet365.com','default_img_do_not_delete.jpg','ultra'),
+(1,10,'spotify.com','default_img_do_not_delete.jpg','big'),
+(1,10,'yahoo.com','default_img_do_not_delete.jpg','small'),
+(1,10,'pedirotootot.com','default_img_do_not_delete.jpg','small');
 
 insert into tags(tag) values
 ('Futbol'),
