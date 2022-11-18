@@ -700,6 +700,9 @@ footer img:hover {
   background-color: var(--white);
   border-radius: 0 0 20px 20px;
 }
+.event-section .event-group-container .event-container .event-holder .score-holder .divisor {
+  padding: 0 10px;
+}
 .event-section .event-group-container .event-container .event-holder .team-holder {
   display: flex;
   flex-direction: column;
@@ -716,8 +719,125 @@ footer img:hover {
   text-decoration: none;
   color: var(--black);
   font-weight: 600;
+  color: var(--grayish-black);
 }
 .event-section .event-group-container .event-container .event-holder .event-score {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.event-section .event-group-container .event-container .no-result {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3% 0;
+  background-color: var(--white);
+  border-radius: 0 0 20px 20px;
+}
+.event-section .event-group-container .event-container .no-result .score-holder .divisor {
+  padding: 0 10px;
+}
+.event-section .event-group-container .event-container .no-result .team-holder-container {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 60px;
+}
+.event-section .event-group-container .event-container .no-result .team-holder-container .team-holder {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: none;
+}
+.event-section .event-group-container .event-container .no-result .team-holder-container .team-holder .team-set {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.event-section .event-group-container .event-container .no-result .team-holder-container .team-holder .team-set p {
+  padding: 0 15px;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--grayish-black);
+}
+.event-section .event-group-container .event-container .no-result .team-holder-container .team-holder .team-logo {
+  width: 60px;
+  padding: 20% 0;
+  cursor: pointer;
+}
+.event-section .event-group-container .event-container .no-result .team-holder-container .team-holder .team-name {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--grayish-black);
+  margin: 0 30px 0 15px;
+}
+.event-section .event-group-container .event-container .no-result .event-score {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.event-section .event-group-container .event-container .set {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3% 0;
+  background-color: var(--white);
+  border-radius: 0 0 20px 20px;
+}
+.event-section .event-group-container .event-container .set .score-holder .divisor {
+  padding: 0 10px;
+}
+.event-section .event-group-container .event-container .set .team-holder-container {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 60px;
+}
+.event-section .event-group-container .event-container .set .team-holder-container .team-holder {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: none;
+}
+.event-section .event-group-container .event-container .set .team-holder-container .team-holder .team-set {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.event-section .event-group-container .event-container .set .team-holder-container .team-holder .team-set p {
+  padding: 0 15px;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--grayish-black);
+}
+.event-section .event-group-container .event-container .set .team-holder-container .team-holder .team-logo {
+  width: 60px;
+  padding: 20% 0;
+  cursor: pointer;
+}
+.event-section .event-group-container .event-container .set .team-holder-container .team-holder .team-name {
+  padding: 0;
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--grayish-black);
+  margin: 0 30px 0 15px;
+}
+.event-section .event-group-container .event-container .set .event-score {
   font-size: 1.5em;
   font-weight: 500;
 }

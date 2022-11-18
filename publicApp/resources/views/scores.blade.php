@@ -103,9 +103,7 @@
                 if(window.innerWidth > 768){
                 
                     let ads = document.getElementsByClassName("desktopAds")
-                    console.log(typeof(ads))
                     Object.keys(ads).forEach(ad=>{
-                        console.log(ads[ad].id, "Main")
                         
                         $.ajaxSetup({
                             headers: {
@@ -140,9 +138,7 @@
 
                 }else{
                     let ads = document.getElementsByClassName("mobileAds")
-                    console.log(typeof(ads))
                     Object.keys(ads).forEach(ad=>{
-                        console.log(ads[ad].id, "Main")
                         
                         $.ajaxSetup({
                             headers: {
@@ -248,7 +244,6 @@
             url: "{{ url('/events') }}",
             method: 'POST',
             success: function(events) {
-                console.log(events);
 
                 events.forEach(event => {
                     if (event['type'] == "results_points") {
@@ -276,36 +271,129 @@
     });
 
     function loadSets(event) {
+        
+
+        if(event['teams'][0]['result'].length === 0){
+
             return `
+            
                 <div class="event-container">
 
-                         <div class="event-title-holder">
+                    <div class="event-title-holder">
 
-                          <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
-                           <p class="event-state">${event['date']}</p>
+                        <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
+                        <p class="event-state">${event['date']}</p>
 
-                         </div>
+                    </div>
 
-                         <div class="event-holder">
-
-                           <div class="team-holder">
-
-                           <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
-                            <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
-
-                          </div>
+                    <div class="event-holder no-result">
+                        
+                        <div class="team-holder-container">
 
                             <div class="team-holder">
+
+                                <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
+                                <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
+
+                                <div class="team-set">
+                                    
+                                    <p>0</p>
+                                    <p>0</p>
+                                    <p>0</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="team-holder">
+
+                                <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo"></div>
+                                <p class="sets"><a href="" class="team-name">${event["teams"][1]["name"]}</a></p>
+                            
+                                <div class="team-set">
+                                    
+                                    <p>0</p>
+                                    <p>0</p>
+                                    <p>0</p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+        return `
+
+            <div class="event-container">
+
+                <div class="event-title-holder">
+
+                    <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
+                    <p class="event-state">${event['date']}</p>
+
+                </div>
+
+                <div class="event-holder set">
+                        
+                    <div class="team-holder-container">
+
+                        <div class="team-holder">
+
+                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
+                            <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
+
+                            <div class="team-set" id="team-set">
+
+                                ${showTeamSet(event, 0)}
+
+                            </div>
+
+                        </div>
+
+                        <div class="team-holder">
 
                             <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo"></div>
                             <p class="sets"><a href="" class="team-name">${event["teams"][1]["name"]}</a></p>
 
-                           </div>
+                            <div class="team-set">
+                                    
+                                ${showTeamSet(event, 1)}
+    
+                            </div>
+                            
+                        </div>
 
-                     </div>
+                    </div>
 
                 </div>
+
+            </div>
             `
+        }
+
+        function showTeamSet(event, teamNumber){
+  
+            let limit = event['teams'][0]['result'].length;
+            result = "";
+
+            for(let i = 0; i < limit; i++){
+                    
+                result += `<p>${event['teams'][teamNumber]['result'][i].point}</p>`
+
+                if(i == 2)
+                    return result
+            }
+                
+            return result
+
         }
 
         function loadMarkUp(event) {
@@ -326,6 +414,7 @@
                 </div>
             `
         }
+
         function markUp(teams) {
             result = "";
             teams = orderUp(teams);
@@ -347,7 +436,6 @@
             while(!sorted){
                 swap = false;
                 for(let i = 0;i<teams.length-1;i++){
-                    console.log(teams[i]['result'][0]['result']);
                 
                     position = teams[i]['result'][0]['result'];
                     next = teams[i+1]['result'][0]['result'];
@@ -409,7 +497,6 @@
             while(!sorted){
                 swap = false;
                 for(let i = 0;i<teams.length-1;i++){
-                    console.log(teams[i]['result'][0]['result']);
                 
                     position = teams[i]['result'][0]['result'];
                     next = teams[i+1]['result'][0]['result'];
@@ -452,7 +539,7 @@
 
                             <div class="score-holder">
 
-                                <p class="event-score">${totalPoints(event["teams"][0]['result'])} - ${totalPoints(event["teams"][1]['result'])}</p>
+                                <p class="event-score">${totalPoints(event["teams"][0]['result'])} <span class="divisor"> - </span>${totalPoints(event["teams"][1]['result'])}</p>
 
                             </div>
 
@@ -493,7 +580,6 @@
                 },
 
                 success: function(events) {
-                    console.log(events);
                     events.forEach(event => {
                         if (event['type'] == "results_points") {
 

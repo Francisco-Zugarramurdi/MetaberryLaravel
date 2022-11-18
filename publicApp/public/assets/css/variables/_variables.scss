@@ -130,6 +130,7 @@
         }
 
         .event-mark-holder {
+
             width: 100%;
             height: 20vh;
             display: flex;
@@ -187,6 +188,16 @@
             background-color: var(--white);
             border-radius: 0 0 20px 20px;
 
+            .score-holder{
+
+                .divisor{
+
+                    padding: 0 10px;
+
+                }
+
+            }
+
             .team-holder {
 
                 display: flex;
@@ -206,7 +217,182 @@
 
                     @include set-a-link;
                     font-weight: 600;
+                    color: var(--grayish-black);
 
+                }
+
+            }
+
+            .event-score {
+
+                font-size: 1.5em;
+                font-weight: 500;
+
+            }
+
+        }
+        
+        .no-result {
+
+            width: 100%;
+            height: 20vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 3% 0;
+            background-color: var(--white);
+            border-radius: 0 0 20px 20px;
+
+            .score-holder{
+
+                .divisor{
+
+                    padding: 0 10px;
+
+                }
+
+            }
+
+            .team-holder-container {
+
+                width: inherit;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0 60px;
+
+                .team-holder {
+
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: none;
+
+                    .team-set{
+
+                        width: 100px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        p{
+
+                            padding: 0 15px;
+                            font-size: 1.3em;
+                            font-weight: 600;
+                            color: var(--grayish-black);
+
+                        }
+                    
+
+                    }
+    
+                    .team-logo {
+    
+                        width: 60px;
+                        padding: 20% 0;
+                        cursor: pointer;
+    
+                    }
+    
+                    .team-name {
+    
+                        @include set-a-link;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        color: var(--grayish-black);
+                        margin: 0 30px 0 15px;
+    
+                    }
+    
+                }
+
+            }
+
+            .event-score {
+
+                font-size: 1.5em;
+                font-weight: 500;
+
+            }
+
+        }
+
+        .set {
+
+            width: 100%;
+            height: 20vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 3% 0;
+            background-color: var(--white);
+            border-radius: 0 0 20px 20px;
+
+            .score-holder{
+
+                .divisor{
+
+                    padding: 0 10px;
+
+                }
+
+            }
+
+            .team-holder-container{
+
+                width: inherit;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0 60px;
+
+                .team-holder {
+
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: none;
+
+                    .team-set{
+
+                        width: 100px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        p{
+
+                            padding: 0 15px;
+                            font-size: 1.3em;
+                            font-weight: 600;
+                            color: var(--grayish-black);
+
+                        }
+                    
+
+                    }
+    
+                    .team-logo {
+    
+                        width: 60px;
+                        padding: 20% 0;
+                        cursor: pointer;
+    
+                    }
+    
+                    .team-name {
+    
+                        @include set-a-link;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        color: var(--grayish-black);
+                        margin: 0 30px 0 15px;
+    
+                    }
+    
                 }
 
             }
