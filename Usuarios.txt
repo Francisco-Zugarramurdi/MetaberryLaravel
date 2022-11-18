@@ -1,0 +1,14 @@
+Usuarios APP PUBLICA:
+    Usuarios pagos sin ads:
+        lucas.medina1609@gmail.com | Metaberry
+        yvesmotta1@gmail.com | Yves123
+        nico@gmail.com | Nico123
+    Usuarios gratis con ads:
+        zarita@gmail.com | Fran123
+        elfedefacha@gmail.com | Fede123
+
+Usuario BackOffice:
+    admin | metaberry
+
+Usuario SQL:
+    lucas.medina | 56379275
