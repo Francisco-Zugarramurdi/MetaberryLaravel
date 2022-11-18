@@ -1495,7 +1495,7 @@ footer img:hover {
 }
 .resultDisplay .event-container {
   width: 25vw;
-  height: 25vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1666,18 +1666,13 @@ footer img:hover {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 3% 0;
-  background-color: var(--white);
+  background-color: var(--main);
   border-radius: 0 0 20px 20px;
-}
-.resultDisplay .event-container .set .score-holder .divisor {
-  padding: 0 10px;
 }
 .resultDisplay .event-container .set .team-holder-container {
   width: inherit;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   padding: 0 60px;
 }
