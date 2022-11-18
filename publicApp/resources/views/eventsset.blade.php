@@ -72,7 +72,7 @@
                     
                         <p>Anotación: {{$result['teamName']}}</p>
                     </div>
-                    <p class="info"> {{$result['teamName']}} anoto: {{$result['point']}} en set numero: {{$result['set']}}</p>
+                    <p class="info"> {{$result['teamName']}} anoto: {{$result['point']}} puntos en set numero: {{$result['set']}}</p>
                    
                 </div>
                 @endforeach
