@@ -222,7 +222,6 @@
             url: "{{ url('/events') }}",
             method: 'POST',
             success: function(events) {
-                console.log(events);
 
                 events.forEach(event => {
                     if (event['type'] == "results_points") {
@@ -318,7 +317,6 @@
             while(!sorted){
                 swap = false;
                 for(let i = 0;i<teams.length-1;i++){
-                    console.log(teams[i]['result'][0]['result']);
                 
                     position = teams[i]['result'][0]['result'];
                     next = teams[i+1]['result'][0]['result'];
@@ -380,7 +378,6 @@
             while(!sorted){
                 swap = false;
                 for(let i = 0;i<teams.length-1;i++){
-                    console.log(teams[i]['result'][0]['result']);
                 
                     position = teams[i]['result'][0]['result'];
                     next = teams[i+1]['result'][0]['result'];

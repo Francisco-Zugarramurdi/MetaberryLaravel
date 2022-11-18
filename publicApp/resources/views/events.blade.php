@@ -126,7 +126,6 @@
                 if(window.innerWidth > 768){
                 
                     let ads = document.getElementsByClassName("desktopAds")
-                    console.log(typeof(ads))
                     Object.keys(ads).forEach(ad=>{
                         
                         $.ajaxSetup({
@@ -162,7 +161,6 @@
 
                 }else{
                     let ads = document.getElementsByClassName("mobileAds")
-                    console.log(typeof(ads))
                     Object.keys(ads).forEach(ad=>{
                         
                         $.ajaxSetup({

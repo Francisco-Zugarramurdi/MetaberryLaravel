@@ -402,8 +402,6 @@
         function markUp(event) {
 
             teams = event['teams'];
-
-            console.log(event)
             
             if(teams[0].result.length === 0){
 
@@ -495,8 +493,6 @@
         function markDown(event) {
 
             teams = event['teams'];
-
-            console.log(event)
             
             if(teams[0].result.length === 0){
 
