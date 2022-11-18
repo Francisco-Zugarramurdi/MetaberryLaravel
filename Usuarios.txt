@@ -8,7 +8,7 @@ Usuarios APP PUBLICA:
         elfedefacha@gmail.com | Fede123
 
 Usuario BackOffice:
-    admin | metaberry
+admin | metaberry
 
 Usuario SQL:
-    lucas.medina | 56379275
+lucas.medina | 56379275
