@@ -14,11 +14,21 @@ class EventController extends Controller
         return json_decode(Http::get('http://localhost:8001/api/indexcountry/'),true);
     }
     public function Index(){
-        return json_decode(Http::get('http://localhost:8001/api/index/'),true);
+        $events =  json_decode(Http::get('http://localhost:8001/api/index/'),true);
+
+        usort($events, function($a, $b){
+            if ($a["relevance"] == $b["relevance"]) {
+                return 0;
+            }
+            return ($a["relevance"] > $b["relevance"]) ? -1 : 1;
+        });
+
+        return $events;
     }
     public function IndexEvent(Request $request, $id){
        $info=(json_decode(Http::get('http://localhost:8001/api/index/'.$id),true));
        $user_data = $this->getUserData($request);
+
        return view('events')->with('info',$info)->with('data', $user_data);
 
     }
