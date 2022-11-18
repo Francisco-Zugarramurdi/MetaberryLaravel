@@ -263,9 +263,9 @@ insert into results_points(id_results, id_teams, point, id_players) values
 (2,3,1,21),
 (2,4,4,26);
 
-insert into results_upward(id_results,id_teams,position,result) values
-(5,11,2,10),
-(5,12,1,12);
+insert into results_upward(id_results,id_teams,position,result,unit) values
+(5,11,2,10,"minutes"),
+(5,12,1,12,"minutes");
 
 insert into results_downward(id_results,id_teams,position,result) values
 (4,7,1,9),
