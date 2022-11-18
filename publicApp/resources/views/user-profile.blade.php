@@ -42,7 +42,7 @@
         <section class="display">
 
             <div class="userEvents">
-
+                
                 @foreach($events as $event)
                     <div class="event">
 
@@ -58,6 +58,7 @@
                         </div>
                         <form method="POST" action="/user/unfollow">
                             @csrf
+                            <input type="hidden" name="event_id" value="{{$event['id']}}">
                             <button type="submit" class="unfollow-event">Unfollow</button>
                         </form>
 
