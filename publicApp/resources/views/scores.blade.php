@@ -51,21 +51,6 @@
 
             <div class="form-filter-section">
 
-                <form action="">
-
-                    <label for="event-date" class="event-date-label">
-
-                        Event Country
-                        <select name="country" id="countriesContainer" class="event-country">
-
-                        </select>
-                        Event Date
-                        <input type="date" id="eventDate" name="event-date" class="event-date">
-
-                    </label>
-
-                </form>
-
             </div>
 
             <div class="default-main-section">
@@ -431,7 +416,7 @@
                     teamName += `
 
                         <div class="team-holder">
-                            <a href="" class="team-name">${teams[i]['name']}</a>
+                            <a class="team-name">${teams[i]['name']}</a>
                             <p class="time"> NA </p>    
                         </div>
 
@@ -449,6 +434,7 @@
             for(let i = 0;i<teams.length;i++){
                 result += `
                 <div class="team-holder">
+                    <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
                     <a href="" class="team-name">${teams[i]['name']}</a>
                     <p class="time">${teams[i]['result'][0]['result']} ${event['teams'][i]['result'][0]['unit']}</p>    
                 </div>
@@ -540,6 +526,7 @@
             for(let i = 0;i<teams.length;i++){
                 result += `
                 <div class="team-holder">
+                    <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
                     <a href="" class="team-name">${teams[i]['name']}</a>
                     <p class="time">${teams[i]['result'][0]['result']} ${event['teams'][i]['result'][0]['unit']}</p>    
                 </div>

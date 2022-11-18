@@ -90,6 +90,10 @@
                 <div class="sideData">
                     <div class="about">
                         <h3>About the event<span class="material-symbols-outlined">info</span></h3>
+                        <div class="details-container">
+                            <p class="details-data">Event Date</p>
+                            <p class="details">{{$info['date']}}</p>
+                        </div>
                         <div class="title-container">
                             <p class="title-data">Event Name</p>
                             <p class="title">{{$info['name']}}</p>

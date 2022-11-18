@@ -27,19 +27,35 @@
 <main>
 
     <section class="resultDisplay">
+
+        @if(count($info['result']) < 1)
             @foreach($info['teams'] as $team)
-                <div class="player">
-                    <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$team['photo']}}"></div>
-                        <p>{{$team['name']}}</p>
-                        <ul>
-                            @foreach($info['result'] as $result)
-                            @if($result['team'] == $team['id'])
-                            <li>{{$result['point']}}</li>
-                            @endif
-                            @endforeach
-                        </ul>
-                </div>
-            @endforeach 
+            <div class="player">
+                <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$team['photo']}}"></div>
+                    <p>{{$team['name']}}</p>
+                    <ul>
+                        <li>0</li>
+                        <li>0</li>
+                        <li>0</li>
+                    </ul>
+            </div>
+            @endforeach
+        @else
+            @foreach($info['teams'] as $team)
+            <div class="player">
+                <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$team['photo']}}"></div>
+                    <p>{{$team['name']}}</p>
+                    <ul>
+                        @foreach($info['result'] as $result)
+                        @if($result['team'] == $team['id'])
+                        <li>{{$result['point']}}</li>
+                        @endif
+                        @endforeach
+                    </ul>
+            </div>
+            @endforeach
+        @endif
+        
     </section>
 
     <section class="innerNav">
@@ -75,8 +91,12 @@
                 <div class="sideData">
                     <div class="about">
                         <h3>About the event<span class="material-symbols-outlined">info</span></h3>
+                        <div class="details-container">
+                            <p class="details-data">Event Date</p>
+                            <p class="details">{{$info['date']}}</p>
+                        </div>
                         <div class="title-container">
-                            <p class="title-data">Event Name</p>
+                            <p class="title-data">Event Date</p>
                             <p class="title">{{$info['name']}}</p>
                         </div>
                         <div class="details-container">
