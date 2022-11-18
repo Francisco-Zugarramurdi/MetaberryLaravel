@@ -212,6 +212,7 @@
     });
 </script>
 <script>
+
     jQuery(document).ready(function() {
         $.ajaxSetup({
             headers: {
@@ -224,19 +225,21 @@
             success: function(events) {
 
                 events.forEach(event => {
-                    if (event['type'] == "results_points") {
 
-                        document.getElementById('eventsContainer').innerHTML += loadPoints(
-                            event);
+                    if (event['type'] == "results_points") {
+                        
+                        document.getElementById('eventsContainer').innerHTML += loadPoints(event);
                     }
                     if (event['type'] == "results_downward") {
+                        
                         document.getElementById('eventsContainer').innerHTML += loadMarkDown(event);
                     }
-                    if(event['type'] ==="results_upward"){
+                    if(event['type'] == "results_upward"){
+                    
                         document.getElementById('eventsContainer').innerHTML += loadMarkUp(event);
-
                     }
-                    if(event['type'] ==="points_sets"){
+                    if(event['type'] == "points_sets"){
+                        
                         document.getElementById('eventsContainer').innerHTML += loadSets(event);
 
                     }
@@ -245,65 +248,188 @@
             }
         });
 
-        function loadSets(event) {
+        
+    });
+
+    function loadSets(event) {
+
+        if(event['teams'][0]['result'].length === 0){
             return `
+            
                 <div class="event-container">
 
-                         <div class="event-title-holder">
+                    <div class="event-title-holder">
 
-                          <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
-                           <p class="event-state">${event['date']}</p>
+                        <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
+                        <p class="event-state">${event['date']}</p>
 
-                         </div>
+                    </div>
 
-                         <div class="event-holder">
-
-                           <div class="team-holder">
-
-                           <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
-                            <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
-
-                          </div>
+                    <div class="event-holder no-result">
+                        
+                        <div class="team-holder-container">
 
                             <div class="team-holder">
 
-                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo"></div>
-                            <p class="sets"><a href="" class="team-name">${event["teams"][1]["name"]}</a></p>
+                                <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
+                                <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
 
-                           </div>
+                                <div class="team-set">
+                                    
+                                    <p>0</p>
+                                    <p>0</p>
+                                    <p>0</p>
 
-                     </div>
+                                </div>
+
+                            </div>
+
+                            <div class="team-holder">
+
+                                <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo"></div>
+                                <p class="sets"><a href="" class="team-name">${event["teams"][1]["name"]}</a></p>
+                            
+                                <div class="team-set">
+                                    
+                                    <p>0</p>
+                                    <p>0</p>
+                                    <p>0</p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
-            `
+                
+                `;
+            }
+        return `
+                <div class="event-container">
+
+                    <div class="event-title-holder">
+
+                        <a href="./event/set/${event['id']}" class="event-title">${event['name']}</a>
+                        <p class="event-state">${event['date']}</p>
+
+                    </div>
+
+                    <div class="event-holder set">
+                            
+                        <div class="team-holder-container">
+
+                            <div class="team-holder">
+
+                                <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][0]["photo"]}' class="team-logo"></div>
+                                <p class="sets"><a href="" class="team-name">${event["teams"][0]["name"]}</a></p>
+
+                                <div class="team-set" id="team-set">
+
+                                    ${showTeamSet(event, 0)}
+
+                                </div>
+
+                            </div>
+
+                            <div class="team-holder">
+
+                                <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][1]["photo"]}' class="team-logo"></div>
+                                <p class="sets"><a href="" class="team-name">${event["teams"][1]["name"]}</a></p>
+
+                                <div class="team-set">
+                                        
+                                    ${showTeamSet(event, 1)}
+
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                `
+    
+    }
+    
+    function showTeamSet(event, teamNumber){
+
+        let limit = event['teams'][0]['result'].length;
+        result = "";
+
+        for(let i = 0; i < limit; i++){
+                    
+            result += `<p>${event['teams'][teamNumber]['result'][i].point}</p>`
+
+            if(i == 2)
+                return result
         }
+                
+        return result
+
+    }
 
         function loadMarkUp(event) {
+
             return `
                 <div class="event-container">
 
-                        <div class="event-title-holder">
+                    <div class="event-title-holder">
 
-                            <a href="./event/mark/${event['id']}" class="event-title">${event['name']}</a>
-                            <p class="event-state">${event['date']}</p>
+                        <a href="./event/mark/${event['id']}" class="event-title">${event['name']}</a>
+                        <p class="event-state">${event['date']}</p>
 
-                        </div>
+                    </div>
 
-                        <div class="event-mark-holder">
-                            ${markUp(event['teams'])}                    
-                        </div>
+                    <div class="event-mark-holder">
+                        ${markUp(event)}                    
+                    </div>
 
                 </div>
             `
         }
-        function markUp(teams) {
-            result = "";
+
+        function markUp(event) {
+
+            teams = event['teams'];
+            
+            if(teams[0].result.length === 0){
+
+                let limit = teams.length;
+
+                let teamName = '';
+
+                for(let i = 0; i < limit; i++){
+
+                    teamName += `
+
+                        <div class="team-holder">
+                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
+                            <a class="team-name">${teams[i]['name']}</a>
+                            <p class="time"> NA </p>    
+                        </div>
+
+                    `;
+
+                }
+
+                return teamName
+                
+            }
+            
             teams = orderUp(teams);
+            result = "";
+
             for(let i = 0;i<teams.length;i++){
                 result += `
                 <div class="team-holder">
+                    <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
                     <a href="" class="team-name">${teams[i]['name']}</a>
-                    <p class="time">${teams[i]['result'][0]['result']}</p>    
+                    <p class="time">${teams[i]['result'][0]['result']} ${event['teams'][i]['result'][0]['unit']}</p>    
                 </div>
             
                 `
@@ -312,6 +438,7 @@
             }
             return result;
         }
+
         function orderUp(teams){
             let sorted = false;
             while(!sorted){
@@ -337,8 +464,8 @@
 
         }
 
-
         function loadMarkDown(event) {
+
             return `
                 <div class="event-container">
 
@@ -350,21 +477,50 @@
                         </div>
 
                         <div class="event-mark-holder">
-                            ${markDown(event['teams'])}                    
+                            ${markDown(event)}                    
                         </div>
 
                 </div>
             `
         }
 
-        function markDown(teams) {
-            result = "";
+        function markDown(event) {
+
+            teams = event['teams'];
+            
+            if(teams[0].result.length === 0){
+
+                let limit = teams.length;
+
+                let teamName = '';
+
+                for(let i = 0; i < limit; i++){
+
+                    teamName += `
+
+                        <div class="team-holder">
+                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
+                            <a href="" class="team-name">${teams[i]['name']}</a>
+                            <p class="time"> NA</p>    
+                        </div>
+
+                    `;
+
+                }
+
+                return teamName
+                
+            }
+            
             teams = orderDown(teams);
+            result = "";
+
             for(let i = 0;i<teams.length;i++){
                 result += `
                 <div class="team-holder">
+                    <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
                     <a href="" class="team-name">${teams[i]['name']}</a>
-                    <p class="time">${teams[i]['result'][0]['result']}</p>    
+                    <p class="time">${teams[i]['result'][0]['result']} ${event['teams'][i]['result'][0]['unit']}</p>    
                 </div>
             
                 `
@@ -373,6 +529,7 @@
             }
             return result;
         }
+
         function orderDown(teams){
             let sorted = false;
             while(!sorted){
@@ -420,7 +577,7 @@
 
                             <div class="score-holder">
 
-                                <p class="event-score">${totalPoints(event["teams"][0]['result'])} - ${totalPoints(event["teams"][1]['result'])}</p>
+                                <p class="event-score">${totalPoints(event["teams"][0]['result'])} <span class="divisor"> - </span>${totalPoints(event["teams"][1]['result'])}</p>
 
                             </div>
 
@@ -445,7 +602,46 @@
 
             return total;
         }
-    });
+
+    const getEventsBySport = (id) => {
+            document.getElementById("eventsContainer").innerHTML = ""
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            })
+            jQuery.ajax({
+                url: "{{ url('http://localhost:8001/api/getEventsBySport') }}",
+                method: 'POST',
+                data: {
+                    idSport: id
+                },
+
+                success: function(events) {
+                    events.forEach(event => {
+                        if (event['type'] == "results_points") {
+
+                            document.getElementById('eventsContainer').innerHTML += loadPoints(
+                                event);
+                        }
+                        if (event['type'] == "results_downward") {
+                            document.getElementById('eventsContainer').innerHTML += loadMarkDown(event);
+                        }
+                        if(event['type'] =="results_upward"){
+                            document.getElementById('eventsContainer').innerHTML += loadMarkUp(event);
+
+                        }
+                        if(event['type'] =="points_sets"){
+                            document.getElementById('eventsContainer').innerHTML += loadSets(event);
+
+                        }
+
+                    });
+                }
+            });
+        }
+
+
 </script>
 
 </html>
