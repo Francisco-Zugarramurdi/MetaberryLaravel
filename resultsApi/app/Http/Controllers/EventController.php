@@ -276,7 +276,7 @@ class EventController extends Controller
         return DB::table('results_upward')
         ->join('teams','results_upward.id_teams','teams.id')
         ->where('id_results',$resultID)
-        ->select('position as position','result as result','results_upward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto')
+        ->select('position as position','result as result','results_upward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto', 'results_upward.unit as unit')
         ->orderBy('position')->get()->toArray();
 
     }
@@ -286,7 +286,7 @@ class EventController extends Controller
         return DB::table('results_downward')
         ->join('teams','results_downward.id_teams','teams.id')
         ->where('id_results',$resultID)
-        ->select('position as position','result as result','results_downward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto')
+        ->select('position as position','result as result','results_downward.id_teams as team','teams.name as teamName','teams.photo as teamPhoto', 'results_downward.unit as unit')
         ->orderBy('position')->get()->toArray();
 
     }

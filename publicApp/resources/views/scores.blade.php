@@ -256,7 +256,7 @@
                         document.getElementById('eventsContainer').innerHTML += loadMarkDown(event);
                     }
                     if(event['type'] == "results_upward"){
-                        console.log(event)
+                    
                         document.getElementById('eventsContainer').innerHTML += loadMarkUp(event);
                     }
                     if(event['type'] == "points_sets"){
@@ -415,13 +415,40 @@
         }
 
         function markUp(teams) {
-            result = "";
+
+            console.log(teams)
+            
+            if(teams[0].result.length === 0){
+
+                let limit = teams.length;
+
+                let teamName = '';
+
+                for(let i = 0; i < limit; i++){
+
+                    teamName += `
+
+                        <div class="team-holder">
+                            <a href="" class="team-name">${teams[i]['name']}</a>
+                            <p class="time"> 00:00:00 </p>    
+                        </div>
+
+                    `;
+
+                }
+
+                return teamName
+                
+            }
+            
             teams = orderUp(teams);
+            result = "";
+
             for(let i = 0;i<teams.length;i++){
                 result += `
                 <div class="team-holder">
                     <a href="" class="team-name">${teams[i]['name']}</a>
-                    <p class="time">${teams[i]['result'][0]['result']}</p>    
+                    <p class="time">${teams[i]['result'][0]['result']} ${teams[i]['result'][0]['result']}</p>    
                 </div>
             
                 `
@@ -457,8 +484,6 @@
         }
 
         function loadMarkDown(event) {
-
-            return `<p>PEPE</p>`;
 
             return `
                 <div class="event-container">
