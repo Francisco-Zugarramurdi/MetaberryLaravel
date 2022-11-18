@@ -138,7 +138,7 @@ class EventController extends Controller
         return DB::table('results_upward')
         ->where('id_results',$resultID)
         ->where('id_teams',$teamID)
-        ->select('position as position','result as result')
+        ->select('position as position','result as result', 'unit as unit')
         ->get()
         ->toArray();
         
@@ -149,7 +149,7 @@ class EventController extends Controller
         return DB::table('results_downward')
         ->where('id_results',$resultID)
         ->where('id_teams',$teamID)
-        ->select('position as position','result as result')
+        ->select('position as position','result as result', 'unit as unit')
         ->get()
         ->toArray();
 
