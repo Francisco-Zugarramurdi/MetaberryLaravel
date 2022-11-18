@@ -1279,6 +1279,12 @@ footer img:hover {
   font-weight: 600;
   color: var(--black);
 }
+.display .sideData .about .details-container .follow-event {
+  width: auto;
+  height: 50px;
+  padding: 15px 30px;
+  background-color: aqua;
+}
 .display .sideData .about h3 {
   display: flex;
   align-items: center;
@@ -1495,4 +1501,22 @@ footer img:hover {
 .resultDisplay .results ul li:first-of-type .name, .resultDisplay .results ul li:first-of-type .position, .resultDisplay .results ul li:first-of-type .time {
   color: var(--black);
   font-weight: 700;
+}
+
+.display .sideData .about .follow-event {
+  width: auto;
+  height: 50px;
+  background-color: var(--main-purple);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1em;
+  border: none;
+  padding: 15px 60px;
+  margin: 15px 0;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.display .sideData .about .follow-event:hover, .display .sideData .about .follow-event:focus {
+  background-color: var(--light-purple);
+  transform: scale(0.98);
 }/*# sourceMappingURL=event-by-mark.css.map */

@@ -108,6 +108,7 @@
                         <div class="desktopAds" id="Small"></div>
                         <div class="mobileAds" id="Small"></div>
                     </div>
+                    <button type="button" class="follow-event">Follow event</button>
                 </div>
             <div class="ads">
                 <div class="desktopAds" id="Small"></div>

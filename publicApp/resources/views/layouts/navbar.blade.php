@@ -12,22 +12,12 @@
                 <a href="/user" class="username">{{$data['name']}}</a>
                 <a href="/"><span class="material-symbols-outlined">star</span></a>
                 <a href="/"><span class="material-symbols-outlined">scoreboard</span></a>
-                <a href="/"><span class="material-symbols-outlined">notifications</span></a>
+            
 
             </div>
 
             <a href="/" class="nav-logo"><img src="https://raw.githubusercontent.com/metaberrystudios/Proyecto-ESI-BUCEO-2022-MetaBerryStudios/main/Dise%C3%B1o/Produccion/assets/img/logo/Recurso%2020.png"></a>
 
-            <div class="log-in-header-nav-container-2">
-
-                <form action="" class="nav-searchbar">
-
-                    <input type="text" placeholder="Search..." name="search">
-                    <button type="submit"><span class="material-symbols-outlined">search</span></button>
-
-                </form>
-
-            </div>
 
         </nav>
 

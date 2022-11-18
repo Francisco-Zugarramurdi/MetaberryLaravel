@@ -723,6 +723,12 @@ footer img:hover {
   font-weight: 600;
   color: var(--black);
 }
+.display .sideData .about .details-container .follow-event {
+  width: auto;
+  height: 50px;
+  padding: 15px 30px;
+  background-color: aqua;
+}
 .display .sideData .about h3 {
   display: flex;
   align-items: center;

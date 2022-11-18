@@ -91,6 +91,7 @@
                     <p class="details-data">Event Details</p>
                     <p class="details">{{$info['details']}}</p>
                 </div>
+                <button type="button" class="follow-event">Follow event</button>
             </div>
             <div class="ads">
                 <div class="desktopAds" id="Small"></div>

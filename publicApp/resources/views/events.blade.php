@@ -84,6 +84,20 @@
                     <p class="info">{{$sanctions['sanction']}} para {{$sanctions['name']}} {{$sanctions['surname']}}</p>
                 </div>
                 @endforeach
+
+                @foreach($info['teams'] as $team)
+                <div class="card">
+                <div class="title"><p>{{$team['name']}}</p></div>
+                    <ul>
+                        @foreach($team['player'] as $player)
+                        <li>
+                            {{$player['name']}}  {{$player['surname']}} <img width="40px" src="http://127.0.0.1:8005/img/public_images/{{$player['photo']}}" class="team-logo"> 
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endforeach
+
             </div>
                 
             <div class="sideData">
@@ -102,6 +116,9 @@
                             <p class="details-data">Event Details</p>
                             <p class="details">{{$info['details']}}</p>
                         </div>
+                        @if(session()->has('authenticated'))
+                        <button type="button" class="follow-event">Follow event</button>
+                        @endif
                     </div>
                     <div class="ads">
                         <div class="desktopAds" id="Small"></div>
