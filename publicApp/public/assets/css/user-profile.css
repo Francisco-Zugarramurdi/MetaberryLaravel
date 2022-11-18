@@ -603,6 +603,10 @@ footer img:hover {
   transform: scale(0.98);
 }
 
+.teams button:first-of-type {
+  margin-left: 30px;
+}
+
 .userDisplay {
   width: 100%;
   height: 20vh;
@@ -786,6 +790,61 @@ footer img:hover {
 }
 .display .user-post-container .actions-holder .action-text {
   font-weight: 600;
+}
+.display .event {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 15px;
+  margin: 30px 60px;
+}
+.display .event .header {
+  width: 20vw;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-radius: 15px 15px 0 0;
+  background-color: var(--main-purple);
+  color: var(--white);
+  font-weight: 600;
+}
+.display .event .details {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--grayish-black);
+  text-align: center;
+}
+.display .event form .unfollow-event {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  border: none;
+  background-color: var(--light-gray);
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 30px;
+  margin: 0 0 30px 0;
+  transition: 0.3s;
+}
+.display .event form .unfollow-event:hover, .display .event form .unfollow-event:focus {
+  background-color: var(--dark-gray);
+  transform: scale(0.98);
 }
 
 .ads {

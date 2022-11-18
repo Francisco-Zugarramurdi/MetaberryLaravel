@@ -11,8 +11,11 @@ class UserController extends Controller
     public function GetIndexView(Request $request){
 
         $user_data = $this->getUserData($request);
+        $followed_events = $this->getFollowedEvents($request);
 
-        return view('user-profile')->with('data', $user_data);
+        return view('user-profile')
+        ->with('data', $user_data)
+        ->with('events', $followed_events);
 
     }
 
@@ -137,4 +140,38 @@ class UserController extends Controller
         
     }
 
+    public function FollowEvent(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::post('http://localhost:8001/api/follow/'. $request->event_id .'/'. $id);
+
+        $user_data = json_decode($response, true);
+
+        return redirect('/user')->with('data', $user_data);
+
+    }
+
+    public function UnfollowEvent(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::post('http://localhost:8001/api/unfollow/'. $request->event_id .'/'. $id);
+
+        $user_data = json_decode($response, true);
+
+        return redirect('/user')->with('data', $user_data);
+
+    }
+
+    private function getFollowedEvents(Request $request){
+
+        $id = $request->session()->get('user_id');
+
+        $response = Http::get('http://localhost:8001/api/following/'. $id);
+        $user_data = json_decode($response, true);
+        
+        return $user_data;
+
+    }
 }

@@ -24,3 +24,6 @@ Route::get('/index/{id}',[EventController::class,'IndexEvent']);
 Route::get('/indexcountry',[EventController::class,'IndexCountries']);
 Route::get('/indexsport',[EventController::class,'IndexSports']);
 Route::post('/getEventsBySport',[EventController::class,'GetEventsBySport']);
+Route::post('/follow/{event_id}/{id}', [EventController::class, 'FollowEvent']);
+Route::post('/unfollow/{event_id}/{id}', [EventController::class, 'UnfollowEvent']);
+Route::get('/following/{id}', [EventController::class, 'GetFollowedEvents']);

@@ -54,47 +54,50 @@
             </div>
     </section>
 
-    <section class="innerNav">
-        <ul>
-            <li>Timeline</li>
-        </ul>
+    <section class="innerNav teams">
+        <button type="button" id="timeline-btn">Timeline</button>
+        <button type="button" id="lineup-btn">Lineup</button>
     </section>
 
     <section class="display">
-            <div class="renderArea">
+
+            <div class="renderArea" id="timeline">
                 @foreach($info['teams'] as $team)
                 <div class="card">
-                   
                     <div class="title">
-
-                        <p>Anotaciones: {{$team['name']}}</p>
-                        
+                        <p>Score</p>
+                        <p>{{$team['name']}}</p>
                     </div>
                     @foreach($team['result'] as $result)
-                    <p class="info">{{$result ['namePlayer']}} {{$result['surnamePlayer']}} anoto: {{$result['point']}} </p>
+                    <p class="info">{{$result ['namePlayer']}} {{$result['surnamePlayer']}} scored {{$result['point']}} points </p>
                    @endforeach
                 </div>
                 @endforeach
                 @foreach($info['sanctions'] as $sanctions)
                 <div class="card">
-                    <div class="title">
-                        <p>Penalizaciones:</p>
-                        <p class="minuto">Minuto: {{$sanctions['minute']}}</p>
+                    <div class="title sanction">
+                        <p>Penalization</p>
+                        <p class="minuto">{{$sanctions['minute']}}'</p>
                     </div>
-                    <p class="info">{{$sanctions['sanction']}} para {{$sanctions['name']}} {{$sanctions['surname']}}</p>
+                    <p class="info">{{$sanctions['sanction']}} for {{$sanctions['name']}} {{$sanctions['surname']}}</p>
                 </div>
                 @endforeach
 
+            </div>
+
+            <div class="renderArea" id="lineup">
+
                 @foreach($info['teams'] as $team)
-                <div class="card">
-                <div class="title"><p>{{$team['name']}}</p></div>
-                    <ul>
-                        @foreach($team['player'] as $player)
-                        <li>
-                            {{$player['name']}}  {{$player['surname']}} <img width="40px" src="http://127.0.0.1:8005/img/public_images/{{$player['photo']}}" class="team-logo"> 
-                        </li>
-                        @endforeach
-                    </ul>
+                <div class="card team">
+                    <div class="title"><p>{{$team['name']}} </p></div>
+                        <ul>
+                            @foreach($team['player'] as $player)
+                            <li>
+                                <img src="http://127.0.0.1:8005/img/public_images/{{$player['photo']}}" class="team-logo">  
+                                <p>{{$player['name']}} {{$player['surname']}}</p>
+                            </li>
+                            @endforeach
+                        </ul>
                 </div>
                 @endforeach
 
@@ -117,7 +120,12 @@
                             <p class="details">{{$info['details']}}</p>
                         </div>
                         @if(session()->has('authenticated'))
-                        <button type="button" class="follow-event">Follow event</button>
+                        <form method="POST" action="/user/follow">
+                            @csrf
+                            <input type="hidden" name="event_id" value="{{$info['id']}}">
+                            <button type="submit" class="follow-event">Follow event</button>
+        
+                        </form>
                         @endif
                     </div>
                     <div class="ads">
@@ -133,8 +141,47 @@
     </section>
 </main>
 
-</body>
+<script>
 
+    $(document).ready(function(){
+
+        $("#lineup").hide();
+
+    });
+
+    $("#timeline-btn").click(function(){
+
+        if($("#lineup").is(":hidden")){
+
+            $("#lineup").show();
+            $("#timeline").hide();
+
+        }else if($("#lineup").is(":visible")){
+
+            $("#timeline").show();
+            $("#lineup").hide();
+
+        }
+
+    });
+
+    $("#lineup-btn").click(function(){
+
+        if($("#timeline").is(":hidden")){
+
+            $("#timeline").show();
+            $("#lineup").hide();
+
+        }else if($("#timeline").is(":visible")){
+
+            $("#lineup").show();
+            $("#timeline").hide();
+
+        }
+
+    });
+
+</script>
 
 @if(!session()->has('user_sub'))
         <script>
@@ -218,4 +265,5 @@
             
         </script>
 @endif
+</body>
 </html>

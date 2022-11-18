@@ -43,6 +43,27 @@
 
             <div class="userEvents">
 
+                @foreach($events as $event)
+                    <div class="event">
+
+                        <div class="header">
+
+                            <div class="title">{{$event['name']}}</div>
+                            <div class="date">{{$event['date']}}</div>
+
+                        </div>
+
+                        <div class="details">
+                            "{{$event['details']}}"
+                        </div>
+                        <form method="POST" action="/user/unfollow">
+                            @csrf
+                            <button type="submit" class="unfollow-event">Unfollow</button>
+                        </form>
+
+                    </div>
+                @endforeach
+
             </div>
 
             <div class="ads">

@@ -67,20 +67,20 @@
             <div class="renderArea">
                 @foreach($info['result'] as $result)
                 <div class="card">
-                   
+
                     <div class="title">
-                    
-                        <p>Anotación: {{$result['teamName']}}</p>
+                        <p>Score</p>
                     </div>
-                    <p class="info"> {{$result['teamName']}} anoto: {{$result['point']}} en set numero: {{$result['set']}}</p>
+
+                    <p class="info"> {{$result['teamName']}} made {{$result['point']}} points in set number {{$result['set']}}</p>
                    
                 </div>
                 @endforeach
                 @foreach($info['sanctions'] as $sanctions)
-                <div class="card">
+                <div class="card sanction">
                     <div class="title">
                         <p>Penalization</p>
-                        <p class="minuto">Minuto: {{$sanctions['minute']}}</p>
+                        <p class="minuto">{{$sanctions['minute']}}</p>
                     </div>
                     <p class="info">{{$sanctions['sanction']}} para {{$sanctions['name']}} {{$sanctions['surname']}}</p>
                 </div>
@@ -103,13 +103,19 @@
                             <p class="details-data">Event Details</p>
                             <p class="details">{{$info['details']}}</p>
                         </div>
+                        @if(session()->has('authenticated'))
+                            <form method="POST" action="/user/follow">
+                                @csrf
+                                <input type="hidden" name="event_id" value="{{$info['id']}}">
+                                <button type="submit" class="follow-event">Follow event</button>
+            
+                            </form>
+                        @endif
                     </div>
                     <div class="ads">
                         <div class="desktopAds" id="Small"></div>
                         <div class="mobileAds" id="Small"></div>
                     </div>
-                    <button type="button" class="follow-event">Follow event</button>
-                </div>
             <div class="ads">
                 <div class="desktopAds" id="Small"></div>
                 <div class="mobileAds" id="Small"></div>

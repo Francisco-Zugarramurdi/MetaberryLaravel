@@ -42,6 +42,8 @@ Route::post('/user/edit',[UserController::class,'Update']);
 Route::post('/user/subscription',[UserController::class,'Suscribe']);
 Route::post('/user/subscription/delete',[UserController::class,'DeleteSubscription']);
 Route::post('/user/subscription/update',[UserController::class,'UpdateSubscription']);
+Route::post('/user/follow',[UserController::class,'FollowEvent']);
+Route::post('/user/unfollow',[UserController::class,'UnfollowEvent']);
 
 Route::post('/events',[EventController::class,'Index']);
 Route::post('/sports',[EventController::class,'IndexSport']);

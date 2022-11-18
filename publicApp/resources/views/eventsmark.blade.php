@@ -91,7 +91,14 @@
                     <p class="details-data">Event Details</p>
                     <p class="details">{{$info['details']}}</p>
                 </div>
-                <button type="button" class="follow-event">Follow event</button>
+                @if(session()->has('authenticated'))
+                        <form method="POST" action="/user/follow">
+                            @csrf
+                            <input type="hidden" name="event_id" value="{{$info['id']}}">
+                            <button type="submit" class="follow-event">Follow event</button>
+        
+                        </form>
+                @endif
             </div>
             <div class="ads">
                 <div class="desktopAds" id="Small"></div>

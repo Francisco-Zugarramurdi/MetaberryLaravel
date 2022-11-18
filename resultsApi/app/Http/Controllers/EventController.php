@@ -10,6 +10,9 @@ use App\Models\Event;
 use App\Models\Result;
 use App\Models\Team;
 use App\Models\Player;
+use App\Models\PremiumEvent;
+use Carbon\Carbon;
+
 class EventController extends Controller
 {
     public function IndexCountries(){
@@ -155,8 +158,6 @@ class EventController extends Controller
 
     }
 
-    
-
     private function getEventData($id){
         return DB::table('events')
         ->leftJoin('leagues_events','leagues_events.id_events','events.id')
@@ -172,6 +173,7 @@ class EventController extends Controller
         'sports.name as sport','countries.name as country', 'events.details as details')
         ->first();
     }
+
     private function loadPoints($points){
         $totalPoints=0;
        
@@ -183,6 +185,7 @@ class EventController extends Controller
        
         return  $totalPoints;
     }
+
     private function getTeamData($teams,$date,$type,$resultID){
 
         foreach($teams as $key => $team){
@@ -316,5 +319,36 @@ class EventController extends Controller
         
     }
 
+    public function FollowEvent($event_id, $id){
+
+        $following = PremiumEvent::create([
+
+            'id_users_data' => $id,
+            'id_events' => $event_id
+
+        ]);
+
+        return Event::findOrFail($event_id)->first();
+
+    }
+
+    public function UnfollowEvent($event_id, $id){
+
+        return PremiumEvent::where('id_users_data', $id)
+        ->where('id_events', $event_id)
+        ->update(['deleted_at'=>Carbon::now()]);
+
+    }
+
+    public function GetFollowedEvents($id){
+
+        return DB::table('events')
+        ->join('premium_events','premium_events.id_events','events.id')
+        ->where('premium_events.id_users_data', $id)
+        ->where('premium_events.deleted_at', null)
+        ->select('events.name as name','events.date as date','events.details as details')
+        ->get()->toArray();
+
+    }
 
 }    
