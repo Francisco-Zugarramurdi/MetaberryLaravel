@@ -97,6 +97,11 @@
                                                     <div class="form-team-container">
                                                         
                                                         <label>
+                                                            Unit
+                                                            <input type="text" name="unit" placeholder="kilos" value={{$scores[0]->unit}}>
+                                                        </label>
+
+                                                        <label>
                                                             <p><span>* </span>Teams</p>
                                                         </label>
 
@@ -122,7 +127,7 @@
                                                                     
                                                                     <label>
                                                                         marks
-                                                                            <input type="text" name="marks[teamId:{{$eventTeam->teamId}}][mark]" min="1" 
+                                                                            <input type="number" name="marks[teamId:{{$eventTeam->teamId}}][mark]" min="1" 
                                                                                 @foreach($scores as $scoreTeam) 
                                                                                     @if($scoreTeam->teamId == $eventTeam->teamId) 
                                                                                         value= {{$scoreTeam->result}} 

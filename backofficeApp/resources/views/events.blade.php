@@ -382,6 +382,11 @@
                                         
                                         <div class="form-team-container">
                                             
+                                        <label>
+                                            Unit
+                                            <input type="text" name="unit" placeholder="kilos">
+                                        </label>
+
                                             <label>
                                                 <p><span>* </span>Teams</p>
                                             </label>
@@ -492,6 +497,11 @@
                                         
                                         <div class="form-team-container">
                                             
+                                            <label>
+                                                Unit 
+                                                <input type="text" name="unit" placeholder="kilos">
+                                            </label>
+
                                             <label>
                                                 <p><span>* </span>Teams</p>
                                             </label>
@@ -725,8 +735,10 @@
 
                 <label>
                     Mark
-                    <input type="number" name="marks[${count}][mark]" min="1">
+                    <input type="number" name="marks[${count}][mark]" placeholder="50">
                 </label>
+
+                
         
             </div>`;
         }
