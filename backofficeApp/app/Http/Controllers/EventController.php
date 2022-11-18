@@ -187,8 +187,8 @@ class EventController extends Controller
         }
         if($event->typeResult == 'results_upward'){
             return ResultUpward::join('teams', 'teams.id', 'results_upward.id_teams')
-            ->select('results_upward.result as result', 'results_upward.position as position',
-            'teams.id as teamId', 'teams.name as teamName',)
+            ->select('results_upward.result as result', 'results_upward.position as position', 'results_upward.unit as unit',
+            'teams.id as teamId', 'teams.name as teamName')
             ->where('id_results', $event->resultId)
             ->whereNull('results_upward.deleted_at')
             ->get();
@@ -196,7 +196,7 @@ class EventController extends Controller
         if($event->typeResult == 'results_downward'){
 
             return ResultDownward::join('teams', 'teams.id', 'results_downward.id_teams')
-            ->select('results_downward.result as result', 'results_downward.position as position',
+            ->select('results_downward.result as result', 'results_downward.position as position', 'results_downward.unit as unit',
             'teams.id as teamId', 'teams.name as teamName',)
             ->where('id_results', $event->resultId)
             ->whereNull('results_downward.deleted_at')
@@ -493,19 +493,7 @@ class EventController extends Controller
     
     private function updateResultMarkUp($request,$id){
 
-        $marks = array_map(function($mark){
-
-            if(gettype($mark["mark"])=="string"){
-                $MarkInSeconds = explode(":", $mark["mark"]);
-                $MarkInSeconds = $MarkInSeconds[0]*3600 + $MarkInSeconds[1]*60 + $MarkInSeconds[2];
-                $mark["mark"] = $MarkInSeconds;
-            }
-            
-            return $mark;
-
-        }, $request->marks);
-
-        
+        $marks = $request->marks;
 
         usort($marks, function($a, $b){
             if ($a["mark"] == $b["mark"]) {
@@ -526,16 +514,19 @@ class EventController extends Controller
                 ->where("id_results", $resultMark->first()->id_results)
                 ->where("id_teams", $resultMark->first()->id_teams)
                 ->update(["result"=>$mark["mark"],
-            "position" => $position]);
+                "unit" => $request->unit,
+                "position" => $position]);
 
             }
             if(!$resultMark->exists()){
 
-                ResultPoint::create([
+                DB::table("results_upward")
+                ->insert([
                     "id_results" => Result::where('id_events', $id)->first()->id,
-                    "id_players" => $point["player"],
-                    "id_teams" => $point["team"],
-                    "result" => $mark["mark"]
+                    "id_teams" => $mark["team"],
+                    "result" => $mark["mark"],
+                    "position" => $position,
+                    "unit" => $request->unit
                 ]);
                 
             }
@@ -554,7 +545,7 @@ class EventController extends Controller
             $this->updateLeague($request,$id);
             $this->updateTeamsMarks($request,$id);
             $this->updateResult($request,$id);
-            $this->updateMarkDown($request,$id);
+            $this->updateResultMarkDown($request,$id);
 
             return redirect('/event/list');
         }
@@ -562,7 +553,47 @@ class EventController extends Controller
             return $e;
         }
     }
+    private function updateResultMarkDown($request,$id){
 
+        $marks = $request->marks;
+
+        usort($marks, function($a, $b){
+            if ($a["mark"] == $b["mark"]) {
+                return 0;
+            }
+            return ($a["mark"] > $b["mark"]) ? -1 : 1;
+        });
+
+        $position = 0;
+
+        foreach($marks as $mark){
+            $position += 1;
+            $resultMark = ResultDownward::where("id_results", Result::where('id_events', $id)->first()->id )
+            ->where("id_teams", $mark["team"]);
+
+            if($resultMark->exists()){
+                DB::table("results_downward")
+                ->where("id_results", $resultMark->first()->id_results)
+                ->where("id_teams", $resultMark->first()->id_teams)
+                ->update(["result"=>$mark["mark"],
+                "unit" => $request->unit,
+                "position" => $position]);
+
+            }
+            if(!$resultMark->exists()){
+
+                DB::table("results_downward")
+                ->insert([
+                    "id_results" => Result::where('id_events', $id)->first()->id,
+                    "id_teams" => $mark["team"],
+                    "result" => $mark["mark"],
+                    "position" => $position,
+                    "unit" => $request->unit
+                ]);
+                
+            }
+        }
+    }
 
     private function createEvent(Request $request){
     
@@ -774,7 +805,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady !=null)
-                $this->addMarkUp($request->marks, $event->id, $result);
+                $this->addMarkUp($request, $event->id, $result);
 
             return redirect('/event');
         }
@@ -817,7 +848,10 @@ class EventController extends Controller
         ]);
     }
 
-    private function addMarkUp($marks, $eventID, $resultId){
+    private function addMarkUp($request, $eventID, $resultId){
+
+        $marks = $request->marks;
+
         usort($marks, function($a, $b){
             if ($a["mark"] == $b["mark"]) {
                 return 0;
@@ -831,11 +865,13 @@ class EventController extends Controller
 
         $position = 1;
         foreach($marks as $mark){
+
             DB::table('results_upward')->insert([
                 'id_teams' => $mark["team"],
                 'result' => $mark["mark"],
                 'position' => $position,
-                'id_results'=> $resultId
+                'id_results'=> $resultId,
+                'unit' => $request->unit
             ]);
 
             $position++;
@@ -865,7 +901,7 @@ class EventController extends Controller
                 $this->addLeague($request, $event->id);
 
             if($request->resultReady !=null)
-                $this->addMarkDown($request->marks, $event->id, $result);
+                $this->addMarkDown($request, $event->id, $result);
 
             return redirect('/event');
         }
@@ -884,7 +920,9 @@ class EventController extends Controller
         ]);
     }
 
-    private function addMarkDown($marks, $eventID, $resultId){
+    private function addMarkDown($request, $eventID, $resultId){
+        $marks = $request->marks;
+
         usort($marks, function($a, $b){
             if ($a["mark"] == $b["mark"]) {
                 return 0;
@@ -898,11 +936,13 @@ class EventController extends Controller
 
         $position = 1;
         foreach($marks as $mark){
+            
             DB::table('results_downward')->insert([
                 'id_teams' => $mark["team"],
                 'result' => $mark["mark"],
                 'position' => $position,
-                'id_results'=> $resultId
+                'id_results'=> $resultId,
+                'unit' => $request->unit
             ]);
 
             $position++;

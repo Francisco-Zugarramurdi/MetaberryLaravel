@@ -94,6 +94,11 @@
                                     <div class="form-inner-container">
                                         
                                     <div class="form-team-container">
+
+                                        <label>
+                                            Unit
+                                            <input type="text" name="unit" placeholder="kilos" value={{$scores[0]->unit}}>
+                                        </label>
                                         
                                         <label>
                                             <p><span>* </span>Teams</p>
