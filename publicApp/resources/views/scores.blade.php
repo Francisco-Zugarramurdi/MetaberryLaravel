@@ -416,6 +416,7 @@
                     teamName += `
 
                         <div class="team-holder">
+                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
                             <a class="team-name">${teams[i]['name']}</a>
                             <p class="time"> NA </p>    
                         </div>
@@ -508,6 +509,7 @@
                     teamName += `
 
                         <div class="team-holder">
+                            <div class="event-image-container"><img src='http://127.0.0.1:8005/img/public_images/${event["teams"][i]["photo"]}' class="team-logo"></div>
                             <a href="" class="team-name">${teams[i]['name']}</a>
                             <p class="time"> NA</p>    
                         </div>

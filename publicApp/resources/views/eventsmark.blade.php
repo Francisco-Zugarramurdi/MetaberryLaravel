@@ -29,19 +29,29 @@
     <section class="resultDisplay">
         <div class="results">
             <ul>
-
-                @foreach($info['result'] as $i => $result)
-                @if($i <= 5)
-                    @if( $result['position'] >= 1)
+                @if(count($info['result']) < 1)
+                    @foreach($info['teams'] as $team)
                         <li> 
-                            <p class="position">{{$result['position']}}.</p>
-                            <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$result['teamPhoto']}}"></div> 
-                            <p class="name">{{$result['teamName']}}</p>
-                            <p class="time">{{$result['result']}}'</p>
+                            <p class="position">1.</p>
+                            <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$team['photo']}}"></div> 
+                            <p class="name">{{$team['name']}}</p>
+                            <p class="time">NA</p>
                         </li>
-                    @endif
+                    @endforeach
+                @else
+                    @foreach($info['result'] as $i => $result)
+                        @if($i <= 5)
+                            @if( $result['position'] >= 1)
+                                <li> 
+                                    <p class="position">{{$result['position']}}.</p>
+                                    <div class="event-image-container"><img src="http://127.0.0.1:8005/img/public_images/{{$result['teamPhoto']}}"></div> 
+                                    <p class="name">{{$result['teamName']}}</p>
+                                    <p class="time">{{$result['result']}}'</p>
+                                </li>
+                            @endif
+                        @endif
+                    @endforeach
                 @endif
-                @endforeach
             </ul>
 
         </div>
