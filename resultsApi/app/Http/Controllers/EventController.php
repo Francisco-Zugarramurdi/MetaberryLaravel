@@ -346,7 +346,7 @@ class EventController extends Controller
         ->join('premium_events','premium_events.id_events','events.id')
         ->where('premium_events.id_users_data', $id)
         ->where('premium_events.deleted_at', null)
-        ->select('events.name as name','events.date as date','events.details as details')
+        ->select('events.name as name','events.date as date','events.details as details','events.id as id')
         ->get()->toArray();
 
     }
