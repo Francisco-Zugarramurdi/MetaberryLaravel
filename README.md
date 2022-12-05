@@ -6,10 +6,10 @@ un backoffice y las API's necesarias para la conexión con la base de datos.
 
 ## ¿Quiénes conforman el grupo de desarrollo?
 
-## Yves Motta (Coordinador)
-## Nicolás Mora (Sub-coordinador)
-## Lucas Medina
-## Francisco Zugarramurdi
+# Yves Motta (Coordinador)
+# Nicolás Mora (Sub-coordinador)
+# Lucas Medina
+# Francisco Zugarramurdi
 
 ## Arquitectura del proyecto
 
